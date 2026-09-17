@@ -1,0 +1,389 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "shop-product-details",
+      "settings": {
+        "use_theme_colors": true,
+        "show_product_info": true,
+        "show_product_gallery": true
+      },
+      "blocks": {
+        "divider_top": {
+          "type": "divider",
+          "settings": {}
+        },
+        "title_9LH9qV": {
+          "type": "title",
+          "settings": {
+            "use_custom_title": true,
+            "custom_title": "SICHERLUFT 4-in-1 CO-/Gas-Detektor"
+          }
+        },
+        "divider_tAFJq8": {
+          "type": "divider",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "product_description_sl": {
+          "type": "product_description",
+          "settings": {
+            "heading": "Produktbeschreibung"
+          }
+        },
+        "benefits_grid_ieJMMM": {
+          "type": "benefits_grid",
+          "settings": {
+            "benefit_1_text": "Mehrere Werte im Blick [CLAIM VERIFIZIEREN]",
+            "benefit_2_text": "Sofort ablesbares Display",
+            "benefit_3_text": "Einfach einstecken",
+            "benefit_4_text": "Kompakt für unterwegs"
+          }
+        },
+        "bullet_list_sl_main": {
+          "type": "bullet_list",
+          "settings": {
+            "bullet_1": "Mehrere Werte im Blick",
+            "bullet_2": "Einfach einstecken",
+            "bullet_3": "Kompakt für unterwegs"
+          }
+        },
+        "quantity_selector_sl": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "shipping_notice": {
+          "type": "shipping_notice",
+          "settings": {
+            "notice_text_before": "Bestelle heute – voraussichtlicher Versand bis",
+            "notice_text_after": "[CLAIM VERIFIZIEREN: Bearbeitungszeit]",
+            "days_ahead": 2
+          }
+        },
+        "add_to_cart": {
+          "type": "add_to_cart",
+          "settings": {
+            "button_text_override": "Jetzt SICHERLUFT sichern",
+            "show_price_in_button": false
+          }
+        },
+        "payment_icons_4M99Bi": {
+          "type": "payment_icons",
+          "settings": {}
+        },
+        "divider_yp8EHi": {
+          "type": "divider",
+          "settings": {}
+        },
+        "delivery_date_block_qwerty": {
+          "type": "delivery_date",
+          "settings": {
+            "heading": "Lieferinformationen",
+            "text_before": "Voraussichtlich am",
+            "text_after": "",
+            "shipping_days": 5,
+            "subtext": "Versandzeit kann je nach Standort variieren. [CLAIM VERIFIZIEREN]"
+          }
+        }
+      },
+      "block_order": [
+        "divider_top",
+        "title_9LH9qV",
+        "divider_tAFJq8",
+        "price",
+        "product_description_sl",
+        "benefits_grid_ieJMMM",
+        "bullet_list_sl_main",
+        "quantity_selector_sl",
+        "shipping_notice",
+        "add_to_cart",
+        "payment_icons_4M99Bi",
+        "divider_yp8EHi",
+        "delivery_date_block_qwerty"
+      ]
+    },
+    "scrolling_features_bar_AhP6EL": {
+      "type": "scrolling-features-bar",
+      "settings": {
+        "use_theme_colors": true
+      },
+      "blocks": {
+        "feature_item_1": {
+          "type": "feature_item",
+          "settings": {
+            "text": "MEHRERE MESSWERTE",
+            "icon_type": "svg",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
+          }
+        },
+        "feature_item_2": {
+          "type": "feature_item",
+          "settings": {
+            "text": "EINFACH EINSTECKEN",
+            "icon_type": "svg",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
+          }
+        },
+        "feature_item_3": {
+          "type": "feature_item",
+          "settings": {
+            "text": "KOMPAKTES DESIGN",
+            "icon_type": "svg",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_1",
+        "feature_item_2",
+        "feature_item_3"
+      ]
+    },
+    "sticky_add_to_cart_NJqgUd": {
+      "type": "sticky-add-to-cart",
+      "settings": {
+        "button_text": "Jetzt SICHERLUFT sichern",
+        "rating_text": ""
+      }
+    },
+    "product_benefits_NWiWMe": {
+      "type": "product-benefits",
+      "settings": {
+        "use_theme_colors": true,
+        "heading_accent": "Technische",
+        "heading_regular": "Vorteile",
+        "subtitle": "Was SICHERLUFT technisch auszeichnet.",
+        "show_image": true,
+        "feature_image": "shopify://shop_images/sicherluft-display-detail.png",
+        "image_alt": "Nahaufnahme des SICHERLUFT Displays"
+      },
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Mehrere Messwerte",
+            "description": "CO, Gaswerte, Temperatur und Luftfeuchtigkeit in einem Gerät. [CLAIM VERIFIZIEREN: genaue Sensorliste]",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Echtzeit-Display",
+            "description": "Werte werden direkt am Gerät angezeigt – ohne App.",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Einfache Inbetriebnahme",
+            "description": "Einstecken und starten.",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Kompaktes Format",
+            "description": "Geeignet für verschiedene Räume und unterwegs. [PRODUKTDATEN ERFORDERLICH: Maße]",
+            "preset_icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ]
+    },
+    "product_comparison_ahRqAP": {
+      "type": "product-comparison",
+      "settings": {
+        "use_theme_colors": true,
+        "show_heading": true,
+        "title_part_1": "SICHERLUFT im",
+        "title_part_2": "Vergleich",
+        "subheading": "Objektive Merkmale im direkten Vergleich."
+      },
+      "blocks": {
+        "product_column_1": {
+          "type": "product_column",
+          "settings": {
+            "product_name": "SICHERLUFT",
+            "product_subtitle": "4-in-1",
+            "highlight_column": true,
+            "highlight_color": "#079bf8"
+          }
+        },
+        "product_column_2": {
+          "type": "product_column",
+          "settings": {
+            "product_name": "Einfacher Melder",
+            "product_subtitle": "Basis",
+            "highlight_column": false
+          }
+        },
+        "feature_row_1": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Erkannte Werte",
+            "value_type": "text",
+            "text_value_1": "[PRODUKTDATEN ERFORDERLICH]",
+            "text_value_2": "Meist nur CO"
+          }
+        },
+        "feature_row_2": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Display",
+            "value_type": "checkmark",
+            "value_1": "yes",
+            "value_2": "no"
+          }
+        },
+        "feature_row_3": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Echtzeitanzeige",
+            "value_type": "text",
+            "text_value_1": "[CLAIM VERIFIZIEREN]",
+            "text_value_2": "Meist nein"
+          }
+        },
+        "feature_row_4": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Temperaturanzeige",
+            "value_type": "text",
+            "text_value_1": "[CLAIM VERIFIZIEREN]",
+            "text_value_2": "Meist nein"
+          }
+        },
+        "feature_row_5": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Installation",
+            "value_type": "text",
+            "text_value_1": "Einstecken [CLAIM VERIFIZIEREN]",
+            "text_value_2": "Wandmontage üblich"
+          }
+        }
+      },
+      "block_order": [
+        "product_column_1",
+        "product_column_2",
+        "feature_row_1",
+        "feature_row_2",
+        "feature_row_3",
+        "feature_row_4",
+        "feature_row_5"
+      ]
+    },
+    "store_faq_Lpd3PW": {
+      "type": "store-faq",
+      "settings": {
+        "use_theme_colors": true,
+        "heading": "Häufige Fragen",
+        "subtitle": "<p>Antworten rund um SICHERLUFT.</p>",
+        "accordion_mode": true
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Welche Werte erkennt SICHERLUFT?",
+            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Wo sollte ich das Gerät platzieren?",
+            "answer": "<p>In der Nähe potenzieller Gefahrenquellen wie Gastherme, Kamin oder in Wohnbereichen. [CLAIM VERIFIZIEREN: genaue Herstellerempfehlung]</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Muss das Gerät montiert werden?",
+            "answer": "<p>Nein, SICHERLUFT wird eingesteckt und benötigt keine Wandmontage. [CLAIM VERIFIZIEREN]</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Brauche ich eine App?",
+            "answer": "<p>Nein, die relevanten Werte werden direkt am Gerät angezeigt.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Wie laut ist der Alarm?",
+            "answer": "<p>[CLAIM VERIFIZIEREN]</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Kann ich es im Wohnmobil verwenden?",
+            "answer": "<p>Ja, SICHERLUFT eignet sich auch für den mobilen Einsatz. [CLAIM VERIFIZIEREN: Stromversorgung unterwegs]</p>"
+          }
+        },
+        "faq_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Wie wird es mit Strom versorgt?",
+            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+          }
+        },
+        "faq_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Was ist im Lieferumfang enthalten?",
+            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+          }
+        },
+        "faq_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Wie lange dauert der Versand?",
+            "answer": "<p>[CLAIM VERIFIZIEREN]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "scrolling_features_bar_AhP6EL",
+    "sticky_add_to_cart_NJqgUd",
+    "product_benefits_NWiWMe",
+    "product_comparison_ahRqAP",
+    "store_faq_Lpd3PW"
+  ]
+}
