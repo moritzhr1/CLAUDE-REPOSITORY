@@ -1,0 +1,595 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "new_hero_sl_hero": {
+      "type": "new-hero",
+      "settings": {
+        "use_theme_colors": true,
+        "show_badge": false,
+        "show_rating": false,
+        "heading": "Was du nicht sehen kannst, sollte SICHERLUFT für dich erkennen.",
+        "heading_accent": "",
+        "benefit_1_icon": "check",
+        "benefit_1_text": "Mehrere Messwerte in einem Gerät",
+        "benefit_2_icon": "check",
+        "benefit_2_text": "Echtzeit-Anzeige",
+        "benefit_3_icon": "check",
+        "benefit_3_text": "Einfach einstecken",
+        "button_text": "Jetzt SICHERLUFT sichern",
+        "button_link": "shopify://products/sicherluft-4-in-1-co-gas-detektor-platzhalter",
+        "show_guarantee": true,
+        "guarantee_text": "Schnelle Einrichtung · Keine komplizierte Installation",
+        "hero_image": "shopify://shop_images/sicherluft-co-melder-hero.png",
+        "image_position": "right",
+        "enable_container_gradient": false,
+        "border_color": "#079bf8"
+      }
+    },
+    "image_with_text_sl_problem": {
+      "type": "image-with-text",
+      "settings": {
+        "use_theme_colors": true,
+        "image_position": "left",
+        "text_align": "left",
+        "heading": "Kohlenmonoxid kann man weder sehen noch riechen.",
+        "heading_accent": "",
+        "image": "shopify://shop_images/sicherluft-erklaerung-haus-cutaway.png"
+      },
+      "blocks": {
+        "subtitle_sl1": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle_text": "Wo unsichtbare Gefahr entstehen kann"
+          }
+        },
+        "paragraph_sl1": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "<p>CO entsteht bei unvollständiger Verbrennung – etwa an Gasthermen, Kaminen oder Verbrennungsmotoren. Der menschliche Geruchssinn nimmt es nicht wahr, weshalb eine technische Überwachung sinnvoll sein kann.</p>"
+          }
+        },
+        "bullet_list_sl1": {
+          "type": "bullet_list",
+          "settings": {
+            "list_title": "Typische Bereiche:",
+            "list_item_1": "Gastherme",
+            "list_item_2": "Kamin",
+            "list_item_3": "Küche",
+            "list_item_4": "Garage",
+            "list_item_5": "Wohnmobil"
+          }
+        }
+      },
+      "block_order": [
+        "subtitle_sl1",
+        "paragraph_sl1",
+        "bullet_list_sl1"
+      ]
+    },
+    "content_tabs_sl_compare": {
+      "type": "content-tabs",
+      "settings": {
+        "heading": "Nicht jeder Melder",
+        "accent_text": "überwacht dasselbe.",
+        "subheading": "<p>Ein einfacher Melder und SICHERLUFT lösen nicht dieselbe Aufgabe.</p>",
+        "tab_style": "underline",
+        "use_theme_colors": true
+      },
+      "blocks": {
+        "tab_sl1": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Im Vergleich",
+            "content_layout": "two_column",
+            "first_content_type": "bullet_points",
+            "first_title": "Einfacher CO-Melder",
+            "first_bullet_points": "Erkennt meist nur CO;Kein Display;Batteriebetrieb ist üblich",
+            "second_content_type": "bullet_points",
+            "second_title": "SICHERLUFT",
+            "second_bullet_points": "Mehrere Werte auf einen Blick [CLAIM VERIFIZIEREN];Direkt ablesbares Display;Einstecken statt Wandmontage [PRODUKTDATEN ERFORDERLICH]"
+          }
+        }
+      },
+      "block_order": [
+        "tab_sl1"
+      ]
+    },
+    "image_with_text_sl_reveal": {
+      "type": "image-with-text",
+      "settings": {
+        "use_theme_colors": true,
+        "image_position": "right",
+        "text_align": "left",
+        "heading": "Ein Gerät.",
+        "heading_accent": "Mehr Überblick.",
+        "image": "shopify://shop_images/sicherluft-packshot.png"
+      },
+      "blocks": {
+        "paragraph_sl2": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "<p>SICHERLUFT zeigt mehrere sicherheitsrelevante Werte direkt am Display an – ohne App, ohne komplizierte Einrichtung.</p>"
+          }
+        },
+        "bullet_list_sl2": {
+          "type": "bullet_list",
+          "settings": {
+            "list_title": "[PRODUKTDATEN ERFORDERLICH]",
+            "list_item_1": "Sensortyp und erkannte Gasarten folgen",
+            "list_item_2": "PPM-Schwellenwerte folgen",
+            "list_item_3": "Stromversorgung folgt"
+          }
+        },
+        "button_sl2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Jetzt SICHERLUFT sichern",
+            "button_link": "shopify://products/sicherluft-4-in-1-co-gas-detektor-platzhalter",
+            "scroll_to_products": false
+          }
+        }
+      },
+      "block_order": [
+        "paragraph_sl2",
+        "bullet_list_sl2",
+        "button_sl2"
+      ]
+    },
+    "product_benefits_sl": {
+      "type": "product-benefits",
+      "settings": {
+        "use_theme_colors": true,
+        "heading_accent": "Klare",
+        "heading_regular": "Vorteile",
+        "subtitle": "Was SICHERLUFT im Alltag unterscheidet.",
+        "show_image": true,
+        "feature_image": "shopify://shop_images/sicherluft-display-detail.png",
+        "image_alt": "Nahaufnahme des SICHERLUFT Displays"
+      },
+      "blocks": {
+        "benefit_sl1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Mehrere Werte im Blick",
+            "description": "CO, Gaswerte, Temperatur und Luftfeuchtigkeit direkt ablesbar. [CLAIM VERIFIZIEREN: genaue Sensorliste]",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_sl2": {
+          "type": "benefit",
+          "settings": {
+            "title": "Sofort verständlich",
+            "description": "Das Display zeigt relevante Informationen ohne App oder komplizierte Einrichtung.",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_sl3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Einfach einstecken",
+            "description": "Keine aufwendige Wandinstallation nötig.",
+            "preset_icon": "check"
+          }
+        },
+        "benefit_sl4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Für verschiedene Räume",
+            "description": "Geeignet für typische Wohn- und Reisebereiche entsprechend Produktspezifikation. [PRODUKTDATEN ERFORDERLICH]",
+            "preset_icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_sl1",
+        "benefit_sl2",
+        "benefit_sl3",
+        "benefit_sl4"
+      ]
+    },
+    "alternating_features_sl": {
+      "type": "alternating-features",
+      "settings": {
+        "use_theme_colors": true,
+        "icon_background_enabled": true,
+        "title": "Für die Orte,",
+        "title_accent": "an denen Sicherheit zählt.",
+        "main_image": "shopify://shop_images/sicherluft-gasmelder-gastherme.png"
+      },
+      "blocks": {
+        "feature_sl1": {
+          "type": "feature",
+          "settings": {
+            "title": "Zuhause",
+            "description": "Im Wohnbereich zuverlässig im Blick behalten."
+          }
+        },
+        "feature_sl2": {
+          "type": "feature",
+          "settings": {
+            "title": "Gastherme",
+            "description": "In der Nähe von Gasthermen und Heizanlagen platzierbar. [PRODUKTDATEN ERFORDERLICH: zulässiger Aufstellort]"
+          }
+        },
+        "feature_sl3": {
+          "type": "feature",
+          "settings": {
+            "title": "Wohnmobil",
+            "description": "Kompakt genug für unterwegs. [PRODUKTDATEN ERFORDERLICH: Stromversorgung unterwegs]"
+          }
+        }
+      },
+      "block_order": [
+        "feature_sl1",
+        "feature_sl2",
+        "feature_sl3"
+      ]
+    },
+    "benefits_carousel_sl": {
+      "type": "benefits-carousel",
+      "settings": {
+        "heading": "WARUM MENSCHEN SICH FÜR ZUSÄTZLICHE LUFTÜBERWACHUNG ENTSCHEIDEN",
+        "use_theme_colors": true
+      },
+      "blocks": {
+        "benefit_c1": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Weil unsichtbare Gefahren real sind"
+          }
+        },
+        "benefit_c2": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Weil ein Blick aufs Display beruhigt"
+          }
+        },
+        "benefit_c3": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Weil Vorsorge einfacher ist, als man denkt"
+          }
+        },
+        "benefit_c4": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Weil ein Gerät mehrere Werte abdecken kann [CLAIM VERIFIZIEREN]"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_c1",
+        "benefit_c2",
+        "benefit_c3",
+        "benefit_c4"
+      ]
+    },
+    "statistics_grid_sl": {
+      "type": "statistics-grid",
+      "settings": {
+        "use_theme_colors": true,
+        "heading_part_1": "Was passiert bei",
+        "heading_part_2": "erhöhten CO-Werten?",
+        "subheading": "Zahlen folgen nach Prüfung seriöser Behördenquellen (z. B. UBA/WHO) – [CLAIM VERIFIZIEREN]."
+      },
+      "blocks": {
+        "statistic_sl1": {
+          "type": "statistic",
+          "settings": {
+            "percentage": 0,
+            "title": "[CLAIM VERIFIZIEREN]",
+            "description": "Quelle wird ergänzt"
+          }
+        },
+        "statistic_sl2": {
+          "type": "statistic",
+          "settings": {
+            "percentage": 0,
+            "title": "[CLAIM VERIFIZIEREN]",
+            "description": "Quelle wird ergänzt"
+          }
+        },
+        "statistic_sl3": {
+          "type": "statistic",
+          "settings": {
+            "percentage": 0,
+            "title": "[CLAIM VERIFIZIEREN]",
+            "description": "Quelle wird ergänzt"
+          }
+        }
+      },
+      "block_order": [
+        "statistic_sl1",
+        "statistic_sl2",
+        "statistic_sl3"
+      ]
+    },
+    "product_comparison_7xWNdh": {
+      "type": "product-comparison",
+      "settings": {
+        "use_theme_colors": true,
+        "show_heading": true,
+        "title_part_1": "SICHERLUFT im",
+        "title_part_2": "Vergleich",
+        "subheading": "Objektive Merkmale im direkten Vergleich."
+      },
+      "blocks": {
+        "product_column_TgVK8N": {
+          "type": "product_column",
+          "settings": {
+            "product_name": "SICHERLUFT",
+            "product_subtitle": "4-in-1",
+            "highlight_column": true,
+            "highlight_color": "#079bf8"
+          }
+        },
+        "product_column_FcCPRe": {
+          "type": "product_column",
+          "settings": {
+            "product_name": "Einfacher Melder",
+            "product_subtitle": "Basis",
+            "highlight_column": false
+          }
+        },
+        "feature_row_TGrk9B": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Erkannte Werte",
+            "value_type": "text",
+            "text_value_1": "[PRODUKTDATEN ERFORDERLICH]",
+            "text_value_2": "Meist nur CO"
+          }
+        },
+        "feature_row_Gt9Wik": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Display",
+            "value_type": "checkmark",
+            "value_1": "yes",
+            "value_2": "no"
+          }
+        },
+        "feature_row_DzYm7e": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Echtzeitanzeige",
+            "value_type": "text",
+            "text_value_1": "[CLAIM VERIFIZIEREN]",
+            "text_value_2": "Meist nein"
+          }
+        },
+        "feature_row_4mqVdq": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Temperaturanzeige",
+            "value_type": "text",
+            "text_value_1": "[CLAIM VERIFIZIEREN]",
+            "text_value_2": "Meist nein"
+          }
+        },
+        "feature_row_FkheLa": {
+          "type": "feature_row",
+          "settings": {
+            "feature_name": "Installation",
+            "value_type": "text",
+            "text_value_1": "Einstecken [CLAIM VERIFIZIEREN]",
+            "text_value_2": "Wandmontage üblich"
+          }
+        }
+      },
+      "block_order": [
+        "product_column_TgVK8N",
+        "product_column_FcCPRe",
+        "feature_row_TGrk9B",
+        "feature_row_Gt9Wik",
+        "feature_row_DzYm7e",
+        "feature_row_4mqVdq",
+        "feature_row_FkheLa"
+      ]
+    },
+    "steps_sl": {
+      "type": "steps",
+      "settings": {
+        "use_theme_colors": true,
+        "title": "So einfach",
+        "title_highlight": "funktioniert SICHERLUFT.",
+        "subtitle": "Drei Schritte bis zur einsatzbereiten Überwachung."
+      },
+      "blocks": {
+        "step_sl1": {
+          "type": "step",
+          "settings": {
+            "step_title": "Einstecken",
+            "step_description": "SICHERLUFT in eine Steckdose stecken."
+          }
+        },
+        "step_sl2": {
+          "type": "step",
+          "settings": {
+            "step_title": "Initialisieren lassen",
+            "step_description": "Das Gerät kalibriert sich automatisch. [CLAIM VERIFIZIEREN: Dauer]"
+          }
+        },
+        "step_sl3": {
+          "type": "step",
+          "settings": {
+            "step_title": "Werte im Blick behalten",
+            "step_description": "Relevante Werte jederzeit direkt am Display ablesen."
+          }
+        }
+      },
+      "block_order": [
+        "step_sl1",
+        "step_sl2",
+        "step_sl3"
+      ]
+    },
+    "image_with_text_sl_lifestyle": {
+      "type": "image-with-text",
+      "settings": {
+        "use_theme_colors": true,
+        "image_position": "left",
+        "text_align": "left",
+        "heading": "Sicherheit, die sich",
+        "heading_accent": "in deinen Alltag einfügt.",
+        "image": "shopify://shop_images/sicherluft-lifestyle-familie.png"
+      },
+      "blocks": {
+        "paragraph_sl3": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "<p>SICHERLUFT läuft im Hintergrund mit – für ein ruhigeres Gefühl zu Hause, ohne dass du aktiv daran denken musst.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "paragraph_sl3"
+      ]
+    },
+    "featured_product_details_sl": {
+      "type": "featured-product-details",
+      "settings": {
+        "featured_product": "sicherluft-4-in-1-co-gas-detektor-platzhalter",
+        "use_theme_color": true,
+        "use_theme_colors": true,
+        "show_product_info": true,
+        "show_social_badge": false
+      },
+      "blocks": {
+        "title_sl": {
+          "type": "title",
+          "settings": {
+            "use_custom_title": true,
+            "custom_title": "SICHERLUFT 4-in-1 CO-/Gas-Detektor"
+          }
+        },
+        "price_sl": {
+          "type": "price",
+          "settings": {}
+        },
+        "bullet_list_sl_fp": {
+          "type": "bullet_list",
+          "settings": {
+            "bullet_1": "Mehrere Werte im Blick",
+            "bullet_2": "Einfach einstecken",
+            "bullet_3": "Kompakt für unterwegs"
+          }
+        },
+        "add_to_cart_sl": {
+          "type": "add_to_cart",
+          "settings": {
+            "button_text_override": "Jetzt SICHERLUFT sichern",
+            "show_price_in_button": false
+          }
+        }
+      },
+      "block_order": [
+        "title_sl",
+        "price_sl",
+        "bullet_list_sl_fp",
+        "add_to_cart_sl"
+      ]
+    },
+    "store_faq_sl_home": {
+      "type": "store-faq",
+      "settings": {
+        "use_theme_colors": true,
+        "heading": "Häufige Fragen",
+        "subtitle": "<p>Antworten rund um SICHERLUFT.</p>",
+        "accordion_mode": true
+      },
+      "blocks": {
+        "faq_sl1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Welche Werte erkennt SICHERLUFT?",
+            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+          }
+        },
+        "faq_sl2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Wo sollte ich das Gerät platzieren?",
+            "answer": "<p>In der Nähe potenzieller Gefahrenquellen wie Gastherme, Kamin oder in Wohnbereichen. [CLAIM VERIFIZIEREN: genaue Herstellerempfehlung]</p>"
+          }
+        },
+        "faq_sl3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Muss das Gerät montiert werden?",
+            "answer": "<p>Nein, SICHERLUFT wird eingesteckt und benötigt keine Wandmontage. [CLAIM VERIFIZIEREN]</p>"
+          }
+        },
+        "faq_sl4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Brauche ich eine App?",
+            "answer": "<p>Nein, die relevanten Werte werden direkt am Gerät angezeigt.</p>"
+          }
+        },
+        "faq_sl5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Kann ich es im Wohnmobil verwenden?",
+            "answer": "<p>Ja, SICHERLUFT eignet sich auch für den mobilen Einsatz. [CLAIM VERIFIZIEREN: Stromversorgung unterwegs]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_sl1",
+        "faq_sl2",
+        "faq_sl3",
+        "faq_sl4",
+        "faq_sl5"
+      ]
+    },
+    "new_hero_sl_final": {
+      "type": "new-hero",
+      "settings": {
+        "use_theme_colors": true,
+        "show_badge": false,
+        "show_rating": false,
+        "heading": "Unsichtbare Risiken brauchen sichtbare Warnungen.",
+        "heading_accent": "",
+        "benefit_1_icon": "check",
+        "benefit_1_text": "Mehrere Werte im Blick",
+        "benefit_2_icon": "check",
+        "benefit_2_text": "Ohne App nutzbar",
+        "benefit_3_icon": "check",
+        "benefit_3_text": "In wenigen Minuten startklar [CLAIM VERIFIZIEREN]",
+        "button_text": "Jetzt SICHERLUFT sichern",
+        "button_link": "shopify://products/sicherluft-4-in-1-co-gas-detektor-platzhalter",
+        "show_guarantee": true,
+        "guarantee_text": "Schnelle Einrichtung · Keine komplizierte Installation",
+        "hero_image": "shopify://shop_images/sicherluft-final-cta-abendstimmung.png",
+        "image_position": "left",
+        "enable_container_gradient": false,
+        "border_color": "#079bf8"
+      }
+    }
+  },
+  "order": [
+    "new_hero_sl_hero",
+    "image_with_text_sl_problem",
+    "content_tabs_sl_compare",
+    "image_with_text_sl_reveal",
+    "product_benefits_sl",
+    "alternating_features_sl",
+    "benefits_carousel_sl",
+    "statistics_grid_sl",
+    "product_comparison_7xWNdh",
+    "steps_sl",
+    "image_with_text_sl_lifestyle",
+    "featured_product_details_sl",
+    "store_faq_sl_home",
+    "new_hero_sl_final"
+  ]
+}
