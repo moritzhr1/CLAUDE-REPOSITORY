@@ -19,6 +19,7 @@
     "global_header_color": "#ffffff",
     "global_footer_color": "#082b4a",
     "global_dropdown_color": "#ffffff",
+    "global_safety_red_color": "#C1121C",
     "global_interface_color": "#079bf8",
     "global_section_use_gradient_background": false,
     "global_section_gradient_color_1": "#dfffe8",
