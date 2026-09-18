@@ -52,7 +52,7 @@
         "text_align": "left",
         "heading": "Kohlenmonoxid kann man weder sehen noch riechen.",
         "heading_accent": "",
-        "image": "shopify://shop_images/sicherluft-erklaerung-haus-cutaway.png"
+        "image": "shopify://shop_images/sicherluft-haus-cutaway-v2.png"
       },
       "blocks": {
         "subtitle_sl1": {
@@ -64,7 +64,7 @@
         "paragraph_sl1": {
           "type": "paragraph",
           "settings": {
-            "paragraph_text": "<p>CO entsteht bei unvollständiger Verbrennung – etwa an Gasthermen, Kaminen oder Verbrennungsmotoren. Der menschliche Geruchssinn nimmt es nicht wahr, weshalb eine technische Überwachung sinnvoll sein kann.</p>"
+            "paragraph_text": "<p>CO entsteht bei unvollständiger Verbrennung – etwa an Gasthermen, Kaminen oder Verbrennungsmotoren. Der menschliche Geruchssinn nimmt es nicht wahr, weshalb eine technische Überwachung sinnvoll sein kann. <strong>Rot</strong> markiert im Bild mögliche Gefahrenquellen, <strong>Blau</strong> Bereiche, in denen SICHERLUFT unterstützen kann.</p>"
           }
         },
         "bullet_list_sl1": {
@@ -121,7 +121,7 @@
         "text_align": "left",
         "heading": "Ein Gerät.",
         "heading_accent": "Mehr Überblick.",
-        "image": "shopify://shop_images/sicherluft-packshot.png"
+        "image": "shopify://shop_images/sicherluft-packshot-v2.png"
       },
       "blocks": {
         "paragraph_sl2": {
@@ -162,7 +162,7 @@
         "heading_regular": "Vorteile",
         "subtitle": "Was SICHERLUFT im Alltag unterscheidet.",
         "show_image": true,
-        "feature_image": "shopify://shop_images/sicherluft-display-detail.png",
+        "feature_image": "shopify://shop_images/sicherluft-display-detail-v2.png",
         "image_alt": "Nahaufnahme des SICHERLUFT Displays"
       },
       "blocks": {
@@ -213,7 +213,7 @@
         "icon_background_enabled": true,
         "title": "Für die Orte,",
         "title_accent": "an denen Sicherheit zählt.",
-        "main_image": "shopify://shop_images/sicherluft-gasmelder-gastherme.png"
+        "main_image": "shopify://shop_images/sicherluft-technikraum-gastherme-v2.png"
       },
       "blocks": {
         "feature_sl1": {
@@ -451,7 +451,7 @@
         "text_align": "left",
         "heading": "Sicherheit, die sich",
         "heading_accent": "in deinen Alltag einfügt.",
-        "image": "shopify://shop_images/sicherluft-lifestyle-familie.png"
+        "image": "shopify://shop_images/sicherluft-wohnbereich-v2.png"
       },
       "blocks": {
         "paragraph_sl3": {

@@ -165,7 +165,7 @@
         "heading_regular": "Vorteile",
         "subtitle": "Was SICHERLUFT technisch auszeichnet.",
         "show_image": true,
-        "feature_image": "shopify://shop_images/sicherluft-display-detail.png",
+        "feature_image": "shopify://shop_images/sicherluft-display-detail-v2.png",
         "image_alt": "Nahaufnahme des SICHERLUFT Displays"
       },
       "blocks": {
@@ -241,7 +241,7 @@
           "settings": {
             "feature_name": "Erkannte Werte",
             "value_type": "text",
-            "text_value_1": "[PRODUKTDATEN ERFORDERLICH]",
+            "text_value_1": "CO, Gas, Temperatur, Feuchtigkeit",
             "text_value_2": "Meist nur CO"
           }
         },
@@ -268,7 +268,7 @@
           "settings": {
             "feature_name": "Temperaturanzeige",
             "value_type": "text",
-            "text_value_1": "[CLAIM VERIFIZIEREN]",
+            "text_value_1": "Ja, integriert",
             "text_value_2": "Meist nein"
           }
         },
@@ -277,7 +277,7 @@
           "settings": {
             "feature_name": "Installation",
             "value_type": "text",
-            "text_value_1": "Einstecken [CLAIM VERIFIZIEREN]",
+            "text_value_1": "Einstecken (Schuko-Stecker)",
             "text_value_2": "Wandmontage üblich"
           }
         }
@@ -305,7 +305,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Welche Werte erkennt SICHERLUFT?",
-            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+            "answer": "<p>Laut Display zeigt SICHERLUFT CO (ppm), Gas (%LEL), Temperatur (°C) und Luftfeuchtigkeit (%RH) an.</p>"
           }
         },
         "faq_2": {
@@ -347,7 +347,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Wie wird es mit Strom versorgt?",
-            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
+            "answer": "<p>Über den integrierten Schuko-Stecker direkt an einer haushaltsüblichen Steckdose (230V).</p>"
           }
         },
         "faq_8": {
