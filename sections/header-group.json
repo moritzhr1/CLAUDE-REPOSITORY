@@ -11,14 +11,19 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "custom_announcement_bar_KbrQgt": {
-      "type": "custom-announcement-bar",
+    "countdown_bar_sl": {
+      "type": "announcement-bar",
       "settings": {
         "use_theme_colors": true,
-        "text": "Sicheres Zuhause beginnt mit rechtzeitiger Warnung.",
-        "background_color": "#082b4a",
-        "text_color": "#ffffff",
-        "font_size": 16
+        "announcement_text": "HERBST-SALE — Jetzt sichern und bis zu 50% sparen",
+        "show_days": true,
+        "custom_date": true,
+        "end_date": "2026-11-30 23:59:59",
+        "daily_reset": false,
+        "days_label": "TAGE",
+        "hours_label": "STD",
+        "minutes_label": "MIN",
+        "seconds_label": "SEK"
       }
     },
     "header": {
@@ -42,7 +47,7 @@
     }
   },
   "order": [
-    "custom_announcement_bar_KbrQgt",
+    "countdown_bar_sl",
     "header"
   ]
 }
