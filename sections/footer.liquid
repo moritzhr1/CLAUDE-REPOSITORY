@@ -69,31 +69,27 @@
     margin: 24px 0 0;
   }
 
-  .sicherluft-footer__bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+  .sicherluft-footer__copy {
+    margin: 20px 0 0;
+    font-size: 12px;
+    color: rgba(8, 43, 74, 0.6);
   }
 
   .sicherluft-footer__payment {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: 10px 14px;
+    justify-content: flex-start;
+    align-self: flex-start;
+    gap: 8px;
+    margin: 18px 0 0;
+    text-align: left;
   }
 
   .sicherluft-footer__payment-icon {
     height: 22px;
     width: auto;
     display: block;
-  }
-
-  .sicherluft-footer__copy {
-    margin: 14px 0 0;
-    font-size: 12px;
-    color: rgba(8, 43, 74, 0.6);
   }
 
   @media screen and (max-width: 749px) {
@@ -114,8 +110,14 @@
       margin-top: 20px;
     }
 
-    .sicherluft-footer__bottom {
+    .sicherluft-footer__copy {
       margin-top: 18px;
+    }
+
+    .sicherluft-footer__payment {
+      justify-content: center;
+      align-self: center;
+      margin-top: 16px;
     }
   }
 {%- endstyle -%}
@@ -164,22 +166,20 @@
     {%- comment -%} Trennlinie {%- endcomment -%}
     <hr class="sicherluft-footer__divider">
 
-    {%- comment -%} Unterer Bereich {%- endcomment -%}
-    <div class="sicherluft-footer__bottom">
+    {%- comment -%} Copyright {%- endcomment -%}
+    <p class="sicherluft-footer__copy">
+      &copy; {{ 'now' | date: '%Y' }} Sicherluft. Alle Rechte vorbehalten.
+    </p>
 
-      {%- if shop.enabled_payment_types.size > 0 -%}
-        <div class="sicherluft-footer__payment">
-          {%- for type in shop.enabled_payment_types -%}
-            {{ type | payment_type_svg_tag: class: 'sicherluft-footer__payment-icon' }}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+    {%- comment -%} Payment-Icons – immer als letztes Element im Footer {%- endcomment -%}
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <div class="sicherluft-footer__payment">
+        {%- for type in shop.enabled_payment_types -%}
+          {{ type | payment_type_svg_tag: class: 'sicherluft-footer__payment-icon' }}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
-      <p class="sicherluft-footer__copy">
-        &copy; {{ 'now' | date: '%Y' }} Sicherluft. Alle Rechte vorbehalten.
-      </p>
-
-    </div>
   </div>
 </footer>
 
