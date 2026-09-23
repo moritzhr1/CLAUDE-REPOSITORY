@@ -1,0 +1,1890 @@
+{
+ "1014152371684938": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 979,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 2,
+    "65+": 362,
+    "55-64": 405,
+    "45-54": 126,
+    "35-44": 36,
+    "25-34": 17
+   },
+   "male": 825,
+   "female": 118,
+   "unknown": 5,
+   "DE": 834,
+   "AT": 114
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Standardmelder eingeschaltet ist. Es bed",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1082289964197024": {
+  "fam": "F1",
+  "page": "Peter Schulz",
+  "reach": 8244,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 40,
+    "55-64": 3053,
+    "65+": 1585,
+    "45-54": 1784,
+    "25-34": 418,
+    "35-44": 1337
+   },
+   "male": 6226,
+   "female": 1865,
+   "unknown": 126,
+   "DE": 7270,
+   "AT": 947
+  },
+  "start": 1788678000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1088496076964370": {
+  "fam": "F7",
+  "page": "Claudia Schneider",
+  "reach": 1166,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 6,
+    "55-64": 417,
+    "65+": 361,
+    "45-54": 213,
+    "25-34": 40,
+    "35-44": 137
+   },
+   "male": 598,
+   "female": 535,
+   "unknown": 41,
+   "DE": 968,
+   "AT": 206
+  },
+  "start": 1789801200,
+  "hook": "Ich hab meinen Mann betrogen. Und ich bin froh, dass ich es gemacht hab. Weil es",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "1088831334141498": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 1157,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 5,
+    "55-64": 505,
+    "65+": 415,
+    "35-44": 83,
+    "25-34": 20,
+    "45-54": 166
+   },
+   "male": 1003,
+   "female": 171,
+   "unknown": 20,
+   "DE": 1045,
+   "AT": 149
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/pages/sicherheit",
+  "payer": null
+ },
+ "1092560463728571": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 33801,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 156,
+    "55-64": 13318,
+    "45-54": 7980,
+    "65+": 5876,
+    "25-34": 1483,
+    "35-44": 5403,
+    "Unknown": 1
+   },
+   "male": 25763,
+   "female": 7565,
+   "unknown": 889,
+   "DE": 31712,
+   "AT": 2505
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1094430219593302": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 287,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 2,
+    "65+": 101,
+    "55-64": 128,
+    "45-54": 44,
+    "35-44": 13,
+    "25-34": 3
+   },
+   "male": 256,
+   "female": 33,
+   "unknown": 2,
+   "DE": 246,
+   "AT": 45
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "1098547343231454": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 2130,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 10,
+    "55-64": 855,
+    "65+": 788,
+    "35-44": 136,
+    "25-34": 39,
+    "45-54": 312
+   },
+   "male": 1793,
+   "female": 328,
+   "unknown": 19,
+   "DE": 1856,
+   "AT": 284
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "1108633251554464": {
+  "fam": "F8",
+  "page": "Stefan Weber",
+  "reach": 2542,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 3,
+    "55-64": 1081,
+    "45-54": 476,
+    "65+": 650,
+    "25-34": 66,
+    "35-44": 343
+   },
+   "male": 2190,
+   "female": 396,
+   "unknown": 33,
+   "DE": 2374,
+   "AT": 245
+  },
+  "start": 1789887600,
+  "hook": "Ich flehe euch an, hört auf, diese Kohlenmonoxid-Melder auf Amazon oder im Bauma",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1109368798198887": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 144,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 53,
+    "55-64": 56,
+    "45-54": 23,
+    "35-44": 8,
+    "25-34": 3
+   },
+   "male": 127,
+   "female": 17,
+   "unknown": 0,
+   "DE": 126,
+   "AT": 18
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist. Es bedeut",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "1112716701323810": {
+  "fam": "F3",
+  "page": "Andreas Schneider",
+  "reach": 671,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "55-64": 276,
+    "45-54": 105,
+    "65+": 230,
+    "18-24": 2,
+    "25-34": 17,
+    "35-44": 48
+   },
+   "male": 481,
+   "female": 181,
+   "unknown": 16,
+   "DE": 560,
+   "AT": 118
+  },
+  "start": 1789282800,
+  "hook": "Ein Vater von zwei Kindern ist letzten Monat in seinem Wohnmobil gestorben. Waru",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1117159830745636": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 157,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 3,
+    "65+": 16,
+    "55-64": 63,
+    "45-54": 24,
+    "35-44": 29,
+    "25-34": 22
+   },
+   "male": 124,
+   "female": 25,
+   "unknown": 8,
+   "DE": 147,
+   "AT": 10
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1353364993237188": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 52,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 10,
+    "45-54": 8,
+    "65+": 7,
+    "55-64": 11,
+    "35-44": 16
+   },
+   "male": 37,
+   "female": 14,
+   "unknown": 1,
+   "DE": 49,
+   "AT": 3
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1374952511373943": {
+  "fam": "F4",
+  "page": "Andreas Schneider",
+  "reach": 6654,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 86,
+    "55-64": 2489,
+    "45-54": 856,
+    "65+": 2382,
+    "25-34": 362,
+    "35-44": 546
+   },
+   "male": 3067,
+   "female": 3213,
+   "unknown": 441,
+   "DE": 5486,
+   "AT": 1235
+  },
+  "start": 1789369200,
+  "hook": "Mein Enkel ist gestern in unserem Wohnmobil gestorben. Das Schlimmste daran ist:",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1380239240892741": {
+  "fam": "F1",
+  "page": "Peter Schulz",
+  "reach": 3757,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 636,
+    "45-54": 200,
+    "55-64": 222,
+    "65+": 123,
+    "25-34": 2049,
+    "35-44": 598
+   },
+   "male": 1241,
+   "female": 1635,
+   "unknown": 952,
+   "DE": 3230,
+   "AT": 598
+  },
+  "start": 1788678000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1408278238073299": {
+  "fam": "F2",
+  "page": "Peter Schulz",
+  "reach": 3616,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 56,
+    "55-64": 1229,
+    "45-54": 686,
+    "65+": 682,
+    "25-34": 289,
+    "35-44": 566
+   },
+   "male": 2168,
+   "female": 1130,
+   "unknown": 210,
+   "DE": 3196,
+   "AT": 312
+  },
+  "start": 1789282800,
+  "hook": "Ich bin seit 27 Jahren Feuerwehrmann. Vor zwei Wochen bin ich um sechs Uhr morge",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1415296683862704": {
+  "fam": "F8",
+  "page": "Stefan Weber",
+  "reach": 676,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 3,
+    "45-54": 104,
+    "65+": 222,
+    "55-64": 254,
+    "35-44": 73,
+    "25-34": 16
+   },
+   "male": 602,
+   "female": 57,
+   "unknown": 13,
+   "DE": 618,
+   "AT": 54
+  },
+  "start": 1789887600,
+  "hook": "Ich flehe euch an, hört auf, diese Kohlenmonoxid-Melder auf Amazon oder im Bauma",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1430285485644413": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 1143,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 5,
+    "55-64": 537,
+    "45-54": 226,
+    "65+": 276,
+    "25-34": 37,
+    "35-44": 93
+   },
+   "male": 889,
+   "female": 269,
+   "unknown": 16,
+   "DE": 1047,
+   "AT": 127
+  },
+  "start": 1789110000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1438285328353806": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 41,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "45-54": 7,
+    "55-64": 16,
+    "25-34": 2,
+    "35-44": 7,
+    "65+": 9
+   },
+   "male": 36,
+   "female": 4,
+   "unknown": 1,
+   "DE": 38,
+   "AT": 3
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1486109299723127": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 59,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "35-44": 8,
+    "45-54": 12,
+    "55-64": 28,
+    "65+": 11
+   },
+   "male": 55,
+   "female": 4,
+   "unknown": 0,
+   "DE": 45,
+   "AT": 14
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass der Melder Strom hat. Es bedeutet nicht, dass",
+  "fmt": "Bild",
+  "path": "/pages/sicherheit",
+  "payer": null
+ },
+ "1548444506582745": {
+  "fam": "F1",
+  "page": "Tagesbericht",
+  "reach": 80,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "65+": 9,
+    "55-64": 26,
+    "45-54": 22,
+    "25-34": 4,
+    "35-44": 19
+   },
+   "male": 61,
+   "female": 19,
+   "unknown": 0,
+   "DE": 72,
+   "AT": 8
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1555023006655345": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 87,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 15,
+    "35-44": 19,
+    "25-34": 42,
+    "55-64": 8,
+    "45-54": 2,
+    "65+": 1
+   },
+   "male": 27,
+   "female": 24,
+   "unknown": 36,
+   "DE": 78,
+   "AT": 9
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1588797056328232": {
+  "fam": "F4",
+  "page": "Tagesbericht",
+  "reach": 89,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 2,
+    "65+": 34,
+    "55-64": 37,
+    "45-54": 13,
+    "35-44": 3
+   },
+   "male": 45,
+   "female": 34,
+   "unknown": 10,
+   "DE": 76,
+   "AT": 13
+  },
+  "start": 1789801200,
+  "hook": "Meine Mutter ist gestern in ihrer Altbauwohnung gestorben. Das Schlimmste daran ",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "1614229826717627": {
+  "fam": "F4",
+  "page": "Tagesbericht",
+  "reach": 35,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 2,
+    "55-64": 10,
+    "65+": 8,
+    "45-54": 9,
+    "35-44": 6
+   },
+   "male": 10,
+   "female": 9,
+   "unknown": 16,
+   "DE": 27,
+   "AT": 8
+  },
+  "start": 1789801200,
+  "hook": "Meine Mutter ist gestern in ihrer Altbauwohnung gestorben. Das Schlimmste daran ",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "1626193375558340": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 39,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 3,
+    "35-44": 5,
+    "45-54": 6,
+    "55-64": 18,
+    "65+": 7
+   },
+   "male": 34,
+   "female": 5,
+   "unknown": 0,
+   "DE": 36,
+   "AT": 3
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1638284251425679": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 17871,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 84,
+    "55-64": 6716,
+    "45-54": 4303,
+    "65+": 2921,
+    "25-34": 823,
+    "35-44": 3029
+   },
+   "male": 13004,
+   "female": 4523,
+   "unknown": 349,
+   "DE": 16540,
+   "AT": 1336
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "1652997749658574": {
+  "fam": "F1",
+  "page": "Tagesbericht",
+  "reach": 624,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 33,
+    "55-64": 109,
+    "65+": 61,
+    "45-54": 98,
+    "25-34": 198,
+    "35-44": 118
+   },
+   "male": 327,
+   "female": 176,
+   "unknown": 114,
+   "DE": 570,
+   "AT": 47
+  },
+  "start": 1789110000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1706567163977208": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 110,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "55-64": 52,
+    "65+": 25,
+    "35-44": 13,
+    "45-54": 20
+   },
+   "male": 93,
+   "female": 16,
+   "unknown": 1,
+   "DE": 94,
+   "AT": 16
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Standardmelder eingeschaltet ist. Es bed",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1710370036735985": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 145,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 50,
+    "55-64": 67,
+    "25-34": 2,
+    "45-54": 16,
+    "35-44": 9
+   },
+   "male": 128,
+   "female": 15,
+   "unknown": 2,
+   "DE": 107,
+   "AT": 38
+  },
+  "start": 1789974000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "1714431872979561": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 2623,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "55-64": 1196,
+    "45-54": 336,
+    "65+": 938,
+    "18-24": 3,
+    "25-34": 31,
+    "35-44": 148
+   },
+   "male": 2347,
+   "female": 275,
+   "unknown": 30,
+   "DE": 2375,
+   "AT": 277
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1723409488772522": {
+  "fam": "F3",
+  "page": "Andreas Schneider",
+  "reach": 2780,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 7,
+    "55-64": 1083,
+    "65+": 1298,
+    "35-44": 92,
+    "25-34": 50,
+    "45-54": 279
+   },
+   "male": 2018,
+   "female": 703,
+   "unknown": 88,
+   "DE": 2551,
+   "AT": 258
+  },
+  "start": 1789282800,
+  "hook": "Ein Vater von zwei Kindern ist letzten Monat in seinem Wohnmobil gestorben. Waru",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1745472693387631": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 13058,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 28,
+    "55-64": 5711,
+    "65+": 4562,
+    "25-34": 192,
+    "45-54": 1768,
+    "35-44": 652
+   },
+   "male": 9862,
+   "female": 2939,
+   "unknown": 112,
+   "DE": 11451,
+   "AT": 1462
+  },
+  "start": 1789455600,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "1758487882065121": {
+  "fam": "F1",
+  "page": "Peter Schulz",
+  "reach": 1400,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 43,
+    "45-54": 175,
+    "55-64": 87,
+    "65+": 61,
+    "25-34": 553,
+    "35-44": 479
+   },
+   "male": 398,
+   "female": 585,
+   "unknown": 415,
+   "DE": 1267,
+   "AT": 131
+  },
+  "start": 1789110000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "1766523077805478": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 34,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "35-44": 8,
+    "45-54": 8,
+    "55-64": 9,
+    "65+": 9
+   },
+   "male": 27,
+   "female": 7,
+   "unknown": 0,
+   "DE": 29,
+   "AT": 5
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Standardmelder eingeschaltet ist. Es bed",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2007214149984393": {
+  "fam": "F7",
+  "page": "Helga Schmidt",
+  "reach": 806,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 27,
+    "55-64": 140,
+    "45-54": 145,
+    "65+": 79,
+    "25-34": 148,
+    "35-44": 244
+   },
+   "male": 327,
+   "female": 235,
+   "unknown": 221,
+   "DE": 680,
+   "AT": 103
+  },
+  "start": 1789801200,
+  "hook": "Um 3:15 morgens hat mein siebenjähriger Enkel zu mir aufgeschaut und mir vier Wö",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "2016372749019246": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 75,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 2,
+    "55-64": 25,
+    "65+": 34,
+    "45-54": 9,
+    "35-44": 5
+   },
+   "male": 61,
+   "female": 14,
+   "unknown": 0,
+   "DE": 62,
+   "AT": 13
+  },
+  "start": 1790060400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "2108584679866240": {
+  "fam": "F2",
+  "page": "Peter Schulz",
+  "reach": 4970,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 121,
+    "55-64": 1361,
+    "45-54": 923,
+    "65+": 891,
+    "25-34": 705,
+    "35-44": 981
+   },
+   "male": 2868,
+   "female": 1523,
+   "unknown": 591,
+   "DE": 4434,
+   "AT": 548
+  },
+  "start": 1789369200,
+  "hook": "Ich bin seit 27 Jahren Feuerwehrmann. Vor zwei Wochen bin ich um sechs Uhr morge",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2112633746128884": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 7586,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 17,
+    "55-64": 3338,
+    "65+": 2668,
+    "25-34": 115,
+    "35-44": 453,
+    "45-54": 1151
+   },
+   "male": 6490,
+   "female": 1186,
+   "unknown": 66,
+   "DE": 6988,
+   "AT": 754
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2125490714755869": {
+  "fam": "F8",
+  "page": "Stefan Weber",
+  "reach": 903,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 16,
+    "55-64": 365,
+    "65+": 269,
+    "45-54": 146,
+    "35-44": 85
+   },
+   "male": 760,
+   "female": 107,
+   "unknown": 14,
+   "DE": 775,
+   "AT": 106
+  },
+  "start": 1789887600,
+  "hook": "Ich flehe euch an, hört auf, diese Kohlenmonoxid-Melder auf Amazon oder im Bauma",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "2232640647590050": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 656,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "55-64": 253,
+    "45-54": 152,
+    "65+": 107,
+    "25-34": 29,
+    "35-44": 110
+   },
+   "male": 388,
+   "female": 224,
+   "unknown": 40,
+   "DE": 591,
+   "AT": 61
+  },
+  "start": 1789542000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2296879641129611": {
+  "fam": "F1",
+  "page": "Tagesbericht",
+  "reach": 125,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 6,
+    "55-64": 49,
+    "45-54": 35,
+    "35-44": 18,
+    "65+": 17
+   },
+   "male": 98,
+   "female": 25,
+   "unknown": 2,
+   "DE": 116,
+   "AT": 9
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2413713985822825": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 26,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 1,
+    "35-44": 6,
+    "45-54": 8,
+    "55-64": 8,
+    "65+": 3
+   },
+   "male": 22,
+   "female": 4,
+   "unknown": 0,
+   "DE": 24,
+   "AT": 2
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "2491051721370301": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 201,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 59,
+    "55-64": 76,
+    "45-54": 37,
+    "25-34": 4,
+    "35-44": 24
+   },
+   "male": 176,
+   "female": 23,
+   "unknown": 2,
+   "DE": 174,
+   "AT": 27
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist. Es bedeut",
+  "fmt": "Bild",
+  "path": "/pages/sicherheit",
+  "payer": null
+ },
+ "2524594094687689": {
+  "fam": "F1",
+  "page": "Tagesbericht",
+  "reach": 2900,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 7,
+    "55-64": 1100,
+    "65+": 514,
+    "35-44": 507,
+    "25-34": 132,
+    "45-54": 649
+   },
+   "male": 2289,
+   "female": 595,
+   "unknown": 25,
+   "DE": 2674,
+   "AT": 235
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "2594413417700125": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 244,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 23,
+    "55-64": 20,
+    "45-54": 25,
+    "65+": 9,
+    "25-34": 109,
+    "35-44": 58
+   },
+   "male": 79,
+   "female": 94,
+   "unknown": 71,
+   "DE": 220,
+   "AT": 24
+  },
+  "start": 1789196400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/products/schutzix-4-in-1-co-detektor",
+  "payer": null
+ },
+ "3260293714336825": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 170,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 4,
+    "65+": 52,
+    "55-64": 62,
+    "45-54": 36,
+    "35-44": 16
+   },
+   "male": 148,
+   "female": 20,
+   "unknown": 2,
+   "DE": 151,
+   "AT": 19
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist. Es bedeut",
+  "fmt": "Bild",
+  "path": "/pages/co-melder-ratgeber",
+  "payer": null
+ },
+ "3583222968513321": {
+  "fam": "F4",
+  "page": "Tagesbericht",
+  "reach": 24,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 5,
+    "55-64": 6,
+    "45-54": 5,
+    "35-44": 4,
+    "25-34": 3
+   },
+   "male": 10,
+   "female": 6,
+   "unknown": 8,
+   "DE": 22,
+   "AT": 2
+  },
+  "start": 1789801200,
+  "hook": "Meine Mutter ist gestern in ihrer Altbauwohnung gestorben. Das Schlimmste daran ",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "3618910201591819": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 108,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "25-34": 4,
+    "65+": 48,
+    "55-64": 36,
+    "45-54": 15,
+    "35-44": 5
+   },
+   "male": 96,
+   "female": 11,
+   "unknown": 1,
+   "DE": 92,
+   "AT": 16
+  },
+  "start": 1789369200,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist. Es bedeut",
+  "fmt": "Bild",
+  "path": "/pages/co-melder-ratgeber",
+  "payer": null
+ },
+ "4222751287980171": {
+  "fam": "F2",
+  "page": "Peter Schulz",
+  "reach": 1915,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 16,
+    "55-64": 539,
+    "65+": 501,
+    "45-54": 370,
+    "25-34": 150,
+    "35-44": 356
+   },
+   "male": 859,
+   "female": 1000,
+   "unknown": 73,
+   "DE": 1739,
+   "AT": 193
+  },
+  "start": 1789974000,
+  "hook": "Ich bin seit 27 Jahren Feuerwehrmann. Vor zwei Wochen bin ich um fünf Uhr morgen",
+  "fmt": "Bild",
+  "path": "/pages/brandinspektor-warnt-co-melder-haushalt",
+  "payer": null
+ },
+ "4426138727699588": {
+  "fam": "F4",
+  "page": "Stefan Weber",
+  "reach": 1105,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 21,
+    "55-64": 335,
+    "45-54": 147,
+    "65+": 323,
+    "25-34": 104,
+    "35-44": 156
+   },
+   "male": 358,
+   "female": 598,
+   "unknown": 130,
+   "DE": 881,
+   "AT": 205
+  },
+  "start": 1789369200,
+  "hook": "Mein Enkel ist gestern in unserem Wohnmobil gestorben. Das Schlimmste daran ist:",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "4517324815211347": {
+  "fam": "F1",
+  "page": "Tagesbericht",
+  "reach": 1582,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 85,
+    "55-64": 322,
+    "45-54": 232,
+    "65+": 227,
+    "25-34": 413,
+    "35-44": 302
+   },
+   "male": 788,
+   "female": 537,
+   "unknown": 256,
+   "DE": 1389,
+   "AT": 192
+  },
+  "start": 1789282800,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "4579330935647144": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 118,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 16,
+    "55-64": 49,
+    "45-54": 23,
+    "35-44": 20,
+    "25-34": 9
+   },
+   "male": 78,
+   "female": 36,
+   "unknown": 4,
+   "DE": 107,
+   "AT": 11
+  },
+  "start": 1789542000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "4780665838886567": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 30,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "25-34": 6,
+    "35-44": 2,
+    "45-54": 3,
+    "55-64": 14,
+    "65+": 4
+   },
+   "male": 25,
+   "female": 5,
+   "unknown": 0,
+   "DE": 29,
+   "AT": 1
+  },
+  "start": 1789542000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "828993190275745": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 29568,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 73,
+    "55-64": 13442,
+    "45-54": 7209,
+    "65+": 5331,
+    "25-34": 904,
+    "35-44": 3862,
+    "Unknown": 1
+   },
+   "male": 23136,
+   "female": 7283,
+   "unknown": 403,
+   "DE": 28696,
+   "AT": 2126
+  },
+  "start": 1789542000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "879090481802544": {
+  "fam": "F1",
+  "page": "Peter Schulz",
+  "reach": 37997,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 252,
+    "55-64": 14124,
+    "45-54": 8045,
+    "65+": 7095,
+    "25-34": 2044,
+    "35-44": 5894
+   },
+   "male": 27747,
+   "female": 8972,
+   "unknown": 735,
+   "DE": 33674,
+   "AT": 3780
+  },
+  "start": 1788678000,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist. Es bedeutet ni",
+  "fmt": "Video",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ },
+ "950085514814225": {
+  "fam": "F1",
+  "page": "Kohlenmonoxid Schutz",
+  "reach": 113,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 1,
+    "65+": 47,
+    "55-64": 48,
+    "25-34": 2,
+    "45-54": 11,
+    "35-44": 4
+   },
+   "male": 99,
+   "female": 14,
+   "unknown": 0,
+   "DE": 93,
+   "AT": 20
+  },
+  "start": 1790060400,
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist. Es bedeut",
+  "fmt": "Bild",
+  "path": "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile",
+  "payer": null
+ },
+ "973441165787653": {
+  "fam": "F3",
+  "page": "Andreas Schneider",
+  "reach": 4185,
+  "loc": [
+   "Österreich",
+   "Deutschland"
+  ],
+  "gender": "Alle",
+  "age": {
+   "min": 18,
+   "max": 65
+  },
+  "agg": {
+   "ages": {
+    "18-24": 25,
+    "55-64": 1638,
+    "45-54": 808,
+    "65+": 1110,
+    "25-34": 173,
+    "35-44": 480
+   },
+   "male": 2820,
+   "female": 1158,
+   "unknown": 256,
+   "DE": 3765,
+   "AT": 469
+  },
+  "start": 1789282800,
+  "hook": "Ein Vater von zwei Kindern ist letzten Monat in seinem Wohnmobil gestorben. Waru",
+  "fmt": "Bild",
+  "path": "/pages/wohnmobil",
+  "payer": null
+ }
+}

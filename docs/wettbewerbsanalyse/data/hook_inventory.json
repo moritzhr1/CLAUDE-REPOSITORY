@@ -1,0 +1,1295 @@
+[
+ {
+  "hook": "Ich bin seit sieben Jahren Feuerwehrmann.",
+  "fam": "F2",
+  "n": 16,
+  "pages": {
+   "Peter Schulz": 16
+  },
+  "first": "19.05.",
+  "last": "01.09.",
+  "maxrun": 106,
+  "fmt": {
+   "Bild": 16
+  },
+  "paths": {
+   "/pages/sicherheit": 10,
+   "/products/schutzix-4-in-1-co-detektor": 3,
+   "/pages/wohnmobil": 3
+  },
+  "titles": {
+   "Beschütz deine Familie": 16
+  },
+  "ctas": {
+   "Mehr dazu": 16
+  },
+  "plats": {
+   "FACEBOOK": 16,
+   "INSTAGRAM": 16,
+   "AUDIENCE_NETWORK": 16,
+   "MESSENGER": 16,
+   "THREADS": 16
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 19225,
+  "ldesc": {
+   "-": 7,
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 9
+  },
+  "ids": [
+   "1288671210099131",
+   "1776635843313083"
+  ]
+ },
+ {
+  "hook": "Unser Gutachter hat alles geprüft.",
+  "fam": "F6",
+  "n": 6,
+  "pages": {
+   "Peter Schulz": 6
+  },
+  "first": "19.05.",
+  "last": "31.08.",
+  "maxrun": 105,
+  "fmt": {
+   "Bild": 6
+  },
+  "paths": {
+   "/pages/sicherheit": 5,
+   "/pages/sicherheitv2": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 5,
+   "schutzix.com": 1
+  },
+  "ctas": {
+   "Mehr dazu": 6
+  },
+  "plats": {
+   "FACEBOOK": 6,
+   "INSTAGRAM": 6,
+   "AUDIENCE_NETWORK": 6,
+   "MESSENGER": 6,
+   "THREADS": 6
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 12131,
+  "ldesc": {
+   "-": 5,
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 1
+  },
+  "ids": [
+   "694204973787421",
+   "2022268458501485"
+  ]
+ },
+ {
+  "hook": "Ich bin seit 14 Jahren Feuerwehrmann.",
+  "fam": "F2",
+  "n": 14,
+  "pages": {
+   "Peter Schulz": 14
+  },
+  "first": "19.05.",
+  "last": "01.09.",
+  "maxrun": 89,
+  "fmt": {
+   "Bild": 14
+  },
+  "paths": {
+   "/pages/sicherheit": 10,
+   "/products/schutzix-4-in-1-co-detektor": 4
+  },
+  "titles": {
+   "Beschütz deine Familie": 13,
+   "Beschütz deine Familie bevor es zu spät ist": 1
+  },
+  "ctas": {
+   "Mehr dazu": 14
+  },
+  "plats": {
+   "FACEBOOK": 14,
+   "INSTAGRAM": 14,
+   "AUDIENCE_NETWORK": 14,
+   "MESSENGER": 14,
+   "THREADS": 14
+  },
+  "active": 0,
+  "coll": 2,
+  "maxlen": 6315,
+  "ldesc": {
+   "-": 5,
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 9
+  },
+  "ids": [
+   "2363128324213603",
+   "979302641733154"
+  ]
+ },
+ {
+  "hook": "Meine Frau und ich sind in unseren 60ern.",
+  "fam": "F9",
+  "n": 8,
+  "pages": {
+   "Peter Schulz": 8
+  },
+  "first": "19.05.",
+  "last": "28.05.",
+  "maxrun": 9,
+  "fmt": {
+   "Bild": 8
+  },
+  "paths": {
+   "/pages/sicherheit": 8
+  },
+  "titles": {
+   "Beschütz deine Familie": 8
+  },
+  "ctas": {
+   "Mehr dazu": 8
+  },
+  "plats": {
+   "FACEBOOK": 8,
+   "INSTAGRAM": 8,
+   "AUDIENCE_NETWORK": 8,
+   "MESSENGER": 8,
+   "THREADS": 8
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 9221,
+  "ldesc": {
+   "-": 8
+  },
+  "ids": [
+   "988996070379937",
+   "1217008130429144"
+  ]
+ },
+ {
+  "hook": "Unser Vermieter hat gesagt, dieses Haus sei sicher.",
+  "fam": "F6",
+  "n": 10,
+  "pages": {
+   "Peter Schulz": 10
+  },
+  "first": "28.05.",
+  "last": "16.06.",
+  "maxrun": 20,
+  "fmt": {
+   "Bild": 10
+  },
+  "paths": {
+   "/pages/sicherheit": 10
+  },
+  "titles": {
+   "Beschütz deine Familie": 10
+  },
+  "ctas": {
+   "Mehr dazu": 10
+  },
+  "plats": {
+   "FACEBOOK": 10,
+   "INSTAGRAM": 10,
+   "AUDIENCE_NETWORK": 10,
+   "MESSENGER": 10,
+   "THREADS": 10
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 18791,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 10
+  },
+  "ids": [
+   "2283477875726309",
+   "952093221167188"
+  ]
+ },
+ {
+  "hook": "Ein Ehepaar ist letzten Monat in ihrem Wohnmobil gestorben.",
+  "fam": "F3",
+  "n": 4,
+  "pages": {
+   "Peter Schulz": 4
+  },
+  "first": "11.06.",
+  "last": "01.09.",
+  "maxrun": 83,
+  "fmt": {
+   "Bild": 4
+  },
+  "paths": {
+   "/pages/sicherheit": 1,
+   "/pages/wohnmobil": 2,
+   "/pages/sicherheitv2": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 4
+  },
+  "ctas": {
+   "Mehr dazu": 3,
+   "Details ansehen": 1
+  },
+  "plats": {
+   "FACEBOOK": 4,
+   "INSTAGRAM": 4,
+   "AUDIENCE_NETWORK": 4,
+   "MESSENGER": 4,
+   "THREADS": 4
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 3010,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 4
+  },
+  "ids": [
+   "1967822411273034",
+   "1713394139979989"
+  ]
+ },
+ {
+  "hook": "Ich arbeite seit 14 Jahren an der Notrufzentrale.",
+  "fam": "F2",
+  "n": 1,
+  "pages": {
+   "Claudia Schneider": 1
+  },
+  "first": "17.06.",
+  "last": "19.06.",
+  "maxrun": 3,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/sicherheitsreport": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1,
+   "THREADS": 1
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 12996,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 1
+  },
+  "ids": [
+   "1705494257246859"
+  ]
+ },
+ {
+  "hook": "Meine Tochter wurde an einem Dienstag krank.",
+  "fam": "F5",
+  "n": 3,
+  "pages": {
+   "Claudia Schneider": 3
+  },
+  "first": "17.06.",
+  "last": "30.06.",
+  "maxrun": 13,
+  "fmt": {
+   "Bild": 3
+  },
+  "paths": {
+   "/pages/sicherheit": 3
+  },
+  "titles": {
+   "Beschütz deine Familie": 3
+  },
+  "ctas": {
+   "Mehr dazu": 3
+  },
+  "plats": {
+   "FACEBOOK": 3,
+   "INSTAGRAM": 3,
+   "AUDIENCE_NETWORK": 3,
+   "MESSENGER": 3,
+   "THREADS": 3
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 17659,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 3
+  },
+  "ids": [
+   "1316450036748210",
+   "972353115624588"
+  ]
+ },
+ {
+  "hook": "Das grüne Licht bedeutet nur, dass dein Rauchmelder eingeschaltet ist.",
+  "fam": "F1",
+  "n": 8,
+  "pages": {
+   "Kohlenmonoxid Schutz": 8
+  },
+  "first": "18.06.",
+  "last": "23.09.",
+  "maxrun": 76,
+  "fmt": {
+   "Bild": 8
+  },
+  "paths": {
+   "/pages/sicherheit": 3,
+   "/products/schutzix-4-in-1-co-detektor": 1,
+   "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile": 2,
+   "/pages/co-melder-ratgeber": 2
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 3,
+   "Beschütz deine Familie": 5
+  },
+  "ctas": {
+   "Mehr dazu": 8
+  },
+  "plats": {
+   "FACEBOOK": 8,
+   "INSTAGRAM": 8,
+   "AUDIENCE_NETWORK": 3,
+   "MESSENGER": 3,
+   "THREADS": 3
+  },
+  "active": 5,
+  "coll": 1,
+  "maxlen": 633,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 8
+  },
+  "ids": [
+   "2068803054070551",
+   "1328598202673529"
+  ]
+ },
+ {
+  "hook": "Das grüne Licht bedeutet nur, dass der Melder Strom hat.",
+  "fam": "F1",
+  "n": 2,
+  "pages": {
+   "Kohlenmonoxid Schutz": 2
+  },
+  "first": "18.06.",
+  "last": "22.09.",
+  "maxrun": 32,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/sicherheit": 2
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1,
+   "THREADS": 1
+  },
+  "active": 1,
+  "coll": 1,
+  "maxlen": 515,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 2
+  },
+  "ids": [
+   "1207898291393696",
+   "1486109299723127"
+  ]
+ },
+ {
+  "hook": "Das grüne Licht bedeutet nur, dass dein Melder eingeschaltet ist.",
+  "fam": "F1",
+  "n": 79,
+  "pages": {
+   "Kohlenmonoxid Schutz": 32,
+   "Peter Schulz": 21,
+   "Tagesbericht": 26
+  },
+  "first": "18.06.",
+  "last": "23.09.",
+  "maxrun": 56,
+  "fmt": {
+   "Bild": 17,
+   "Video": 62
+  },
+  "paths": {
+   "/pages/sicherheit": 3,
+   "/products/schutzix-4-in-1-co-detektor-fur-wohnmobile": 8,
+   "/products/schutzix-4-in-1-co-detektor": 10,
+   "/pages/wohnmobil": 41,
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 17
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 2,
+   "Beschütz deine Familie": 77
+  },
+  "ctas": {
+   "Mehr dazu": 79
+  },
+  "plats": {
+   "FACEBOOK": 79,
+   "INSTAGRAM": 79,
+   "AUDIENCE_NETWORK": 32,
+   "MESSENGER": 38,
+   "THREADS": 32,
+   "WHATSAPP": 7
+  },
+  "active": 31,
+  "coll": 8,
+  "maxlen": 1058,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 77,
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 2
+  },
+  "ids": [
+   "2258410601657351",
+   "917502794755159"
+  ]
+ },
+ {
+  "hook": "Ich war in der 32. Schwangerschaftswoche, als mein Sohn an einem Dienstag aufhörte zu strampeln.",
+  "fam": "F5",
+  "n": 2,
+  "pages": {
+   "Claudia Schneider": 2
+  },
+  "first": "20.06.",
+  "last": "23.06.",
+  "maxrun": 4,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/sicherheit": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 2,
+   "THREADS": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 26552,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 2
+  },
+  "ids": [
+   "1573081541098323",
+   "2056863538268232"
+  ]
+ },
+ {
+  "hook": "Eine Mutter ist letzten August in ihrem Wohnmobil gestorben.",
+  "fam": "F3",
+  "n": 2,
+  "pages": {
+   "Claudia Schneider": 2
+  },
+  "first": "06.07.",
+  "last": "01.09.",
+  "maxrun": 58,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/wohnmobil": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "MESSENGER": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 4852,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 2
+  },
+  "ids": [
+   "913717315082082",
+   "1739713270356573"
+  ]
+ },
+ {
+  "hook": "Unser Heizungsfachbetrieb hat eine Sache in unserem Haus übersehen, die meinen Mann das Leben gekostet und mir",
+  "fam": "F6",
+  "n": 1,
+  "pages": {
+   "Claudia Schneider": 1
+  },
+  "first": "06.07.",
+  "last": "12.07.",
+  "maxrun": 7,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/sicherheit": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "MESSENGER": 1
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 10241,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 1
+  },
+  "ids": [
+   "1035617315735644"
+  ]
+ },
+ {
+  "hook": "Ich bin seit 27 Jahren Feuerwehrmann.",
+  "fam": "F2",
+  "n": 27,
+  "pages": {
+   "Peter Schulz": 27
+  },
+  "first": "08.07.",
+  "last": "23.09.",
+  "maxrun": 52,
+  "fmt": {
+   "Bild": 17,
+   "Video": 10
+  },
+  "paths": {
+   "/pages/wohnmobil": 21,
+   "/pages/sicherheit": 1,
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 5
+  },
+  "titles": {
+   "Beschütz deine Familie": 27
+  },
+  "ctas": {
+   "Mehr dazu": 25,
+   "Details ansehen": 2
+  },
+  "plats": {
+   "FACEBOOK": 27,
+   "INSTAGRAM": 27,
+   "AUDIENCE_NETWORK": 24,
+   "MESSENGER": 23,
+   "THREADS": 20,
+   "WHATSAPP": 2
+  },
+  "active": 3,
+  "coll": 5,
+  "maxlen": 19983,
+  "ldesc": {
+   "Schutzix verwendet dieselbe elektrochemische Sensortechnologie, der Heizungs-, Klima- und Lüftungstechniker sowie Einsatzkräfte vertrauen – die gleiche Technologie, die in kommerziellen Geräten über 200 € kostet. Wir haben sie für jede Familie zugänglich gemacht. Das Ergebnis: Warnung bere...": 2,
+   "Entwickelt von der Feuerwehr": 1,
+   "Von der Feuerwehr entwickelt": 24
+  },
+  "ids": [
+   "1439033001306038",
+   "872780925608342"
+  ]
+ },
+ {
+  "hook": "Ein Vater von zwei Kindern ist letzten Monat in seinem Wohnmobil gestorben.",
+  "fam": "F3",
+  "n": 15,
+  "pages": {
+   "Andreas Schneider": 15
+  },
+  "first": "12.07.",
+  "last": "23.09.",
+  "maxrun": 53,
+  "fmt": {
+   "Bild": 11,
+   "Video": 4
+  },
+  "paths": {
+   "/pages/wohnmobil": 15
+  },
+  "titles": {
+   "Beschütz deine Familie": 15
+  },
+  "ctas": {
+   "Mehr dazu": 15
+  },
+  "plats": {
+   "FACEBOOK": 15,
+   "INSTAGRAM": 15,
+   "AUDIENCE_NETWORK": 10,
+   "MESSENGER": 10,
+   "THREADS": 8
+  },
+  "active": 3,
+  "coll": 3,
+  "maxlen": 5207,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 15
+  },
+  "ids": [
+   "27697016116615123",
+   "1661680648189985"
+  ]
+ },
+ {
+  "hook": "Eine Mutter von zwei Kindern ist vor zwei Wochen in ihrem Wohnmobil gestorben.",
+  "fam": "F3",
+  "n": 2,
+  "pages": {
+   "Andreas Schneider": 2
+  },
+  "first": "16.07.",
+  "last": "31.08.",
+  "maxrun": 47,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/wohnmobil": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 2,
+   "THREADS": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 5973,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 2
+  },
+  "ids": [
+   "27669184006025680",
+   "1641938760200355"
+  ]
+ },
+ {
+  "hook": "Eine ganze Familie ist letzten Monat in ihrem eigenen Haus fast gestorben.",
+  "fam": "F3",
+  "n": 1,
+  "pages": {
+   "Andreas Schneider": 1
+  },
+  "first": "17.07.",
+  "last": "21.07.",
+  "maxrun": 5,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1
+  },
+  "active": 0,
+  "coll": 2,
+  "maxlen": 4606,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "1329055479392247"
+  ]
+ },
+ {
+  "hook": "Ich bin seit 21 Jahren Notfallsanitäter.",
+  "fam": "F2",
+  "n": 3,
+  "pages": {
+   "Andreas Schneider": 3
+  },
+  "first": "19.07.",
+  "last": "01.09.",
+  "maxrun": 42,
+  "fmt": {
+   "Bild": 3
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 3
+  },
+  "titles": {
+   "Beschütz deine Familie": 3
+  },
+  "ctas": {
+   "Mehr dazu": 3
+  },
+  "plats": {
+   "FACEBOOK": 3,
+   "INSTAGRAM": 3,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 3,
+   "THREADS": 2
+  },
+  "active": 0,
+  "coll": 2,
+  "maxlen": 14053,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 3
+  },
+  "ids": [
+   "1388542876482583",
+   "28339672485619218"
+  ]
+ },
+ {
+  "hook": "Sie hat überlebt und uns das Leben gerettet.",
+  "fam": "F7",
+  "n": 2,
+  "pages": {
+   "Claudia Schneider": 2
+  },
+  "first": "23.07.",
+  "last": "01.09.",
+  "maxrun": 41,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 22890,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 2
+  },
+  "ids": [
+   "1572660224216833",
+   "906068379239363"
+  ]
+ },
+ {
+  "hook": "Eine Mutter von zwei Kindern ist letzte Woche in ihrem Wohnmobil gestorben.",
+  "fam": "F3",
+  "n": 2,
+  "pages": {
+   "Andreas Schneider": 2
+  },
+  "first": "23.07.",
+  "last": "01.09.",
+  "maxrun": 41,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/wohnmobil": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 2,
+   "THREADS": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 5307,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 2
+  },
+  "ids": [
+   "1683116906276340",
+   "2162123334644787"
+  ]
+ },
+ {
+  "hook": "Ich war in der 32. Schwangerschaftswoche, als mein Sohn an einem Dienstag aufgehört hat zu treten.",
+  "fam": "F5",
+  "n": 9,
+  "pages": {
+   "Claudia Schneider": 9
+  },
+  "first": "27.07.",
+  "last": "23.09.",
+  "maxrun": 37,
+  "fmt": {
+   "Bild": 9
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 9
+  },
+  "titles": {
+   "Beschütz deine Familie": 9
+  },
+  "ctas": {
+   "Mehr dazu": 9
+  },
+  "plats": {
+   "FACEBOOK": 9,
+   "INSTAGRAM": 9,
+   "AUDIENCE_NETWORK": 6,
+   "MESSENGER": 6,
+   "THREADS": 6,
+   "WHATSAPP": 2
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 26622,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 9
+  },
+  "ids": [
+   "27684808751176586",
+   "1764900914687180"
+  ]
+ },
+ {
+  "hook": "Mein Mann ist vor einer Woche gestorben, weil wir diesen Sommer heiße Duschen genommen haben.",
+  "fam": "F4",
+  "n": 2,
+  "pages": {
+   "Claudia Schneider": 2
+  },
+  "first": "31.07.",
+  "last": "13.08.",
+  "maxrun": 14,
+  "fmt": {
+   "Bild": 2
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 2
+  },
+  "titles": {
+   "Beschütz deine Familie": 2
+  },
+  "ctas": {
+   "Mehr dazu": 2
+  },
+  "plats": {
+   "FACEBOOK": 2,
+   "INSTAGRAM": 2,
+   "AUDIENCE_NETWORK": 2,
+   "MESSENGER": 2,
+   "THREADS": 2
+  },
+  "active": 0,
+  "coll": 2,
+  "maxlen": 8559,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 2
+  },
+  "ids": [
+   "2292056584887770",
+   "3438130979689874"
+  ]
+ },
+ {
+  "hook": "Meine Frau ist vor zwei Wochen in unserem Wohnmobil gestorben.",
+  "fam": "F4",
+  "n": 1,
+  "pages": {
+   "Andreas Schneider": 1
+  },
+  "first": "31.07.",
+  "last": "22.08.",
+  "maxrun": 23,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/wohnmobil": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1,
+   "THREADS": 1
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 16219,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "1015338011415432"
+  ]
+ },
+ {
+  "hook": "Unser Schornsteinfeger hat in unserer Wohnung etwas übersehen, das meinen Mann getötet und mir permanente Hirnschäden hinterlassen hat.",
+  "fam": "F6",
+  "n": 1,
+  "pages": {
+   "Claudia Schneider": 1
+  },
+  "first": "03.08.",
+  "last": "30.08.",
+  "maxrun": 28,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1,
+   "THREADS": 1
+  },
+  "active": 0,
+  "coll": 2,
+  "maxlen": 11858,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "1839844270123693"
+  ]
+ },
+ {
+  "hook": "Mein Enkel ist gestern in unserem Wohnmobil gestorben.",
+  "fam": "F4",
+  "n": 3,
+  "pages": {
+   "Andreas Schneider": 2,
+   "Stefan Weber": 1
+  },
+  "first": "14.08.",
+  "last": "23.09.",
+  "maxrun": 10,
+  "fmt": {
+   "Bild": 3
+  },
+  "paths": {
+   "/pages/wohnmobil": 3
+  },
+  "titles": {
+   "Beschütz deine Familie": 3
+  },
+  "ctas": {
+   "Mehr dazu": 3
+  },
+  "plats": {
+   "FACEBOOK": 3,
+   "INSTAGRAM": 3,
+   "AUDIENCE_NETWORK": 1,
+   "MESSENGER": 1,
+   "THREADS": 1
+  },
+  "active": 2,
+  "coll": 1,
+  "maxlen": 19514,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 3
+  },
+  "ids": [
+   "965334353264747",
+   "1374952511373943"
+  ]
+ },
+ {
+  "hook": "Das grüne Licht bedeutet nur, dass dein Standardmelder eingeschaltet ist.",
+  "fam": "F1",
+  "n": 9,
+  "pages": {
+   "Peter Schulz": 1,
+   "Andreas Schneider": 5,
+   "Kohlenmonoxid Schutz": 3
+  },
+  "first": "21.08.",
+  "last": "22.09.",
+  "maxrun": 11,
+  "fmt": {
+   "Video": 9
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 6,
+   "/pages/wohnmobil": 3
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 9
+  },
+  "ctas": {
+   "Mehr dazu": 9
+  },
+  "plats": {
+   "FACEBOOK": 9,
+   "INSTAGRAM": 9,
+   "MESSENGER": 4,
+   "WHATSAPP": 2
+  },
+  "active": 3,
+  "coll": 3,
+  "maxlen": 578,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 9
+  },
+  "ids": [
+   "1391656426406385",
+   "933200319385575"
+  ]
+ },
+ {
+  "hook": "Zum Glück ist unser Hund gestorben.",
+  "fam": "F7",
+  "n": 1,
+  "pages": {
+   "Claudia Schneider": 1
+  },
+  "first": "23.08.",
+  "last": "01.09.",
+  "maxrun": 10,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 1
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 1
+  },
+  "ctas": {
+   "Mehr dazu": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1,
+   "MESSENGER": 1
+  },
+  "active": 0,
+  "coll": 1,
+  "maxlen": 10079,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "989857784112278"
+  ]
+ },
+ {
+  "hook": "Meine Mutter ist gestern in ihrer Altbauwohnung gestorben.",
+  "fam": "F4",
+  "n": 5,
+  "pages": {
+   "Andreas Schneider": 1,
+   "Tagesbericht": 4
+  },
+  "first": "29.08.",
+  "last": "23.09.",
+  "maxrun": 6,
+  "fmt": {
+   "Bild": 5
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 5
+  },
+  "titles": {
+   "Dein Melder lügt dich an": 1,
+   "Beschütz deine Familie": 4
+  },
+  "ctas": {
+   "Mehr dazu": 5
+  },
+  "plats": {
+   "FACEBOOK": 5,
+   "INSTAGRAM": 5,
+   "MESSENGER": 1
+  },
+  "active": 3,
+  "coll": 1,
+  "maxlen": 19096,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 5
+  },
+  "ids": [
+   "1032616399768836",
+   "2108707436522326"
+  ]
+ },
+ {
+  "hook": "Ich hab meinen Mann betrogen.",
+  "fam": "F7",
+  "n": 1,
+  "pages": {
+   "Claudia Schneider": 1
+  },
+  "first": "19.09.",
+  "last": "23.09.",
+  "maxrun": 5,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Details ansehen": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1
+  },
+  "active": 1,
+  "coll": 1,
+  "maxlen": 12009,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "1088496076964370"
+  ]
+ },
+ {
+  "hook": "Um 3:15 morgens hat mein siebenjähriger Enkel zu mir aufgeschaut und mir vier Wörter zugeflüstert, die ich für",
+  "fam": "F7",
+  "n": 1,
+  "pages": {
+   "Helga Schmidt": 1
+  },
+  "first": "19.09.",
+  "last": "23.09.",
+  "maxrun": 5,
+  "fmt": {
+   "Bild": 1
+  },
+  "paths": {
+   "/pages/brandinspektor-warnt-co-melder-haushalt": 1
+  },
+  "titles": {
+   "Beschütz deine Familie": 1
+  },
+  "ctas": {
+   "Details ansehen": 1
+  },
+  "plats": {
+   "FACEBOOK": 1,
+   "INSTAGRAM": 1
+  },
+  "active": 1,
+  "coll": 1,
+  "maxlen": 17935,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 1
+  },
+  "ids": [
+   "2007214149984393"
+  ]
+ },
+ {
+  "hook": "Ich flehe euch an, hört auf, diese Kohlenmonoxid-Melder auf Amazon oder im Baumarkt zu kaufen.",
+  "fam": "F8",
+  "n": 3,
+  "pages": {
+   "Stefan Weber": 3
+  },
+  "first": "20.09.",
+  "last": "23.09.",
+  "maxrun": 4,
+  "fmt": {
+   "Bild": 3
+  },
+  "paths": {
+   "/products/schutzix-4-in-1-co-detektor": 3
+  },
+  "titles": {
+   "Beschütz deine Familie": 3
+  },
+  "ctas": {
+   "Mehr dazu": 3
+  },
+  "plats": {
+   "FACEBOOK": 3,
+   "INSTAGRAM": 3
+  },
+  "active": 3,
+  "coll": 1,
+  "maxlen": 4372,
+  "ldesc": {
+   "Von der Feuerwehr entwickelt": 3
+  },
+  "ids": [
+   "1108633251554464",
+   "2125490714755869"
+  ]
+ }
+]
