@@ -3839,20 +3839,20 @@ html:has(.sl-lp) {
 }
 
 /* ---------- Artikel-Kopf im Zeitungsstil (sl-lp-article) ----------
- * Gleicher Stil wie der Redaktionsblock der Produktseite: Versal-Dachzeile, Serifen-Schlagzeile,
- * kursive Unterzeile, Autorenzeile mit feiner Linie, rundem Bild und Datum. */
+ * Gleicher Stil wie der Redaktionsblock der Produktseite: Versal-Dachzeile, Serifen-Schlagzeile
+ * (optional mit größerer Vorzeile), kursive Unterzeile, Autorenzeile mit feiner Linie, rundem Bild und Datum. */
 .sl-lp.sl-lp-article {
   --sl-article-ink: #20201d;
   --sl-article-soft: #59564f;
   --sl-article-rule: #c9c3b8;
   --sl-article-kicker: #075b91;
   --sl-article-serif: Georgia, 'Times New Roman', serif;
-  padding-block: 4.4rem 0;
+  padding-block: 4.4rem 4.8rem;
   background: #fff;
 }
 
 .sl-lp-article__inner {
-  max-width: 72rem;
+  max-width: 96rem;
 }
 
 .sl-lp .sl-lp-article__kicker {
@@ -3866,13 +3866,40 @@ html:has(.sl-lp) {
 }
 
 .sl-lp .sl-lp-article__h {
-  max-width: 21ch;
   color: var(--sl-article-ink) !important;
   font-family: var(--sl-article-serif) !important;
   font-size: clamp(2.7rem, 1.9rem + 2.4vw, 4.6rem);
   font-weight: 600 !important;
   line-height: 1.16;
   letter-spacing: -0.025em;
+}
+
+.sl-lp-article__main {
+  display: block;
+}
+
+/* Das Theme setzt für jedes span die Grundschrift mit !important – Schlagzeilen-Teile hier ausdrücklich in Serifen.
+ * Laufweite je Teil neu setzen (sonst erbt die größere Vorzeile den absoluten Wert der Schlagzeile). */
+.sl-lp .sl-lp-article__lead,
+.sl-lp .sl-lp-article__main {
+  font-family: var(--sl-article-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em;
+}
+
+/* Mit Vorzeile: Schlagzeile etwas kleiner, Vorzeile deutlich größer.
+ * Mobil wächst die Vorzeile mit der Bildschirmbreite so, dass „Brandschutzexperten“ immer in eine Zeile passt;
+ * ab Tablet steht „Brandschutzexperten warnen:“ in einer Zeile. */
+.sl-lp .sl-lp-article__h--lead {
+  font-size: clamp(2.4rem, 1.8rem + 1.9vw, 4.4rem);
+}
+
+.sl-lp-article__lead {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: clamp(2.2rem, 9.4vw - 0.38rem, 3.8rem);
+  line-height: 1.08;
+  overflow-wrap: break-word;
 }
 
 .sl-lp .sl-lp-article__deck {
@@ -3960,15 +3987,17 @@ html:has(.sl-lp) {
   text-decoration-color: currentColor;
 }
 
-/* Die folgende Section gehört inhaltlich zum Artikel: ohne Trennlinie, mit kurzem Abstand */
-.sl-lp-shopify-section:has(> .sl-lp-article) + .sl-lp-shopify-section > .sl-lp {
-  padding-top: 3.2rem;
-  border-top: 0;
-}
-
 @media screen and (min-width: 750px) {
   .sl-lp.sl-lp-article {
-    padding-top: 6.4rem;
+    padding-block: 6.4rem;
+  }
+
+  .sl-lp-article__main {
+    max-width: 21ch;
+  }
+
+  .sl-lp-article__lead {
+    font-size: min(6.2rem, 6.8vw - 0.4rem);
   }
 
   .sl-lp .sl-lp-article__kicker {
@@ -3979,17 +4008,10 @@ html:has(.sl-lp) {
     font-size: 1.45rem;
   }
 
-  .sl-lp-shopify-section:has(> .sl-lp-article) + .sl-lp-shopify-section > .sl-lp {
-    padding-top: 4rem;
-  }
 }
 
 @media screen and (min-width: 990px) {
   .sl-lp.sl-lp-article {
-    padding-top: 8rem;
-  }
-
-  .sl-lp-shopify-section:has(> .sl-lp-article) + .sl-lp-shopify-section > .sl-lp {
-    padding-top: 4.8rem;
+    padding-block: 8rem;
   }
 }

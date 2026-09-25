@@ -1,6 +1,7 @@
 {%- comment -%}
   SICHERLUFT Landingpage-Kit · Artikel-Kopf im Zeitungsstil
-  Dachzeile, Serifen-Schlagzeile, kursive Unterzeile und Autorenzeile mit rundem Bild und Datum –
+  Dachzeile, Serifen-Schlagzeile (optional mit größerer Vorzeile, z. B. „… warnen:“), kursive Unterzeile
+  und Autorenzeile mit rundem Bild, Datum und bis zu zwei Quellen –
   gleicher Stil wie der Redaktionsblock auf der Produktseite.
 
   Autorenzeile:
@@ -33,12 +34,21 @@
     assign author_role = ''
     assign author_image = section.settings.brand_image | default: settings.favicon
   endif
+
+  assign has_heading = false
+  if section.settings.heading != blank or section.settings.heading_lead != blank
+    assign has_heading = true
+  endif
+  assign has_source = false
+  if section.settings.source_label != blank or section.settings.source2_label != blank
+    assign has_source = true
+  endif
 -%}
 
 <section
   id="{{ anchor }}"
   class="sl-lp sl-lp-article"
-  {% if section.settings.heading != blank %}aria-labelledby="{{ heading_id }}"{% endif %}
+  {% if has_heading %}aria-labelledby="{{ heading_id }}"{% endif %}
   data-sl-section="{{ track }}"
   data-sl-view="{{ track }}"
 >
@@ -53,8 +63,16 @@
       {%- if section.settings.kicker != blank -%}
         <p class="sl-lp-article__kicker">{{ section.settings.kicker | escape }}</p>
       {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h2 id="{{ heading_id }}" class="sl-lp-article__h">{{ section.settings.heading }}</h2>
+      {%- if has_heading -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-article__h{% if section.settings.heading_lead != blank %} sl-lp-article__h--lead{% endif %}">
+          {%- if section.settings.heading_lead != blank -%}
+            <span class="sl-lp-article__lead">{{ section.settings.heading_lead | escape }}</span>
+            {{- ' ' -}}
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <span class="sl-lp-article__main">{{ section.settings.heading }}</span>
+          {%- endif -%}
+        </h2>
       {%- endif -%}
       {%- if section.settings.deck != blank -%}
         <p class="sl-lp-article__deck">{{ section.settings.deck | escape }}</p>
@@ -85,29 +103,47 @@
                 {%- endif -%}
               </p>
             {%- endif -%}
-            {%- if section.settings.date != blank or section.settings.source_label != blank -%}
+            {%- if section.settings.date != blank or has_source -%}
               <p class="sl-lp-article__meta">
                 {%- if section.settings.date != blank -%}
                   <span class="sl-lp-article__date">{{ section.settings.date | escape }}</span>
                 {%- endif -%}
-                {%- if section.settings.source_label != blank -%}
+                {%- if has_source -%}
                   {%- if section.settings.date != blank -%}
                     <span class="sl-lp-article__sep" aria-hidden="true"> · </span>
                   {%- endif -%}
-                  {%- if section.settings.source_link != blank -%}
-                    <a
-                      class="sl-lp-article__source"
-                      href="{{ section.settings.source_link }}"
-                      target="_blank"
-                      rel="noopener"
-                      data-sl-track="article_source_click"
-                      data-sl-label="{{ section.settings.source_label | escape }}"
-                    >
-                      {{- section.settings.source_label | escape -}}
-                    </a>
-                  {%- else -%}
-                    <span class="sl-lp-article__source">{{ section.settings.source_label | escape }}</span>
+                  {%- if section.settings.source_intro != blank -%}
+                    <span class="sl-lp-article__source-intro">{{ section.settings.source_intro | escape }} </span>
                   {%- endif -%}
+                  {%- assign printed = 0 -%}
+                  {%- for i in (1..2) -%}
+                    {%- if i == 1 -%}
+                      {%- assign s_label = section.settings.source_label -%}
+                      {%- assign s_link = section.settings.source_link -%}
+                    {%- else -%}
+                      {%- assign s_label = section.settings.source2_label -%}
+                      {%- assign s_link = section.settings.source2_link -%}
+                    {%- endif -%}
+                    {%- if s_label == blank -%}{%- continue -%}{%- endif -%}
+                    {%- if printed > 0 -%}
+                      <span class="sl-lp-article__sep">, </span>
+                    {%- endif -%}
+                    {%- if s_link != blank -%}
+                      <a
+                        class="sl-lp-article__source"
+                        href="{{ s_link }}"
+                        target="_blank"
+                        rel="noopener"
+                        data-sl-track="article_source_click"
+                        data-sl-label="{{ s_label | escape }}"
+                      >
+                        {{- s_label | escape -}}
+                      </a>
+                    {%- else -%}
+                      <span class="sl-lp-article__source">{{ s_label | escape }}</span>
+                    {%- endif -%}
+                    {%- assign printed = printed | plus: 1 -%}
+                  {%- endfor -%}
                 {%- endif -%}
               </p>
             {%- endif -%}
@@ -148,6 +184,12 @@
       "id": "kicker",
       "label": "Dachzeile",
       "default": "Wissen & Sicherheit"
+    },
+    {
+      "type": "text",
+      "id": "heading_lead",
+      "label": "Vorzeile der Schlagzeile",
+      "info": "Steht größer über der Schlagzeile, z. B. „Brandschutzexperten warnen:“. Nur mit belegbarer Quelle unten."
     },
     {
       "type": "inline_richtext",
@@ -216,13 +258,29 @@
     },
     {
       "type": "text",
+      "id": "source_intro",
+      "label": "Text vor den Quellen",
+      "default": "Quelle:"
+    },
+    {
+      "type": "text",
       "id": "source_label",
-      "label": "Quelle"
+      "label": "Quelle 1"
     },
     {
       "type": "url",
       "id": "source_link",
-      "label": "Link zur Quelle"
+      "label": "Link zu Quelle 1"
+    },
+    {
+      "type": "text",
+      "id": "source2_label",
+      "label": "Quelle 2"
+    },
+    {
+      "type": "url",
+      "id": "source2_link",
+      "label": "Link zu Quelle 2"
     }
   ],
   "presets": [

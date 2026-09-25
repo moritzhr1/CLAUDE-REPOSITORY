@@ -33,76 +33,18 @@
         "anchor": "gefahr",
         "tracking_name": "artikel",
         "kicker": "Wissen & Sicherheit",
+        "heading_lead": "Brandschutzexperten warnen:",
         "heading": "Die unterschätzte Gefahr in deutschen Wohnmobilen",
         "deck": "Das geruchlose Gas bleibt oft unbemerkt – und kann lebensgefährdend enden.",
         "byline_mode": "brand",
         "brand_name": "SICHERLUFT Ratgeber",
         "person_confirmed": false,
         "date": "25. September 2026",
-        "source_label": "Quelle: Bundesinstitut für Risikobewertung (BfR)",
-        "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
-      }
-    },
-    "gefahr": {
-      "type": "sl-lp-cards",
-      "blocks": {
-        "gefahr_unsichtbar": {
-          "type": "card",
-          "settings": {
-            "icon": "no-odor",
-            "title": "Du riechst es nicht. Du siehst es nicht.",
-            "text": "<p>Kohlenmonoxid ist farb- und geruchlos. Keiner deiner Sinne warnt dich.</p>",
-            "card_id": "unsichtbar",
-            "dev_note": "Quelle: BfR-Broschüre S. 4: „Kohlenmonoxid kann man nicht sehen, riechen, schmecken oder hören.“"
-          }
-        },
-        "gefahr_raum": {
-          "type": "card",
-          "settings": {
-            "icon": "volume",
-            "title": "Auf engem Raum kann es schneller kritisch werden.",
-            "text": "<p>Heizung, Kocher und Schlafplatz teilen sich wenige Kubikmeter Luft. Dieselbe Menge Gas ergibt dort eine höhere Konzentration.</p>",
-            "card_id": "enger-raum",
-            "dev_note": "Physikalische Grundlage: Konzentration = Menge / Raumvolumen. Keine Zahlen genannt."
-          }
-        },
-        "gefahr_schlaf": {
-          "type": "card",
-          "settings": {
-            "icon": "moon",
-            "title": "Im Schlaf merkst du es womöglich nicht.",
-            "text": "<p>Erste Anzeichen sind unspezifisch. Später können Bewusstseinsstörungen und Muskelschwäche verhindern, dass du dich in Sicherheit bringst.</p>",
-            "card_id": "schlaf",
-            "dev_note": "Quelle: BfR-Broschüre S. 4: „Erste unspezifische Vergiftungssymptome sind Übelkeit, Schwindel oder Kopfschmerzen. Erst spät kommen Herzrasen, Bewusstseinsstörungen und Muskelschwäche hinzu. Diese Beeinträchtigungen hindern Betroffene daran, den Raum zu verlassen und sich in Sicherheit zu bringen.“"
-          }
-        },
-        "quelle_gefahr": {
-          "type": "source",
-          "settings": {
-            "label": "Gesundheitsrisiken durch Kohlenmonoxid (PDF), S. 4",
-            "publisher": "Bundesinstitut für Risikobewertung (BfR)",
-            "link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
-          }
-        }
-      },
-      "block_order": [
-        "gefahr_unsichtbar",
-        "gefahr_raum",
-        "gefahr_schlaf",
-        "quelle_gefahr"
-      ],
-      "settings": {
-        "anchor": "gefahr-fakten",
-        "tracking_name": "gefahr",
-        "background": "white",
-        "spacing": "normal",
-        "heading_size": "m",
-        "align": "left",
-        "layout": "cards",
-        "columns": "3",
-        "card_style": "plain",
-        "min_live_cards": 0,
-        "sources_heading": "Quelle"
+        "source_intro": "Quellen:",
+        "source_label": "DEKRA",
+        "source_link": "https://www.dekra.de/de/der-alarm-der-leben-rettet/",
+        "source2_label": "BfR",
+        "source2_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
       }
     },
     "ernstfall": {
@@ -1121,7 +1063,6 @@
   "order": [
     "hero",
     "artikel",
-    "gefahr",
     "ernstfall",
     "irrtuemer",
     "wohnmobil",
