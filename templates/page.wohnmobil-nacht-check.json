@@ -27,6 +27,22 @@
         "display_glow": true
       }
     },
+    "artikel": {
+      "type": "sl-lp-article",
+      "settings": {
+        "anchor": "gefahr",
+        "tracking_name": "artikel",
+        "kicker": "Wissen & Sicherheit",
+        "heading": "Die unterschätzte Gefahr in deutschen Wohnmobilen",
+        "deck": "Das geruchlose Gas bleibt oft unbemerkt – und kann lebensgefährdend enden.",
+        "byline_mode": "brand",
+        "brand_name": "SICHERLUFT Ratgeber",
+        "person_confirmed": false,
+        "date": "25. September 2026",
+        "source_label": "Quelle: Bundesinstitut für Risikobewertung (BfR)",
+        "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
+      }
+    },
     "gefahr": {
       "type": "sl-lp-cards",
       "blocks": {
@@ -76,12 +92,10 @@
         "quelle_gefahr"
       ],
       "settings": {
-        "anchor": "gefahr",
+        "anchor": "gefahr-fakten",
         "tracking_name": "gefahr",
         "background": "white",
         "spacing": "normal",
-        "eyebrow": "Warum das ernst ist",
-        "heading": "Warum das ernster ist, als viele denken.",
         "heading_size": "m",
         "align": "left",
         "layout": "cards",
@@ -1106,6 +1120,7 @@
   },
   "order": [
     "hero",
+    "artikel",
     "gefahr",
     "ernstfall",
     "irrtuemer",

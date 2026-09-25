@@ -1,0 +1,234 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Artikel-Kopf im Zeitungsstil
+  Dachzeile, Serifen-Schlagzeile, kursive Unterzeile und Autorenzeile mit rundem Bild und Datum –
+  gleicher Stil wie der Redaktionsblock auf der Produktseite.
+
+  Autorenzeile:
+  - Marke (Standard): Name + Signet. Ohne eigenes Bild wird das Favicon des Shops genutzt.
+  - Person: erscheint live nur mit Name, Foto und bestätigter Einwilligung/Autorisierung.
+    Bis dahin zeigt die Seite die Marken-Zeile, im Theme-Editor erscheint ein Hinweis.
+  Tracking: Sichtbarkeit über data-sl-view, Quellenlink = article_source_click.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+
+  assign wants_person = false
+  if section.settings.byline_mode == 'person'
+    assign wants_person = true
+  endif
+  assign person_live = false
+  if wants_person and section.settings.person_confirmed and section.settings.person_name != blank and section.settings.person_image != blank
+    assign person_live = true
+  endif
+
+  if person_live
+    assign author_name = section.settings.person_name
+    assign author_role = section.settings.person_role
+    assign author_image = section.settings.person_image
+  else
+    assign author_name = section.settings.brand_name
+    assign author_role = ''
+    assign author_image = section.settings.brand_image | default: settings.favicon
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-article"
+  {% if section.settings.heading != blank %}aria-labelledby="{{ heading_id }}"{% endif %}
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    <article class="sl-lp-article__inner">
+      {%- if wants_person and person_live == false and request.design_mode -%}
+        {%- render 'sl-lp-devflag',
+          reason: 'Person erscheint erst live mit Name, Foto und bestätigter Einwilligung. Bis dahin zeigt die Seite die Marken-Zeile.'
+        -%}
+      {%- endif -%}
+
+      {%- if section.settings.kicker != blank -%}
+        <p class="sl-lp-article__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-article__h">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.deck != blank -%}
+        <p class="sl-lp-article__deck">{{ section.settings.deck | escape }}</p>
+      {%- endif -%}
+
+      {%- if author_name != blank or section.settings.date != blank -%}
+        <div class="sl-lp-article__byline">
+          {%- if author_image != blank -%}
+            <span class="sl-lp-article__avatar{% unless person_live %} sl-lp-article__avatar--brand{% endunless %}">
+              <img
+                src="{{ author_image | image_url: width: 96 }}"
+                srcset="{{ author_image | image_url: width: 48 }} 48w, {{ author_image | image_url: width: 96 }} 96w, {{ author_image | image_url: width: 144 }} 144w"
+                sizes="44px"
+                width="44"
+                height="44"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              >
+            </span>
+          {%- endif -%}
+          <div class="sl-lp-article__byline-copy">
+            {%- if author_name != blank -%}
+              <p class="sl-lp-article__author">
+                {{- author_name | escape -}}
+                {%- if author_role != blank -%}
+                  <span class="sl-lp-article__role">{{ author_role | escape }}</span>
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            {%- if section.settings.date != blank or section.settings.source_label != blank -%}
+              <p class="sl-lp-article__meta">
+                {%- if section.settings.date != blank -%}
+                  <span class="sl-lp-article__date">{{ section.settings.date | escape }}</span>
+                {%- endif -%}
+                {%- if section.settings.source_label != blank -%}
+                  {%- if section.settings.date != blank -%}
+                    <span class="sl-lp-article__sep" aria-hidden="true"> · </span>
+                  {%- endif -%}
+                  {%- if section.settings.source_link != blank -%}
+                    <a
+                      class="sl-lp-article__source"
+                      href="{{ section.settings.source_link }}"
+                      target="_blank"
+                      rel="noopener"
+                      data-sl-track="article_source_click"
+                      data-sl-label="{{ section.settings.source_label | escape }}"
+                    >
+                      {{- section.settings.source_label | escape -}}
+                    </a>
+                  {%- else -%}
+                    <span class="sl-lp-article__source">{{ section.settings.source_label | escape }}</span>
+                  {%- endif -%}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · Artikel-Kopf",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Schlagzeile im Zeitungsstil. Die direkt folgende Section schließt ohne Trennlinie an."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "bericht"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "artikel"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Dachzeile",
+      "default": "Wissen & Sicherheit"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Schlagzeile (H2)"
+    },
+    {
+      "type": "textarea",
+      "id": "deck",
+      "label": "Unterzeile (kursiv)"
+    },
+    {
+      "type": "header",
+      "content": "Autorenzeile"
+    },
+    {
+      "type": "select",
+      "id": "byline_mode",
+      "label": "Absender",
+      "options": [
+        { "value": "brand", "label": "Marke" },
+        { "value": "person", "label": "Person" }
+      ],
+      "default": "brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Name (Marke)",
+      "default": "SICHERLUFT Ratgeber"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Signet (Marke)",
+      "info": "Leer = Favicon des Shops."
+    },
+    {
+      "type": "text",
+      "id": "person_name",
+      "label": "Name (Person)",
+      "info": "Nur echte Personen mit eigener, autorisierter Aussage."
+    },
+    {
+      "type": "text",
+      "id": "person_role",
+      "label": "Titel / Funktion (Person)"
+    },
+    {
+      "type": "image_picker",
+      "id": "person_image",
+      "label": "Foto (Person)"
+    },
+    {
+      "type": "checkbox",
+      "id": "person_confirmed",
+      "label": "Einwilligung liegt vor",
+      "info": "Bestätigt: echte Person, Aussage von ihr autorisiert, schriftliche Einwilligung für Name und Foto. Ohne Haken erscheint live die Marken-Zeile.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "date",
+      "label": "Datum",
+      "info": "Tatsächliches Veröffentlichungs- oder Prüfdatum, z. B. 25. September 2026."
+    },
+    {
+      "type": "text",
+      "id": "source_label",
+      "label": "Quelle"
+    },
+    {
+      "type": "url",
+      "id": "source_link",
+      "label": "Link zur Quelle"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Artikel-Kopf"
+    }
+  ]
+}
+{% endschema %}
