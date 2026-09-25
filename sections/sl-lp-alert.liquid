@@ -1,0 +1,346 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Ernstfall-Bildblock
+  Großflächiges Symbolbild (Einsatz/Blaulicht bei Nacht) + kurze, belegte Aussage + Zahlen mit Quelle + CTA.
+
+  BILDMOTIV (Symbolbild, im Editor unter „Symbolfoto“ auswählen):
+  Nachtszene auf einem Stell- oder Campingplatz: Wohnmobil im Vordergrund, dahinter unscharf ein
+  Einsatzfahrzeug mit Blaulicht, Reflexe auf nassem Boden, kalte blaue Lichtstimmung.
+  NICHT verwenden: Personen in Not, Verletzte, Tragen, Blut, erkennbare Logos, Kennzeichen,
+  Wappen oder Aufschriften von Feuerwehr/Rettungsdienst (sonst entsteht der Eindruck einer
+  Empfehlung oder eines echten Einsatzes). Bildrechte klären (Stockfoto-Lizenz / eigenes Shooting).
+  Ohne Foto zeigt die Section eine schlichte Illustration (snippets/sl-lp-emergency-scene.liquid).
+
+  Claim-Guard: Zahlen-Blöcke mit [CLAIM VERIFIZIEREN] / [QUELLE] erscheinen nur im Theme-Editor.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'ernstfall' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+
+  assign live_stats = 0
+  assign stat_count = 0
+  for block in section.blocks
+    if block.type == 'stat'
+      assign stat_count = stat_count | plus: 1
+      assign t = block.settings.value | append: ' ' | append: block.settings.text
+      capture c
+        render 'sl-lp-claim-check', text: t
+      endcapture
+      unless c contains 'unverified'
+        assign live_stats = live_stats | plus: 1
+      endunless
+    endif
+  endfor
+
+  assign source_live = true
+  capture source_claim
+    render 'sl-lp-claim-check', text: section.settings.source_label
+  endcapture
+  if source_claim contains 'unverified' or section.settings.source_label == blank
+    assign source_live = false
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-alert{% if has_image %} sl-lp-alert--photo{% endif %}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp-alert__media">
+    {%- if has_image -%}
+      {%- assign focal = section.settings.image.presentation.focal_point -%}
+      {%- if section.settings.image_mobile != blank -%}
+        {%- assign focal_m = section.settings.image_mobile.presentation.focal_point -%}
+        {%- render 'sl-lp-image',
+          image: section.settings.image_mobile,
+          widths: '480,720,960,1200',
+          sizes: '100vw',
+          alt: section.settings.image_alt,
+          class: 'sl-lp-alert__img sl-lp-alert__img--mobile',
+          position: focal_m
+        -%}
+        {%- render 'sl-lp-image',
+          image: section.settings.image,
+          widths: '960,1280,1600,1920',
+          sizes: '100vw',
+          alt: section.settings.image_alt,
+          class: 'sl-lp-alert__img sl-lp-alert__img--desktop',
+          position: focal
+        -%}
+      {%- else -%}
+        {%- render 'sl-lp-image',
+          image: section.settings.image,
+          widths: '480,720,960,1280,1600,1920',
+          sizes: '100vw',
+          alt: section.settings.image_alt,
+          class: 'sl-lp-alert__img',
+          position: focal
+        -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- render 'sl-lp-emergency-scene', uid: section.id -%}
+    {%- endif -%}
+    {%- if section.settings.badge_text != blank -%}
+      <span class="sl-lp-alert__badge">{{ section.settings.badge_text | escape }}</span>
+    {%- endif -%}
+  </div>
+
+  <div class="sl-lp__container sl-lp-alert__inner">
+    <div class="sl-lp-alert__content">
+      {%- if request.design_mode and has_image == false -%}
+        <p class="sl-lp-devnote">Aktuell wird die Illustration gezeigt. Für mehr Wirkung ein echtes Symbolfoto wählen – Motiv siehe Hinweis bei „Symbolfoto“.</p>
+      {%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sl-lp-eyebrow sl-lp-eyebrow--signal">
+          {%- render 'sl-lp-icon', name: 'siren', size: 18 -%}
+          <span>{{ section.settings.eyebrow | escape }}</span>
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-h2 sl-lp-h2--l sl-lp-alert__h">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="sl-lp-alert__text sl-lp-rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if stat_count > 0 -%}
+        {%- if live_stats > 0 or request.design_mode -%}
+          <ul class="sl-lp-alert__stats" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.type != 'stat' -%}{%- continue -%}{%- endif -%}
+              {%- liquid
+                assign s = block.settings
+                assign t = s.value | append: ' ' | append: s.text
+                capture c
+                  render 'sl-lp-claim-check', text: t
+                endcapture
+                assign unverified = false
+                if c contains 'unverified'
+                  assign unverified = true
+                endif
+              -%}
+              {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+              <li class="sl-lp-alert__stat{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+                {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+                <p class="sl-lp-alert__value">{{ s.value | escape }}</p>
+                <p class="sl-lp-alert__label">{{ s.text | escape }}</p>
+                {%- if request.design_mode and s.dev_note != blank -%}
+                  <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if source_live or section.settings.stats_note != blank -%}
+            <p class="sl-lp-alert__source">
+              {%- if section.settings.stats_note != blank -%}
+                <span>{{ section.settings.stats_note | escape }}</span>
+              {%- endif -%}
+              {%- if source_live -%}
+                <span>
+                  Quelle:
+                  {% if section.settings.source_link != blank -%}
+                    <a href="{{ section.settings.source_link | escape }}" target="_blank" rel="noopener" data-sl-track="source_link_click" data-sl-label="{{ section.settings.source_label | escape }}">{{ section.settings.source_label | escape }}</a>
+                  {%- else -%}
+                    {{ section.settings.source_label | escape }}
+                  {%- endif %}
+                </span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank or section.settings.secondary_label != blank -%}
+        <div class="sl-lp-alert__actions">
+          {%- if section.settings.cta_label != blank -%}
+            <a
+              href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+              id="sl-{{ track }}-cta"
+              class="sl-lp-cta sl-lp-cta--signal"
+              data-sl-track="alert_cta_click"
+              data-sl-label="{{ section.settings.cta_label | escape }}"
+            >
+              <span>{{ section.settings.cta_label | escape }}</span>
+              {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a
+              href="{{ section.settings.secondary_link | default: '#' | escape }}"
+              id="sl-{{ track }}-more"
+              class="sl-lp-link sl-lp-link--light"
+              data-sl-track="alert_more_click"
+              data-sl-label="{{ section.settings.secondary_label | escape }}"
+            >
+              {{- section.settings.secondary_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · Ernstfall-Bild",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Großes Symbolbild mit Warnwirkung. Nur belegte Zahlen live – Blöcke mit [CLAIM VERIFIZIEREN] erscheinen nur hier im Editor."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "ernstfall"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "ernstfall"
+    },
+    {
+      "type": "header",
+      "content": "Symbolfoto"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Symbolfoto (Desktop, quer)",
+      "info": "Motiv: Wohnmobil bei Nacht, dahinter unscharf Blaulicht eines Einsatzfahrzeugs, nasser Boden. Keine Personen in Not, keine Logos, Kennzeichen oder Aufschriften. Min. 1920 × 1080 px. Fokuspunkt im Bild setzen."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Symbolfoto Mobil (optional, hoch)",
+      "info": "Optional eigener Ausschnitt fürs Smartphone, z. B. 1080 × 1350 px."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alternativtext",
+      "default": "Symbolbild: Wohnmobil bei Nacht, im Hintergrund Blaulicht eines Einsatzfahrzeugs"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Kennzeichnung im Bild",
+      "default": "Symbolbild",
+      "info": "Empfohlen, damit das Bild nicht als echter Einsatz verstanden wird."
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Im Ernstfall"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Im Ernstfall zählt nicht dein Bauchgefühl."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Zahlen & Quelle"
+    },
+    {
+      "type": "text",
+      "id": "stats_note",
+      "label": "Einordnung der Zahlen",
+      "info": "z. B. „Zahlen für ganz Deutschland – nicht nur Wohnmobile.“"
+    },
+    {
+      "type": "text",
+      "id": "source_label",
+      "label": "Quelle"
+    },
+    {
+      "type": "text",
+      "id": "source_link",
+      "label": "Link zur Quelle"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Primärer Button",
+      "default": "Jetzt Wohnmobil absichern"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel primärer Button",
+      "default": "#angebot"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Textlink"
+    },
+    {
+      "type": "text",
+      "id": "secondary_link",
+      "label": "Ziel Textlink"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Zahl",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Wert",
+          "info": "Nur mit geprüfter Quelle und exaktem Wortlaut."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Aussage"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Quelle / interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Ernstfall-Bild"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: kurze Vertrauens-Merkmale („Trust-Chips“) in der Nähe von Buttons.
+  Eine Zeile = ein Merkmal. Zeilen mit [CLAIM VERIFIZIEREN] / [PRODUKTDATEN] / [QUELLE] erscheinen
+  nur im Theme-Editor (markiert), nie live.
+
+  Accepts:
+  - items: {String} Merkmale, eine Zeile pro Merkmal (textarea)
+  - tone: {String} 'light' (dunkler Hintergrund) oder 'dark' (heller Hintergrund, Standard)
+  - align: {String} 'left' (Standard) oder 'center'
+{%- endcomment -%}
+{%- liquid
+  assign sl_lines = items | newline_to_br | split: '<br />'
+  assign sl_live = 0
+  for sl_line in sl_lines
+    assign sl_text = sl_line | strip
+    if sl_text == blank
+      continue
+    endif
+    capture sl_c
+      render 'sl-lp-claim-check', text: sl_text
+    endcapture
+    unless sl_c contains 'unverified'
+      assign sl_live = sl_live | plus: 1
+    endunless
+  endfor
+-%}
+{%- if sl_live > 0 or request.design_mode and items != blank -%}
+  <ul class="sl-lp-trust sl-lp-trust--{{ tone | default: 'dark' }} sl-lp-trust--{{ align | default: 'left' }}" role="list">
+    {%- for sl_line in sl_lines -%}
+      {%- liquid
+        assign sl_text = sl_line | strip
+        if sl_text == blank
+          continue
+        endif
+        capture sl_c
+          render 'sl-lp-claim-check', text: sl_text
+        endcapture
+        assign sl_unverified = false
+        if sl_c contains 'unverified'
+          assign sl_unverified = true
+        endif
+      -%}
+      {%- if sl_unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+      <li class="sl-lp-trust__item{% if sl_unverified %} sl-lp-card--dev-hidden{% endif %}"{% if sl_unverified %} data-sl-unverified="claim"{% endif %}>
+        {%- render 'sl-lp-icon', name: 'check', size: 16, class: 'sl-lp-trust__icon' -%}
+        <span>{{ sl_text | escape }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

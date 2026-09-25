@@ -4,18 +4,130 @@
       "type": "sl-lp-hero",
       "settings": {
         "anchor": "start",
-        "eyebrow": "SICHERLUFT · Sicherheit im Wohnmobil",
-        "heading": "Gas zu. Heizung an. Und die Luft?",
-        "subheading": "Der Nacht-Check, der auf vielen Wohnmobil-Checklisten fehlt.",
-        "text": "<p>Bevor du schlafen gehst, prüfst du Gas, Türen, Fenster und Strom. Aber weißt du auch, was die Luft in deinem Wohnmobil gerade macht?</p>",
-        "cta_label": "Nacht-Check starten",
-        "cta_link": "#irrtuemer",
-        "secondary_label": "Warum SICHERLUFT?",
-        "secondary_link": "#so-funktioniert",
+        "eyebrow": "Unsichtbare Gefahr im Wohnmobil",
+        "heading": "Kohlenmonoxid riechst du nicht.",
+        "heading_accent": "Wenn du es merkst, kann es zu spät sein.",
+        "subheading": "Vor dem Schlafen prüfst du Türen, Fenster und Strom. Aber was gerade mit der Luft passiert, siehst du nicht. Genau dort ist die Lücke – SICHERLUFT macht sie sichtbar.",
+        "cta_label": "Jetzt Nacht-Check starten",
+        "cta_link": "#gefahr",
+        "cta_label_b": "Wohnmobil jetzt absichern",
+        "cta_link_b": "#angebot",
+        "cta_label_c": "Sicherheits-Check starten",
+        "cta_link_c": "#gefahr",
+        "secondary_label": "Warum das wichtig ist",
+        "secondary_link": "#ernstfall",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nOhne App",
         "device_image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
         "device_crop": "left_half",
         "device_alt": "SICHERLUFT Gas- und CO-Melder: Display mit Temperatur, CO- und Gaswert sowie Luftfeuchtigkeit, darunter die Anzeigen Betrieb, Alarm und Störung",
-        "device_note": "Display: CO · Gas · °C · %RH"
+        "device_note": "Display: CO · Gas · °C · %RH",
+        "alarm_ring": true,
+        "bluelight": true
+      }
+    },
+    "gefahr": {
+      "type": "sl-lp-cards",
+      "blocks": {
+        "gefahr_unsichtbar": {
+          "type": "card",
+          "settings": {
+            "icon": "no-odor",
+            "title": "Du riechst es nicht. Du siehst es nicht.",
+            "text": "<p>Kohlenmonoxid ist farb- und geruchlos. Du kannst es weder sehen, riechen, schmecken noch hören.</p>",
+            "card_id": "unsichtbar",
+            "dev_note": "Quelle: BfR-Broschüre S. 4: „Kohlenmonoxid kann man nicht sehen, riechen, schmecken oder hören.“"
+          }
+        },
+        "gefahr_raum": {
+          "type": "card",
+          "settings": {
+            "icon": "volume",
+            "title": "Auf engem Raum kann es schneller kritisch werden.",
+            "text": "<p>Heizung, Kocher und Abgase teilen sich im Wohnmobil wenige Kubikmeter Luft. Dieselbe Menge Gas ergibt dort eine viel höhere Konzentration als in einer Wohnung.</p>",
+            "card_id": "enger-raum",
+            "dev_note": "Physikalische Grundlage: Konzentration = Menge / Raumvolumen. Keine Zahlen genannt."
+          }
+        },
+        "gefahr_schlaf": {
+          "type": "card",
+          "settings": {
+            "icon": "moon",
+            "title": "Im Schlaf merkst du es womöglich nicht.",
+            "text": "<p>Erste Anzeichen wie Übelkeit, Schwindel oder Kopfschmerzen sind unspezifisch. Später können Bewusstseinsstörungen und Muskelschwäche dazukommen – und dich daran hindern, dich noch in Sicherheit zu bringen.</p>",
+            "card_id": "schlaf",
+            "dev_note": "Quelle: BfR-Broschüre S. 4: „Erste unspezifische Vergiftungssymptome sind Übelkeit, Schwindel oder Kopfschmerzen. Erst spät kommen Herzrasen, Bewusstseinsstörungen und Muskelschwäche hinzu. Diese Beeinträchtigungen hindern Betroffene daran, den Raum zu verlassen und sich in Sicherheit zu bringen.“"
+          }
+        },
+        "quelle_gefahr": {
+          "type": "source",
+          "settings": {
+            "label": "Gesundheitsrisiken durch Kohlenmonoxid (PDF), S. 4",
+            "publisher": "Bundesinstitut für Risikobewertung (BfR)",
+            "link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
+          }
+        }
+      },
+      "block_order": [
+        "gefahr_unsichtbar",
+        "gefahr_raum",
+        "gefahr_schlaf",
+        "quelle_gefahr"
+      ],
+      "settings": {
+        "anchor": "gefahr",
+        "tracking_name": "gefahr",
+        "background": "ink",
+        "spacing": "normal",
+        "eyebrow": "Warum das ernst ist",
+        "heading": "Warum das Thema ernster ist, als viele denken.",
+        "heading_size": "l",
+        "align": "left",
+        "layout": "cards",
+        "columns": "3",
+        "card_style": "signal",
+        "min_live_cards": 0,
+        "sources_heading": "Quelle"
+      }
+    },
+    "ernstfall": {
+      "type": "sl-lp-alert",
+      "blocks": {
+        "stat_tote": {
+          "type": "stat",
+          "settings": {
+            "value": "117",
+            "text": "Menschen starben 2021 in Deutschland an einer unbeabsichtigten Kohlenmonoxid-Vergiftung.",
+            "dev_note": "BfR-Broschüre S. 5: „Mit insgesamt 397 registrierten Fällen im Jahr 2021 waren Kohlenmonoxid-Vergiftungen … die Vergiftungsart mit den meisten Todesfällen. 117 Fälle gingen dabei auf unbeabsichtigte Vergiftungen zurück.“ Bewusst die 117 unbeabsichtigten Fälle, nicht die 397 insgesamt."
+          }
+        },
+        "stat_klinik": {
+          "type": "stat",
+          "settings": {
+            "value": "2.199",
+            "text": "Menschen kamen im selben Jahr wegen einer Kohlenmonoxid-Vergiftung ins Krankenhaus.",
+            "dev_note": "BfR-Broschüre S. 5: „Im Jahr 2021 wurden insgesamt 2.199 Personen aufgrund einer Kohlenmonoxid-Vergiftung ins Krankenhaus aufgenommen.“ (Quelle dort: GBE Bund 2021)"
+          }
+        }
+      },
+      "block_order": [
+        "stat_tote",
+        "stat_klinik"
+      ],
+      "settings": {
+        "anchor": "ernstfall",
+        "tracking_name": "ernstfall",
+        "image_alt": "Symbolbild: Wohnmobil bei Nacht, im Hintergrund Blaulicht eines Einsatzfahrzeugs",
+        "badge_text": "Symbolbild",
+        "eyebrow": "Im Ernstfall",
+        "heading": "Im Ernstfall zählt nicht dein Bauchgefühl.",
+        "text": "<p>Kohlenmonoxid kündigt sich nicht an: kein Geruch, kein Rauch, keine eindeutigen Warnzeichen. Genau deshalb brauchst du sichtbare Kontrolle statt eines guten Gefühls.</p>",
+        "stats_note": "Zahlen für ganz Deutschland – nicht nur Wohnmobile.",
+        "source_label": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 5 (Daten: GBE Bund 2021)",
+        "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
+        "cta_label": "Jetzt Wohnmobil absichern",
+        "cta_link": "#angebot",
+        "secondary_label": "So warnt SICHERLUFT",
+        "secondary_link": "#sehen"
       }
     },
     "irrtuemer": {
@@ -25,46 +137,59 @@
           "type": "card",
           "settings": {
             "icon": "smoke-alarm",
-            "label": "Annahme 1",
-            "title": "„Mein Rauchmelder passt auf.“",
-            "text": "<p><strong>Rauchmelder und CO-Melder messen unterschiedliche Gefahren.</strong> Ein klassischer Rauchmelder reagiert auf Rauch, wie er bei einem Brand entsteht. Kohlenmonoxid ist ein Gas, das bei unvollständiger Verbrennung entstehen kann – auch ohne sichtbaren Rauch. Dafür braucht es einen eigenen CO-Sensor.</p>",
+            "label": "Denkfehler 1",
+            "belief": "„Mein Rauchmelder passt auf.“",
+            "title": "Ein Rauchmelder warnt nicht vor Kohlenmonoxid.",
+            "text": "<p>Er reagiert auf Rauch – also auf Brand. Kohlenmonoxid entsteht auch ohne Feuer und ohne sichtbaren Rauch, etwa bei unvollständiger Verbrennung in Heizung oder Kocher. Dafür braucht es einen eigenen CO-Sensor.</p>",
             "card_id": "rauchmelder",
             "track_event": "card_link_click",
-            "dev_note": "Quelle: BfR-Broschüre „Gesundheitsrisiken durch Kohlenmonoxid“ – CO entsteht bei unvollständiger Verbrennung; 41 % der Befragten glauben fälschlich, Rauchmelder würden bei CO alarmieren."
+            "dev_note": "BfR-Broschüre S. 13: „Ein Rauchmelder warnt NICHT vor Kohlenmonoxid, sondern nur spezielle Kohlenmonoxid-Melder.“ S. 3: CO entsteht bei unvollständiger Verbrennung."
           }
         },
         "annahme_geruch": {
           "type": "card",
           "settings": {
             "icon": "no-odor",
-            "label": "Annahme 2",
-            "title": "„Kohlenmonoxid würde ich schon merken.“",
-            "text": "<p><strong>Kohlenmonoxid ist nicht zuverlässig über den Geruch wahrnehmbar.</strong> Es ist farb- und geruchlos. Erste Beschwerden wie Kopfschmerzen, Schwindel oder Übelkeit sind unspezifisch und werden leicht anderen Ursachen zugeschrieben.</p>",
+            "label": "Denkfehler 2",
+            "belief": "„Kohlenmonoxid würde ich schon merken.“",
+            "title": "Kohlenmonoxid riechst du nicht. Und die ersten Anzeichen täuschen.",
+            "text": "<p>Es ist farb- und geruchlos. Übelkeit, Schwindel oder Kopfschmerzen sind unspezifisch – und schnell auf die lange Fahrt oder zu wenig Schlaf geschoben.</p>",
             "card_id": "geruch",
             "track_event": "card_link_click",
-            "dev_note": "Quelle: BfR-Broschüre, S. 4: „Kohlenmonoxid ist ein farb- und geruchloses Gas […]. Erste unspezifische Vergiftungssymptome sind Übelkeit, Schwindel oder Kopfschmerzen.“"
+            "dev_note": "BfR-Broschüre S. 4: farb- und geruchlos; erste Symptome unspezifisch (Übelkeit, Schwindel, Kopfschmerzen)."
           }
         },
         "annahme_licht": {
           "type": "card",
           "settings": {
             "icon": "light",
-            "label": "Annahme 3",
-            "title": "„Das grüne Licht bedeutet, dass alles okay ist.“",
-            "text": "<p><strong>Eine Betriebsanzeige zeigt in erster Linie, dass ein Gerät aktiv beziehungsweise mit Strom versorgt ist.</strong> Sie zeigt nicht automatisch einen aktuellen Messwert der Raumluft.</p>",
+            "label": "Denkfehler 3",
+            "belief": "„Das grüne Licht zeigt, dass alles okay ist.“",
+            "title": "Ein Lichtsignal ist kein Luft-Check.",
+            "text": "<p>Eine Betriebsanzeige zeigt, dass ein Gerät Strom hat. Was gerade in der Luft ist, zeigt sie nicht. Dafür brauchst du einen Messwert.</p>",
             "card_id": "gruenes-licht",
             "track_event": "card_link_click",
-            "dev_note": "Allgemeine Funktionsbeschreibung einer Betriebsanzeige. SICHERLUFT selbst hat eine grüne LED „Betrieb“ (Gerätebeschriftung, Seite Sicherheitsinformationen)."
+            "dev_note": "Allgemeine Funktionsbeschreibung einer Betriebsanzeige. SICHERLUFT selbst hat eine grüne LED „Betrieb“ (Gerätebeschriftung)."
           }
         },
         "fakt_bfr": {
           "type": "fact",
           "settings": {
             "value": "41 %",
-            "text": "<p>der Befragten denken, Rauchmelder alarmieren bei CO in der Umgebungsluft. 44 % denken, man könne CO riechen. [CLAIM VERIFIZIEREN: Wortlaut und Basis mit der BfR-Broschüre abgleichen – Basis: 832 Befragte, die schon von CO-Vergiftungsfällen gehört haben; repräsentative Telefonbefragung Februar–März 2019, n = 1.012]</p>",
-            "source_label": "BfR – Gesundheitsrisiken durch Kohlenmonoxid",
+            "text": "<p>glauben, ein Rauchmelder schlägt bei Kohlenmonoxid Alarm. <strong>44 %</strong> glauben, man könne es riechen. Beides ist falsch.</p>",
+            "source_label": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 11 – Befragung 2019, Basis: 832 Personen, die schon von CO-Vergiftungen gehört hatten",
             "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
-            "dev_note": "Aus der BfR-Broschüre (ISBN 978-3-948484-00-2), Abschnitt „Woran kann man Kohlenmonoxid erkennen?“. Statistik erst nach eigener Prüfung live schalten: Platzhalter aus dem Text entfernen."
+            "dev_note": "Geprüft am Original (S. 11): „41 % denken, Rauchmelder alarmieren bei CO in der Umgebungsluft“, „44 % denken, man könne CO riechen“ – laut BfR „fälschlicherweise“. Basis 832 (S. 10), Methodik S. 17."
+          }
+        },
+        "fakt_melder": {
+          "type": "fact",
+          "settings": {
+            "value": "15 %",
+            "text": "<p>haben einen Kohlenmonoxid-Melder. Einen Rauchmelder haben <strong>90 %</strong>.</p>",
+            "source_label": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 13 – Befragung 2019, Basis: alle 1.012 Befragten",
+            "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
+            "dev_note": "Geprüft am Original (S. 13): „Während 90 Prozent der Befragten einen Rauchmelder besitzen, haben nur 15 Prozent einen Kohlenmonoxid-Melder installiert.“"
           }
         },
         "quelle_bfr": {
@@ -73,7 +198,7 @@
             "label": "Gesundheitsrisiken durch Kohlenmonoxid (PDF)",
             "publisher": "Bundesinstitut für Risikobewertung (BfR)",
             "link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
-            "dev_note": "Belegt: CO ist farb- und geruchlos; unspezifische erste Symptome (Übelkeit, Schwindel, Kopfschmerzen); CO entsteht bei unvollständiger Verbrennung kohlenstoffhaltiger Stoffe."
+            "dev_note": "Repräsentative Telefonbefragung Feb.–März 2019, n = 1.012 (S. 17)."
           }
         }
       },
@@ -82,21 +207,22 @@
         "annahme_geruch",
         "annahme_licht",
         "fakt_bfr",
+        "fakt_melder",
         "quelle_bfr"
       ],
       "settings": {
-        "anchor": "irrtuemer",
-        "tracking_name": "irrtuemer",
+        "anchor": "denkfehler",
+        "tracking_name": "denkfehler",
         "background": "white",
         "spacing": "normal",
-        "eyebrow": "Drei verbreitete Annahmen",
-        "heading": "Drei Dinge, bei denen sich viele Camper sicherer fühlen, als sie tatsächlich informiert sind.",
+        "eyebrow": "Falsche Sicherheit",
+        "heading": "Drei Sätze, die sich sicher anfühlen. Und es nicht sind.",
         "heading_size": "m",
-        "intro": "<p>Keine davon ist leichtsinnig. Aber jede lässt eine Lücke, die man kennen sollte.</p>",
+        "intro": "<p>Jeder davon klingt vernünftig. Und jeder lässt eine gefährliche Lücke.</p>",
         "align": "left",
         "layout": "cards",
         "columns": "3",
-        "card_style": "quote",
+        "card_style": "myth",
         "min_live_cards": 0,
         "sources_heading": "Quellen"
       }
@@ -104,103 +230,117 @@
     "wohnmobil": {
       "type": "sl-lp-cards",
       "blocks": {
-        "faktor_heizung": {
-          "type": "card",
-          "settings": {
-            "icon": "flame",
-            "title": "Heizung",
-            "text": "<p>Viele Wohnmobile heizen mit Gas oder Diesel – oft nachts, wenn Fenster und Dachluken geschlossen sind.</p>",
-            "card_id": "heizung"
-          }
-        },
-        "faktor_kocher": {
+        "nacht_kochen": {
           "type": "card",
           "settings": {
             "icon": "stove",
-            "title": "Kocher",
-            "text": "<p>Ein Gaskocher verbrennt Gas offen im Innenraum. Deshalb gehört beim Kochen ausreichende Belüftung dazu.</p>",
-            "card_id": "kocher"
+            "label": "19:30",
+            "title": "Kochen auf dem Gaskocher",
+            "text": "<p>Offene Flamme im Innenraum. Verbrennt Gas unvollständig, entsteht Kohlenmonoxid – unsichtbar und geruchlos.</p>",
+            "card_id": "kochen",
+            "dev_note": "BfR S. 3: CO entsteht bei unvollständiger Verbrennung kohlenstoffhaltiger Stoffe."
           }
         },
-        "faktor_fluessiggas": {
+        "nacht_heizung": {
           "type": "card",
           "settings": {
-            "icon": "gas-cylinder",
-            "title": "Flüssiggas",
-            "text": "<p>Propan und Butan werden in Flaschen mitgeführt und über Leitungen verteilt. Flüssiggas ist schwerer als Luft und sammelt sich bei einem Leck eher am Boden.</p>",
-            "card_id": "fluessiggas"
+            "icon": "flame",
+            "label": "22:00",
+            "title": "Heizung an, Fenster zu",
+            "text": "<p>Draußen wird es kalt. Die Heizung läuft, Dachluken und Fenster bleiben zu. Ist ein Abgasweg beschädigt, undicht oder zugesetzt, können Abgase in den Innenraum gelangen.</p>",
+            "card_id": "heizung",
+            "dev_note": "BfR S. 3: CO kann sich in Räumen anreichern, wenn z. B. Ofenabzüge oder gasbetriebene Geräte defekt sind."
           }
         },
-        "faktor_abgaswege": {
-          "type": "card",
-          "settings": {
-            "icon": "exhaust",
-            "title": "Abgaswege",
-            "text": "<p>Heizung und Kühlschrank führen Abgase über Kamine nach außen. Sind diese beschädigt, undicht oder zugestellt, kann Abgas in den Innenraum gelangen.</p>",
-            "card_id": "abgaswege"
-          }
-        },
-        "faktor_raum": {
-          "type": "card",
-          "settings": {
-            "icon": "volume",
-            "title": "Begrenztes Raumvolumen",
-            "text": "<p>Auf wenigen Kubikmetern verändert sich die Luft schneller als in einer Wohnung.</p>",
-            "card_id": "raumvolumen"
-          }
-        },
-        "faktor_schlafen": {
+        "nacht_schlafen": {
           "type": "card",
           "settings": {
             "icon": "bed",
-            "title": "Schlafbereich",
-            "text": "<p>Geschlafen wird oft nur wenige Meter von Heizung und Küche entfernt.</p>",
-            "card_id": "schlafbereich"
+            "label": "23:30",
+            "title": "Du schläfst – wenige Meter daneben",
+            "text": "<p>Bett, Küche und Heizung liegen im Wohnmobil oft nur wenige Meter auseinander. Wer schläft, bemerkt erste Anzeichen womöglich gar nicht.</p>",
+            "card_id": "schlafen"
           }
         },
-        "faktor_stellplatz": {
+        "nacht_stellplatz": {
           "type": "card",
           "settings": {
             "icon": "car-fumes",
-            "title": "Nachbarn auf dem Stellplatz",
-            "text": "<p>Auf Stell- und Campingplätzen stehen Fahrzeuge dicht beieinander. Laufende Motoren, Generatoren oder Heizungen in der Nähe sind Abgasquellen, die du nicht beeinflussen kannst.</p>",
+            "label": "01:00",
+            "title": "Nebenan läuft ein Aggregat",
+            "text": "<p>Auf Stell- und Campingplätzen stehen Fahrzeuge dicht an dicht. Motoren, Generatoren oder Heizungen nebenan sind Abgasquellen, die du nicht kontrollierst.</p>",
             "card_id": "stellplatz"
+          }
+        },
+        "nacht_defekt": {
+          "type": "card",
+          "settings": {
+            "icon": "exhaust",
+            "label": "03:00",
+            "title": "Ein Defekt, den niemand sieht",
+            "text": "<p>Ein zugesetzter Kamin, eine undichte Verbindung: Von innen siehst du davon nichts. Und Kohlenmonoxid riechst du nicht.</p>",
+            "card_id": "defekt"
+          }
+        },
+        "hinweis_fazit": {
+          "type": "note",
+          "settings": {
+            "icon": "camper",
+            "text": "<p><strong>Im Wohnmobil kommen viele Faktoren auf engem Raum zusammen.</strong> Luftsicherheit ist hier nicht „wie zuhause“ – sie braucht einen eigenen Blick.</p>"
           }
         },
         "hinweis_ruhe": {
           "type": "note",
           "settings": {
             "icon": "shield-check",
-            "text": "<p><strong>Keiner dieser Punkte ist ein Grund zur Sorge.</strong> Zusammen sind sie ein guter Grund, die Luft nicht dem Gefühl zu überlassen. Wichtig bleibt: Ein Melder ersetzt keine regelmäßige Gasprüfung und keine Wartung von Heizung und Abgasführung.</p>",
-            "dev_note": "Letzter Satz sinngemäß aus der Seite „Sicherheitsinformationen“ (Wichtiger Hinweis)."
+            "text": "<p>Ein Melder ersetzt keine regelmäßige Gasprüfung und keine Wartung von Heizung und Abgasführung. Er zeigt dir, was dazwischen passiert.</p>",
+            "dev_note": "Erster Satz sinngemäß aus der Seite „Sicherheitsinformationen“ (Wichtiger Hinweis)."
           }
         }
       },
       "block_order": [
-        "faktor_heizung",
-        "faktor_kocher",
-        "faktor_fluessiggas",
-        "faktor_abgaswege",
-        "faktor_raum",
-        "faktor_schlafen",
-        "faktor_stellplatz",
+        "nacht_kochen",
+        "nacht_heizung",
+        "nacht_schlafen",
+        "nacht_stellplatz",
+        "nacht_defekt",
+        "hinweis_fazit",
         "hinweis_ruhe"
       ],
       "settings": {
-        "anchor": "wohnmobil",
-        "tracking_name": "wohnmobil",
-        "background": "mist",
+        "anchor": "nacht",
+        "tracking_name": "nacht",
+        "background": "night",
         "spacing": "normal",
-        "eyebrow": "Warum das Wohnmobil ein eigener Fall ist",
-        "heading": "Im Wohnmobil kommen mehrere Faktoren auf engem Raum zusammen.",
+        "eyebrow": "Der Nacht-Check",
+        "heading": "Eine ganz normale Nacht im Wohnmobil.",
         "heading_size": "m",
-        "intro": "<p>Küche, Wohnzimmer und Schlafzimmer auf wenigen Quadratmetern: Deshalb lohnt es sich, ein Wohnmobil nicht wie ein gewöhnliches Wohnzimmer zu betrachten.</p>",
+        "intro": "<p>Kein Leichtsinn, kein Sonderfall. Fünf Momente, die viele Camper kennen – auf wenigen Kubikmetern.</p>",
         "align": "left",
-        "layout": "grid",
-        "columns": "4",
+        "layout": "timeline",
+        "columns": "2",
         "card_style": "plain",
         "min_live_cards": 0,
         "sources_heading": "Quellen"
+      }
+    },
+    "cta_mitte": {
+      "type": "sl-lp-cta",
+      "settings": {
+        "anchor": "jetzt-sehen",
+        "tracking_name": "cta_mitte",
+        "style": "signal",
+        "align": "left",
+        "spacing": "compact",
+        "icon": "alert",
+        "eyebrow": "Du kannst nicht alles kontrollieren",
+        "heading": "Aber du kannst sehen, was in der Luft ist.",
+        "text": "<p>SICHERLUFT zeigt CO, Gas, Temperatur und Luftfeuchte direkt am Gerät – und schlägt hörbar und sichtbar Alarm, sobald der Alarmwert erreicht ist.</p>",
+        "cta_label": "Passendes Set finden",
+        "cta_link": "#angebot",
+        "secondary_label": "Erst ansehen, wie es warnt",
+        "secondary_link": "#sehen",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nEinstecken statt bohren\nOhne App"
       }
     },
     "anzeige_alarm": {
@@ -210,18 +350,18 @@
           "type": "step",
           "settings": {
             "indicator": "led",
-            "title": "Gerät ist eingeschaltet",
-            "text": "<p>Die Betriebsanzeige leuchtet. Sie sagt: Das Gerät hat Strom und ist aktiv. Über die Luft im Raum sagt sie noch nichts.</p>",
+            "title": "Aktiv",
+            "text": "<p>Die grüne Betriebs-LED zeigt: Das Gerät hat Strom und arbeitet.</p>",
             "observe_label": "Was du siehst:",
-            "observe": "eine leuchtende Statusanzeige"
+            "observe": "grünes Licht"
           }
         },
         "zustand_misst": {
           "type": "step",
           "settings": {
             "indicator": "sensor",
-            "title": "Gerät misst",
-            "text": "<p>Der Sensor erfasst die Luft im Raum – im Hintergrund, ohne dass du etwas tun musst.</p>",
+            "title": "Misst",
+            "text": "<p>Der Sensor erfasst die Raumluft – im Hintergrund, ohne dass du etwas tun musst.</p>",
             "observe_label": "Was du siehst:",
             "observe": "von außen zunächst nichts"
           }
@@ -230,20 +370,20 @@
           "type": "step",
           "settings": {
             "indicator": "display",
-            "title": "Display zeigt einen Wert",
-            "text": "<p>Ein Display macht die Messung sichtbar. Du siehst selbst, was gerade angezeigt wird – nicht erst, wenn es laut wird.</p>",
+            "title": "Zeigt Werte",
+            "text": "<p>Auf dem Display stehen konkrete Zahlen: CO in ppm, Gas in %LEL, Temperatur und Luftfeuchte. Du siehst, was los ist – nicht erst, wenn es laut wird.</p>",
             "observe_label": "Was du siehst:",
-            "observe": "eine Zahl, zum Beispiel für CO in ppm"
+            "observe": "Zahlen statt Vermutung"
           }
         },
         "zustand_alarm": {
           "type": "step",
           "settings": {
             "indicator": "alarm",
-            "title": "Gerät löst Alarm aus",
-            "text": "<p>Erreicht die Messung einen im Gerät festgelegten Alarmwert, warnt das Gerät akustisch und optisch. Der Alarm ist das Signal zum Handeln.</p>",
+            "title": "Schlägt Alarm",
+            "text": "<p>Erreicht die Messung den im Gerät festgelegten Alarmwert, warnt SICHERLUFT hörbar und mit roter Alarm-LED. Dann heißt es: handeln.</p>",
             "observe_label": "Was du siehst:",
-            "observe": "die rote Alarmanzeige – und du hörst einen Warnton",
+            "observe": "rote LED und Warnton",
             "dev_note": "Akustische und optische Alarmanzeige: Seite „Sicherheitsinformationen“ (verweist auf Prüfberichte). Rote LED „Alarm“: Gerätebeschriftung. Lautstärke in dB NICHT belegt."
           }
         },
@@ -258,9 +398,9 @@
         "hinweis_alarm": {
           "type": "note",
           "settings": {
-            "icon": "shield-check",
-            "text": "<p>Ein Alarm darf nie ignoriert werden: den Bereich verlassen und die Hinweise der Bedienungsanleitung befolgen.</p>",
-            "dev_note": "Quelle: Seite „Sicherheitsinformationen“, Abschnitt „Verhalten bei Alarm“."
+            "icon": "phone",
+            "text": "<p><strong>Bei Alarm:</strong> Fahrzeug sofort mit allen Personen verlassen und die Feuerwehr rufen (112). Folge außerdem den Hinweisen der Bedienungsanleitung.</p>",
+            "dev_note": "BfR-Broschüre S. 21: „Bei Alarm sofort alle Personen im Haus evakuieren und die Feuerwehr rufen.“ Dazu Seite „Sicherheitsinformationen“, Abschnitt „Verhalten bei Alarm“."
           }
         }
       },
@@ -273,17 +413,18 @@
         "hinweis_alarm"
       ],
       "settings": {
-        "anchor": "anzeige-und-alarm",
-        "tracking_name": "anzeige_alarm",
+        "anchor": "sehen",
+        "tracking_name": "sehen",
         "background": "white",
         "spacing": "normal",
-        "eyebrow": "Anzeige und Alarm",
-        "heading": "Ein Alarm ist wichtig. Eine sichtbare Messung gibt dir zusätzliche Information.",
+        "eyebrow": "Sehen statt raten",
+        "heading": "Du musst nicht raten. Du siehst, was los ist.",
         "heading_size": "m",
-        "intro": "<p>Vier Zustände, die leicht verwechselt werden – und was sie dir jeweils sagen.</p>",
+        "intro": "<p>Kein Interpretieren, kein Hoffen. Vier Zustände – und bei jedem weißt du, woran du bist.</p>",
         "step_prefix": "Zustand",
         "link_label": "Technische Nachweise ansehen",
-        "link_url": "/pages/nachweise"
+        "link_url": "/pages/nachweise",
+        "cta_link": "#angebot"
       }
     },
     "so_funktioniert": {
@@ -294,7 +435,7 @@
           "settings": {
             "icon": "co",
             "title": "Kohlenmonoxid (CO)",
-            "text": "<p>Anzeige des CO-Werts in ppm (parts per million) direkt auf dem Display.</p>",
+            "text": "<p>Der CO-Wert in ppm – direkt auf dem Display.</p>",
             "dev_note": "Quelle: Display-Beschriftung „CO … PPM“ auf dem Referenzfoto sicherluft-echtes-produktfoto-referenz.jpg."
           }
         },
@@ -303,7 +444,7 @@
           "settings": {
             "icon": "gas",
             "title": "Brennbare Gase",
-            "text": "<p>Anzeige in %LEL – dem Anteil an der unteren Explosionsgrenze (UEG).</p>",
+            "text": "<p>Anzeige in %LEL, dem Anteil an der unteren Explosionsgrenze.</p>",
             "dev_note": "Quelle: Display-Beschriftung „GAS … %LEL“. OFFEN: welche Gasarten erfasst werden (Propan/Butan = Flüssiggas im Wohnmobil?) – siehe Hinweis unten."
           }
         },
@@ -321,7 +462,7 @@
           "settings": {
             "icon": "droplet",
             "title": "Luftfeuchtigkeit",
-            "text": "<p>Relative Luftfeuchtigkeit in %RH – im Wohnmobil auch ein Hinweis fürs Lüften.</p>",
+            "text": "<p>Relative Luftfeuchte in %RH – im Wohnmobil auch ein Hinweis fürs Lüften.</p>",
             "dev_note": "Quelle: Display-Beschriftung „RH%“."
           }
         },
@@ -329,8 +470,8 @@
           "type": "feature",
           "settings": {
             "icon": "speaker",
-            "title": "Akustische und optische Warnung",
-            "text": "<p>Im Alarmfall warnt das Gerät hörbar und mit der roten Alarmanzeige. Dazu kommen die Anzeigen „Betrieb“ und „Störung“.</p>",
+            "title": "Alarm: hörbar und sichtbar",
+            "text": "<p>Warnton und rote Alarm-LED. Dazu die Anzeigen „Betrieb“ und „Störung“.</p>",
             "dev_note": "Quelle: Seite „Sicherheitsinformationen“ (optische und akustische Status- und Alarmanzeigen laut Prüfberichten) und LED-Beschriftung am Gerät. Lautstärke (dB) nicht belegt – nicht nennen."
           }
         },
@@ -339,7 +480,7 @@
           "settings": {
             "icon": "plug",
             "title": "Einstecken statt montieren",
-            "text": "<p>Integrierter Netzstecker: direkt in eine Steckdose, ohne Bohren.</p>",
+            "text": "<p>Integrierter Netzstecker: in die Steckdose, fertig. Kein Bohren.</p>",
             "dev_note": "Quelle: Rückseite auf dem Referenzfoto. Stromversorgung im Wohnmobil (Landstrom, Wechselrichter, Batterie, 12 V) ist NICHT belegt – siehe FAQ."
           }
         },
@@ -371,10 +512,10 @@
         "tracking_name": "so_funktioniert",
         "background": "sky",
         "spacing": "normal",
-        "eyebrow": "So funktioniert SICHERLUFT",
-        "heading": "Sehen statt raten.",
+        "eyebrow": "Das Gerät",
+        "heading": "Vier Werte. Ein Blick. Kein Rätselraten.",
         "heading_size": "l",
-        "intro": "<p>SICHERLUFT wird eingesteckt und zeigt auf dem Display, was es misst – direkt am Gerät ablesbar.</p>",
+        "intro": "<p>Einstecken, fertig: SICHERLUFT zeigt dir direkt auf dem Display, was es misst – ohne App, ohne Bohren.</p>",
         "image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
         "image_crop": "left_half",
         "image_alt": "SICHERLUFT Gas- und CO-Melder, Vorderseite mit Display und den Anzeigen Betrieb, Alarm und Störung",
@@ -382,8 +523,9 @@
         "video_heading": "SICHERLUFT im echten Test",
         "video_text": "<p>Eine nachvollziehbare Messung am echten Gerät – so, wie sie passiert.</p>",
         "video_caption": "Ungeschnittene Aufnahme [CLAIM VERIFIZIEREN: nur stehen lassen, wenn das Video tatsächlich ungeschnitten ist]",
-        "cta_label": "Zum passenden Set",
-        "cta_link": "#angebot"
+        "cta_label": "Jetzt absichern",
+        "cta_link": "#angebot",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nOhne App\nFür den Alltag im Wohnmobil gedacht [CLAIM VERIFIZIEREN: Eignung für Freizeitfahrzeuge (EN 50291-2) und Stromversorgung ohne Landstrom klären]"
       }
     },
     "platzierung": {
@@ -429,7 +571,7 @@
         "background": "white",
         "spacing": "normal",
         "eyebrow": "Platzierung",
-        "heading": "Wo ein Melder steht, ist genauso wichtig wie welcher.",
+        "heading": "Ein Melder warnt nur dort, wo er misst.",
         "heading_size": "m",
         "intro": "<p>Kohlenmonoxid verteilt sich mit der Raumluft. Propan und Butan sind schwerer als Luft und sammeln sich eher am Boden. Und Schlafbereich, Heizung und Kocher liegen im Wohnmobil oft an verschiedenen Stellen.</p>",
         "legend_heading": "Typische Bereiche im Wohnmobil",
@@ -442,10 +584,90 @@
         "avoid_heading": "Laut Sicherheitsinformationen nicht empfohlen",
         "avoid_text": "<ul><li>unmittelbar über Kochstellen oder Spülen</li><li>direkt neben Abluft- oder Dunstabzugssystemen</li><li>im Außenbereich oder außerhalb der vorgesehenen Betriebsbedingungen</li></ul><p>Maßgeblich sind die Montagehinweise der mitgelieferten Bedienungsanleitung.</p>",
         "avoid_source": "Seite „Sicherheitsinformationen“ (/pages/sicherheitsinformationen), Abschnitt „Sichere Verwendung“",
-        "set_heading": "Warum zwei Geräte sinnvoll sein können",
+        "set_heading": "Zwei Bereiche. Zwei Messpunkte.",
         "set_text": "<p>Ein Gerät misst dort, wo es steht. Liegen Schlafbereich und Gasgeräte in deinem Wohnmobil auseinander oder sind durch Türen getrennt, deckt ein zweites Gerät den zweiten Bereich ab.</p>",
-        "cta_label": "Zum Wohnmobil-Set",
+        "cta_label": "Passendes Set finden",
         "cta_link": "#angebot"
+      }
+    },
+    "angebot": {
+      "type": "sl-lp-offer",
+      "blocks": {
+        "angebot_einzel": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 1,
+            "title": "1 Gerät",
+            "subtitle": "Ein Messpunkt",
+            "text": "<p>Für einen Bereich, den du im Blick behalten willst.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_1er.png",
+            "image_alt": "Ein SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Jetzt absichern",
+            "offer_id": "einzelgeraet"
+          }
+        },
+        "angebot_wohnmobil": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 2,
+            "title": "Wohnmobil-Set",
+            "subtitle": "2 Geräte",
+            "text": "<p>Ein Gerät für den Schlafbereich, eins für den Bereich mit Heizung und Kocher.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_2er_versetzt.png",
+            "image_alt": "Zwei SICHERLUFT Gas- und CO-Melder",
+            "highlight": true,
+            "highlight_label": "Empfehlung fürs Wohnmobil",
+            "preselected": true,
+            "cta_label": "Jetzt absichern",
+            "offer_id": "wohnmobil-set"
+          }
+        },
+        "angebot_zuhause": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 3,
+            "title": "Wohnmobil + Zuhause",
+            "subtitle": "3 Geräte",
+            "text": "<p>Das Wohnmobil-Set plus ein Gerät für zu Hause.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_3er.png",
+            "image_alt": "Drei SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Jetzt absichern",
+            "offer_id": "wohnmobil-zuhause"
+          }
+        }
+      },
+      "block_order": [
+        "angebot_einzel",
+        "angebot_wohnmobil",
+        "angebot_zuhause"
+      ],
+      "settings": {
+        "anchor": "angebot",
+        "tracking_name": "angebot",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "Jetzt absichern",
+        "heading": "Wähle jetzt den passenden Schutz für dein Wohnmobil.",
+        "heading_size": "m",
+        "intro": "<p>Ein Gerät misst dort, wo es steht. Wähle so viele Messpunkte, wie du Bereiche im Blick behalten willst.</p>",
+        "legend": "Anzahl der Geräte wählen",
+        "cta_label": "Jetzt absichern",
+        "free_shipping_text": "versandkostenfrei (DE)",
+        "shipping_text": "zzgl. Versandkosten",
+        "shipping_link": "/pages/versand",
+        "shipping_link_label": "Versand & Lieferung",
+        "show_payment_icons": true,
+        "sticky_cta": true,
+        "sticky_label": "Jetzt absichern",
+        "dev_note": "Kaching Bundles (automatischer Mengenrabatt) ist im Shop aktiv. Ob er bei 2 oder 3 Geräten greift, ist aus dem Theme nicht erkennbar – diese Seite zeigt bewusst Menge × regulären Shopify-Preis. Ein eventueller Kaching-Rabatt erscheint erst im Warenkorb.\n„Versandkostenfrei ab 80 € (DE)“ entspricht der Versandrate „Standardversand“ (Stand der Prüfung). Bei Änderung der Versandrate hier und in den Theme-Einstellungen anpassen.",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nOhne App\nVersandkostenfrei ab 80 € (DE)"
       }
     },
     "vertrauen": {
@@ -638,102 +860,23 @@
         "sources_heading": "Quellen"
       }
     },
-    "angebot": {
-      "type": "sl-lp-offer",
-      "blocks": {
-        "angebot_einzel": {
-          "type": "option",
-          "settings": {
-            "product": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 1,
-            "title": "1 Gerät",
-            "subtitle": "Ein Messpunkt",
-            "text": "<p>Zum Beispiel als Ergänzung oder für einen einzelnen Bereich.</p>",
-            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_1er.png",
-            "image_alt": "Ein SICHERLUFT Gas- und CO-Melder",
-            "highlight": false,
-            "preselected": false,
-            "cta_label": "Gerät auswählen",
-            "offer_id": "einzelgeraet"
-          }
-        },
-        "angebot_wohnmobil": {
-          "type": "option",
-          "settings": {
-            "product": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 2,
-            "title": "Wohnmobil-Set",
-            "subtitle": "2 Geräte",
-            "text": "<p>Ein Gerät für den Schlafbereich, eins für den Bereich mit Heizung und Kocher.</p>",
-            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_2er_versetzt.png",
-            "image_alt": "Zwei SICHERLUFT Gas- und CO-Melder",
-            "highlight": true,
-            "highlight_label": "Unsere Empfehlung fürs Wohnmobil",
-            "preselected": true,
-            "cta_label": "Set auswählen",
-            "offer_id": "wohnmobil-set"
-          }
-        },
-        "angebot_zuhause": {
-          "type": "option",
-          "settings": {
-            "product": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 3,
-            "title": "Wohnmobil + Zuhause",
-            "subtitle": "3 Geräte",
-            "text": "<p>Das Wohnmobil-Set plus ein Gerät für zu Hause.</p>",
-            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_3er.png",
-            "image_alt": "Drei SICHERLUFT Gas- und CO-Melder",
-            "highlight": false,
-            "preselected": false,
-            "cta_label": "Set auswählen",
-            "offer_id": "wohnmobil-zuhause"
-          }
-        }
-      },
-      "block_order": [
-        "angebot_einzel",
-        "angebot_wohnmobil",
-        "angebot_zuhause"
-      ],
-      "settings": {
-        "anchor": "angebot",
-        "tracking_name": "angebot",
-        "background": "mist",
-        "spacing": "normal",
-        "eyebrow": "Angebot",
-        "heading": "Das passende Set fürs Wohnmobil",
-        "heading_size": "m",
-        "intro": "<p>Ein Gerät misst dort, wo es steht. Deshalb richtet sich die Anzahl danach, wie viele Bereiche du im Blick behalten möchtest.</p>",
-        "legend": "Anzahl der Geräte wählen",
-        "cta_label": "Set auswählen",
-        "free_shipping_text": "versandkostenfrei (DE)",
-        "shipping_text": "zzgl. Versandkosten",
-        "shipping_link": "/pages/versand",
-        "shipping_link_label": "Versand & Lieferung",
-        "show_payment_icons": true,
-        "sticky_cta": true,
-        "sticky_label": "Set auswählen",
-        "dev_note": "Kaching Bundles (automatischer Mengenrabatt) ist im Shop aktiv. Ob er bei 2 oder 3 Geräten greift, ist aus dem Theme nicht erkennbar – diese Seite zeigt bewusst Menge × regulären Shopify-Preis. Ein eventueller Kaching-Rabatt erscheint erst im Warenkorb."
-      }
-    },
     "faq": {
       "type": "sl-lp-faq",
       "blocks": {
         "faq_rauchmelder": {
           "type": "item",
           "settings": {
-            "question": "Warum reicht ein Rauchmelder nicht?",
-            "answer": "<p>Ein klassischer Rauchmelder reagiert auf Rauch. Kohlenmonoxid ist ein farb- und geruchloses Gas, das bei unvollständiger Verbrennung entstehen kann – auch ohne Rauch, etwa bei einer Heizung oder einem Kocher. Dafür braucht es einen CO-Sensor. SICHERLUFT ersetzt deinen Rauchmelder nicht, sondern ergänzt ihn.</p>",
+            "question": "Warum reicht mein Rauchmelder nicht?",
+            "answer": "<p>Weil ein Rauchmelder nicht vor Kohlenmonoxid warnt – das stellt auch das Bundesinstitut für Risikobewertung klar. Rauchmelder reagieren auf Rauch. Kohlenmonoxid ist farb- und geruchlos und entsteht auch ohne Feuer, etwa bei unvollständiger Verbrennung in Heizung oder Kocher. SICHERLUFT ersetzt deinen Rauchmelder nicht, sondern ergänzt ihn um das, was er nicht kann.</p>",
             "faq_id": "rauchmelder",
-            "dev_note": "Quelle: BfR-Broschüre. Gerät ist laut Beschriftung ein „Gas & CO-Melder“ (kein Rauchmelder)."
+            "dev_note": "Quelle: BfR-Broschüre S. 13 („Ein Rauchmelder warnt NICHT vor Kohlenmonoxid …“) und S. 3/4."
           }
         },
         "faq_misst": {
           "type": "item",
           "settings": {
-            "question": "Was misst das Gerät?",
-            "answer": "<p>Das Display zeigt Werte für Kohlenmonoxid (CO, in ppm), brennbare Gase (in %LEL, Anteil an der unteren Explosionsgrenze), die Temperatur (°C) und die relative Luftfeuchtigkeit (%RH). Dazu kommen die Anzeigen „Betrieb“, „Alarm“ und „Störung“.</p>",
+            "question": "Was zeigt mir SICHERLUFT an?",
+            "answer": "<p>Vier Werte direkt auf dem Display: Kohlenmonoxid (CO, in ppm), brennbare Gase (in %LEL, Anteil an der unteren Explosionsgrenze), Temperatur (°C) und relative Luftfeuchte (%RH). Dazu drei Anzeigen: Betrieb (grün), Alarm (rot) und Störung (gelb).</p>",
             "faq_id": "was-misst-das-geraet",
             "dev_note": "Quelle: Display- und LED-Beschriftung auf dem Referenzfoto. Gasarten offen – eigene Frage."
           }
@@ -816,36 +959,73 @@
         "faq_app": {
           "type": "item",
           "settings": {
-            "question": "Brauche ich eine App?",
-            "answer": "<p>Nein. Die Werte werden direkt auf dem Display des Geräts angezeigt.</p>",
+            "question": "Brauche ich eine App oder WLAN?",
+            "answer": "<p>Nein. Alle Werte stehen direkt auf dem Display des Geräts. Kein Konto, kein Smartphone, keine Kopplung.</p>",
             "faq_id": "app",
             "dev_note": "Quelle: Gerät mit eigenem Display; keine App im Produkttext erwähnt."
+          }
+        },
+        "faq_alarm": {
+          "type": "item",
+          "settings": {
+            "question": "Was passiert bei einem Alarm – und was mache ich dann?",
+            "answer": "<p>SICHERLUFT warnt mit Warnton und roter Alarm-LED, sobald der Alarmwert erreicht ist. Nimm jeden Alarm ernst: Verlass das Fahrzeug sofort mit allen Personen und ruf die Feuerwehr (112) – so empfiehlt es auch das BfR. Folge zusätzlich den Hinweisen der Bedienungsanleitung.</p>",
+            "faq_id": "alarm",
+            "dev_note": "BfR-Broschüre S. 21: „Bei Alarm sofort alle Personen im Haus evakuieren und die Feuerwehr rufen.“ Alarmwerte selbst sind noch nicht belegt – deshalb keine Zahlen."
+          }
+        },
+        "faq_installation": {
+          "type": "item",
+          "settings": {
+            "question": "Wie aufwendig ist die Installation?",
+            "answer": "<p>Kaum: SICHERLUFT hat einen integrierten Netzstecker und kommt direkt in die Steckdose. Kein Bohren, keine Montage. Wo das Gerät am besten steht, beschreibt die Bedienungsanleitung.</p>",
+            "faq_id": "installation",
+            "dev_note": "Netzstecker: Rückseite auf dem Referenzfoto. Stromversorgung im Wohnmobil (Landstrom/Wechselrichter/12 V) weiterhin offen – siehe Frage „Stromversorgung“."
           }
         }
       },
       "block_order": [
         "faq_rauchmelder",
         "faq_misst",
+        "faq_alarm",
+        "faq_app",
+        "faq_installation",
         "faq_gasarten",
         "faq_platzierung",
-        "faq_fahrt",
         "faq_strom",
+        "faq_fahrt",
         "faq_fehlalarm",
         "faq_lebensdauer",
-        "faq_rueckgabe",
-        "faq_nachweise",
         "faq_gaspruefung",
-        "faq_app"
+        "faq_rueckgabe",
+        "faq_nachweise"
       ],
       "settings": {
         "anchor": "faq",
         "tracking_name": "faq",
         "background": "white",
         "spacing": "normal",
-        "eyebrow": "FAQ",
-        "heading": "Häufige Fragen",
+        "eyebrow": "Fragen & Antworten",
+        "heading": "Fragen, bevor du dich entscheidest",
         "heading_size": "m",
         "intro": "<p>Deine Frage fehlt? <a href=\"/pages/contact\">Schreib uns</a>.</p>"
+      }
+    },
+    "cta_final": {
+      "type": "sl-lp-cta",
+      "settings": {
+        "anchor": "jetzt",
+        "tracking_name": "cta_final",
+        "style": "signal",
+        "align": "center",
+        "spacing": "normal",
+        "icon": "moon",
+        "eyebrow": "Heute Nacht im Wohnmobil?",
+        "heading": "Die nächste Nacht kommt bestimmt. Entscheide vorher, ob du sehen willst, was in der Luft ist.",
+        "text": "<p>Ein Rauchmelder warnt nicht vor Kohlenmonoxid. Dein Gefühl auch nicht. <strong>SICHERLUFT zeigt dir die Werte – und schlägt Alarm, sobald der Alarmwert erreicht ist.</strong></p>",
+        "cta_label": "Jetzt Wohnmobil absichern",
+        "cta_link": "#angebot",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nEinstecken statt bohren\nOhne App"
       }
     },
     "nacht_check_liste": {
@@ -912,15 +1092,19 @@
   },
   "order": [
     "hero",
+    "gefahr",
+    "ernstfall",
     "irrtuemer",
     "wohnmobil",
+    "cta_mitte",
     "anzeige_alarm",
     "so_funktioniert",
     "platzierung",
+    "angebot",
     "vertrauen",
     "nachweise",
-    "angebot",
     "faq",
+    "cta_final",
     "nacht_check_liste"
   ]
 }

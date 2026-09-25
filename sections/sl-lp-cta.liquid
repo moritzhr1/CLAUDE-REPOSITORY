@@ -1,0 +1,194 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · CTA-Box
+  Kurzer Handlungsmoment zwischen zwei Sektionen: Überschrift, 1–2 Sätze, Button, Vertrauens-Merkmale.
+  Mehrfach auf einer Seite nutzbar (z. B. nach der Gefahren-Sektion, vor dem Angebot, am Seitenende).
+  Tracking: Button = cta_box_click, Textlink = cta_box_more_click (jeweils mit data-sl-section).
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign style = section.settings.style | default: 'signal'
+  assign on_dark = true
+  if style == 'light'
+    assign on_dark = false
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-ctabox sl-lp-ctabox--{{ style }} sl-lp--space-{{ section.settings.spacing }}"
+  {% if section.settings.heading != blank %}aria-labelledby="{{ heading_id }}"{% endif %}
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    <div class="sl-lp-ctabox__panel sl-lp-ctabox__panel--{{ section.settings.align }}">
+      <div class="sl-lp-ctabox__copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sl-lp-eyebrow{% if style != 'light' %} sl-lp-eyebrow--signal{% endif %}">
+            {%- if section.settings.icon != 'none' -%}{%- render 'sl-lp-icon', name: section.settings.icon, size: 18 -%}{%- endif -%}
+            <span>{{ section.settings.eyebrow | escape }}</span>
+          </p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 id="{{ heading_id }}" class="sl-lp-h2 sl-lp-ctabox__h">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="sl-lp-ctabox__text sl-lp-rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="sl-lp-ctabox__actions">
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+            id="sl-{{ track }}-cta"
+            class="sl-lp-cta sl-lp-cta--signal sl-lp-ctabox__btn"
+            data-sl-track="cta_box_click"
+            data-sl-label="{{ section.settings.cta_label | escape }}"
+          >
+            <span>{{ section.settings.cta_label | escape }}</span>
+            {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}
+          <a
+            href="{{ section.settings.secondary_link | default: '#' | escape }}"
+            id="sl-{{ track }}-more"
+            class="sl-lp-link{% if on_dark %} sl-lp-link--light{% endif %}"
+            data-sl-track="cta_box_more_click"
+            data-sl-label="{{ section.settings.secondary_label | escape }}"
+          >
+            {{- section.settings.secondary_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- liquid
+          assign trust_tone = 'dark'
+          if on_dark
+            assign trust_tone = 'light'
+          endif
+        -%}
+        {%- render 'sl-lp-trust', items: section.settings.trust_items, tone: trust_tone, align: section.settings.align -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · CTA-Box",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "info": "z. B. cta_mitte – erscheint in den Events als sl_section."
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Stil",
+      "options": [
+        { "value": "signal", "label": "Dunkel mit Signalfarbe" },
+        { "value": "night", "label": "Nachtblau" },
+        { "value": "light", "label": "Hell" }
+      ],
+      "default": "signal"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Ausrichtung",
+      "options": [
+        { "value": "left", "label": "Text links, Button rechts" },
+        { "value": "center", "label": "Zentriert" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" }
+      ],
+      "default": "compact"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Symbol in der Dachzeile",
+      "options": [
+        { "value": "none", "label": "Kein Symbol" },
+        { "value": "alert", "label": "Warnung" },
+        { "value": "moon", "label": "Nacht" },
+        { "value": "eye", "label": "Sichtbar" },
+        { "value": "shield-check", "label": "Schild" }
+      ],
+      "default": "alert"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Sieh, was in der Luft ist."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Jetzt Wohnmobil absichern"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel Button",
+      "default": "#angebot"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Textlink (optional)"
+    },
+    {
+      "type": "text",
+      "id": "secondary_link",
+      "label": "Ziel Textlink"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_items",
+      "label": "Vertrauens-Merkmale",
+      "info": "Ein Merkmal pro Zeile. Nur belegte Aussagen – Zeilen mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor."
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · CTA-Box"
+    }
+  ]
+}
+{% endschema %}

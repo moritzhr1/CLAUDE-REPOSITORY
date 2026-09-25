@@ -228,11 +228,11 @@
                 type="submit"
                 name="add"
                 id="sl-{{ track }}-cta"
-                class="sl-lp-cta sl-lp-cta--primary sl-lp-offer__submit"
+                class="sl-lp-cta sl-lp-cta--signal sl-lp-cta--xl sl-lp-offer__submit"
                 data-sl-track="offer_cta_click"
                 {% unless default_variant.available %}disabled{% endunless %}
               >
-                <span class="sl-lp-offer__submitlabel" data-sl-offer-label>{{ section.settings.cta_label | default: 'Set auswählen' | escape }}</span>
+                <span class="sl-lp-offer__submitlabel" data-sl-offer-label>{{ section.settings.cta_label | default: 'Jetzt absichern' | escape }}</span>
                 {%- render 'loading-spinner' -%}
               </button>
               <p class="sl-lp-offer__summary" data-sl-offer-summary aria-live="polite">
@@ -242,6 +242,7 @@
                   {%- endif -%}
                 {%- endfor -%}
               </p>
+              {%- render 'sl-lp-trust', items: section.settings.trust_items, align: 'center' -%}
             </div>
           {%- endform -%}
         </product-form>
@@ -287,11 +288,11 @@
           <a
             href="#{{ anchor }}"
             id="sl-sticky-cta"
-            class="sl-lp-cta sl-lp-cta--primary sl-lp-cta--small"
+            class="sl-lp-cta sl-lp-cta--signal sl-lp-cta--small"
             data-sl-track="sticky_cta_click"
             data-sl-label="{{ section.settings.sticky_label | escape }}"
           >
-            {{- section.settings.sticky_label | default: 'Set auswählen' | escape -}}
+            {{- section.settings.sticky_label | default: 'Jetzt absichern' | escape -}}
           </a>
         </div>
       </div>
@@ -384,7 +385,13 @@
       "type": "text",
       "id": "cta_label",
       "label": "Button",
-      "default": "Set auswählen"
+      "default": "Jetzt absichern"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_items",
+      "label": "Vertrauens-Merkmale unter dem Button",
+      "info": "Ein Merkmal pro Zeile, nur belegte Aussagen. Zeilen mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor."
     },
     {
       "type": "header",
@@ -442,7 +449,7 @@
       "type": "text",
       "id": "sticky_label",
       "label": "Beschriftung Sticky-Button",
-      "default": "Set auswählen"
+      "default": "Jetzt absichern"
     },
     {
       "type": "textarea",
@@ -519,7 +526,7 @@
           "type": "text",
           "id": "cta_label",
           "label": "Button-Text bei Auswahl",
-          "default": "Set auswählen"
+          "default": "Jetzt absichern"
         },
         {
           "type": "text",

@@ -19,7 +19,7 @@
 
   case block.type
     when 'card'
-      assign check_text = s.label | append: ' ' | append: s.title | append: ' ' | append: s.text | append: ' ' | append: s.link_label | append: ' ' | append: s.link
+      assign check_text = s.label | append: ' ' | append: s.belief | append: ' ' | append: s.title | append: ' ' | append: s.text | append: ' ' | append: s.link_label | append: ' ' | append: s.link
       if s.link_required
         assign needs_link = true
         assign required_link = s.link

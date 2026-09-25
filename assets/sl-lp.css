@@ -2233,3 +2233,970 @@ html:has(.sl-lp) {
     animation: none !important;
   }
 }
+
+/* =====================================================================
+ * Conversion-Design v2 – Dringlichkeit, Kontrast, Signalfarbe
+ * Überschreibt gezielt Teile oben. Signalfarbe (Orange) nur für Handlungen und Dringlichkeit,
+ * Rot nur für Alarm-Zustände, Blau als Blaulicht-Stimmung. Alle Animationen ruhig (< 3 Blitze/s)
+ * und bei „Bewegung reduzieren“ abgeschaltet (siehe Block oben).
+ * ===================================================================== */
+.sl-lp {
+  --sl-signal: #ff5b1f;
+  --sl-signal-hover: #ff7a47;
+  --sl-signal-ink: #b93a06;
+  --sl-signal-soft: rgba(255, 91, 31, 0.14);
+  --sl-alarm: #e5242d;
+  --sl-ok: #178a4c;
+  --sl-ink-bg: #050b14;
+  --sl-cta-text: #0b1522;
+}
+
+/* Überschriften kräftiger */
+.sl-lp h1,
+.sl-lp h2 {
+  font-weight: 700 !important;
+}
+
+.sl-lp .sl-lp-h2 {
+  font-size: clamp(3rem, 2.2rem + 2.2vw, 4.8rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.sl-lp .sl-lp-h2--l {
+  font-size: clamp(3.6rem, 2.4rem + 3.4vw, 6.4rem);
+  line-height: 1.02;
+}
+
+/* Signal-Button (Haupt-CTA) */
+.sl-lp .sl-lp-cta--signal {
+  background: var(--sl-signal);
+  color: var(--sl-cta-text);
+  font-weight: 700;
+  box-shadow: 0 12px 30px -10px rgba(255, 91, 31, 0.65);
+}
+
+.sl-lp .sl-lp-cta--signal:hover {
+  background: var(--sl-signal-hover);
+  color: var(--sl-cta-text);
+}
+
+.sl-lp button.sl-lp-cta--signal,
+.sl-lp button.sl-lp-cta--signal:focus {
+  background-color: var(--sl-signal) !important;
+  color: var(--sl-cta-text) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 12px 30px -10px rgba(255, 91, 31, 0.65) !important;
+}
+
+.sl-lp button.sl-lp-cta--signal:hover {
+  background-color: var(--sl-signal-hover) !important;
+}
+
+.sl-lp .sl-lp-cta--xl {
+  min-height: 6rem;
+  padding-inline: 3rem;
+  font-size: 1.8rem;
+}
+
+.sl-lp .sl-lp-cta--signal:focus-visible {
+  outline-color: #ffffff !important;
+  box-shadow: 0 0 0 5px var(--sl-signal) !important;
+}
+
+/* Signal-Dachzeile */
+.sl-lp .sl-lp-eyebrow--signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--sl-signal);
+}
+
+.sl-lp--white .sl-lp-eyebrow--signal,
+.sl-lp--mist .sl-lp-eyebrow--signal,
+.sl-lp-ctabox--light .sl-lp-eyebrow--signal {
+  color: var(--sl-signal-ink);
+}
+
+/* Sehr dunkler Warn-Hintergrund */
+.sl-lp--ink {
+  --sl-heading-color: #ffffff;
+  --sl-text-color: rgba(255, 255, 255, 0.88);
+  --sl-soft-color: rgba(255, 255, 255, 0.74);
+  --sl-line: rgba(255, 255, 255, 0.14);
+  border-top: 3px solid var(--sl-signal);
+  background: radial-gradient(90% 55% at 50% 0%, rgba(255, 91, 31, 0.12) 0%, rgba(255, 91, 31, 0) 60%), var(--sl-ink-bg);
+  color: var(--sl-text-color);
+}
+
+.sl-lp--ink .sl-lp-eyebrow {
+  color: var(--sl-signal);
+}
+
+.sl-lp--ink .sl-lp-card {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sl-lp--ink .sl-lp-sources__item a,
+.sl-lp--night .sl-lp-sources__item a,
+.sl-lp--ink .sl-lp-rte a {
+  color: #9ccfff;
+}
+
+/* ---------- Vertrauens-Merkmale (Trust-Chips) ---------- */
+.sl-lp-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.8rem;
+  margin-top: 1.6rem;
+}
+
+.sl-lp-trust--center {
+  justify-content: center;
+}
+
+.sl-lp .sl-lp-trust__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--sl-muted);
+  font-size: 1.4rem;
+  font-weight: 600 !important;
+  line-height: 1.3;
+}
+
+.sl-lp-trust__icon {
+  flex-shrink: 0;
+  color: var(--sl-ok);
+  stroke-width: 2.4;
+}
+
+.sl-lp .sl-lp-trust--light .sl-lp-trust__item {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.sl-lp-trust--light .sl-lp-trust__icon {
+  color: #46e08c;
+}
+
+.sl-lp .sl-lp-actions .sl-lp-trust {
+  flex-basis: 100%;
+  margin-top: 0.4rem;
+}
+
+/* ---------- Hero „Alarm“ ---------- */
+.sl-lp-hero--alarm {
+  --sl-heading-color: #ffffff;
+  --sl-text-color: rgba(255, 255, 255, 0.88);
+  --sl-soft-color: rgba(255, 255, 255, 0.74);
+  --sl-line: rgba(255, 255, 255, 0.14);
+  background: radial-gradient(70% 55% at 90% 8%, rgba(40, 110, 255, 0.3) 0%, rgba(40, 110, 255, 0) 60%),
+    radial-gradient(60% 45% at 0% 100%, rgba(255, 91, 31, 0.16) 0%, rgba(255, 91, 31, 0) 65%),
+    linear-gradient(180deg, #02070e 0%, #071526 100%);
+  color: var(--sl-text-color);
+}
+
+.sl-lp .sl-lp-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  padding: 0.6rem 1.4rem 0.6rem 1.2rem;
+  border: 1px solid rgba(255, 91, 31, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 91, 31, 0.12);
+  color: #ffd6c4;
+  font-size: 1.25rem;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sl-lp-hero__pulse {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--sl-signal);
+  box-shadow: 0 0 0 0 rgba(255, 91, 31, 0.6);
+  animation: sl-pulse 1.8s ease-out infinite;
+}
+
+@keyframes sl-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 91, 31, 0.65);
+  }
+  70% {
+    box-shadow: 0 0 0 1.1rem rgba(255, 91, 31, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 91, 31, 0);
+  }
+}
+
+.sl-lp .sl-lp-hero--alarm .sl-lp-hero__h1 {
+  font-size: clamp(3.6rem, 2.3rem + 3.9vw, 6.6rem);
+  line-height: 1.02;
+  max-width: 16ch;
+}
+
+.sl-lp .sl-lp-hero__accent {
+  display: block;
+  margin-top: 0.8rem;
+  color: var(--sl-signal) !important;
+}
+
+.sl-lp .sl-lp-hero--alarm .sl-lp-hero__sub {
+  margin-top: 2rem;
+  font-size: clamp(1.8rem, 1.6rem + 0.6vw, 2.2rem);
+  font-weight: 500 !important;
+  max-width: 36ch;
+}
+
+.sl-lp .sl-lp-hero--alarm .sl-lp-hero__text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sl-lp .sl-lp-hero--alarm .sl-lp-hero__text strong {
+  color: #ffffff;
+}
+
+.sl-lp-hero--alarm .sl-lp-hero__actions {
+  margin-top: 2.8rem;
+}
+
+/* Szene: Blaulicht-Schein + Kennzeichnung */
+.sl-lp-hero--alarm .sl-lp-scene {
+  border-color: rgba(120, 170, 255, 0.18);
+  background: linear-gradient(180deg, #0a2344 0%, #07182f 55%, #051224 100%);
+  box-shadow: 0 30px 80px -30px rgba(40, 110, 255, 0.45);
+}
+
+.sl-lp-scene__flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.sl-lp-scene__flash--a {
+  background: radial-gradient(55% 60% at 100% 25%, rgba(70, 140, 255, 0.75) 0%, rgba(70, 140, 255, 0) 70%);
+}
+
+.sl-lp-scene__flash--b {
+  background: radial-gradient(50% 55% at 88% 0%, rgba(70, 140, 255, 0.6) 0%, rgba(70, 140, 255, 0) 70%);
+  opacity: 0.2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sl-lp-scene__flash--a {
+    animation: sl-flash 1.6s ease-in-out infinite;
+  }
+
+  .sl-lp-scene__flash--b {
+    animation: sl-flash 1.6s ease-in-out 0.8s infinite;
+  }
+}
+
+@keyframes sl-flash {
+  0%,
+  100% {
+    opacity: 0.12;
+  }
+  40% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.45;
+  }
+  70% {
+    opacity: 0.18;
+  }
+}
+
+.sl-lp-scene__badge,
+.sl-lp-alert__badge {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  z-index: 2;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Gerät mit pulsierendem Warnring */
+.sl-lp-devicecard--ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 2px solid rgba(229, 36, 45, 0.9);
+  border-radius: 22px;
+  pointer-events: none;
+  animation: sl-ring 2.2s ease-out infinite;
+}
+
+@keyframes sl-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(229, 36, 45, 0.55);
+  }
+  75% {
+    box-shadow: 0 0 0 1.8rem rgba(229, 36, 45, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 36, 45, 0);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-hero--alarm .sl-lp-hero__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}
+
+/* ---------- Gefahren-Band: Kartenstil „Warnsignal“ ---------- */
+.sl-lp-cardstyle--signal .sl-lp-card {
+  gap: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--sl-signal);
+  border-radius: 0 0 var(--sl-radius) var(--sl-radius);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sl-lp-cardstyle--signal .sl-lp-card__icon {
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 50%;
+  background: var(--sl-signal-soft);
+  color: var(--sl-signal);
+}
+
+.sl-lp .sl-lp-cardstyle--signal .sl-lp-card__h {
+  font-size: clamp(2.2rem, 1.9rem + 0.8vw, 2.6rem);
+  line-height: 1.16;
+}
+
+.sl-lp .sl-lp-cardstyle--signal .sl-lp-card__text {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/* ---------- Kartenstil „Denkfehler“ ---------- */
+.sl-lp-cardstyle--myth .sl-lp-card {
+  gap: 1.2rem;
+  border-top: 4px solid var(--sl-signal);
+  border-radius: 0 0 var(--sl-radius) var(--sl-radius);
+}
+
+.sl-lp .sl-lp-cardstyle--myth .sl-lp-card__label {
+  color: var(--sl-signal-ink);
+}
+
+.sl-lp .sl-lp-card__belief {
+  color: var(--sl-muted);
+  font-size: 1.7rem;
+  font-style: italic;
+  line-height: 1.35;
+  text-decoration: line-through;
+  text-decoration-color: rgba(229, 36, 45, 0.85);
+  text-decoration-thickness: 2px;
+}
+
+.sl-lp .sl-lp-cardstyle--myth .sl-lp-card__h {
+  font-size: clamp(2.2rem, 1.9rem + 0.8vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.sl-lp .sl-lp-cardstyle--myth .sl-lp-card__text {
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--sl-line);
+}
+
+.sl-lp .sl-lp-fact__value {
+  color: var(--sl-signal);
+}
+
+.sl-lp .sl-lp-fact__text strong {
+  color: #ffffff;
+}
+
+/* ---------- Zeitleiste „Eine ganz normale Nacht“ ---------- */
+.sl-lp-cards__list.sl-lp-cards__list--timeline {
+  position: relative;
+  grid-template-columns: 1fr !important;
+  gap: 0;
+  padding-left: 3.4rem;
+}
+
+.sl-lp-cards__list--timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.8rem;
+  bottom: 2.4rem;
+  left: 1rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(255, 179, 71, 0.9) 0%, var(--sl-signal) 55%, var(--sl-alarm) 100%);
+}
+
+.sl-lp-cards__list--timeline .sl-lp-card,
+.sl-lp--night .sl-lp-cards__list--timeline .sl-lp-card {
+  gap: 0.6rem;
+  padding: 0 0 3.2rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.sl-lp-cards__list--timeline .sl-lp-card::before {
+  content: '';
+  position: absolute;
+  top: 0.3rem;
+  left: -3.05rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 3px solid var(--sl-signal);
+  border-radius: 50%;
+  background: var(--sl-night);
+}
+
+.sl-lp-cards__list--timeline .sl-lp-card:last-child::before {
+  border-color: var(--sl-alarm);
+  background: var(--sl-alarm);
+  box-shadow: 0 0 0 5px rgba(229, 36, 45, 0.25);
+}
+
+.sl-lp-cards__list--timeline .sl-lp-card__icon {
+  display: none;
+}
+
+.sl-lp .sl-lp-cards__list--timeline .sl-lp-card__label {
+  color: #ffb08f;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+}
+
+.sl-lp .sl-lp-cards__list--timeline .sl-lp-card__h {
+  font-size: clamp(2.1rem, 1.8rem + 0.8vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.sl-lp .sl-lp-cards__list--timeline .sl-lp-card__text {
+  max-width: 52ch;
+}
+
+.sl-lp-cards--timeline .sl-lp-eyebrow {
+  color: var(--sl-signal);
+}
+
+.sl-lp-cards--timeline .sl-lp-note {
+  border-left: 3px solid var(--sl-signal);
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-cards--timeline > .sl-lp__container {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap: 8rem;
+    align-items: start;
+  }
+
+  .sl-lp-cards--timeline > .sl-lp__container > * {
+    grid-column: 2;
+  }
+
+  .sl-lp-cards--timeline > .sl-lp__container > .sl-lp-head {
+    position: sticky;
+    top: 12rem;
+    grid-column: 1;
+    grid-row: 1 / span 4;
+  }
+
+  .sl-lp-cards--timeline > .sl-lp__container > .sl-lp-devflag {
+    grid-column: 1 / -1;
+  }
+
+  .sl-lp-cards--timeline .sl-lp-cards__extras {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+}
+
+/* ---------- Ernstfall-Bildblock ---------- */
+.sl-lp-alert {
+  --sl-heading-color: #ffffff;
+  --sl-text-color: rgba(255, 255, 255, 0.88);
+  --sl-soft-color: rgba(255, 255, 255, 0.74);
+  --sl-line: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  padding-block: 0;
+  background: var(--sl-ink-bg);
+  color: var(--sl-text-color);
+}
+
+.sl-lp-alert__media {
+  position: relative;
+  aspect-ratio: 4 / 3.3;
+  overflow: hidden;
+  background: #02060c;
+}
+
+.sl-lp-alert__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 11, 20, 0) 50%, var(--sl-ink-bg) 100%);
+  pointer-events: none;
+}
+
+.sl-lp-escene,
+.sl-lp-alert__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sl-lp-alert__img {
+  object-fit: cover;
+}
+
+.sl-lp-alert__img--desktop {
+  display: none;
+}
+
+.sl-lp-alert__badge {
+  right: 1.2rem;
+  left: auto;
+}
+
+.sl-lp-escene .sl-es-flash-a,
+.sl-lp-escene .sl-es-flash-b {
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sl-lp-escene .sl-es-flash-a {
+    animation: sl-es-flash 1.6s ease-in-out infinite;
+  }
+
+  .sl-lp-escene .sl-es-flash-b {
+    animation: sl-es-flash 1.6s ease-in-out 0.8s infinite;
+  }
+}
+
+@keyframes sl-es-flash {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  40% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 0.18;
+  }
+}
+
+.sl-lp-alert__inner {
+  position: relative;
+  z-index: 1;
+  margin-top: -5.6rem;
+  padding-bottom: var(--sl-space);
+}
+
+.sl-lp .sl-lp-alert__h {
+  max-width: 15ch;
+}
+
+.sl-lp .sl-lp-alert__text {
+  margin-top: 1.6rem;
+  max-width: 46ch;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.8rem;
+  line-height: 1.55;
+}
+
+.sl-lp-alert__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 3.2rem;
+}
+
+.sl-lp-alert__stat {
+  position: relative;
+  padding: 1.6rem 1.4rem;
+  border-left: 3px solid var(--sl-signal);
+  border-radius: 0 12px 12px 0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sl-lp .sl-lp-alert__value {
+  color: #ffffff;
+  font-family: var(--sl-font-h);
+  font-size: clamp(3.8rem, 2.8rem + 3vw, 6.4rem);
+  font-weight: 700 !important;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sl-lp .sl-lp-alert__label {
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.4rem;
+  line-height: 1.45;
+}
+
+.sl-lp .sl-lp-alert__source {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.sl-lp-alert__source a {
+  color: rgba(255, 255, 255, 0.86);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.sl-lp-alert__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.8rem;
+  margin-top: 3.2rem;
+}
+
+.sl-lp-alert__actions .sl-lp-link {
+  justify-content: center;
+}
+
+@media screen and (min-width: 560px) {
+  .sl-lp-alert__actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .sl-lp-alert__media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-alert {
+    display: flex;
+    align-items: center;
+    min-height: 76rem;
+  }
+
+  .sl-lp-alert__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+
+  .sl-lp-alert__media::after {
+    background: linear-gradient(90deg, rgba(5, 11, 20, 0.97) 0%, rgba(5, 11, 20, 0.88) 34%, rgba(5, 11, 20, 0.25) 64%, rgba(5, 11, 20, 0) 100%),
+      linear-gradient(180deg, rgba(5, 11, 20, 0) 70%, rgba(5, 11, 20, 0.7) 100%);
+  }
+
+  .sl-lp-alert__img--desktop {
+    display: block;
+  }
+
+  .sl-lp-alert__img--mobile {
+    display: none;
+  }
+
+  .sl-lp-alert__inner {
+    margin-top: 0;
+    padding-block: var(--sl-space);
+  }
+
+  .sl-lp-alert__content {
+    max-width: 62rem;
+  }
+
+  .sl-lp-alert__actions .sl-lp-link {
+    justify-content: flex-start;
+  }
+}
+
+/* ---------- CTA-Box ---------- */
+.sl-lp-ctabox {
+  background: #ffffff;
+}
+
+.sl-lp-ctabox__panel {
+  position: relative;
+  display: grid;
+  gap: 2.4rem;
+  padding: 3.2rem 2.4rem;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.sl-lp-ctabox--signal .sl-lp-ctabox__panel,
+.sl-lp-ctabox--night .sl-lp-ctabox__panel {
+  --sl-heading-color: #ffffff;
+  --sl-text-color: rgba(255, 255, 255, 0.88);
+  --sl-soft-color: rgba(255, 255, 255, 0.76);
+  color: var(--sl-text-color);
+  box-shadow: 0 30px 60px -30px rgba(5, 11, 20, 0.6);
+}
+
+.sl-lp-ctabox--signal .sl-lp-ctabox__panel {
+  border-top: 3px solid var(--sl-signal);
+  background: radial-gradient(80% 120% at 100% 0%, rgba(255, 91, 31, 0.26) 0%, rgba(255, 91, 31, 0) 55%),
+    radial-gradient(60% 90% at 0% 100%, rgba(40, 110, 255, 0.2) 0%, rgba(40, 110, 255, 0) 60%), var(--sl-ink-bg);
+}
+
+.sl-lp-ctabox--night .sl-lp-ctabox__panel {
+  background: linear-gradient(135deg, var(--sl-night) 0%, var(--sl-night-2) 100%);
+}
+
+.sl-lp-ctabox--light .sl-lp-ctabox__panel {
+  border: 1px solid var(--sl-line);
+  background: var(--sl-mist);
+}
+
+.sl-lp .sl-lp-ctabox__h {
+  max-width: 20ch;
+  font-size: clamp(2.8rem, 2rem + 2vw, 4.2rem);
+}
+
+.sl-lp .sl-lp-ctabox__text {
+  margin-top: 1.2rem;
+  max-width: 52ch;
+  color: var(--sl-soft-color);
+  font-size: 1.7rem;
+}
+
+.sl-lp .sl-lp-ctabox__text strong {
+  color: var(--sl-heading-color);
+}
+
+.sl-lp-ctabox__actions {
+  display: grid;
+  gap: 1rem;
+  justify-items: stretch;
+}
+
+.sl-lp-ctabox__actions .sl-lp-link {
+  justify-content: center;
+}
+
+.sl-lp-ctabox__actions .sl-lp-trust {
+  margin-top: 0.6rem;
+}
+
+.sl-lp-ctabox__panel--center {
+  justify-items: center;
+  text-align: center;
+}
+
+.sl-lp .sl-lp-ctabox__panel--center .sl-lp-ctabox__h,
+.sl-lp .sl-lp-ctabox__panel--center .sl-lp-ctabox__text {
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .sl-lp-ctabox__panel {
+    padding: 4.8rem;
+  }
+
+  .sl-lp-ctabox__actions {
+    justify-items: start;
+  }
+
+  .sl-lp-ctabox__panel--center .sl-lp-ctabox__actions {
+    justify-items: center;
+  }
+
+  .sl-lp-ctabox__actions .sl-lp-link {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-ctabox__panel--left {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: 5.6rem;
+    padding: 5.6rem 6.4rem;
+  }
+}
+
+/* ---------- Zustände: Alarm betonen, Button ---------- */
+.sl-lp-step--alarm {
+  border-color: rgba(229, 36, 45, 0.45);
+  box-shadow: 0 0 0 1px rgba(229, 36, 45, 0.12), 0 22px 44px -28px rgba(229, 36, 45, 0.6);
+}
+
+.sl-lp .sl-lp-step--alarm .sl-lp-step__num {
+  color: var(--sl-alarm);
+}
+
+.sl-lp .sl-lp-step__h {
+  font-size: clamp(2.1rem, 1.9rem + 0.6vw, 2.4rem);
+}
+
+.sl-lp-steps__cta {
+  margin-top: 3.2rem;
+}
+
+/* ---------- Angebot: Auswahl in Signalfarbe ---------- */
+.sl-lp-option.is-selected,
+.sl-lp-option:has(.sl-lp-option__radio:checked) {
+  border-color: var(--sl-signal);
+  box-shadow: 0 0 0 1px var(--sl-signal), var(--sl-shadow);
+}
+
+.sl-lp .sl-lp-option__radio {
+  accent-color: var(--sl-signal);
+}
+
+.sl-lp-option__chip {
+  background: var(--sl-signal-soft);
+  color: var(--sl-signal-ink);
+}
+
+.sl-lp .sl-lp-offer__submit {
+  min-height: 6.2rem;
+  font-size: 1.9rem;
+}
+
+/* ---------- Deutlichere Trennung heller Sections ---------- */
+.sl-lp--white + .sl-lp--white,
+.sl-lp-shopify-section + .sl-lp-shopify-section > .sl-lp--white {
+  border-top: 1px solid rgba(8, 43, 74, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sl-lp-scene__flash--a {
+    opacity: 0.55;
+  }
+
+  .sl-lp-scene__flash--b {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- v2 Feinschliff ---------- */
+/* Hero: auf Desktop breitere H1 (zwei statt drei Zeilen Signaltext), kompakter oben */
+.sl-lp-hero--alarm .sl-lp-scene {
+  box-shadow: inset -60px 0 90px -50px rgba(70, 140, 255, 0.55), 0 30px 80px -30px rgba(40, 110, 255, 0.45);
+}
+
+.sl-lp-scene__flash--a {
+  background: radial-gradient(60% 70% at 100% 20%, rgba(80, 150, 255, 0.95) 0%, rgba(80, 150, 255, 0) 72%);
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-hero.sl-lp-hero--alarm {
+    padding-block: 5.6rem 8rem;
+  }
+
+  .sl-lp .sl-lp-hero--alarm .sl-lp-hero__h1 {
+    font-size: clamp(4.8rem, 2.6rem + 2.6vw, 6.2rem);
+    max-width: 19ch;
+  }
+}
+
+/* Fakten: Theme-Stil für <blockquote> (kursiv, Einzug) neutralisieren */
+.sl-lp .sl-lp-fact__text {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-style: normal !important;
+}
+
+/* Ernstfall: Zahlen auf schmalen Displays als Zeilen */
+.sl-lp-alert__stat > .sl-lp-devflag,
+.sl-lp-alert__stat > .sl-lp-devnote {
+  grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 559px) {
+  .sl-lp-alert__stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sl-lp-alert__stat {
+    display: grid;
+    grid-template-columns: 9.6rem minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1.2rem;
+  }
+
+  .sl-lp .sl-lp-alert__value {
+    font-size: 3.8rem;
+  }
+
+  .sl-lp .sl-lp-alert__label {
+    margin-top: 0;
+  }
+}
+
+/* Ernstfall: Bild auf Desktop rechts, damit Wohnmobil und Einsatzfahrzeug neben dem Text sichtbar sind */
+@media screen and (min-width: 990px) {
+  .sl-lp-alert__media {
+    left: 40%;
+  }
+
+  .sl-lp-alert__media::after {
+    background: linear-gradient(90deg, var(--sl-ink-bg) 0%, rgba(5, 11, 20, 0.55) 16%, rgba(5, 11, 20, 0) 42%),
+      linear-gradient(180deg, rgba(5, 11, 20, 0) 72%, rgba(5, 11, 20, 0.75) 100%);
+  }
+
+  .sl-lp-alert__content {
+    max-width: 56rem;
+  }
+}
+
+/* CTA-Box: zentrierte Variante + volle Button-Breite auf Mobil */
+.sl-lp-ctabox__panel--center .sl-lp-eyebrow {
+  justify-content: center;
+}
+
+.sl-lp .sl-lp-ctabox__panel--center .sl-lp-ctabox__h {
+  max-width: 26ch;
+}
+
+@media screen and (max-width: 749px) {
+  .sl-lp-ctabox__actions {
+    width: 100%;
+  }
+
+  .sl-lp .sl-lp-ctabox__btn {
+    width: 100%;
+    padding-inline: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sl-lp-devicecard--ring::before {
+    animation: none !important;
+    box-shadow: 0 0 0 4px rgba(229, 36, 45, 0.25);
+  }
+}

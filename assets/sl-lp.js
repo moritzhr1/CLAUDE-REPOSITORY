@@ -3,9 +3,13 @@
  * Keine externen Libraries. Wird von jeder sl-lp-Section eingebunden und initialisiert sich nur einmal.
  *
  * Tracking-Events (Name jeweils mit Präfix "sl_"):
- *   hero_cta_click, hero_trust_click, product_cta_click, placement_cta_click, proof_link_click,
+ *   hero_cta_click, hero_trust_click, alert_cta_click, alert_more_click, cta_box_click,
+ *   cta_box_more_click, steps_cta_click, product_cta_click, placement_cta_click, proof_link_click,
  *   card_link_click, source_link_click, set_select, offer_cta_click, add_to_cart, sticky_cta_click,
  *   faq_open, lead_submit, lead_success, video_play, video_complete, section_view
+ *
+ * A/B-Test Hero-Button: ?sl_cta=b oder ?sl_cta=c in der Anzeigen-URL (siehe sections/sl-lp-hero.liquid).
+ * Die aktive Variante (a/b/c) steht in jedem Event als sl_variant.
  *
  * Jedes Event wird ausgegeben an:
  *   1. window.dataLayer            → Google Tag Manager / GA4   ({ event: 'sl_<name>', ... })
@@ -18,7 +22,7 @@
 
   var SLLP = (window.SLLP = window.SLLP || {});
   SLLP.initialized = true;
-  SLLP.version = '1.0.0';
+  SLLP.version = '1.1.0';
   SLLP.debug = SLLP.debug || /[?&]sl_debug=1/.test(window.location.search);
 
   function pageName() {
@@ -26,8 +30,12 @@
     return (el && el.getAttribute('data-sl-page')) || window.location.pathname;
   }
 
+  function variant() {
+    return document.documentElement.getAttribute('data-sl-variant') || 'a';
+  }
+
   function track(name, detail) {
-    var payload = Object.assign({ sl_event: name, sl_page: pageName() }, detail || {});
+    var payload = Object.assign({ sl_event: name, sl_page: pageName(), sl_variant: variant() }, detail || {});
     Object.keys(payload).forEach(function (key) {
       if (payload[key] === undefined || payload[key] === '') delete payload[key];
     });

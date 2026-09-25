@@ -13,6 +13,7 @@
   - priority: {Boolean} true setzt fetchpriority="high" (nur für das wichtigste Hero-Bild)
   - alt: {String} Alternativtext (Standard image.alt)
   - class: {String} CSS-Klasse (optional)
+  - position: {String} object-position, z. B. image.presentation.focal_point (optional)
 {%- endcomment -%}
 {%- if image != blank -%}
   {%- liquid
@@ -76,5 +77,6 @@
     decoding="async"
     {% if priority %}fetchpriority="high"{% endif %}
     {% if class != blank %}class="{{ class }}"{% endif %}
+    {% if position != blank %}style="object-position: {{ position | escape }};"{% endif %}
   >
 {%- endif -%}

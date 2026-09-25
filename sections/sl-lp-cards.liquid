@@ -81,7 +81,7 @@
   {%- render 'sl-lp-assets' -%}
   <section
     id="{{ anchor }}"
-    class="sl-lp sl-lp-cards sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    class="sl-lp sl-lp-cards sl-lp-cards--{{ section.settings.layout }} sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
     {% if section.settings.heading != blank %}aria-labelledby="SlHeading-{{ section.id }}"{% endif %}
     data-sl-section="{{ track }}"
     data-sl-view="{{ track }}"
@@ -139,6 +139,9 @@
               {%- endif -%}
               {%- if s.label != blank -%}
                 <p class="sl-lp-card__label">{{ s.label | escape }}</p>
+              {%- endif -%}
+              {%- if s.belief != blank -%}
+                <p class="sl-lp-card__belief"><span class="visually-hidden">Irrglaube: </span>{{ s.belief | escape }}</p>
               {%- endif -%}
               {%- if s.title != blank -%}
                 <h3 class="sl-lp-card__h">{{ s.title | escape }}</h3>
@@ -332,7 +335,7 @@
               <a
                 href="{{ s.link | escape }}"
                 id="sl-{{ track }}-{{ s.button_id | default: block.id | handleize }}"
-                class="{% if s.style == 'link' %}sl-lp-link{% else %}sl-lp-cta sl-lp-cta--{{ s.style }}{% endif %}{% if section.settings.background == 'night' %} sl-lp-on-dark{% endif %}"
+                class="{% if s.style == 'link' %}sl-lp-link{% else %}sl-lp-cta sl-lp-cta--{{ s.style }}{% endif %}{% if section.settings.background == 'night' or section.settings.background == 'ink' %} sl-lp-on-dark{% endif %}"
                 data-sl-track="{{ s.track_event | default: 'cta_click' | handleize | replace: '-', '_' }}"
                 data-sl-label="{{ s.label | escape }}"
                 {{ block.shopify_attributes }}
@@ -389,7 +392,8 @@
       "options": [
         { "value": "white", "label": "Weiß" },
         { "value": "mist", "label": "Hellblau-Grau" },
-        { "value": "night", "label": "Nachtblau" }
+        { "value": "night", "label": "Nachtblau" },
+        { "value": "ink", "label": "Sehr dunkel (Warnung)" }
       ],
       "default": "white"
     },
@@ -455,7 +459,8 @@
       "options": [
         { "value": "cards", "label": "Karten" },
         { "value": "grid", "label": "Kompaktes Raster" },
-        { "value": "list", "label": "Liste" }
+        { "value": "list", "label": "Liste" },
+        { "value": "timeline", "label": "Zeitleiste (Dachzeile = Uhrzeit)" }
       ],
       "default": "cards"
     },
@@ -477,6 +482,8 @@
       "options": [
         { "value": "plain", "label": "Schlicht" },
         { "value": "quote", "label": "Annahme / Zitat" },
+        { "value": "myth", "label": "Denkfehler (Irrglaube → Korrektur)" },
+        { "value": "signal", "label": "Warnsignal (für dunklen Hintergrund)" },
         { "value": "link", "label": "Nachweis-Link" }
       ],
       "default": "plain"
@@ -541,6 +548,10 @@
             { "value": "person", "label": "Person" },
             { "value": "camper", "label": "Wohnmobil" },
             { "value": "home", "label": "Zuhause" },
+            { "value": "moon", "label": "Nacht" },
+            { "value": "alert", "label": "Warnung" },
+            { "value": "siren", "label": "Blaulicht" },
+            { "value": "clock", "label": "Uhrzeit" },
             { "value": "info", "label": "Info" }
           ],
           "default": "none"
@@ -549,7 +560,13 @@
           "type": "text",
           "id": "label",
           "label": "Dachzeile",
-          "info": "z. B. „Annahme“"
+          "info": "z. B. „Denkfehler 1“ oder bei der Zeitleiste die Uhrzeit („22:00“)."
+        },
+        {
+          "type": "text",
+          "id": "belief",
+          "label": "Irrglaube (wird durchgestrichen)",
+          "info": "Nur beim Kartenstil „Denkfehler“, z. B. „Mein Rauchmelder passt auf.“"
         },
         {
           "type": "text",
@@ -677,7 +694,9 @@
             { "value": "info", "label": "Info" },
             { "value": "shield-check", "label": "Schild" },
             { "value": "flame", "label": "Flamme" },
-            { "value": "eye", "label": "Sichtbar" }
+            { "value": "eye", "label": "Sichtbar" },
+            { "value": "alert", "label": "Warnung" },
+            { "value": "camper", "label": "Wohnmobil" }
           ],
           "default": "info"
         },

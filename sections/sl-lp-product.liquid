@@ -166,13 +166,14 @@
         <a
           href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
           id="sl-{{ track }}-cta"
-          class="sl-lp-cta sl-lp-cta--primary"
+          class="sl-lp-cta sl-lp-cta--signal"
           data-sl-track="product_cta_click"
           data-sl-label="{{ section.settings.cta_label | escape }}"
         >
           <span>{{ section.settings.cta_label | escape }}</span>
           {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
         </a>
+        {%- render 'sl-lp-trust', items: section.settings.trust_items -%}
       </div>
     {%- endif -%}
   </div>
@@ -337,6 +338,12 @@
       "id": "cta_link",
       "label": "Ziel",
       "default": "#angebot"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_items",
+      "label": "Vertrauens-Merkmale neben dem Button",
+      "info": "Ein Merkmal pro Zeile, nur belegte Aussagen. Zeilen mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor."
     }
   ],
   "blocks": [
