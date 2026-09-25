@@ -3802,3 +3802,38 @@ html:has(.sl-lp) {
     max-width: 60rem;
   }
 }
+
+/* ---------- Ernstfall mit echtem Foto: großflächig, nur leichter Übergang ins Dunkel ----------
+ * Desktop: Der Text reicht bis ca. 17 % in die Bildfläche – dort bleibt der Verlauf dunkel genug
+ * für lesbaren Text, ab ca. 31 % (Einsatzkräfte, Rettungswagen, Blaulicht) liegt nichts mehr darüber. */
+/* Fotos füllen ihre Bildfläche vollständig (überstimmt „.sl-lp img { height: auto }“) */
+.sl-lp .sl-lp-alert__img,
+.sl-lp .sl-lp-scene__img {
+  height: 100%;
+  max-width: none;
+}
+
+.sl-lp-alert--photo .sl-lp-alert__media {
+  aspect-ratio: 1 / 1;
+}
+
+.sl-lp-alert--photo .sl-lp-alert__media::after {
+  background: linear-gradient(180deg, rgba(5, 11, 20, 0.3) 0%, rgba(5, 11, 20, 0) 22%, rgba(5, 11, 20, 0) 64%, var(--sl-ink-bg) 100%);
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .sl-lp-alert--photo .sl-lp-alert__media {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp-alert--photo .sl-lp-alert__media {
+    aspect-ratio: auto;
+  }
+
+  .sl-lp-alert--photo .sl-lp-alert__media::after {
+    background: linear-gradient(90deg, var(--sl-ink-bg) 0%, rgba(5, 11, 20, 0.86) 10%, rgba(5, 11, 20, 0.62) 17%, rgba(5, 11, 20, 0) 31%),
+      linear-gradient(180deg, rgba(5, 11, 20, 0.3) 0%, rgba(5, 11, 20, 0) 22%, rgba(5, 11, 20, 0) 80%, rgba(5, 11, 20, 0.55) 100%);
+  }
+}

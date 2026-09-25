@@ -3,6 +3,7 @@
 
   Das srcset wird bewusst manuell aufgebaut, damit der Zuschnitt (crop: 'region') in jeder
   Breite erhalten bleibt. width/height entsprechen dem Zuschnitt → kein Layout-Shift (CLS).
+  Ist das Bild schmaler als die größte gewünschte Breite, wird es zusätzlich in voller Breite angeboten.
 
   Accepts:
   - image: {Object} Bild aus einem image_picker (Pflicht)
@@ -50,9 +51,12 @@
     assign width_list = widths | default: '360,540,720,960' | split: ','
     assign srcset = ''
     assign src_url = ''
+    assign largest = 0
+    assign skipped = false
     for w_str in width_list
       assign w = w_str | strip | plus: 0
       if w > crop_width
+        assign skipped = true
         continue
       endif
       if crop_mode == 'none'
@@ -62,14 +66,16 @@
       endif
       assign srcset = srcset | append: url | append: ' ' | append: w | append: 'w, '
       assign src_url = url
+      assign largest = w
     endfor
 
-    if src_url == blank
+    if skipped and largest < crop_width or src_url == blank
       if crop_mode == 'none'
         assign src_url = image | image_url: width: crop_width
       else
         assign src_url = image | image_url: width: crop_width, crop: 'region', crop_left: crop_left, crop_top: crop_top, crop_width: crop_width, crop_height: crop_height
       endif
+      assign srcset = srcset | append: src_url | append: ' ' | append: crop_width | append: 'w, '
     endif
 
     assign srcset_length = srcset | size | minus: 2

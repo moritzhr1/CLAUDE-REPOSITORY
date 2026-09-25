@@ -118,7 +118,7 @@
       "settings": {
         "anchor": "ernstfall",
         "tracking_name": "ernstfall",
-        "image_alt": "Symbolbild: Wohnmobil bei Nacht, im Hintergrund Blaulicht eines Einsatzfahrzeugs",
+        "image_alt": "Symbolbild: Rettungswagen und Feuerwehr mit Blaulicht bei Regen in einer Wohnstraße, Rettungskräfte mit Trage",
         "badge_text": "Symbolbild",
         "eyebrow": "Im Ernstfall",
         "heading": "Wenn etwas passiert, zählt nicht dein Bauchgefühl.",
@@ -129,7 +129,8 @@
         "cta_label": "Wohnmobil absichern",
         "cta_link": "#angebot",
         "placeholder_label": "[EINSATZBILD / BLAULICHT-SZENE]",
-        "placeholder_live": true
+        "placeholder_live": false,
+        "image": "shopify://shop_images/sicherluft-einsatz-rettungswagen-blaulicht.jpg"
       }
     },
     "irrtuemer": {

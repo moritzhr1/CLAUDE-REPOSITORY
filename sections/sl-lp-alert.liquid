@@ -10,6 +10,7 @@
   Empfehlung oder eines echten Einsatzes). Bildrechte klären (Stockfoto-Lizenz / eigenes Shooting).
   Ohne Foto zeigt die Section eine schlichte Illustration (snippets/sl-lp-emergency-scene.liquid) mit
   Regen- und Körnungs-Effekt; im Editor (und optional live) markiert als „[EINSATZBILD / BLAULICHT-SZENE]“.
+  Mit Foto: keine Effekte über dem Bild, nur ein leichter Verlauf in den dunklen Hintergrund.
   Die erste Zahl ist die Hauptzahl (groß), weitere Zahlen folgen kleiner.
 
   Claim-Guard: Zahlen-Blöcke mit [CLAIM VERIFIZIEREN] / [QUELLE] erscheinen nur im Theme-Editor.
@@ -72,7 +73,7 @@
         {%- render 'sl-lp-image',
           image: section.settings.image,
           widths: '960,1280,1600,1920',
-          sizes: '100vw',
+          sizes: '(min-width: 990px) 60vw, 100vw',
           alt: section.settings.image_alt,
           class: 'sl-lp-alert__img sl-lp-alert__img--desktop',
           position: focal
@@ -81,7 +82,7 @@
         {%- render 'sl-lp-image',
           image: section.settings.image,
           widths: '480,720,960,1280,1600,1920',
-          sizes: '100vw',
+          sizes: '(min-width: 990px) 60vw, 100vw',
           alt: section.settings.image_alt,
           class: 'sl-lp-alert__img',
           position: focal
@@ -90,13 +91,13 @@
     {%- else -%}
       {%- render 'sl-lp-emergency-scene', uid: section.id -%}
       <span class="sl-lp-alert__rain" aria-hidden="true"></span>
+      <span class="sl-lp-alert__grain" aria-hidden="true"></span>
       {%- if section.settings.placeholder_label != blank -%}
         {%- if request.design_mode or section.settings.placeholder_live -%}
           <span class="sl-lp-alert__placeholder">{{ section.settings.placeholder_label | escape }}</span>
         {%- endif -%}
       {%- endif -%}
     {%- endif -%}
-    <span class="sl-lp-alert__grain" aria-hidden="true"></span>
     {%- if has_image and section.settings.badge_text != blank -%}
       <span class="sl-lp-alert__badge">{{ section.settings.badge_text | escape }}</span>
     {%- endif -%}
