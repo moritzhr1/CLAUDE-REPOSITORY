@@ -1,54 +1,172 @@
 {%- comment -%}
   SICHERLUFT Landingpage-Kit · Artikel-Kopf im Zeitungsstil
-  Dachzeile, Serifen-Schlagzeile (optional mit größerer Vorzeile, z. B. „… warnen:“), kursive Unterzeile
-  und Autorenzeile mit rundem Bild, Datum und bis zu zwei Quellen –
+  Dachzeile, Serifen-Schlagzeile (optional mit größerer Vorzeile, z. B. „… warnen:“), kursive Unterzeile,
+  Autorenzeile mit rundem Bild und Datum sowie bis zu zwei Quellen –
   gleicher Stil wie der Redaktionsblock auf der Produktseite.
 
-  Autorenzeile:
+  Position der Autorenzeile:
+  - unten (Standard): unter der Unterzeile, Datum und Quellen in einer Zeile.
+  - oben: zwischen Vorzeile und Schlagzeile, mit Linie darüber und darunter; die Quellen stehen dann
+    als eigene Zeile unter der Unterzeile.
+
+  Absender:
   - Marke (Standard): Name + Signet. Ohne eigenes Bild wird das Favicon des Shops genutzt.
-  - Person: erscheint live nur mit Name, Foto und bestätigter Einwilligung/Autorisierung.
-    Bis dahin zeigt die Seite die Marken-Zeile, im Theme-Editor erscheint ein Hinweis.
-  Tracking: Sichtbarkeit über data-sl-view, Quellenlink = article_source_click.
+  - Person: echter Name oder Pseudonym der tatsächlichen Autoren; erscheint live nur mit Name und
+    bestätigtem Haken. Ohne Foto zeigt der Kreis die Initialen. Bis zur Bestätigung zeigt die Seite
+    die Marken-Zeile, im Theme-Editor erscheint ein Hinweis.
+  Tracking: Sichtbarkeit über data-sl-view, Quellenlinks = article_source_click.
 {%- endcomment -%}
 {%- render 'sl-lp-assets' -%}
 {%- liquid
   assign anchor = section.settings.anchor | default: section.id | handleize
   assign track = section.settings.tracking_name | default: anchor | handleize
   assign heading_id = 'SlHeading-' | append: section.id
+  assign lead_id = 'SlLead-' | append: section.id
+
+  assign byline_top = false
+  if section.settings.byline_position == 'top'
+    assign byline_top = true
+  endif
 
   assign wants_person = false
   if section.settings.byline_mode == 'person'
     assign wants_person = true
   endif
   assign person_live = false
-  if wants_person and section.settings.person_confirmed and section.settings.person_name != blank and section.settings.person_image != blank
+  if wants_person and section.settings.person_confirmed and section.settings.person_name != blank
     assign person_live = true
   endif
 
+  assign author_initials = ''
   if person_live
     assign author_name = section.settings.person_name
     assign author_role = section.settings.person_role
     assign author_image = section.settings.person_image
+    if author_image == blank
+      assign name_parts = author_name | strip | split: ' '
+      assign author_initials = name_parts.first | slice: 0
+      if name_parts.size > 1
+        assign last_initial = name_parts.last | slice: 0
+        assign author_initials = author_initials | append: last_initial
+      endif
+      assign author_initials = author_initials | upcase
+    endif
   else
     assign author_name = section.settings.brand_name
     assign author_role = ''
     assign author_image = section.settings.brand_image | default: settings.favicon
   endif
 
+  assign has_lead = false
+  if section.settings.heading_lead != blank
+    assign has_lead = true
+  endif
   assign has_heading = false
-  if section.settings.heading != blank or section.settings.heading_lead != blank
+  if section.settings.heading != blank or has_lead
     assign has_heading = true
   endif
   assign has_source = false
   if section.settings.source_label != blank or section.settings.source2_label != blank
     assign has_source = true
   endif
+  assign has_byline = false
+  if author_name != blank or section.settings.date != blank
+    assign has_byline = true
+  endif
+
+  assign labelled_by = heading_id
+  if byline_top and has_lead
+    if section.settings.heading != blank
+      assign labelled_by = lead_id | append: ' ' | append: heading_id
+    else
+      assign labelled_by = lead_id
+    endif
+  endif
 -%}
+
+{%- capture avatar_html -%}
+  {%- if author_image != blank -%}
+    <span class="sl-lp-article__avatar{% unless person_live %} sl-lp-article__avatar--brand{% endunless %}">
+      <img
+        src="{{ author_image | image_url: width: 128 }}"
+        srcset="{{ author_image | image_url: width: 64 }} 64w, {{ author_image | image_url: width: 128 }} 128w, {{ author_image | image_url: width: 192 }} 192w"
+        sizes="{% if byline_top %}64px{% else %}44px{% endif %}"
+        width="64"
+        height="64"
+        alt=""
+        loading="lazy"
+        decoding="async"
+      >
+    </span>
+  {%- elsif author_initials != blank -%}
+    <span class="sl-lp-article__avatar sl-lp-article__avatar--initials" aria-hidden="true">{{ author_initials | escape }}</span>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture author_html -%}
+  {%- if author_name != blank -%}
+    <p class="sl-lp-article__author">
+      {%- if byline_top and section.settings.name_prefix != blank -%}
+        <span class="sl-lp-article__by">{{ section.settings.name_prefix | escape }} </span>
+      {%- endif -%}
+      {{- author_name | escape -}}
+      {%- if author_role != blank -%}
+        <span class="sl-lp-article__role">{{ author_role | escape }}</span>
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture date_html -%}
+  {%- if section.settings.date != blank -%}
+    <span class="sl-lp-article__date">
+      {%- if section.settings.date_label != blank -%}{{ section.settings.date_label | escape }} {% endif -%}
+      {{- section.settings.date | escape -}}
+    </span>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture sources_html -%}
+  {%- if has_source -%}
+    {%- if section.settings.source_intro != blank -%}
+      <span class="sl-lp-article__source-intro">{{ section.settings.source_intro | escape }} </span>
+    {%- endif -%}
+    {%- assign printed = 0 -%}
+    {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+        {%- assign s_label = section.settings.source_label -%}
+        {%- assign s_link = section.settings.source_link -%}
+      {%- else -%}
+        {%- assign s_label = section.settings.source2_label -%}
+        {%- assign s_link = section.settings.source2_link -%}
+      {%- endif -%}
+      {%- if s_label == blank -%}{%- continue -%}{%- endif -%}
+      {%- if printed > 0 -%}
+        <span class="sl-lp-article__sep">, </span>
+      {%- endif -%}
+      {%- if s_link != blank -%}
+        <a
+          class="sl-lp-article__source"
+          href="{{ s_link }}"
+          target="_blank"
+          rel="noopener"
+          data-sl-track="article_source_click"
+          data-sl-label="{{ s_label | escape }}"
+        >
+          {{- s_label | escape -}}
+        </a>
+      {%- else -%}
+        <span class="sl-lp-article__source">{{ s_label | escape }}</span>
+      {%- endif -%}
+      {%- assign printed = printed | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
 
 <section
   id="{{ anchor }}"
   class="sl-lp sl-lp-article"
-  {% if has_heading %}aria-labelledby="{{ heading_id }}"{% endif %}
+  {% if has_heading %}aria-labelledby="{{ labelled_by }}"{% endif %}
   data-sl-section="{{ track }}"
   data-sl-view="{{ track }}"
 >
@@ -56,16 +174,37 @@
     <article class="sl-lp-article__inner">
       {%- if wants_person and person_live == false and request.design_mode -%}
         {%- render 'sl-lp-devflag',
-          reason: 'Person erscheint erst live mit Name, Foto und bestätigter Einwilligung. Bis dahin zeigt die Seite die Marken-Zeile.'
+          reason: 'Person erscheint erst live mit Name und gesetztem Haken „Autorenschaft bestätigt“. Bis dahin zeigt die Seite die Marken-Zeile.'
         -%}
       {%- endif -%}
 
       {%- if section.settings.kicker != blank -%}
         <p class="sl-lp-article__kicker">{{ section.settings.kicker | escape }}</p>
       {%- endif -%}
-      {%- if has_heading -%}
-        <h2 id="{{ heading_id }}" class="sl-lp-article__h{% if section.settings.heading_lead != blank %} sl-lp-article__h--lead{% endif %}">
-          {%- if section.settings.heading_lead != blank -%}
+
+      {%- if byline_top -%}
+        {%- if has_lead -%}
+          <p id="{{ lead_id }}" class="sl-lp-article__lead">{{ section.settings.heading_lead | escape }}</p>
+        {%- endif -%}
+        {%- if has_byline -%}
+          <div class="sl-lp-article__byline sl-lp-article__byline--top">
+            {{- avatar_html -}}
+            <div class="sl-lp-article__byline-copy">
+              {{- author_html -}}
+              {%- if date_html != blank -%}
+                <p class="sl-lp-article__meta">{{ date_html }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 id="{{ heading_id }}" class="sl-lp-article__h{% if has_lead %} sl-lp-article__h--lead{% endif %}">
+            <span class="sl-lp-article__main">{{ section.settings.heading }}</span>
+          </h2>
+        {%- endif -%}
+      {%- elsif has_heading -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-article__h{% if has_lead %} sl-lp-article__h--lead{% endif %}">
+          {%- if has_lead -%}
             <span class="sl-lp-article__lead">{{ section.settings.heading_lead | escape }}</span>
             {{- ' ' -}}
           {%- endif -%}
@@ -74,77 +213,27 @@
           {%- endif -%}
         </h2>
       {%- endif -%}
+
       {%- if section.settings.deck != blank -%}
         <p class="sl-lp-article__deck">{{ section.settings.deck | escape }}</p>
       {%- endif -%}
 
-      {%- if author_name != blank or section.settings.date != blank -%}
+      {%- if byline_top -%}
+        {%- if has_source -%}
+          <p class="sl-lp-article__sources">{{ sources_html }}</p>
+        {%- endif -%}
+      {%- elsif has_byline -%}
         <div class="sl-lp-article__byline">
-          {%- if author_image != blank -%}
-            <span class="sl-lp-article__avatar{% unless person_live %} sl-lp-article__avatar--brand{% endunless %}">
-              <img
-                src="{{ author_image | image_url: width: 96 }}"
-                srcset="{{ author_image | image_url: width: 48 }} 48w, {{ author_image | image_url: width: 96 }} 96w, {{ author_image | image_url: width: 144 }} 144w"
-                sizes="44px"
-                width="44"
-                height="44"
-                alt=""
-                loading="lazy"
-                decoding="async"
-              >
-            </span>
-          {%- endif -%}
+          {{- avatar_html -}}
           <div class="sl-lp-article__byline-copy">
-            {%- if author_name != blank -%}
-              <p class="sl-lp-article__author">
-                {{- author_name | escape -}}
-                {%- if author_role != blank -%}
-                  <span class="sl-lp-article__role">{{ author_role | escape }}</span>
-                {%- endif -%}
-              </p>
-            {%- endif -%}
-            {%- if section.settings.date != blank or has_source -%}
+            {{- author_html -}}
+            {%- if date_html != blank or has_source -%}
               <p class="sl-lp-article__meta">
-                {%- if section.settings.date != blank -%}
-                  <span class="sl-lp-article__date">{{ section.settings.date | escape }}</span>
+                {{- date_html -}}
+                {%- if date_html != blank and has_source -%}
+                  <span class="sl-lp-article__sep" aria-hidden="true"> · </span>
                 {%- endif -%}
-                {%- if has_source -%}
-                  {%- if section.settings.date != blank -%}
-                    <span class="sl-lp-article__sep" aria-hidden="true"> · </span>
-                  {%- endif -%}
-                  {%- if section.settings.source_intro != blank -%}
-                    <span class="sl-lp-article__source-intro">{{ section.settings.source_intro | escape }} </span>
-                  {%- endif -%}
-                  {%- assign printed = 0 -%}
-                  {%- for i in (1..2) -%}
-                    {%- if i == 1 -%}
-                      {%- assign s_label = section.settings.source_label -%}
-                      {%- assign s_link = section.settings.source_link -%}
-                    {%- else -%}
-                      {%- assign s_label = section.settings.source2_label -%}
-                      {%- assign s_link = section.settings.source2_link -%}
-                    {%- endif -%}
-                    {%- if s_label == blank -%}{%- continue -%}{%- endif -%}
-                    {%- if printed > 0 -%}
-                      <span class="sl-lp-article__sep">, </span>
-                    {%- endif -%}
-                    {%- if s_link != blank -%}
-                      <a
-                        class="sl-lp-article__source"
-                        href="{{ s_link }}"
-                        target="_blank"
-                        rel="noopener"
-                        data-sl-track="article_source_click"
-                        data-sl-label="{{ s_label | escape }}"
-                      >
-                        {{- s_label | escape -}}
-                      </a>
-                    {%- else -%}
-                      <span class="sl-lp-article__source">{{ s_label | escape }}</span>
-                    {%- endif -%}
-                    {%- assign printed = printed | plus: 1 -%}
-                  {%- endfor -%}
-                {%- endif -%}
+                {{- sources_html -}}
               </p>
             {%- endif -%}
           </div>
@@ -165,7 +254,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Schlagzeile im Zeitungsstil. Die direkt folgende Section schließt ohne Trennlinie an."
+      "content": "Schlagzeile im Zeitungsstil mit Autorenzeile und Quellen."
     },
     {
       "type": "text",
@@ -189,7 +278,7 @@
       "type": "text",
       "id": "heading_lead",
       "label": "Vorzeile der Schlagzeile",
-      "info": "Steht größer über der Schlagzeile, z. B. „Brandschutzexperten warnen:“. Nur mit belegbarer Quelle unten."
+      "info": "Steht größer über der Schlagzeile, z. B. „Brandschutzexperten warnen:“. Nur mit belegbarer Quelle."
     },
     {
       "type": "inline_richtext",
@@ -204,6 +293,16 @@
     {
       "type": "header",
       "content": "Autorenzeile"
+    },
+    {
+      "type": "select",
+      "id": "byline_position",
+      "label": "Position",
+      "options": [
+        { "value": "bottom", "label": "Unter der Unterzeile" },
+        { "value": "top", "label": "Zwischen Vorzeile und Schlagzeile" }
+      ],
+      "default": "bottom"
     },
     {
       "type": "select",
@@ -231,30 +330,44 @@
       "type": "text",
       "id": "person_name",
       "label": "Name (Person)",
-      "info": "Nur echte Personen mit eigener, autorisierter Aussage."
+      "info": "Echter Name oder Pseudonym der tatsächlichen Autoren."
     },
     {
       "type": "text",
       "id": "person_role",
-      "label": "Titel / Funktion (Person)"
+      "label": "Titel / Funktion (Person)",
+      "info": "Nur echte, nachweisbare Titel und Funktionen."
     },
     {
       "type": "image_picker",
       "id": "person_image",
-      "label": "Foto (Person)"
+      "label": "Foto (Person)",
+      "info": "Nur ein echtes Foto der Person, für die der Name steht, mit ihrer Einwilligung. Ohne Foto zeigt der Kreis die Initialen."
     },
     {
       "type": "checkbox",
       "id": "person_confirmed",
-      "label": "Einwilligung liegt vor",
-      "info": "Bestätigt: echte Person, Aussage von ihr autorisiert, schriftliche Einwilligung für Name und Foto. Ohne Haken erscheint live die Marken-Zeile.",
+      "label": "Autorenschaft bestätigt",
+      "info": "Bestätigt: Der Name steht für die tatsächlichen Autoren dieses Textes (Pseudonym möglich); ein Foto zeigt die echte Person mit ihrer Einwilligung. Ohne Haken erscheint live die Marken-Zeile.",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "name_prefix",
+      "label": "Text vor dem Namen",
+      "info": "Nur bei Position „Zwischen Vorzeile und Schlagzeile“, z. B. „Von“."
+    },
+    {
+      "type": "text",
+      "id": "date_label",
+      "label": "Text vor dem Datum",
+      "info": "z. B. „zuletzt bearbeitet:“"
     },
     {
       "type": "text",
       "id": "date",
       "label": "Datum",
-      "info": "Tatsächliches Veröffentlichungs- oder Prüfdatum, z. B. 25. September 2026."
+      "info": "z. B. 16.06.2026 oder 25. September 2026."
     },
     {
       "type": "text",

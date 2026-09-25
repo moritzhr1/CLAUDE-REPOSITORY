@@ -3882,6 +3882,7 @@ html:has(.sl-lp) {
  * Laufweite je Teil neu setzen (sonst erbt die größere Vorzeile den absoluten Wert der Schlagzeile). */
 .sl-lp .sl-lp-article__lead,
 .sl-lp .sl-lp-article__main {
+  color: var(--sl-article-ink);
   font-family: var(--sl-article-serif) !important;
   font-weight: 600 !important;
   letter-spacing: -0.025em;
@@ -3975,16 +3976,74 @@ html:has(.sl-lp) {
   white-space: pre;
 }
 
-.sl-lp .sl-lp-article__meta a {
+.sl-lp .sl-lp-article__meta a,
+.sl-lp .sl-lp-article__sources a {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--sl-article-rule);
   text-underline-offset: 0.2em;
 }
 
-.sl-lp .sl-lp-article__meta a:hover {
+.sl-lp .sl-lp-article__meta a:hover,
+.sl-lp .sl-lp-article__sources a:hover {
   color: var(--sl-article-ink);
   text-decoration-color: currentColor;
+}
+
+/* Autorenzeile zwischen Vorzeile und Schlagzeile: Linie darüber und darunter (wie im Redaktionslayout) */
+.sl-lp-article__byline--top {
+  gap: 1.6rem;
+  margin: 2rem 0 2.2rem;
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--sl-article-rule);
+  border-bottom: 1px solid var(--sl-article-rule);
+}
+
+.sl-lp-article__byline--top .sl-lp-article__avatar {
+  flex: 0 0 6rem;
+  width: 6rem;
+  height: 6rem;
+}
+
+.sl-lp-article__byline--top .sl-lp-article__byline-copy {
+  gap: 0.2rem;
+  font-size: 1.6rem;
+  line-height: 1.4;
+}
+
+.sl-lp-article__byline--top .sl-lp-article__meta {
+  font-size: 1.45rem;
+}
+
+.sl-lp .sl-lp-article__by {
+  color: var(--sl-article-soft);
+  font-weight: 400 !important;
+}
+
+/* Kreis mit Initialen, solange kein echtes Foto hinterlegt ist */
+.sl-lp .sl-lp-article__avatar--initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ece7df;
+  color: var(--sl-article-ink);
+  font-family: var(--sl-article-serif) !important;
+  font-size: 1.6rem;
+  font-weight: 600 !important;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.sl-lp .sl-lp-article__byline--top .sl-lp-article__avatar--initials {
+  font-size: 2.1rem;
+}
+
+/* Quellen als eigene Zeile unter der Unterzeile (bei Autorenzeile oben) */
+.sl-lp .sl-lp-article__sources {
+  margin-top: 1.8rem;
+  color: var(--sl-article-soft);
+  font-size: 1.35rem;
+  line-height: 1.45;
 }
 
 @media screen and (min-width: 750px) {
@@ -4005,6 +4064,24 @@ html:has(.sl-lp) {
   }
 
   .sl-lp-article__byline-copy {
+    font-size: 1.45rem;
+  }
+
+  .sl-lp-article__byline--top .sl-lp-article__avatar {
+    flex-basis: 6.4rem;
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+
+  .sl-lp-article__byline--top .sl-lp-article__byline-copy {
+    font-size: 1.7rem;
+  }
+
+  .sl-lp-article__byline--top .sl-lp-article__meta {
+    font-size: 1.5rem;
+  }
+
+  .sl-lp .sl-lp-article__sources {
     font-size: 1.45rem;
   }
 
