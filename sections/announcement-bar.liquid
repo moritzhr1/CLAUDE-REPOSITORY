@@ -1,3 +1,9 @@
+{%- comment -%}
+  SICHERLUFT: Auf der Performance-Landingpage /pages/wohnmobil-nacht-check (Template-Suffix
+  „wohnmobil-nacht-check“) erscheint kein Countdown – die Seite verzichtet bewusst auf
+  Countdown- und Knappheits-Elemente. Auf allen anderen Seiten bleibt der Banner unverändert.
+{%- endcomment -%}
+{%- unless template.suffix == 'wohnmobil-nacht-check' -%}
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
 
 <div class="section-announcement">
@@ -117,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+{%- endunless -%}
 
 {% schema %}
 {
