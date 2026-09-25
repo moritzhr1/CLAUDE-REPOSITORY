@@ -5,7 +5,9 @@
 
   Claim-Guard: Blöcke mit [CLAIM VERIFIZIEREN]/[PRODUKTDATEN]/[QUELLE] oder mit fehlendem
   Pflicht-Link erscheinen nur im Theme-Editor. Die ganze Section erscheint live nur, wenn
-  sichtbare Inhalte vorhanden sind (und ggf. die Mindestanzahl an Karten erreicht ist).
+  sichtbare Inhalte vorhanden sind (alle Blocktypen außer Quellen und Buttons zählen) und ggf.
+  die Mindestanzahl an Karten erreicht ist.
+  Zahlen-Blöcke („Zahl“) erscheinen gesammelt als Zahlenleiste (snippets/sl-lp-stats.liquid).
 {%- endcomment -%}
 {%- liquid
   assign anchor = section.settings.anchor | default: section.id | handleize
@@ -19,6 +21,7 @@
   assign source_count = 0
   assign live_sources = 0
   assign fact_count = 0
+  assign stat_count = 0
   assign note_count = 0
   assign media_count = 0
   assign button_count = 0
@@ -39,7 +42,6 @@
         assign card_count = card_count | plus: 1
         if st == blank
           assign live_cards = live_cards | plus: 1
-          assign live_content = live_content | plus: 1
         endif
       when 'source'
         assign source_count = source_count | plus: 1
@@ -48,22 +50,19 @@
         endif
       when 'fact'
         assign fact_count = fact_count | plus: 1
-        if st == blank
-          assign live_content = live_content | plus: 1
-        endif
+      when 'stat'
+        assign stat_count = stat_count | plus: 1
       when 'note'
         assign note_count = note_count | plus: 1
-        if st == blank
-          assign live_content = live_content | plus: 1
-        endif
       when 'button'
         assign button_count = button_count | plus: 1
       else
         assign media_count = media_count | plus: 1
-        if st == blank
-          assign live_content = live_content | plus: 1
-        endif
     endcase
+
+    unless st != blank or block.type == 'source' or block.type == 'button'
+      assign live_content = live_content | plus: 1
+    endunless
   endfor
 
   assign section_live = true
@@ -180,12 +179,17 @@
         </ul>
       {%- endif -%}
 
+      {%- comment -%} Zahlenleiste: große Zahlen, kurze Aussage, eine gemeinsame Quelle {%- endcomment -%}
+      {%- if stat_count > 0 -%}
+        {%- render 'sl-lp-stats', section: section, states: states -%}
+      {%- endif -%}
+
       {%- comment -%} Fakten, Hinweise, Medien, App-Blöcke {%- endcomment -%}
       {%- assign extra_count = fact_count | plus: note_count | plus: media_count -%}
       {%- if extra_count > 0 -%}
         <div class="sl-lp-cards__extras">
           {%- for block in section.blocks -%}
-            {%- if block.type == 'card' or block.type == 'source' or block.type == 'button' -%}{%- continue -%}{%- endif -%}
+            {%- if block.type == 'card' or block.type == 'source' or block.type == 'button' or block.type == 'stat' -%}{%- continue -%}{%- endif -%}
             {%- liquid
               assign key = '|' | append: block.id | append: '='
               assign st = states | split: key | last | split: '|' | first
@@ -505,6 +509,26 @@
       "default": "Quellen"
     },
     {
+      "type": "header",
+      "content": "Zahlenleiste (Blöcke „Zahl“)"
+    },
+    {
+      "type": "text",
+      "id": "stats_heading",
+      "label": "Überschrift Zahlenleiste"
+    },
+    {
+      "type": "text",
+      "id": "stats_source",
+      "label": "Quelle der Zahlen",
+      "info": "Eine Zeile unter der Zahlenleiste. Nur geprüfte Quellen."
+    },
+    {
+      "type": "text",
+      "id": "stats_source_link",
+      "label": "Link zur Quelle der Zahlen"
+    },
+    {
       "type": "richtext",
       "id": "editor_hint",
       "label": "Hinweis nur im Editor",
@@ -645,6 +669,29 @@
           "type": "textarea",
           "id": "dev_note",
           "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Zahl",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Zahl",
+          "info": "z. B. 41 % – nur mit geprüfter Quelle (Section-Einstellung „Quelle der Zahlen“)."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Aussage (kurz)"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Beleg / interne Notiz",
           "info": "Nur im Editor sichtbar."
         }
       ]

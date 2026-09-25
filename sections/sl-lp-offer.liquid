@@ -1,11 +1,21 @@
 {%- comment -%}
   SICHERLUFT Landingpage-Kit · Angebot
-  - Preise kommen ausschließlich aus Shopify (Variantenpreis × Menge). Keine Rabattlogik im Theme.
-  - Streichpreise nur, wenn in Shopify ein echter Vergleichspreis gepflegt ist.
-  - „Versandkostenfrei“ nur ab der im Theme hinterlegten Schwelle (Theme-Einstellungen →
-    Cart Drawer → „Amount limit for free shipping“, aktuell passend zur Versandrate ab 80 €).
+  Preise
+  - Einzelpreis, Verfügbarkeit und ein evtl. gepflegter Vergleichspreis kommen live aus Shopify.
+  - Set-Preise (2/3/4 Geräte) kommen aus dem Kaching-Deal „SICHERLUFT Mengenrabatt“ (automatischer
+    Shopify-Rabatt mit Festpreis je Menge). Liquid kann die Kaching-Daten nicht lesen → Set-Preis je Block
+    im Feld „Set-Preis“ pflegen. Streichpreis = Einzelpreis × Anzahl (so rechnet auch Kaching).
+  - Kaching rabattiert eine Warenkorbzeile nur mit der Eigenschaft
+    __kaching_bundles = {"deal":"<Deal-ID>","main":true} – dieselbe, die das Kaching-Widget auf der
+    Produktseite setzt. Das Formular sendet sie, sobald „Kaching-Deal-ID“ gepflegt ist. Ohne Deal-ID zeigt
+    die Seite reguläre Preise (Einzelpreis × Anzahl), damit Seite und Warenkorb nie auseinanderlaufen.
+  - „Versandkostenfrei“ nur ab der im Theme hinterlegten Schwelle (Theme-Einstellungen → Cart Drawer →
+    „Amount limit for free shipping“, passend zur Versandrate ab 80 €).
   - Warenkorb über das vorhandene <product-form> des Themes (AJAX, öffnet den Cart-Drawer).
     Ohne JavaScript funktioniert das Formular als normaler POST auf /cart/add.
+  Technik: Der erste Durchlauf merkt sich je Block Status und Preise als Text
+  (states: |blockid=status|, prices: |blockid=angebotspreis,streichpreis| in Cent).
+  Stückpreis = kaufmännisch gerundet, nur mit ganzen Cent: (2 × Preis + Menge) ÷ (2 × Menge).
 {%- endcomment -%}
 {%- render 'sl-lp-assets' -%}
 {%- liquid
@@ -19,11 +29,22 @@
     assign free_shipping_cents = settings.product_free_shipping | times: 100
   endif
 
+  assign deal_id = section.settings.kaching_deal | strip | remove: '"'
+  assign bundle_active = false
+  if deal_id != blank
+    assign bundle_active = true
+  endif
+  assign bundle_prop = '{"deal":"' | append: deal_id | append: '","main":true}'
+
   assign states = '|'
+  assign prices = '|'
   assign live_options = 0
+  assign card_count = 0
   assign default_index = 0
   assign highlight_index = 0
   assign first_index = 0
+  assign min_total = 0
+  assign price_issue = ''
   for block in section.blocks
     if block.type != 'option'
       continue
@@ -42,6 +63,34 @@
     endif
     assign states = states | append: block.id | append: '=' | append: st | append: '|'
 
+    assign offer_total = 0
+    assign compare_total = 0
+    if block.settings.product != blank
+      assign v = block.settings.product.selected_or_first_available_variant
+      assign qty = block.settings.quantity
+      assign regular_total = v.price | times: qty
+      assign offer_total = regular_total
+      if v.compare_at_price > v.price
+        assign compare_total = v.compare_at_price | times: qty
+      endif
+      if block.settings.offer_price != blank
+        if bundle_active
+          assign parsed = block.settings.offer_price | remove: '€' | remove: ' ' | replace: ',', '.' | times: 100 | round
+          if parsed > 0 and parsed < regular_total
+            assign offer_total = parsed
+            if compare_total < regular_total
+              assign compare_total = regular_total
+            endif
+          else
+            assign price_issue = price_issue | append: block.settings.title | append: ': Set-Preis ungültig oder nicht günstiger als Einzelpreis × Anzahl. '
+          endif
+        else
+          assign price_issue = price_issue | append: block.settings.title | append: ': Set-Preis ignoriert, weil die Kaching-Deal-ID fehlt. '
+        endif
+      endif
+    endif
+    assign prices = prices | append: block.id | append: '=' | append: offer_total | append: ',' | append: compare_total | append: '|'
+
     if st == blank or request.design_mode and block.settings.product != blank
       if first_index == 0
         assign first_index = forloop.index
@@ -55,6 +104,12 @@
     endif
     if st == blank
       assign live_options = live_options | plus: 1
+      if block.settings.display != 'compact'
+        assign card_count = card_count | plus: 1
+      endif
+      if min_total == 0 or offer_total < min_total
+        assign min_total = offer_total
+      endif
     endif
   endfor
   if default_index == 0
@@ -63,17 +118,21 @@
   if default_index == 0
     assign default_index = first_index
   endif
+  if card_count < 1
+    assign card_count = 1
+  endif
 
   assign default_product = nil
   assign default_variant = nil
-  assign default_qty = 1
   assign default_title = ''
+  assign default_total = 0
   for block in section.blocks
     if forloop.index == default_index
       assign default_product = block.settings.product
       assign default_variant = default_product.selected_or_first_available_variant
-      assign default_qty = block.settings.quantity
       assign default_title = block.settings.title
+      assign key = '|' | append: block.id | append: '='
+      assign default_total = prices | split: key | last | split: '|' | first | split: ',' | first | plus: 0
     endif
   endfor
 
@@ -105,6 +164,10 @@
         size: section.settings.heading_size
       -%}
 
+      {%- if request.design_mode and price_issue != blank -%}
+        <p class="sl-lp-devnote sl-lp-devnote--block">{{ price_issue | escape }}</p>
+      {%- endif -%}
+
       {%- if default_product != blank -%}
         <product-form class="sl-lp-offer__form" data-section-id="{{ section.id }}" data-hide-errors="false" data-sl-offer-form>
           <div class="product-form__error-message-wrapper sl-lp-offer__error" role="alert" hidden>
@@ -112,7 +175,10 @@
           </div>
           {%- form 'product', default_product, id: form_id, class: 'sl-lp-offer__formel', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
             <input type="hidden" name="id" value="{{ default_variant.id }}" data-sl-offer-variant>
-            <fieldset class="sl-lp-offer__options">
+            {%- if bundle_active -%}
+              <input type="hidden" name="properties[__kaching_bundles]" value="{{ bundle_prop | escape }}">
+            {%- endif -%}
+            <fieldset class="sl-lp-offer__options" style="--sl-offer-cols: {{ card_count }};">
               <legend class="visually-hidden">{{ section.settings.legend | default: 'Anzahl der Geräte wählen' | escape }}</legend>
               {%- for block in section.blocks -%}
                 {%- if block.type != 'option' -%}{%- continue -%}{%- endif -%}
@@ -132,11 +198,20 @@
                   assign product = s.product
                   assign variant = product.selected_or_first_available_variant
                   assign qty = s.quantity
-                  assign total = variant.price | times: qty
-                  assign compare_total = 0
-                  if variant.compare_at_price > variant.price
-                    assign compare_total = variant.compare_at_price | times: qty
+                  assign price_pair = prices | split: key | last | split: '|' | first | split: ','
+                  assign total = price_pair[0] | plus: 0
+                  assign compare_total = price_pair[1] | plus: 0
+                  assign savings = 0
+                  if compare_total > total
+                    assign savings = compare_total | minus: total
                   endif
+                  assign twice_qty = qty | times: 2
+                  assign unit_price = total | times: 2 | plus: qty | divided_by: twice_qty
+                  assign compact = false
+                  if s.display == 'compact'
+                    assign compact = true
+                  endif
+
                   assign offer_id = s.offer_id | default: block.id | handleize
                   assign input_id = 'SlOffer-' | append: section.id | append: '-' | append: forloop.index
                   assign cta_label = s.cta_label | default: section.settings.cta_label
@@ -150,11 +225,14 @@
                   endif
                 -%}
                 <div
-                  class="sl-lp-option{% if s.highlight %} sl-lp-option--highlight{% endif %}{% if is_default %} is-selected{% endif %}{% if st != blank %} sl-lp-card--dev-hidden{% endif %}"
+                  class="sl-lp-option{% if compact %} sl-lp-option--compact{% endif %}{% if s.highlight and compact == false %} sl-lp-option--highlight{% endif %}{% if s.highlight_label != blank and compact == false %} sl-lp-option--badge{% endif %}{% if is_default %} is-selected{% endif %}{% if st != blank %} sl-lp-card--dev-hidden{% endif %}"
                   {{ block.shopify_attributes }}
                   {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}
                 >
                   {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- if s.highlight_label != blank and compact == false -%}
+                    <p class="sl-lp-option__badge">{{ s.highlight_label | escape }}</p>
+                  {%- endif -%}
                   <div class="sl-lp-option__top">
                     <input
                       type="radio"
@@ -168,6 +246,7 @@
                       data-sl-offer="{{ offer_id }}"
                       data-sl-qty="{{ qty }}"
                       data-sl-price="{{ total | money | strip_html | escape }}"
+                      data-sl-price-cents="{{ total }}"
                       data-sl-cta-label="{{ cta_label | escape }}"
                       data-sl-option-title="{{ s.title | escape }}"
                     >
@@ -177,41 +256,47 @@
                         <span class="sl-lp-option__sub">{{ s.subtitle | escape }}</span>
                       {%- endif -%}
                     </label>
-                    {%- if s.highlight and s.highlight_label != blank -%}
-                      <span class="sl-lp-option__chip">{{ s.highlight_label | escape }}</span>
-                    {%- endif -%}
                   </div>
 
-                  {%- if s.image != blank -%}
+                  {%- if s.image != blank and compact == false -%}
                     <div class="sl-lp-option__media">
                       {%- render 'sl-lp-image', image: s.image, widths: '160,240,320,480', sizes: '(min-width: 990px) 200px, 30vw', alt: s.image_alt, class: 'sl-lp-option__img' -%}
                     </div>
                   {%- endif -%}
 
-                  {%- if s.text != blank -%}
+                  {%- if s.text != blank and compact == false -%}
                     <div class="sl-lp-option__text sl-lp-rte">{{ s.text }}</div>
                   {%- endif -%}
 
                   <div class="sl-lp-option__price">
                     <p class="sl-lp-option__total">
-                      {%- if compare_total > 0 -%}
-                        <s class="sl-lp-option__compare"><span class="visually-hidden">Vorher</span> {{ compare_total | money }}</s>
-                      {%- endif -%}
                       <span class="sl-lp-option__amount">{{ total | money }}</span>
+                      {%- if savings > 0 -%}
+                        <s class="sl-lp-option__compare"><span class="visually-hidden">Einzeln gekauft: </span>{{ compare_total | money }}</s>
+                      {%- endif -%}
                     </p>
-                    {%- if qty > 1 -%}
-                      <p class="sl-lp-option__unit">{{ qty }} × {{ variant.price | money }}</p>
-                    {%- endif -%}
-                    <p class="sl-lp-option__legal">
-                      {%- if cart.taxes_included -%}inkl. MwSt. · {% endif -%}
-                      <span class="sl-lp-nowrap">
-                        {%- if free_shipping -%}
-                          {{ section.settings.free_shipping_text | default: 'versandkostenfrei (DE)' | escape }}
-                        {%- else -%}
-                          {{ section.settings.shipping_text | default: 'zzgl. Versandkosten' | escape }}
+                    {%- if savings > 0 or qty > 1 -%}
+                      <p class="sl-lp-option__deal">
+                        {%- if savings > 0 -%}
+                          <span class="sl-lp-option__save">{{ savings | money }} sparen</span>
                         {%- endif -%}
-                      </span>
-                    </p>
+                        {%- if qty > 1 -%}
+                          <span class="sl-lp-option__unit">{{ unit_price | money }} / Gerät</span>
+                        {%- endif -%}
+                      </p>
+                    {%- endif -%}
+                    {%- unless compact -%}
+                      <p class="sl-lp-option__legal">
+                        {%- if cart.taxes_included -%}inkl. MwSt. · {% endif -%}
+                        <span class="sl-lp-nowrap">
+                          {%- if free_shipping -%}
+                            {{ section.settings.free_shipping_text | default: 'versandkostenfrei (DE)' | escape }}
+                          {%- else -%}
+                            {{ section.settings.shipping_text | default: 'zzgl. Versandkosten' | escape }}
+                          {%- endif -%}
+                        </span>
+                      </p>
+                    {%- endunless -%}
                     {%- unless variant.available -%}
                       <p class="sl-lp-option__soldout">Derzeit nicht verfügbar</p>
                     {%- endunless -%}
@@ -236,11 +321,7 @@
                 {%- render 'loading-spinner' -%}
               </button>
               <p class="sl-lp-offer__summary" data-sl-offer-summary aria-live="polite">
-                {%- for block in section.blocks -%}
-                  {%- if forloop.index == default_index -%}
-                    {{ block.settings.title | escape }} · {{ default_variant.price | times: default_qty | money }}
-                  {%- endif -%}
-                {%- endfor -%}
+                {{- default_title | escape }} · {{ default_total | money -}}
               </p>
               {%- render 'sl-lp-trust', items: section.settings.trust_items, align: 'center' -%}
             </div>
@@ -248,6 +329,9 @@
         </product-form>
 
         <div class="sl-lp-offer__meta">
+          {%- if section.settings.price_note != blank -%}
+            <p class="sl-lp-offer__note">{{ section.settings.price_note | escape }}</p>
+          {%- endif -%}
           {%- if section.settings.shipping_link != blank -%}
             {%- capture ship_state -%}{%- render 'sl-lp-link-status', link: section.settings.shipping_link -%}{%- endcapture -%}
             {%- assign ship_state = ship_state | strip -%}
@@ -282,8 +366,10 @@
       <div class="sl-lp-sticky" data-sl-sticky hidden>
         <div class="sl-lp-sticky__inner">
           <p class="sl-lp-sticky__text">
-            <span>{{ default_title | escape }}</span>
-            <strong>{{ default_variant.price | times: default_qty | money }}</strong>
+            {%- if section.settings.sticky_prefix != blank -%}
+              <span>{{ section.settings.sticky_prefix | escape }}</span>
+            {%- endif %}
+            <strong>{{ min_total | money }}</strong>
           </p>
           <a
             href="#{{ anchor }}"
@@ -311,7 +397,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Preise werden live aus Shopify berechnet (Variantenpreis × Menge). Keine Rabatte oder Streichpreise im Theme pflegen."
+      "content": "Einzelpreis und Verfügbarkeit kommen live aus Shopify. Set-Preise nur aus dem Kaching-Deal übernehmen (siehe „Set-Preise“ unten)."
     },
     {
       "type": "text",
@@ -357,7 +443,7 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Überschrift (H2)",
-      "default": "Das passende Set fürs Wohnmobil"
+      "default": "Wähle jetzt den passenden Schutz für dein Wohnmobil."
     },
     {
       "type": "select",
@@ -392,6 +478,22 @@
       "id": "trust_items",
       "label": "Vertrauens-Merkmale unter dem Button",
       "info": "Ein Merkmal pro Zeile, nur belegte Aussagen. Zeilen mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor."
+    },
+    {
+      "type": "header",
+      "content": "Set-Preise (Kaching-Mengenrabatt)"
+    },
+    {
+      "type": "text",
+      "id": "kaching_deal",
+      "label": "Kaching-Deal-ID",
+      "info": "Kurz-ID des Kaching-Deals (SICHERLUFT Mengenrabatt: ZuSp). Das Formular kennzeichnet den Artikel damit wie das Kaching-Widget, sonst greift der Rabatt im Warenkorb nicht. Leer = die Seite zeigt nur reguläre Preise."
+    },
+    {
+      "type": "text",
+      "id": "price_note",
+      "label": "Preis-Hinweis unter den Angeboten",
+      "default": "Streichpreis = Summe der Einzelpreise."
     },
     {
       "type": "header",
@@ -443,7 +545,13 @@
       "id": "sticky_cta",
       "label": "Sticky-Leiste auf Mobilgeräten",
       "default": true,
-      "info": "Erscheint nach dem Hero und verschwindet, sobald das Angebot sichtbar ist. Keine Countdowns."
+      "info": "Erscheint nach dem Hero, verschwindet beim Angebot und am Seitenende. Zeigt den niedrigsten Preis. Keine Countdowns."
+    },
+    {
+      "type": "text",
+      "id": "sticky_prefix",
+      "label": "Text vor dem Preis",
+      "default": "ab"
     },
     {
       "type": "text",
@@ -480,6 +588,22 @@
         },
         {
           "type": "text",
+          "id": "offer_price",
+          "label": "Set-Preis gesamt (€)",
+          "info": "Nur den Festpreis aus dem Kaching-Deal eintragen, z. B. 99,95. Leer = Einzelpreis × Anzahl. Wirkt nur mit Kaching-Deal-ID (Section-Einstellungen)."
+        },
+        {
+          "type": "select",
+          "id": "display",
+          "label": "Darstellung",
+          "options": [
+            { "value": "card", "label": "Große Karte" },
+            { "value": "compact", "label": "Kompakte Zeile unter den Karten" }
+          ],
+          "default": "card"
+        },
+        {
+          "type": "text",
           "id": "title",
           "label": "Titel",
           "default": "1 Gerät"
@@ -492,7 +616,7 @@
         {
           "type": "richtext",
           "id": "text",
-          "label": "Begründung"
+          "label": "Begründung (optional)"
         },
         {
           "type": "image_picker",
@@ -507,14 +631,14 @@
         {
           "type": "checkbox",
           "id": "highlight",
-          "label": "Hervorheben",
+          "label": "Hervorheben (Hauptangebot)",
           "default": false
         },
         {
           "type": "text",
           "id": "highlight_label",
-          "label": "Hinweis-Label",
-          "info": "Nur eine nachvollziehbare Empfehlung – kein Rabatt-Badge, keine Knappheit."
+          "label": "Badge",
+          "info": "Kurzer Hinweis oben an der Karte, z. B. „Empfehlung fürs Wohnmobil“. Kein Rabatt-Badge, keine Knappheit."
         },
         {
           "type": "checkbox",
@@ -548,7 +672,7 @@
       "name": "LP · Angebot",
       "blocks": [
         { "type": "option", "settings": { "quantity": 1, "title": "1 Gerät" } },
-        { "type": "option", "settings": { "quantity": 2, "title": "Wohnmobil-Set", "highlight": true, "preselected": true } }
+        { "type": "option", "settings": { "quantity": 2, "title": "2 Geräte", "highlight": true, "preselected": true } }
       ]
     }
   ]

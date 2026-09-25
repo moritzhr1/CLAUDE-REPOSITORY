@@ -1,0 +1,218 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Gegenüberstellung „Grünes Licht vs. Display“
+  Zentrale Einsicht der Seite, hochkontrastig auf Schwarz:
+  links ein Statuslicht (zeigt nur „Gerät läuft“), rechts das echte SICHERLUFT-Display (zeigt Messwerte).
+  Das Statuslicht ist eine CSS-Grafik (kein Foto eines anderen Produkts). Rechts ein Ausschnitt des
+  echten Produktfotos – Standard: Display auf sicherluft-echtes-produktfoto-referenz.jpg (146,98,234,371).
+  Tracking: Button = contrast_cta_click.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-contrast"
+  {% if section.settings.heading != blank %}aria-labelledby="{{ heading_id }}"{% endif %}
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    <header class="sl-lp-contrast__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sl-lp-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-h2 sl-lp-h2--l sl-lp-contrast__h">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <div class="sl-lp-contrast__intro sl-lp-rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="sl-lp-contrast__grid">
+      <figure class="sl-lp-contrast__panel sl-lp-contrast__panel--led">
+        <div class="sl-lp-contrast__visual">
+          <span class="sl-lp-contrast__led" aria-hidden="true"></span>
+        </div>
+        <figcaption class="sl-lp-contrast__cap">
+          {%- if section.settings.left_label != blank -%}
+            <span class="sl-lp-contrast__label">{{ section.settings.left_label | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.left_text != blank -%}
+            <span class="sl-lp-contrast__text">{{ section.settings.left_text | escape }}</span>
+          {%- endif -%}
+        </figcaption>
+      </figure>
+
+      <figure class="sl-lp-contrast__panel sl-lp-contrast__panel--display">
+        <div class="sl-lp-contrast__visual">
+          {%- if section.settings.display_image != blank -%}
+            {%- render 'sl-lp-image',
+              image: section.settings.display_image,
+              crop: 'region',
+              region: section.settings.display_region,
+              widths: '240,360,480,640',
+              sizes: '(min-width: 990px) 320px, 40vw',
+              alt: section.settings.display_alt,
+              class: 'sl-lp-contrast__img'
+            -%}
+          {%- elsif request.design_mode -%}
+            {%- render 'sl-lp-devflag', reason: 'Displayfoto auswählen (echtes Gerät)' -%}
+          {%- endif -%}
+        </div>
+        <figcaption class="sl-lp-contrast__cap">
+          {%- if section.settings.right_label != blank -%}
+            <span class="sl-lp-contrast__label">{{ section.settings.right_label | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.right_text != blank -%}
+            <span class="sl-lp-contrast__text">{{ section.settings.right_text | escape }}</span>
+          {%- endif -%}
+        </figcaption>
+      </figure>
+    </div>
+
+    {%- if section.settings.closing != blank or section.settings.cta_label != blank -%}
+      <div class="sl-lp-contrast__foot">
+        {%- if section.settings.closing != blank -%}
+          <p class="sl-lp-contrast__closing">{{ section.settings.closing | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+            id="sl-{{ track }}-cta"
+            class="sl-lp-cta sl-lp-cta--signal"
+            data-sl-track="contrast_cta_click"
+            data-sl-label="{{ section.settings.cta_label | escape }}"
+          >
+            <span>{{ section.settings.cta_label | escape }}</span>
+            {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · Licht vs. Display",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Gegenüberstellung: Statuslicht (links, Grafik) vs. echtes SICHERLUFT-Display (rechts, Foto)."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "sehen"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "licht_vs_display"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Ein grünes Licht ist kein Messwert."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Links: Statuslicht"
+    },
+    {
+      "type": "text",
+      "id": "left_label",
+      "label": "Beschriftung",
+      "default": "Gerät läuft"
+    },
+    {
+      "type": "text",
+      "id": "left_text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Rechts: Display"
+    },
+    {
+      "type": "image_picker",
+      "id": "display_image",
+      "label": "Foto mit Display (echtes Gerät)",
+      "info": "Empfohlen: sicherluft-echtes-produktfoto-referenz.jpg"
+    },
+    {
+      "type": "text",
+      "id": "display_region",
+      "label": "Ausschnitt",
+      "default": "146,98,234,371",
+      "info": "links, oben, Breite, Höhe in Promille des Fotos. 146,98,234,371 = Display auf dem Referenzfoto."
+    },
+    {
+      "type": "text",
+      "id": "display_alt",
+      "label": "Alternativtext",
+      "default": "Display des SICHERLUFT Melders mit Temperatur, CO- und Gaswert sowie Luftfeuchtigkeit"
+    },
+    {
+      "type": "text",
+      "id": "right_label",
+      "label": "Beschriftung",
+      "default": "Du siehst den Messwert"
+    },
+    {
+      "type": "text",
+      "id": "right_text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Abschluss"
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Schlusssatz"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Wohnmobil jetzt absichern"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel Button",
+      "default": "#angebot"
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Licht vs. Display"
+    }
+  ]
+}
+{% endschema %}

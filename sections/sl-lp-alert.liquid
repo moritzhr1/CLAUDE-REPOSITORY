@@ -8,7 +8,9 @@
   NICHT verwenden: Personen in Not, Verletzte, Tragen, Blut, erkennbare Logos, Kennzeichen,
   Wappen oder Aufschriften von Feuerwehr/Rettungsdienst (sonst entsteht der Eindruck einer
   Empfehlung oder eines echten Einsatzes). Bildrechte klären (Stockfoto-Lizenz / eigenes Shooting).
-  Ohne Foto zeigt die Section eine schlichte Illustration (snippets/sl-lp-emergency-scene.liquid).
+  Ohne Foto zeigt die Section eine schlichte Illustration (snippets/sl-lp-emergency-scene.liquid) mit
+  Regen- und Körnungs-Effekt; im Editor (und optional live) markiert als „[EINSATZBILD / BLAULICHT-SZENE]“.
+  Die erste Zahl ist die Hauptzahl (groß), weitere Zahlen folgen kleiner.
 
   Claim-Guard: Zahlen-Blöcke mit [CLAIM VERIFIZIEREN] / [QUELLE] erscheinen nur im Theme-Editor.
 {%- endcomment -%}
@@ -87,8 +89,15 @@
       {%- endif -%}
     {%- else -%}
       {%- render 'sl-lp-emergency-scene', uid: section.id -%}
+      <span class="sl-lp-alert__rain" aria-hidden="true"></span>
+      {%- if section.settings.placeholder_label != blank -%}
+        {%- if request.design_mode or section.settings.placeholder_live -%}
+          <span class="sl-lp-alert__placeholder">{{ section.settings.placeholder_label | escape }}</span>
+        {%- endif -%}
+      {%- endif -%}
     {%- endif -%}
-    {%- if section.settings.badge_text != blank -%}
+    <span class="sl-lp-alert__grain" aria-hidden="true"></span>
+    {%- if has_image and section.settings.badge_text != blank -%}
       <span class="sl-lp-alert__badge">{{ section.settings.badge_text | escape }}</span>
     {%- endif -%}
   </div>
@@ -96,7 +105,7 @@
   <div class="sl-lp__container sl-lp-alert__inner">
     <div class="sl-lp-alert__content">
       {%- if request.design_mode and has_image == false -%}
-        <p class="sl-lp-devnote">Aktuell wird die Illustration gezeigt. Für mehr Wirkung ein echtes Symbolfoto wählen – Motiv siehe Hinweis bei „Symbolfoto“.</p>
+        <p class="sl-lp-devnote">Platzhalter: Aktuell wird die Illustration gezeigt. Echtes Symbolfoto wählen (Motiv siehe Hinweis bei „Symbolfoto“) – die Markierung verschwindet dann automatisch.</p>
       {%- endif -%}
       {%- if section.settings.eyebrow != blank -%}
         <p class="sl-lp-eyebrow sl-lp-eyebrow--signal">
@@ -128,7 +137,7 @@
                 endif
               -%}
               {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
-              <li class="sl-lp-alert__stat{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+              <li class="sl-lp-alert__stat{% if forloop.first %} sl-lp-alert__stat--main{% endif %}{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
                 {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
                 <p class="sl-lp-alert__value">{{ s.value | escape }}</p>
                 <p class="sl-lp-alert__label">{{ s.text | escape }}</p>
@@ -241,7 +250,21 @@
       "id": "badge_text",
       "label": "Kennzeichnung im Bild",
       "default": "Symbolbild",
-      "info": "Empfohlen, damit das Bild nicht als echter Einsatz verstanden wird."
+      "info": "Erscheint nur mit Foto. Empfohlen, damit das Bild nicht als echter Einsatz verstanden wird."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_label",
+      "label": "Platzhalter-Markierung (ohne Foto)",
+      "default": "[EINSATZBILD / BLAULICHT-SZENE]",
+      "info": "Markiert die Bildfläche, solange kein Symbolfoto gewählt ist. Im Editor immer sichtbar."
+    },
+    {
+      "type": "checkbox",
+      "id": "placeholder_live",
+      "label": "Platzhalter-Markierung auch live zeigen",
+      "default": false,
+      "info": "Für die Abnahme. Vor dem Livegang Foto wählen oder ausschalten."
     },
     {
       "type": "header",
@@ -257,7 +280,7 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Überschrift (H2)",
-      "default": "Im Ernstfall zählt nicht dein Bauchgefühl."
+      "default": "Wenn etwas passiert, zählt nicht dein Bauchgefühl."
     },
     {
       "type": "richtext",
@@ -292,7 +315,7 @@
       "type": "text",
       "id": "cta_label",
       "label": "Primärer Button",
-      "default": "Jetzt Wohnmobil absichern"
+      "default": "Wohnmobil absichern"
     },
     {
       "type": "text",
@@ -321,7 +344,7 @@
           "type": "text",
           "id": "value",
           "label": "Wert",
-          "info": "Nur mit geprüfter Quelle und exaktem Wortlaut."
+          "info": "Nur mit geprüfter Quelle und exaktem Wortlaut. Die erste Zahl erscheint als Hauptzahl (groß)."
         },
         {
           "type": "text",

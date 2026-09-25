@@ -4,9 +4,14 @@
  *
  * Tracking-Events (Name jeweils mit Präfix "sl_"):
  *   hero_cta_click, hero_trust_click, alert_cta_click, alert_more_click, cta_box_click,
- *   cta_box_more_click, steps_cta_click, product_cta_click, placement_cta_click, proof_link_click,
- *   card_link_click, source_link_click, set_select, offer_cta_click, add_to_cart, sticky_cta_click,
- *   faq_open, lead_submit, lead_success, video_play, video_complete, section_view
+ *   cta_box_more_click, contrast_cta_click, steps_cta_click, product_cta_click, placement_cta_click,
+ *   proof_link_click, card_link_click, source_link_click, set_select, offer_cta_click, add_to_cart,
+ *   price_mismatch, sticky_cta_click, faq_open, lead_submit, lead_success, video_play, video_complete,
+ *   section_view
+ *
+ * price_mismatch: Nach dem Hinzufügen vergleicht die Seite den Zeilenpreis im Warenkorb mit dem
+ * angezeigten Angebotspreis (data-sl-price-cents). Weicht er ab – z. B. weil der Kaching-Deal geändert
+ * wurde –, wird das Event gesendet (sl_expected / sl_cart in Cent). Der Kunde sieht davon nichts.
  *
  * A/B-Test Hero-Button: ?sl_cta=b oder ?sl_cta=c in der Anzeigen-URL (siehe sections/sl-lp-hero.liquid).
  * Die aktive Variante (a/b/c) steht in jedem Event als sl_variant.
@@ -22,7 +27,7 @@
 
   var SLLP = (window.SLLP = window.SLLP || {});
   SLLP.initialized = true;
-  SLLP.version = '1.1.0';
+  SLLP.version = '1.2.0';
   SLLP.debug = SLLP.debug || /[?&]sl_debug=1/.test(window.location.search);
 
   function pageName() {
@@ -121,6 +126,23 @@
     return form ? form.querySelector('input[data-sl-offer]:checked') : null;
   }
 
+  /* Buttons mit data-sl-select-offer="<Tracking-ID>" wählen das Angebot aus (Sprung per href) */
+  document.addEventListener('click', function (event) {
+    var trigger = event.target.closest('[data-sl-select-offer]');
+    if (!trigger) return;
+    var id = trigger.getAttribute('data-sl-select-offer');
+    var radios = document.querySelectorAll('input[data-sl-offer]');
+    for (var i = 0; i < radios.length; i++) {
+      var radio = radios[i];
+      if (radio.getAttribute('data-sl-offer') !== id || radio.disabled) continue;
+      if (!radio.checked) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      break;
+    }
+  });
+
   document.addEventListener('change', function (event) {
     var radio = event.target;
     if (!radio.matches || !radio.matches('input[data-sl-offer]')) return;
@@ -174,11 +196,48 @@
         track('add_to_cart', {
           sl_offer: offer ? offer.getAttribute('data-sl-offer') : undefined,
           sl_qty: offer ? Number(offer.getAttribute('data-sl-qty')) : undefined,
-          sl_variant: String(event.productVariantId),
+          sl_variant_id: String(event.productVariantId),
           sl_section: sectionOf(form),
         });
+        checkCartPrice(form, offer);
       });
     });
+  }
+
+  /* Angezeigter Preis = Preis im Warenkorb? Nur prüfen, wenn die Warenkorbzeile genau die gewählte Menge hat. */
+  function checkCartPrice(form, offer) {
+    if (!offer || !window.fetch) return;
+    var expected = Number(offer.getAttribute('data-sl-price-cents'));
+    var qty = Number(offer.getAttribute('data-sl-qty'));
+    var variantId = String(offer.getAttribute('data-variant-id'));
+    if (!expected || !qty) return;
+    var bundleInput = form.querySelector('input[name="properties[__kaching_bundles]"]');
+    var bundle = bundleInput ? bundleInput.value : null;
+    var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+    fetch(root + 'cart.js', { headers: { Accept: 'application/json' } })
+      .then(function (response) {
+        return response.ok ? response.json() : null;
+      })
+      .then(function (cart) {
+        if (!cart || !cart.items) return;
+        var line = null;
+        cart.items.forEach(function (item) {
+          if (line || String(item.variant_id) !== variantId) return;
+          var itemBundle = item.properties ? item.properties.__kaching_bundles : undefined;
+          if ((bundle || null) === (itemBundle || null)) line = item;
+        });
+        if (!line || line.quantity !== qty || line.final_line_price === expected) return;
+        track('price_mismatch', {
+          sl_offer: offer.getAttribute('data-sl-offer'),
+          sl_qty: qty,
+          sl_expected: expected,
+          sl_cart: line.final_line_price,
+          sl_section: sectionOf(form),
+        });
+      })
+      .catch(function () {
+        /* Prüfung ist optional */
+      });
   }
 
   /* ---------- Video ---------- */
@@ -245,17 +304,20 @@
   }
 
   /* ---------- Mobile Sticky-Leiste ---------- */
+  /* Sichtbar nach dem Hero; ausgeblendet, solange Angebot oder Seitenfuß im Bild sind (verdeckt keine Links). */
   function initSticky() {
     var sticky = document.querySelector('[data-sl-sticky]');
     if (!sticky || !('IntersectionObserver' in window)) return;
     var hero = document.querySelector('.sl-lp-hero');
     var offer = sticky.closest('[data-sl-offer-section]');
+    var footer = document.querySelector('.shopify-section-group-footer-group, footer');
     var heroVisible = !!hero;
     var offerVisible = false;
+    var footerVisible = false;
     var mobile = window.matchMedia('(max-width: 989px)');
 
     function render() {
-      var show = mobile.matches && !heroVisible && !offerVisible;
+      var show = mobile.matches && !heroVisible && !offerVisible && !footerVisible;
       sticky.hidden = !show;
     }
 
@@ -263,11 +325,13 @@
       entries.forEach(function (entry) {
         if (entry.target === hero) heroVisible = entry.isIntersecting;
         if (entry.target === offer) offerVisible = entry.isIntersecting;
+        if (entry.target === footer) footerVisible = entry.isIntersecting;
       });
       render();
     });
     if (hero) observer.observe(hero);
     if (offer) observer.observe(offer);
+    if (footer) observer.observe(footer);
     if (mobile.addEventListener) mobile.addEventListener('change', render);
     render();
   }

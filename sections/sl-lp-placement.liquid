@@ -207,6 +207,7 @@
               class="sl-lp-cta sl-lp-cta--signal"
               data-sl-track="placement_cta_click"
               data-sl-label="{{ section.settings.cta_label | escape }}"
+              {% if section.settings.cta_select != blank %}data-sl-select-offer="{{ section.settings.cta_select | handleize }}"{% endif %}
             >
               <span>{{ section.settings.cta_label | escape }}</span>
               {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
@@ -418,6 +419,12 @@
       "id": "cta_link",
       "label": "Ziel",
       "default": "#angebot"
+    },
+    {
+      "type": "text",
+      "id": "cta_select",
+      "label": "Angebot beim Klick auswählen (optional)",
+      "info": "Tracking-ID eines Angebots-Blocks, z. B. wohnmobil-set. Der Button springt zum Angebot und wählt es dort aus."
     }
   ],
   "blocks": [

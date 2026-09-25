@@ -1,0 +1,77 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: Zahlenleiste der Karten-Section (Blöcke „Zahl“) im Reportage-Stil –
+  große Zahl, kurze Aussage, eine gemeinsame Quelle darunter.
+  Claim-Guard: Zahlen oder Quelle mit [CLAIM VERIFIZIEREN]/[PRODUKTDATEN]/[QUELLE] erscheinen nur im Editor;
+  ohne belegte Zahl erscheint die Leiste live gar nicht.
+
+  Accepts:
+  - section: {Object} die Karten-Section (Einstellungen stats_heading, stats_source, stats_source_link)
+  - states: {String} Status je Block im Format |blockid=status| (leer = live sichtbar)
+{%- endcomment -%}
+{%- liquid
+  assign live_count = 0
+  for block in section.blocks
+    if block.type == 'stat'
+      assign key = '|' | append: block.id | append: '='
+      assign st = states | split: key | last | split: '|' | first
+      if st == blank
+        assign live_count = live_count | plus: 1
+      endif
+    endif
+  endfor
+
+  assign source_live = false
+  if section.settings.stats_source != blank
+    capture c
+      render 'sl-lp-claim-check', text: section.settings.stats_source
+    endcapture
+    unless c contains 'unverified'
+      assign source_live = true
+    endunless
+  endif
+-%}
+{%- if live_count > 0 or request.design_mode -%}
+<div class="sl-lp-stats">
+  {%- if section.settings.stats_heading != blank -%}
+    <p class="sl-lp-stats__h">{{ section.settings.stats_heading | escape }}</p>
+  {%- endif -%}
+  <ul class="sl-lp-stats__list" role="list">
+    {%- for block in section.blocks -%}
+      {%- if block.type != 'stat' -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign key = '|' | append: block.id | append: '='
+        assign st = states | split: key | last | split: '|' | first
+        if st != blank
+          unless request.design_mode
+            continue
+          endunless
+        endif
+        assign s = block.settings
+      -%}
+      <li class="sl-lp-stats__item{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+        {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+        <p class="sl-lp-stats__value">{{ s.value | escape }}</p>
+        {%- if s.text != blank -%}
+          <p class="sl-lp-stats__label">{{ s.text | escape }}</p>
+        {%- endif -%}
+        {%- if request.design_mode and s.dev_note != blank -%}
+          <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+  {%- if source_live -%}
+    <p class="sl-lp-stats__source">
+      Quelle:
+      {% if section.settings.stats_source_link != blank -%}
+        <a href="{{ section.settings.stats_source_link | escape }}" target="_blank" rel="noopener" data-sl-track="source_link_click" data-sl-label="{{ section.settings.stats_source | escape }}">{{ section.settings.stats_source | escape }}</a>
+      {%- else -%}
+        {{ section.settings.stats_source | escape }}
+      {%- endif %}
+    </p>
+  {%- elsif request.design_mode and section.settings.stats_source != blank -%}
+    <p class="sl-lp-stats__source sl-lp-card--dev-hidden" data-sl-unverified="claim">{{ section.settings.stats_source | escape }}</p>
+    {%- render 'sl-lp-devflag', reason: 'claim' -%}
+  {%- endif -%}
+</div>
+{%- endif -%}

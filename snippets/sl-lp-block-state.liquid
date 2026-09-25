@@ -26,6 +26,11 @@
       endif
     when 'fact'
       assign check_text = s.value | append: ' ' | append: s.text | append: ' ' | append: s.source_label | append: ' ' | append: s.source_link
+    when 'stat'
+      assign check_text = s.value | append: ' ' | append: s.text
+      if s.value == blank
+        assign has_content = false
+      endif
     when 'source'
       assign check_text = s.label | append: ' ' | append: s.publisher | append: ' ' | append: s.quote | append: ' ' | append: s.link
       if s.label == blank

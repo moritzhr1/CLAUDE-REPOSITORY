@@ -1,7 +1,8 @@
 {%- comment -%}
   SICHERLUFT Landingpage-Kit · Hero
   Enthält das einzige h1 der Seite. Mobile-first: Botschaft und CTA stehen oben,
-  die Visualisierung (Wohnmobil bei Nacht mit Blaulicht-Schein + echtes Gerät) folgt direkt darunter.
+  die Visualisierung folgt direkt darunter: das echte Gerät groß im Fokus, das Display leuchtet in der
+  Nacht-Szene (gedimmtes Wohnmobil, ruhiger Blaulicht-Schein).
 
   A/B-Test des Hero-Buttons: Variante per URL-Parameter wählen, z. B. für verschiedene Anzeigen:
     /pages/wohnmobil-nacht-check?sl_cta=b   → Beschriftung/Ziel „Variante B“
@@ -134,25 +135,29 @@
       </div>
 
       {%- if section.settings.device_image != blank -%}
-        <figure class="sl-lp-devicecard{% if section.settings.alarm_ring %} sl-lp-devicecard--ring{% endif %}">
-          <div class="sl-lp-devicecard__media">
+        <figure class="sl-lp-hero__device{% if section.settings.alarm_ring %} sl-lp-hero__device--ring{% endif %}">
+          <div class="sl-lp-hero__devicebody">
             {%- render 'sl-lp-image',
               image: section.settings.device_image,
               crop: section.settings.device_crop,
+              region: section.settings.device_region,
               widths: '240,360,480,640',
-              sizes: '(min-width: 990px) 220px, (min-width: 750px) 30vw, 36vw',
+              sizes: '(min-width: 990px) 260px, (min-width: 750px) 30vw, 40vw',
               loading: 'eager',
               priority: true,
               alt: section.settings.device_alt,
-              class: 'sl-lp-devicecard__img'
+              class: 'sl-lp-hero__deviceimg'
             -%}
+            {%- if section.settings.display_glow -%}
+              <span class="sl-lp-hero__screenglow" aria-hidden="true"></span>
+            {%- endif -%}
           </div>
           {%- if section.settings.device_note != blank -%}
-            <figcaption class="sl-lp-devicecard__note">{{ section.settings.device_note | escape }}</figcaption>
+            <figcaption class="sl-lp-hero__devicenote">{{ section.settings.device_note | escape }}</figcaption>
           {%- endif -%}
         </figure>
       {%- elsif request.design_mode -%}
-        <div class="sl-lp-devicecard sl-lp-devicecard--empty" data-sl-unverified>
+        <div class="sl-lp-hero__device sl-lp-hero__device--empty" data-sl-unverified>
           {%- render 'sl-lp-devflag', reason: 'Produktfoto im Hero auswählen (echtes Gerät mit lesbarem Display)' -%}
         </div>
       {%- endif -%}
@@ -216,13 +221,13 @@
       "type": "text",
       "id": "cta_label",
       "label": "Primärer Button (Variante A)",
-      "default": "Jetzt Nacht-Check starten"
+      "default": "Wohnmobil jetzt absichern"
     },
     {
       "type": "text",
       "id": "cta_link",
       "label": "Ziel primärer Button (A)",
-      "default": "#nacht",
+      "default": "#angebot",
       "info": "Sprungmarke (z. B. #nacht) oder Pfad (z. B. /pages/…)."
     },
     {
@@ -273,7 +278,7 @@
       "type": "image_picker",
       "id": "device_image",
       "label": "Produktfoto (echtes Gerät)",
-      "info": "Empfohlen: sicherluft-echtes-produktfoto-referenz.jpg mit Zuschnitt „Linke Hälfte“ – ohne Siegel, Badges oder Aussagen im Bild."
+      "info": "Empfohlen: sicherluft-echtes-produktfoto-referenz.jpg mit „Eigener Ausschnitt“ 78,78,370,710 – ohne Siegel, Badges oder Aussagen im Bild."
     },
     {
       "type": "select",
@@ -283,9 +288,24 @@
         { "value": "none", "label": "Ganzes Bild" },
         { "value": "left_half", "label": "Linke Hälfte" },
         { "value": "right_half", "label": "Rechte Hälfte" },
-        { "value": "left_upper", "label": "Linke Hälfte, obere 70 %" }
+        { "value": "left_upper", "label": "Linke Hälfte, obere 70 %" },
+        { "value": "region", "label": "Eigener Ausschnitt (siehe unten)" }
       ],
-      "default": "left_half"
+      "default": "region"
+    },
+    {
+      "type": "text",
+      "id": "device_region",
+      "label": "Eigener Ausschnitt",
+      "default": "78,78,370,710",
+      "info": "Nur bei „Eigener Ausschnitt“: links, oben, Breite, Höhe in Promille des Fotos. 78,78,370,710 = Vorderseite des Geräts auf sicherluft-echtes-produktfoto-referenz.jpg (ohne weißen Rand)."
+    },
+    {
+      "type": "checkbox",
+      "id": "display_glow",
+      "label": "Display leuchtet (Glow)",
+      "default": true,
+      "info": "Passt zum Ausschnitt 78,78,370,710 des Referenzfotos. Bei anderem Foto ggf. ausschalten."
     },
     {
       "type": "text",
@@ -303,7 +323,7 @@
       "type": "checkbox",
       "id": "alarm_ring",
       "label": "Pulsierender Warnring um das Gerät",
-      "default": true
+      "default": false
     },
     {
       "type": "checkbox",

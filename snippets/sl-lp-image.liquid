@@ -6,7 +6,9 @@
 
   Accepts:
   - image: {Object} Bild aus einem image_picker (Pflicht)
-  - crop: {String} 'none' | 'left_half' | 'right_half' | 'left_upper' (optional)
+  - crop: {String} 'none' | 'left_half' | 'right_half' | 'left_upper' | 'region' (optional)
+  - region: {String} nur bei crop 'region': Ausschnitt in Promille des Bildes, 'links,oben,breite,höhe',
+            z. B. '146,98,234,371' (optional)
   - widths: {String} kommagetrennte Breiten, z. B. '360,540,720,960' (optional)
   - sizes: {String} sizes-Attribut (optional)
   - loading: {String} 'lazy' | 'eager' (Standard 'lazy')
@@ -21,6 +23,7 @@
     assign img_h = image.height
     assign crop_mode = crop | default: 'none'
     assign crop_left = 0
+    assign crop_top = 0
     assign crop_width = img_w
     assign crop_height = img_h
     case crop_mode
@@ -32,6 +35,16 @@
       when 'left_upper'
         assign crop_width = img_w | divided_by: 2
         assign crop_height = img_h | times: 70 | divided_by: 100
+      when 'region'
+        assign region_parts = region | default: '0,0,1000,1000' | split: ','
+        assign r_left = region_parts[0] | strip | plus: 0
+        assign r_top = region_parts[1] | strip | plus: 0
+        assign r_width = region_parts[2] | strip | plus: 0
+        assign r_height = region_parts[3] | strip | plus: 0
+        assign crop_left = img_w | times: r_left | divided_by: 1000
+        assign crop_top = img_h | times: r_top | divided_by: 1000
+        assign crop_width = img_w | times: r_width | divided_by: 1000
+        assign crop_height = img_h | times: r_height | divided_by: 1000
     endcase
 
     assign width_list = widths | default: '360,540,720,960' | split: ','
@@ -45,7 +58,7 @@
       if crop_mode == 'none'
         assign url = image | image_url: width: w
       else
-        assign url = image | image_url: width: w, crop: 'region', crop_left: crop_left, crop_top: 0, crop_width: crop_width, crop_height: crop_height
+        assign url = image | image_url: width: w, crop: 'region', crop_left: crop_left, crop_top: crop_top, crop_width: crop_width, crop_height: crop_height
       endif
       assign srcset = srcset | append: url | append: ' ' | append: w | append: 'w, '
       assign src_url = url
@@ -55,7 +68,7 @@
       if crop_mode == 'none'
         assign src_url = image | image_url: width: crop_width
       else
-        assign src_url = image | image_url: width: crop_width, crop: 'region', crop_left: crop_left, crop_top: 0, crop_width: crop_width, crop_height: crop_height
+        assign src_url = image | image_url: width: crop_width, crop: 'region', crop_left: crop_left, crop_top: crop_top, crop_width: crop_width, crop_height: crop_height
       endif
     endif
 
