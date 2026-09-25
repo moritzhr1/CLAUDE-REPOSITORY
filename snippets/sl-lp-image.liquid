@@ -1,0 +1,80 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: responsives Bild mit optionalem Zuschnitt über das Shopify-CDN.
+
+  Das srcset wird bewusst manuell aufgebaut, damit der Zuschnitt (crop: 'region') in jeder
+  Breite erhalten bleibt. width/height entsprechen dem Zuschnitt → kein Layout-Shift (CLS).
+
+  Accepts:
+  - image: {Object} Bild aus einem image_picker (Pflicht)
+  - crop: {String} 'none' | 'left_half' | 'right_half' | 'left_upper' (optional)
+  - widths: {String} kommagetrennte Breiten, z. B. '360,540,720,960' (optional)
+  - sizes: {String} sizes-Attribut (optional)
+  - loading: {String} 'lazy' | 'eager' (Standard 'lazy')
+  - priority: {Boolean} true setzt fetchpriority="high" (nur für das wichtigste Hero-Bild)
+  - alt: {String} Alternativtext (Standard image.alt)
+  - class: {String} CSS-Klasse (optional)
+{%- endcomment -%}
+{%- if image != blank -%}
+  {%- liquid
+    assign img_w = image.width
+    assign img_h = image.height
+    assign crop_mode = crop | default: 'none'
+    assign crop_left = 0
+    assign crop_width = img_w
+    assign crop_height = img_h
+    case crop_mode
+      when 'left_half'
+        assign crop_width = img_w | divided_by: 2
+      when 'right_half'
+        assign crop_width = img_w | divided_by: 2
+        assign crop_left = img_w | minus: crop_width
+      when 'left_upper'
+        assign crop_width = img_w | divided_by: 2
+        assign crop_height = img_h | times: 70 | divided_by: 100
+    endcase
+
+    assign width_list = widths | default: '360,540,720,960' | split: ','
+    assign srcset = ''
+    assign src_url = ''
+    for w_str in width_list
+      assign w = w_str | strip | plus: 0
+      if w > crop_width
+        continue
+      endif
+      if crop_mode == 'none'
+        assign url = image | image_url: width: w
+      else
+        assign url = image | image_url: width: w, crop: 'region', crop_left: crop_left, crop_top: 0, crop_width: crop_width, crop_height: crop_height
+      endif
+      assign srcset = srcset | append: url | append: ' ' | append: w | append: 'w, '
+      assign src_url = url
+    endfor
+
+    if src_url == blank
+      if crop_mode == 'none'
+        assign src_url = image | image_url: width: crop_width
+      else
+        assign src_url = image | image_url: width: crop_width, crop: 'region', crop_left: crop_left, crop_top: 0, crop_width: crop_width, crop_height: crop_height
+      endif
+    endif
+
+    assign srcset_length = srcset | size | minus: 2
+    if srcset_length > 0
+      assign srcset = srcset | slice: 0, srcset_length
+    endif
+
+    assign alt_text = alt | default: image.alt
+  -%}
+  <img
+    src="{{ src_url }}"
+    {% if srcset != blank %}srcset="{{ srcset }}"{% endif %}
+    sizes="{{ sizes | default: '100vw' }}"
+    width="{{ crop_width }}"
+    height="{{ crop_height }}"
+    alt="{{ alt_text | escape }}"
+    loading="{{ loading | default: 'lazy' }}"
+    decoding="async"
+    {% if priority %}fetchpriority="high"{% endif %}
+    {% if class != blank %}class="{{ class }}"{% endif %}
+  >
+{%- endif -%}

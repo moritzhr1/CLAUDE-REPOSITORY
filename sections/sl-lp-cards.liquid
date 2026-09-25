@@ -1,0 +1,852 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Karten
+  Generische Section für Inhalte aus Überschrift + Karten + optionalen Quellen/Hinweisen/Button.
+  Auf der Nacht-Check-Seite genutzt für: Irrtümer, Wohnmobil-Faktoren, Vertrauen, Nachweise.
+
+  Claim-Guard: Blöcke mit [CLAIM VERIFIZIEREN]/[PRODUKTDATEN]/[QUELLE] oder mit fehlendem
+  Pflicht-Link erscheinen nur im Theme-Editor. Die ganze Section erscheint live nur, wenn
+  sichtbare Inhalte vorhanden sind (und ggf. die Mindestanzahl an Karten erreicht ist).
+{%- endcomment -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+
+  assign states = '|'
+  assign live_cards = 0
+  assign live_content = 0
+  assign card_count = 0
+  assign source_count = 0
+  assign live_sources = 0
+  assign fact_count = 0
+  assign note_count = 0
+  assign media_count = 0
+  assign button_count = 0
+
+  for block in section.blocks
+    if block.type == '@app'
+      assign st = ''
+    else
+      capture st
+        render 'sl-lp-block-state', block: block
+      endcapture
+      assign st = st | strip
+    endif
+    assign states = states | append: block.id | append: '=' | append: st | append: '|'
+
+    case block.type
+      when 'card'
+        assign card_count = card_count | plus: 1
+        if st == blank
+          assign live_cards = live_cards | plus: 1
+          assign live_content = live_content | plus: 1
+        endif
+      when 'source'
+        assign source_count = source_count | plus: 1
+        if st == blank
+          assign live_sources = live_sources | plus: 1
+        endif
+      when 'fact'
+        assign fact_count = fact_count | plus: 1
+        if st == blank
+          assign live_content = live_content | plus: 1
+        endif
+      when 'note'
+        assign note_count = note_count | plus: 1
+        if st == blank
+          assign live_content = live_content | plus: 1
+        endif
+      when 'button'
+        assign button_count = button_count | plus: 1
+      else
+        assign media_count = media_count | plus: 1
+        if st == blank
+          assign live_content = live_content | plus: 1
+        endif
+    endcase
+  endfor
+
+  assign section_live = true
+  assign section_reason = ''
+  if live_content == 0
+    assign section_live = false
+    assign section_reason = 'Kein belegter Inhalt vorhanden'
+  elsif live_cards < section.settings.min_live_cards
+    assign section_live = false
+    assign section_reason = 'Nur ' | append: live_cards | append: ' von mindestens ' | append: section.settings.min_live_cards | append: ' Karten sind belegt/verlinkt'
+  endif
+-%}
+
+{%- if section_live or request.design_mode -%}
+  {%- render 'sl-lp-assets' -%}
+  <section
+    id="{{ anchor }}"
+    class="sl-lp sl-lp-cards sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    {% if section.settings.heading != blank %}aria-labelledby="SlHeading-{{ section.id }}"{% endif %}
+    data-sl-section="{{ track }}"
+    data-sl-view="{{ track }}"
+    {% unless section_live %}data-sl-unverified{% endunless %}
+  >
+    <div class="sl-lp__container">
+      {%- unless section_live -%}
+        {%- render 'sl-lp-devflag', reason: 'section', detail: section_reason -%}
+      {%- endunless -%}
+
+      {%- render 'sl-lp-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        heading_id: heading_id,
+        intro: section.settings.intro,
+        align: section.settings.align,
+        size: section.settings.heading_size
+      -%}
+
+      {%- comment -%} Karten {%- endcomment -%}
+      {%- if card_count > 0 -%}
+        <ul
+          class="sl-lp-cards__list sl-lp-cards__list--{{ section.settings.layout }} sl-lp-cols-{{ section.settings.columns }} sl-lp-cardstyle--{{ section.settings.card_style }}"
+          role="list"
+        >
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'card' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign key = '|' | append: block.id | append: '='
+              assign st = states | split: key | last | split: '|' | first
+              if st != blank
+                unless request.design_mode
+                  continue
+                endunless
+              endif
+              assign s = block.settings
+              assign link_state = ''
+              if s.link != blank
+                capture link_state
+                  render 'sl-lp-link-status', link: s.link
+                endcapture
+                assign link_state = link_state | strip
+              endif
+              assign card_id = s.card_id | default: block.id | handleize
+            -%}
+            <li
+              class="sl-lp-card{% if st != blank %} sl-lp-card--dev-hidden{% endif %}"
+              id="sl-{{ track }}-{{ card_id }}"
+              {{ block.shopify_attributes }}
+              {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}
+            >
+              {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+              {%- if s.icon != 'none' and s.icon != blank -%}
+                <span class="sl-lp-card__icon">{%- render 'sl-lp-icon', name: s.icon, size: 26 -%}</span>
+              {%- endif -%}
+              {%- if s.label != blank -%}
+                <p class="sl-lp-card__label">{{ s.label | escape }}</p>
+              {%- endif -%}
+              {%- if s.title != blank -%}
+                <h3 class="sl-lp-card__h">{{ s.title | escape }}</h3>
+              {%- endif -%}
+              {%- if s.text != blank -%}
+                <div class="sl-lp-card__text sl-lp-rte">{{ s.text }}</div>
+              {%- endif -%}
+              {%- if s.link != blank -%}
+                {%- if link_state == blank -%}
+                  <a
+                    class="sl-lp-card__link"
+                    href="{{ s.link | escape }}"
+                    {% if s.link contains '://' %}target="_blank" rel="noopener"{% endif %}
+                    data-sl-track="{{ s.track_event | default: 'card_link_click' | handleize | replace: '-', '_' }}"
+                    data-sl-label="{{ card_id }}"
+                  >
+                    <span>{{ s.link_label | default: 'Mehr erfahren' | escape }}</span>
+                    {%- if s.link contains '://' -%}
+                      {%- render 'sl-lp-icon', name: 'link-out', size: 16 -%}
+                    {%- else -%}
+                      {%- render 'sl-lp-icon', name: 'arrow-right', size: 16 -%}
+                    {%- endif -%}
+                  </a>
+                {%- elsif request.design_mode -%}
+                  <span class="sl-lp-card__link sl-lp-card__link--dev">
+                    {{- s.link_label | default: 'Link' | escape }} → {{ s.link | escape -}}
+                  </span>
+                  {%- render 'sl-lp-devflag', reason: link_state -%}
+                {%- endif -%}
+              {%- endif -%}
+              {%- if request.design_mode and s.dev_note != blank -%}
+                <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- comment -%} Fakten, Hinweise, Medien, App-Blöcke {%- endcomment -%}
+      {%- assign extra_count = fact_count | plus: note_count | plus: media_count -%}
+      {%- if extra_count > 0 -%}
+        <div class="sl-lp-cards__extras">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'card' or block.type == 'source' or block.type == 'button' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign key = '|' | append: block.id | append: '='
+              assign st = states | split: key | last | split: '|' | first
+              if st != blank
+                unless request.design_mode
+                  continue
+                endunless
+              endif
+              assign s = block.settings
+            -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div class="sl-lp-cards__app">{% render block %}</div>
+
+              {%- when 'fact' -%}
+                <figure class="sl-lp-fact{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- if s.value != blank -%}<p class="sl-lp-fact__value">{{ s.value | escape }}</p>{%- endif -%}
+                  <blockquote class="sl-lp-fact__text sl-lp-rte">{{ s.text }}</blockquote>
+                  {%- if s.source_label != blank -%}
+                    <figcaption class="sl-lp-fact__source">
+                      Quelle:
+                      {% if s.source_link != blank -%}
+                        <a href="{{ s.source_link | escape }}" target="_blank" rel="noopener" data-sl-track="source_link_click" data-sl-label="{{ s.source_label | escape }}">{{ s.source_label | escape }}</a>
+                      {%- else -%}
+                        {{ s.source_label | escape }}
+                      {%- endif %}
+                    </figcaption>
+                  {%- endif -%}
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </figure>
+
+              {%- when 'note' -%}
+                <div class="sl-lp-note{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- if s.icon != 'none' and s.icon != blank -%}
+                    <span class="sl-lp-note__icon">{%- render 'sl-lp-icon', name: s.icon, size: 22 -%}</span>
+                  {%- endif -%}
+                  <div class="sl-lp-note__text sl-lp-rte">{{ s.text }}</div>
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'video' -%}
+                <figure class="sl-lp-media{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- render 'sl-lp-video',
+                    video: s.video,
+                    video_url: s.video_url,
+                    poster: s.poster,
+                    title: s.title,
+                    video_id: block.id
+                  -%}
+                  <figcaption class="sl-lp-media__caption">
+                    {%- if s.title != blank -%}<strong>{{ s.title | escape }}</strong>{%- endif -%}
+                    {%- if s.creator != blank -%}<span>{{ s.creator | escape }}</span>{%- endif -%}
+                    {%- if s.disclosure != blank -%}<span class="sl-lp-media__disclosure">{{ s.disclosure | escape }}</span>{%- endif -%}
+                  </figcaption>
+                  {%- if s.text != blank -%}<div class="sl-lp-rte sl-lp-media__text">{{ s.text }}</div>{%- endif -%}
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </figure>
+
+              {%- when 'person' -%}
+                <figure class="sl-lp-person{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- if s.image != blank -%}
+                    <div class="sl-lp-person__img">
+                      {%- render 'sl-lp-image', image: s.image, widths: '160,240,320', sizes: '120px', alt: s.name, class: 'sl-lp-person__photo' -%}
+                    </div>
+                  {%- endif -%}
+                  <div class="sl-lp-person__body">
+                    <blockquote class="sl-lp-rte">{{ s.text }}</blockquote>
+                    <figcaption>
+                      <strong>{{ s.name | escape }}</strong>
+                      {%- if s.role != blank -%}<span>{{ s.role | escape }}</span>{%- endif -%}
+                      {%- if s.link != blank -%}
+                        <a href="{{ s.link | escape }}" target="_blank" rel="noopener" data-sl-track="person_link_click" data-sl-label="{{ s.name | escape }}">{{ s.link_label | default: 'Profil ansehen' | escape }}</a>
+                      {%- endif -%}
+                    </figcaption>
+                  </div>
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </figure>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Quellen {%- endcomment -%}
+      {%- if source_count > 0 -%}
+        {%- if live_sources > 0 or request.design_mode -%}
+          <div class="sl-lp-sources">
+            {%- if section.settings.sources_heading != blank -%}
+              <p class="sl-lp-sources__h">{{ section.settings.sources_heading | escape }}</p>
+            {%- endif -%}
+            <ol class="sl-lp-sources__list">
+              {%- for block in section.blocks -%}
+                {%- if block.type != 'source' -%}{%- continue -%}{%- endif -%}
+                {%- liquid
+                  assign key = '|' | append: block.id | append: '='
+                  assign st = states | split: key | last | split: '|' | first
+                  if st != blank
+                    unless request.design_mode
+                      continue
+                    endunless
+                  endif
+                  assign s = block.settings
+                -%}
+                <li class="sl-lp-sources__item{% if st != blank %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}>
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  {%- if s.link != blank -%}
+                    <a href="{{ s.link | escape }}" target="_blank" rel="noopener" data-sl-track="source_link_click" data-sl-label="{{ s.label | escape }}">{{ s.label | escape }}</a>
+                  {%- else -%}
+                    <span>{{ s.label | escape }}</span>
+                  {%- endif -%}
+                  {%- if s.publisher != blank %} · <span class="sl-lp-sources__pub">{{ s.publisher | escape }}</span>{%- endif -%}
+                  {%- if s.quote != blank -%}
+                    <blockquote class="sl-lp-sources__quote sl-lp-rte">{{ s.quote }}</blockquote>
+                  {%- endif -%}
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ol>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- comment -%} Buttons {%- endcomment -%}
+      {%- if button_count > 0 -%}
+        <div class="sl-lp-actions sl-lp-actions--{{ section.settings.align }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'button' -%}{%- continue -%}{%- endif -%}
+            {%- liquid
+              assign key = '|' | append: block.id | append: '='
+              assign st = states | split: key | last | split: '|' | first
+              assign s = block.settings
+            -%}
+            {%- if st == blank -%}
+              <a
+                href="{{ s.link | escape }}"
+                id="sl-{{ track }}-{{ s.button_id | default: block.id | handleize }}"
+                class="{% if s.style == 'link' %}sl-lp-link{% else %}sl-lp-cta sl-lp-cta--{{ s.style }}{% endif %}{% if section.settings.background == 'night' %} sl-lp-on-dark{% endif %}"
+                data-sl-track="{{ s.track_event | default: 'cta_click' | handleize | replace: '-', '_' }}"
+                data-sl-label="{{ s.label | escape }}"
+                {{ block.shopify_attributes }}
+              >
+                <span>{{ s.label | escape }}</span>
+                {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+              </a>
+            {%- elsif request.design_mode -%}
+              <span class="sl-lp-cta sl-lp-cta--secondary sl-lp-card--dev-hidden" data-sl-unverified="{{ st }}" {{ block.shopify_attributes }}>
+                {{- s.label | escape }} → {{ s.link | default: '(kein Ziel)' | escape -}}
+              </span>
+              {%- render 'sl-lp-devflag', reason: st, detail: s.link -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if request.design_mode and section.settings.editor_hint != blank -%}
+        <div class="sl-lp-devnote sl-lp-devnote--block">{{ section.settings.editor_hint }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LP · Karten",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Blöcke mit [CLAIM VERIFIZIEREN], [PRODUKTDATEN] oder [QUELLE] im Text sowie Nachweis-Karten ohne veröffentlichtes Ziel werden nur hier im Editor angezeigt – nie live."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "info": "Ohne #. Beispiel: nachweise"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "info": "Wird als data-sl-section an Klick- und Sichtbarkeits-Events übergeben."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "night", "label": "Nachtblau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Kopfbereich"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Ausrichtung Kopfbereich",
+      "options": [
+        { "value": "left", "label": "Links" },
+        { "value": "center", "label": "Zentriert" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Karten"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Darstellung",
+      "options": [
+        { "value": "cards", "label": "Karten" },
+        { "value": "grid", "label": "Kompaktes Raster" },
+        { "value": "list", "label": "Liste" }
+      ],
+      "default": "cards"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Spalten (Desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Kartenstil",
+      "options": [
+        { "value": "plain", "label": "Schlicht" },
+        { "value": "quote", "label": "Annahme / Zitat" },
+        { "value": "link", "label": "Nachweis-Link" }
+      ],
+      "default": "plain"
+    },
+    {
+      "type": "range",
+      "id": "min_live_cards",
+      "label": "Section live erst ab X belegten Karten",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 0,
+      "info": "0 = keine Mindestanzahl. Schützt z. B. die Nachweis-Section davor, live halb leer zu erscheinen."
+    },
+    {
+      "type": "text",
+      "id": "sources_heading",
+      "label": "Überschrift Quellen",
+      "default": "Quellen"
+    },
+    {
+      "type": "richtext",
+      "id": "editor_hint",
+      "label": "Hinweis nur im Editor",
+      "info": "Wird ausschließlich im Theme-Editor angezeigt."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "card",
+      "name": "Karte",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Symbol",
+          "options": [
+            { "value": "none", "label": "Kein Symbol" },
+            { "value": "smoke-alarm", "label": "Rauchmelder" },
+            { "value": "no-odor", "label": "Nicht riechbar" },
+            { "value": "light", "label": "Leuchtanzeige" },
+            { "value": "flame", "label": "Flamme / Heizung" },
+            { "value": "stove", "label": "Kocher" },
+            { "value": "gas-cylinder", "label": "Gasflasche" },
+            { "value": "exhaust", "label": "Abgasweg" },
+            { "value": "volume", "label": "Raumvolumen" },
+            { "value": "bed", "label": "Schlafbereich" },
+            { "value": "car-fumes", "label": "Fahrzeug / Abgas" },
+            { "value": "document-check", "label": "Prüfbericht" },
+            { "value": "seal", "label": "Konformität" },
+            { "value": "datasheet", "label": "Datenblatt" },
+            { "value": "building", "label": "Hersteller" },
+            { "value": "shield-check", "label": "Garantie" },
+            { "value": "return", "label": "Rückgabe" },
+            { "value": "mail", "label": "Kontakt" },
+            { "value": "source", "label": "Quelle" },
+            { "value": "eye", "label": "Sichtbar" },
+            { "value": "video", "label": "Video" },
+            { "value": "person", "label": "Person" },
+            { "value": "camper", "label": "Wohnmobil" },
+            { "value": "home", "label": "Zuhause" },
+            { "value": "info", "label": "Info" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Dachzeile",
+          "info": "z. B. „Annahme“"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel (H3)"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link",
+          "info": "Pfad (/pages/…), vollständige URL, mailto: oder #anker. Links auf nicht veröffentlichte Seiten werden live nicht angezeigt."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Linktext"
+        },
+        {
+          "type": "checkbox",
+          "id": "link_required",
+          "label": "Karte nur mit funktionierendem Link live zeigen",
+          "default": false,
+          "info": "Für Nachweis-Karten: ohne Dokument keine Karte."
+        },
+        {
+          "type": "text",
+          "id": "card_id",
+          "label": "Tracking-ID",
+          "info": "z. B. pruefberichte – erscheint im HTML-ID und im Event-Label."
+        },
+        {
+          "type": "text",
+          "id": "track_event",
+          "label": "Event-Name bei Linkklick",
+          "default": "card_link_click"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz / Quelle",
+          "info": "Nur im Editor sichtbar – z. B. woher die Angabe stammt oder was noch fehlt."
+        }
+      ]
+    },
+    {
+      "type": "fact",
+      "name": "Fakt mit Quelle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Wert",
+          "info": "z. B. eine Prozentzahl – nur mit geprüfter Quelle und exaktem Wortlaut."
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Aussage (exakter Wortlaut)"
+        },
+        {
+          "type": "text",
+          "id": "source_label",
+          "label": "Quelle"
+        },
+        {
+          "type": "text",
+          "id": "source_link",
+          "label": "Link zur Quelle"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "source",
+      "name": "Quelle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Titel der Quelle"
+        },
+        {
+          "type": "text",
+          "id": "publisher",
+          "label": "Herausgeber"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Zitat (optional, exakter Wortlaut)"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Symbol",
+          "options": [
+            { "value": "none", "label": "Kein Symbol" },
+            { "value": "info", "label": "Info" },
+            { "value": "shield-check", "label": "Schild" },
+            { "value": "flame", "label": "Flamme" },
+            { "value": "eye", "label": "Sichtbar" }
+          ],
+          "default": "info"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Beschriftung",
+          "default": "Mehr erfahren"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Ziel",
+          "info": "Pfad (/pages/…) oder #anker. Nicht veröffentlichte Zielseiten blenden den Button live aus."
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Stil",
+          "options": [
+            { "value": "primary", "label": "Primär" },
+            { "value": "secondary", "label": "Sekundär" },
+            { "value": "link", "label": "Textlink" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "text",
+          "id": "button_id",
+          "label": "Tracking-ID",
+          "info": "Erscheint in der HTML-ID, z. B. alle-nachweise"
+        },
+        {
+          "type": "text",
+          "id": "track_event",
+          "label": "Event-Name",
+          "default": "cta_click"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Creator-Video",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Nur echte, namentlich genannte Creator. Bezahlte Kooperationen als Werbung kennzeichnen."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel"
+        },
+        {
+          "type": "text",
+          "id": "creator",
+          "label": "Creator (Name / Kanal)"
+        },
+        {
+          "type": "text",
+          "id": "disclosure",
+          "label": "Kennzeichnung",
+          "info": "z. B. „Werbung – bezahlte Kooperation“"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video (Shopify)"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "oder YouTube-/Vimeo-Link",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Vorschaubild"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Beschreibung"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "person",
+      "name": "Benannte Fachperson",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Nur echte Personen mit vollem Namen und nachprüfbarer Qualifikation."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Qualifikation / Funktion"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Aussage (freigegebener Wortlaut)"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link zum Profil"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Linktext",
+          "default": "Profil ansehen"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Karten",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

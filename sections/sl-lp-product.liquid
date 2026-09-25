@@ -1,0 +1,412 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Produkt „Sehen statt raten“
+  Zeigt das echte Gerät und ausschließlich belegte Funktionen (Blöcke ohne Claim-Platzhalter).
+  Der Video-Bereich erscheint live erst, wenn ein echtes Video hinterlegt ist.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'so-funktioniert' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign video_id = anchor | append: '-video'
+
+  assign has_video = false
+  if section.settings.video != blank or section.settings.video_url != blank
+    assign has_video = true
+  endif
+  assign video_text = section.settings.video_heading | append: ' ' | append: section.settings.video_text
+  capture video_claim
+    render 'sl-lp-claim-check', text: video_text
+  endcapture
+  capture caption_claim
+    render 'sl-lp-claim-check', text: section.settings.video_caption
+  endcapture
+  assign video_live = false
+  if has_video
+    unless video_claim contains 'unverified'
+      assign video_live = true
+    endunless
+  endif
+  assign caption_live = true
+  if caption_claim contains 'unverified'
+    assign caption_live = false
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-product sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    {%- render 'sl-lp-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_id: heading_id,
+      intro: section.settings.intro,
+      align: 'left',
+      size: section.settings.heading_size
+    -%}
+
+    <div class="sl-lp-product__grid">
+      <div class="sl-lp-product__media">
+        {%- if section.settings.image != blank -%}
+          <figure class="sl-lp-productshot">
+            {%- render 'sl-lp-image',
+              image: section.settings.image,
+              crop: section.settings.image_crop,
+              widths: '320,480,640,800',
+              sizes: '(min-width: 990px) 400px, 70vw',
+              alt: section.settings.image_alt,
+              class: 'sl-lp-productshot__img'
+            -%}
+            {%- if section.settings.image_caption != blank -%}
+              <figcaption class="sl-lp-productshot__note">{{ section.settings.image_caption | escape }}</figcaption>
+            {%- endif -%}
+          </figure>
+        {%- elsif request.design_mode -%}
+          <div class="sl-lp-productshot sl-lp-card--dev-hidden" data-sl-unverified="missing">
+            {%- render 'sl-lp-devflag', reason: 'Produktfoto auswählen' -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <ul class="sl-lp-features" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'feature' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign s = block.settings
+            assign t = s.title | append: ' ' | append: s.text
+            capture c
+              render 'sl-lp-claim-check', text: t
+            endcapture
+            assign unverified = false
+            if c contains 'unverified'
+              assign unverified = true
+            endif
+          -%}
+          {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+          <li class="sl-lp-feature{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+            {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+            <span class="sl-lp-feature__icon">{%- render 'sl-lp-icon', name: s.icon, size: 24 -%}</span>
+            <div class="sl-lp-feature__body">
+              <h3 class="sl-lp-feature__h">{{ s.title | escape }}</h3>
+              {%- if s.text != blank -%}<div class="sl-lp-feature__text sl-lp-rte">{{ s.text }}</div>{%- endif -%}
+              {%- if request.design_mode and s.dev_note != blank -%}
+                <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- if block.type != 'note' -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign s = block.settings
+        capture c
+          render 'sl-lp-claim-check', text: s.text
+        endcapture
+        assign unverified = false
+        if c contains 'unverified'
+          assign unverified = true
+        endif
+      -%}
+      {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+      <div class="sl-lp-note{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+        {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+        <span class="sl-lp-note__icon">{%- render 'sl-lp-icon', name: 'info', size: 22 -%}</span>
+        <div class="sl-lp-note__text sl-lp-rte">{{ s.text }}</div>
+        {%- if request.design_mode and s.dev_note != blank -%}
+          <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+
+    {%- if video_live or request.design_mode -%}
+      <div class="sl-lp-product__video{% unless video_live %} sl-lp-card--dev-hidden{% endunless %}" {% unless video_live %}data-sl-unverified="{% if has_video %}claim{% else %}missing{% endif %}"{% endunless %}>
+        {%- unless video_live -%}
+          {%- if has_video -%}
+            {%- render 'sl-lp-devflag', reason: 'claim' -%}
+          {%- else -%}
+            {%- render 'sl-lp-devflag', reason: 'Video-Bereich live ausgeblendet, bis ein echtes Video hinterlegt ist' -%}
+          {%- endif -%}
+        {%- endunless -%}
+        <div class="sl-lp-product__videohead">
+          {%- if section.settings.video_heading != blank -%}
+            <h3 class="sl-lp-product__videoh">{{ section.settings.video_heading | escape }}</h3>
+          {%- endif -%}
+          {%- if section.settings.video_text != blank -%}
+            <div class="sl-lp-rte">{{ section.settings.video_text }}</div>
+          {%- endif -%}
+        </div>
+        {%- render 'sl-lp-video',
+          video: section.settings.video,
+          video_url: section.settings.video_url,
+          poster: section.settings.video_poster,
+          title: section.settings.video_heading,
+          video_id: video_id
+        -%}
+        {%- if section.settings.video_caption != blank -%}
+          {%- if caption_live -%}
+            <p class="sl-lp-product__videocap">{{ section.settings.video_caption | escape }}</p>
+          {%- elsif request.design_mode -%}
+            <p class="sl-lp-product__videocap sl-lp-card--dev-hidden" data-sl-unverified="claim">{{ section.settings.video_caption | escape }}</p>
+            {%- render 'sl-lp-devflag', reason: 'claim' -%}
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="sl-lp-actions">
+        <a
+          href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+          id="sl-{{ track }}-cta"
+          class="sl-lp-cta sl-lp-cta--primary"
+          data-sl-track="product_cta_click"
+          data-sl-label="{{ section.settings.cta_label | escape }}"
+        >
+          <span>{{ section.settings.cta_label | escape }}</span>
+          {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · Produkt",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Nur belegte Funktionen live zeigen. Funktionen mit [CLAIM VERIFIZIEREN] im Text erscheinen nur hier im Editor."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "so-funktioniert"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "so_funktioniert"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "sky", "label": "Heller Verlauf" }
+      ],
+      "default": "sky"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "So funktioniert SICHERLUFT"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Sehen statt raten."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "l"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Produktfoto"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Foto (echtes Gerät)",
+      "info": "Keine Bilder mit Siegeln, Empfehlungs-Badges oder Statistiken verwenden."
+    },
+    {
+      "type": "select",
+      "id": "image_crop",
+      "label": "Zuschnitt",
+      "options": [
+        { "value": "none", "label": "Ganzes Bild" },
+        { "value": "left_half", "label": "Linke Hälfte" },
+        { "value": "right_half", "label": "Rechte Hälfte" },
+        { "value": "left_upper", "label": "Linke Hälfte, obere 70 %" }
+      ],
+      "default": "left_half"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alternativtext"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Bildunterschrift"
+    },
+    {
+      "type": "header",
+      "content": "Demo-Video"
+    },
+    {
+      "type": "text",
+      "id": "video_heading",
+      "label": "Überschrift",
+      "default": "SICHERLUFT im echten Test"
+    },
+    {
+      "type": "richtext",
+      "id": "video_text",
+      "label": "Text"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (Shopify)"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "oder YouTube-/Vimeo-Link",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Vorschaubild (für YouTube/Vimeo)"
+    },
+    {
+      "type": "text",
+      "id": "video_caption",
+      "label": "Bildunterschrift Video",
+      "info": "Nur schreiben, was stimmt – z. B. „ungeschnitten“ nur bei tatsächlich ungeschnittener Aufnahme."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Beschriftung",
+      "default": "Zum passenden Set"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel",
+      "default": "#angebot"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Funktion",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Symbol",
+          "options": [
+            { "value": "co", "label": "CO" },
+            { "value": "gas", "label": "Gas" },
+            { "value": "thermometer", "label": "Temperatur" },
+            { "value": "droplet", "label": "Luftfeuchtigkeit" },
+            { "value": "speaker", "label": "Akustische Warnung" },
+            { "value": "light", "label": "Statusanzeige" },
+            { "value": "plug", "label": "Stecker" },
+            { "value": "display", "label": "Display" },
+            { "value": "info", "label": "Info" }
+          ],
+          "default": "co"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Quelle / interne Notiz",
+          "info": "Nur im Editor sichtbar. Bitte angeben, woher die Angabe stammt."
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Produkt",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}

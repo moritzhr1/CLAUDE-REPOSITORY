@@ -1,0 +1,26 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: einheitlicher Kopfbereich einer Section.
+
+  Accepts:
+  - eyebrow: {String} kleine Dachzeile (optional)
+  - heading: {String} Überschrift, inline_richtext (optional)
+  - heading_id: {String} ID für aria-labelledby (optional)
+  - intro: {String} Einleitung, richtext (optional)
+  - align: {String} 'left' | 'center' (Standard 'left')
+  - size: {String} 's' | 'm' | 'l' (Standard 'm')
+
+  Die Überschrift ist immer ein h2 – das einzige h1 der Seite sitzt im Hero.
+{%- endcomment -%}
+{%- if eyebrow != blank or heading != blank or intro != blank -%}
+  <header class="sl-lp-head sl-lp-head--{{ align | default: 'left' }}">
+    {%- if eyebrow != blank -%}
+      <p class="sl-lp-eyebrow">{{ eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <h2{% if heading_id != blank %} id="{{ heading_id }}"{% endif %} class="sl-lp-h2 sl-lp-h2--{{ size | default: 'm' }}">{{ heading }}</h2>
+    {%- endif -%}
+    {%- if intro != blank -%}
+      <div class="sl-lp-intro sl-lp-rte">{{ intro }}</div>
+    {%- endif -%}
+  </header>
+{%- endif -%}

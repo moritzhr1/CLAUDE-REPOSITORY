@@ -1,0 +1,20 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: Claim-Guard.
+
+  Gibt "unverified" aus, wenn ein Text einen Development-Platzhalter enthält:
+    [CLAIM VERIFIZIEREN …]   technische oder rechtliche Angabe noch nicht belegt
+    [PRODUKTDATEN …]         Produktdaten fehlen (Konvention aus dem restlichen Theme)
+    [QUELLE …]               Quelle bzw. exakter Wortlaut noch nicht geprüft
+
+  Inhalte mit einem dieser Platzhalter rendern die sl-lp-Sections nur im Theme-Editor
+  (request.design_mode) – markiert und mit Hinweis. Im Live-Shop und in der normalen
+  Vorschau erscheinen sie nie. Sobald die Angabe belegt ist: Platzhalter aus dem Text
+  entfernen, dann wird der Inhalt automatisch live angezeigt.
+
+  Accepts:
+  - text: {String} zu prüfender Text (mehrere Felder vorher mit append zusammenfügen)
+
+  Usage:
+  {%- capture sl_claim -%}{%- render 'sl-lp-claim-check', text: sl_text -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- if text contains '[CLAIM' or text contains '[PRODUKTDATEN' or text contains '[QUELLE' -%}unverified{%- endif -%}

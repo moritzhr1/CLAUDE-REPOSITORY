@@ -1,0 +1,97 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: schematischer Längsschnitt eines teilintegrierten Wohnmobils.
+  Zeigt typische Bereiche (Schlafbereich, Küche, Heizung, Gasflaschenkasten, Abgasführung).
+  Grundrisse unterscheiden sich je nach Modell – die Grafik ist bewusst schematisch.
+  Nummern und Geräte-Positionen werden als HTML darübergelegt (lesbar auf allen Bildschirmgrößen).
+
+  Accepts:
+  - uid: {String} eindeutiges Präfix für SVG-IDs
+{%- endcomment -%}
+{%- assign p = uid | default: 'sl' | handleize | prepend: 'slcp-' -%}
+<svg class="sl-lp-plan__svg" viewBox="0 0 900 380" role="presentation" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="{{ p }}-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#082b4a" stroke-opacity=".05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="380" fill="url(#{{ p }}-grid)"/>
+
+  {%- comment -%} Außenhülle {%- endcomment -%}
+  <path d="M52 318 L46 290 Q46 276 62 272 L100 264 L150 172 Q158 162 172 160 L214 152 Q232 100 270 98 L828 96 Q850 96 850 118 L850 304 Q850 318 836 318 L674 318 A34 34 0 0 0 606 318 L204 318 A34 34 0 0 0 136 318 Z" fill="#ffffff" stroke="#082b4a" stroke-width="3" stroke-linejoin="round"/>
+
+  {%- comment -%} Boden, Fenster, Dachfenster {%- endcomment -%}
+  <path d="M214 288 H846" stroke="#082b4a" stroke-opacity=".35" stroke-width="2"/>
+  <rect x="244" y="130" width="78" height="42" rx="8" fill="#dcefff" stroke="#082b4a" stroke-opacity=".35" stroke-width="1.5"/>
+  <rect x="736" y="124" width="78" height="36" rx="8" fill="#dcefff" stroke="#082b4a" stroke-opacity=".35" stroke-width="1.5"/>
+  <rect x="276" y="90" width="58" height="8" rx="3" fill="#dcefff" stroke="#082b4a" stroke-opacity=".35" stroke-width="1.5"/>
+  <path d="M96 262 L144 178 Q150 170 160 169 L196 164 L196 262 Z" fill="#dcefff" stroke="#082b4a" stroke-opacity=".35" stroke-width="1.5"/>
+
+  {%- comment -%} Fahrerhaus: Sitz und Lenkrad {%- endcomment -%}
+  <g fill="#f4f8fb" stroke="#082b4a" stroke-opacity=".55" stroke-width="1.5">
+    <path d="M168 288 V252 H206 V288"/>
+    <path d="M204 252 L212 196 Q214 188 222 190 L224 252"/>
+    <circle cx="140" cy="222" r="14" fill="none"/>
+  </g>
+
+  {%- comment -%} Sitzgruppe {%- endcomment -%}
+  <g fill="#f4f8fb" stroke="#082b4a" stroke-opacity=".55" stroke-width="1.5">
+    <rect x="236" y="246" width="34" height="42" rx="4"/>
+    <rect x="236" y="206" width="12" height="42" rx="4"/>
+    <rect x="336" y="246" width="34" height="42" rx="4"/>
+    <rect x="358" y="206" width="12" height="42" rx="4"/>
+    <rect x="276" y="224" width="56" height="7" rx="3"/>
+    <path d="M304 231 V288" fill="none"/>
+  </g>
+
+  {%- comment -%} Gasflaschenkasten (von außen zugänglich, Bodenhöhe) {%- endcomment -%}
+  <g stroke="#082b4a" stroke-width="1.5">
+    <rect x="382" y="226" width="62" height="62" rx="5" fill="#eef4fa" stroke-opacity=".7" stroke-dasharray="5 4"/>
+    <rect x="390" y="240" width="20" height="44" rx="8" fill="#ffffff" stroke-opacity=".7"/>
+    <rect x="416" y="240" width="20" height="44" rx="8" fill="#ffffff" stroke-opacity=".7"/>
+    <path d="M397 240 V234 H403 V240 M423 240 V234 H429 V240" fill="none" stroke-opacity=".7"/>
+  </g>
+
+  {%- comment -%} Küchenblock mit Gaskocher {%- endcomment -%}
+  <g stroke="#082b4a" stroke-width="1.5">
+    <rect x="456" y="214" width="104" height="74" rx="4" fill="#f4f8fb" stroke-opacity=".55"/>
+    <path d="M456 232 H560 M508 232 V288" fill="none" stroke-opacity=".35"/>
+    <ellipse cx="482" cy="211" rx="13" ry="3.5" fill="#082b4a" fill-opacity=".85" stroke="none"/>
+    <ellipse cx="520" cy="211" rx="13" ry="3.5" fill="#082b4a" fill-opacity=".85" stroke="none"/>
+    <rect x="462" y="128" width="92" height="44" rx="4" fill="#f4f8fb" stroke-opacity=".45"/>
+  </g>
+
+  {%- comment -%} Kühlschrank {%- endcomment -%}
+  <g fill="#f4f8fb" stroke="#082b4a" stroke-opacity=".55" stroke-width="1.5">
+    <rect x="566" y="128" width="46" height="160" rx="4"/>
+    <path d="M566 206 H612" fill="none"/>
+    <path d="M604 146 V190 M604 218 V270" fill="none" stroke-linecap="round"/>
+  </g>
+
+  {%- comment -%} Kleiderschrank, Heizung darunter, Abgaskamin über das Dach {%- endcomment -%}
+  <g stroke="#082b4a" stroke-width="1.5">
+    <rect x="618" y="128" width="60" height="98" rx="4" fill="#f4f8fb" stroke-opacity=".45"/>
+    <rect x="620" y="236" width="56" height="52" rx="5" fill="#eef4fa" stroke-opacity=".75"/>
+    <path d="M648 276 c-7 0-11-5-11-10 0-6 5-8 7-14 1 4 3 5 5 6 1-3 3-6 6-8 1 6 5 8 5 15 0 6-5 11-12 11z" fill="none" stroke-opacity=".75"/>
+    <path d="M662 236 V96" fill="none" stroke-opacity=".55" stroke-dasharray="6 5"/>
+    <rect x="652" y="80" width="20" height="16" rx="3" fill="#ffffff" stroke-opacity=".75"/>
+    <path d="M656 80 V74 H668 V80" fill="none" stroke-opacity=".75"/>
+  </g>
+
+  {%- comment -%} Heckbett {%- endcomment -%}
+  <g stroke="#082b4a" stroke-width="1.5">
+    <rect x="696" y="200" width="150" height="88" rx="4" fill="#f4f8fb" stroke-opacity=".45"/>
+    <rect x="700" y="182" width="142" height="20" rx="8" fill="#ffffff" stroke-opacity=".7"/>
+    <rect x="802" y="170" width="34" height="14" rx="6" fill="#ffffff" stroke-opacity=".7"/>
+  </g>
+
+  {%- comment -%} Räder {%- endcomment -%}
+  <g fill="#082b4a">
+    <circle cx="170" cy="322" r="26"/>
+    <circle cx="640" cy="322" r="26"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="170" cy="322" r="10"/>
+    <circle cx="640" cy="322" r="10"/>
+  </g>
+  <path d="M20 350 H880" stroke="#082b4a" stroke-opacity=".25" stroke-width="2"/>
+</svg>

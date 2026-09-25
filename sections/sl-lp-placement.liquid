@@ -1,0 +1,502 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Platzierung
+  Schematischer Wohnmobil-Längsschnitt mit typischen Bereichen. Konkrete Geräte-Positionen
+  (Blöcke „Position“) erscheinen live erst, wenn sie ohne [CLAIM VERIFIZIEREN] hinterlegt sind –
+  also erst mit belegten Hersteller-/Normangaben.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'platzierung' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign use_builtin = true
+  if section.settings.diagram_image != blank
+    assign use_builtin = false
+  endif
+
+  capture avoid_claim
+    render 'sl-lp-claim-check', text: section.settings.avoid_text
+  endcapture
+  assign avoid_live = true
+  if avoid_claim contains 'unverified'
+    assign avoid_live = false
+  endif
+
+  assign set_text = section.settings.set_heading | append: ' ' | append: section.settings.set_text
+  capture set_claim
+    render 'sl-lp-claim-check', text: set_text
+  endcapture
+  assign set_live = true
+  if set_claim contains 'unverified'
+    assign set_live = false
+  endif
+
+  assign spot_count = 0
+  assign live_spots = 0
+  for block in section.blocks
+    if block.type == 'spot'
+      assign spot_count = spot_count | plus: 1
+      assign t = block.settings.label | append: ' ' | append: block.settings.title | append: ' ' | append: block.settings.text
+      capture c
+        render 'sl-lp-claim-check', text: t
+      endcapture
+      unless c contains 'unverified'
+        assign live_spots = live_spots | plus: 1
+      endunless
+    endif
+  endfor
+  assign show_spots = false
+  if live_spots > 0
+    assign show_spots = true
+  elsif request.design_mode and spot_count > 0
+    assign show_spots = true
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-placement sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    {%- render 'sl-lp-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_id: heading_id,
+      intro: section.settings.intro,
+      align: 'left',
+      size: section.settings.heading_size
+    -%}
+
+    <figure class="sl-lp-plan">
+      <div class="sl-lp-plan__canvas{% unless use_builtin %} sl-lp-plan__canvas--image{% endunless %}">
+        {%- if use_builtin -%}
+          {%- render 'sl-lp-camper-plan', uid: section.id -%}
+          {%- if section.settings.zone_1 != blank -%}<span class="sl-lp-plan__zone" style="--x: 85%; --y: 50%;" aria-hidden="true">1</span>{%- endif -%}
+          {%- if section.settings.zone_2 != blank -%}<span class="sl-lp-plan__zone" style="--x: 55.7%; --y: 51%;" aria-hidden="true">2</span>{%- endif -%}
+          {%- if section.settings.zone_3 != blank -%}<span class="sl-lp-plan__zone" style="--x: 72%; --y: 68%;" aria-hidden="true">3</span>{%- endif -%}
+          {%- if section.settings.zone_4 != blank -%}<span class="sl-lp-plan__zone" style="--x: 45.9%; --y: 59%;" aria-hidden="true">4</span>{%- endif -%}
+          {%- if section.settings.zone_5 != blank -%}<span class="sl-lp-plan__zone" style="--x: 77.5%; --y: 17%;" aria-hidden="true">5</span>{%- endif -%}
+        {%- else -%}
+          {%- render 'sl-lp-image',
+            image: section.settings.diagram_image,
+            widths: '480,720,960,1280',
+            sizes: '(min-width: 1200px) 1120px, calc(100vw - 40px)',
+            alt: section.settings.diagram_alt,
+            class: 'sl-lp-plan__img'
+          -%}
+        {%- endif -%}
+
+        {%- assign spot_no = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'spot' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign s = block.settings
+            assign t = s.label | append: ' ' | append: s.title | append: ' ' | append: s.text
+            capture c
+              render 'sl-lp-claim-check', text: t
+            endcapture
+            assign unverified = false
+            if c contains 'unverified'
+              assign unverified = true
+            endif
+          -%}
+          {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+          {%- assign spot_no = spot_no | plus: 1 -%}
+          <span
+            class="sl-lp-plan__spot{% if unverified %} sl-lp-plan__spot--dev{% endif %}"
+            style="--x: {{ s.x }}%; --y: {{ s.y }}%;"
+            {% if unverified %}data-sl-unverified="claim"{% endif %}
+            aria-hidden="true"
+            {{ block.shopify_attributes }}
+          >
+            {%- render 'sl-lp-icon', name: 'display', size: 16 -%}
+            <span>{{ s.label | default: spot_no }}</span>
+          </span>
+        {%- endfor -%}
+      </div>
+
+      {%- if use_builtin -%}
+        <figcaption class="sl-lp-plan__legend">
+          <p class="sl-lp-plan__legendh">{{ section.settings.legend_heading | escape }}</p>
+          <ol class="sl-lp-plan__zones" role="list">
+            {%- if section.settings.zone_1 != blank -%}<li><span class="sl-lp-plan__num">1</span>{{ section.settings.zone_1 | escape }}</li>{%- endif -%}
+            {%- if section.settings.zone_2 != blank -%}<li><span class="sl-lp-plan__num">2</span>{{ section.settings.zone_2 | escape }}</li>{%- endif -%}
+            {%- if section.settings.zone_3 != blank -%}<li><span class="sl-lp-plan__num">3</span>{{ section.settings.zone_3 | escape }}</li>{%- endif -%}
+            {%- if section.settings.zone_4 != blank -%}<li><span class="sl-lp-plan__num">4</span>{{ section.settings.zone_4 | escape }}</li>{%- endif -%}
+            {%- if section.settings.zone_5 != blank -%}<li><span class="sl-lp-plan__num">5</span>{{ section.settings.zone_5 | escape }}</li>{%- endif -%}
+          </ol>
+          {%- if section.settings.legend_note != blank -%}
+            <p class="sl-lp-plan__legendnote">{{ section.settings.legend_note | escape }}</p>
+          {%- endif -%}
+        </figcaption>
+      {%- endif -%}
+    </figure>
+
+    <div class="sl-lp-placement__cols">
+      {%- if show_spots -%}
+      <div class="sl-lp-placement__spots">
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'spot' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign s = block.settings
+            assign t = s.label | append: ' ' | append: s.title | append: ' ' | append: s.text
+            capture c
+              render 'sl-lp-claim-check', text: t
+            endcapture
+            assign unverified = false
+            if c contains 'unverified'
+              assign unverified = true
+            endif
+          -%}
+          {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+          <div class="sl-lp-spotinfo{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {% if unverified %}data-sl-unverified="claim"{% endif %}>
+            {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+            <p class="sl-lp-spotinfo__label">
+              {%- render 'sl-lp-icon', name: 'display', size: 16 -%}
+              <span>{{ s.label | escape }}</span>
+            </p>
+            <h3 class="sl-lp-spotinfo__h">{{ s.title | escape }}</h3>
+            {%- if s.text != blank -%}<div class="sl-lp-rte">{{ s.text }}</div>{%- endif -%}
+            {%- if request.design_mode and s.dev_note != blank -%}
+              <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+
+      {%- if section.settings.avoid_text != blank -%}
+        {%- if avoid_live or request.design_mode -%}
+          <div class="sl-lp-avoid{% unless avoid_live %} sl-lp-card--dev-hidden{% endunless %}" {% unless avoid_live %}data-sl-unverified="claim"{% endunless %}>
+            {%- unless avoid_live -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endunless -%}
+            {%- if section.settings.avoid_heading != blank -%}
+              <h3 class="sl-lp-avoid__h">{{ section.settings.avoid_heading | escape }}</h3>
+            {%- endif -%}
+            <div class="sl-lp-avoid__text sl-lp-rte">{{ section.settings.avoid_text }}</div>
+            {%- if request.design_mode and section.settings.avoid_source != blank -%}
+              <p class="sl-lp-devnote">Quelle: {{ section.settings.avoid_source | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.set_heading != blank or section.settings.set_text != blank -%}
+      {%- if set_live or request.design_mode -%}
+        <aside class="sl-lp-setbox{% unless set_live %} sl-lp-card--dev-hidden{% endunless %}" {% unless set_live %}data-sl-unverified="claim"{% endunless %} aria-label="{{ section.settings.set_heading | escape }}">
+          {%- unless set_live -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endunless -%}
+          <div class="sl-lp-setbox__icons" aria-hidden="true">
+            {%- render 'sl-lp-icon', name: 'display', size: 22 -%}
+            {%- render 'sl-lp-icon', name: 'display', size: 22 -%}
+          </div>
+          <div class="sl-lp-setbox__body">
+            {%- if section.settings.set_heading != blank -%}
+              <h3 class="sl-lp-setbox__h">{{ section.settings.set_heading | escape }}</h3>
+            {%- endif -%}
+            {%- if section.settings.set_text != blank -%}
+              <div class="sl-lp-rte">{{ section.settings.set_text }}</div>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.cta_label != blank -%}
+            <a
+              href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+              id="sl-{{ track }}-cta"
+              class="sl-lp-cta sl-lp-cta--primary"
+              data-sl-track="placement_cta_click"
+              data-sl-label="{{ section.settings.cta_label | escape }}"
+            >
+              <span>{{ section.settings.cta_label | escape }}</span>
+              {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+            </a>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type != 'note' -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign s = block.settings
+        capture c
+          render 'sl-lp-claim-check', text: s.text
+        endcapture
+        assign unverified = false
+        if c contains 'unverified'
+          assign unverified = true
+        endif
+      -%}
+      {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+      <div class="sl-lp-note{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+        {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+        <span class="sl-lp-note__icon">{%- render 'sl-lp-icon', name: 'info', size: 22 -%}</span>
+        <div class="sl-lp-note__text sl-lp-rte">{{ s.text }}</div>
+        {%- if request.design_mode and s.dev_note != blank -%}
+          <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "LP · Platzierung",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Konkrete Montageempfehlungen nur mit belegten Hersteller-/Normangaben veröffentlichen. Positionen mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "platzierung"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "platzierung"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Platzierung"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Wo ein Melder steht, ist genauso wichtig wie welcher."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Grafik"
+    },
+    {
+      "type": "image_picker",
+      "id": "diagram_image",
+      "label": "Eigene Grafik (optional)",
+      "info": "Ersetzt den eingebauten schematischen Längsschnitt."
+    },
+    {
+      "type": "text",
+      "id": "diagram_alt",
+      "label": "Alternativtext eigene Grafik"
+    },
+    {
+      "type": "text",
+      "id": "legend_heading",
+      "label": "Überschrift Legende",
+      "default": "Typische Bereiche im Wohnmobil"
+    },
+    {
+      "type": "text",
+      "id": "zone_1",
+      "label": "Bereich 1",
+      "default": "Schlafbereich"
+    },
+    {
+      "type": "text",
+      "id": "zone_2",
+      "label": "Bereich 2",
+      "default": "Küche mit Gaskocher"
+    },
+    {
+      "type": "text",
+      "id": "zone_3",
+      "label": "Bereich 3",
+      "default": "Heizung"
+    },
+    {
+      "type": "text",
+      "id": "zone_4",
+      "label": "Bereich 4",
+      "default": "Gasflaschenkasten"
+    },
+    {
+      "type": "text",
+      "id": "zone_5",
+      "label": "Bereich 5",
+      "default": "Abgasführung"
+    },
+    {
+      "type": "text",
+      "id": "legend_note",
+      "label": "Hinweis unter der Legende",
+      "default": "Schematische Darstellung. Grundrisse unterscheiden sich je nach Modell."
+    },
+    {
+      "type": "header",
+      "content": "Nicht empfohlene Positionen"
+    },
+    {
+      "type": "text",
+      "id": "avoid_heading",
+      "label": "Überschrift",
+      "default": "Nicht empfohlen"
+    },
+    {
+      "type": "richtext",
+      "id": "avoid_text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "avoid_source",
+      "label": "Quelle (nur im Editor sichtbar)"
+    },
+    {
+      "type": "header",
+      "content": "Mehrere Geräte"
+    },
+    {
+      "type": "text",
+      "id": "set_heading",
+      "label": "Überschrift",
+      "default": "Warum zwei Geräte sinnvoll sein können"
+    },
+    {
+      "type": "richtext",
+      "id": "set_text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Zum Wohnmobil-Set"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel",
+      "default": "#angebot"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spot",
+      "name": "Geräte-Position",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Nur mit belegter Hersteller-/Normangabe ohne [CLAIM VERIFIZIEREN] veröffentlichen."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Kurzbezeichnung",
+          "default": "Gerät 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schlafbereich"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Empfehlung"
+        },
+        {
+          "type": "range",
+          "id": "x",
+          "label": "Position horizontal",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "y",
+          "label": "Position vertikal",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Quelle / interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Platzierung"
+    }
+  ]
+}
+{% endschema %}

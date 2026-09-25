@@ -1,0 +1,47 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: performantes Video.
+  - Shopify-Video: natives <video> ohne Autoplay, preload="none".
+  - YouTube/Vimeo: zunächst nur Vorschaubild + Play-Button („Facade“). Der Player (und damit
+    Drittanbieter-Requests) lädt erst nach Klick – schneller und datenschutzfreundlicher
+    (youtube-nocookie.com / Vimeo mit dnt=1).
+  Tracking: sl-lp.js meldet video_play / video_complete (data-sl-video).
+
+  Accepts:
+  - video: {Object} Wert eines "video"-Settings (optional)
+  - video_url: {Object} Wert eines "video_url"-Settings (optional)
+  - poster: {Object} Bild (optional, für YouTube/Vimeo empfohlen)
+  - title: {String} Titel für Screenreader
+  - video_id: {String} Tracking-ID
+{%- endcomment -%}
+{%- if video != blank -%}
+  <div class="sl-lp-video" data-sl-video="{{ video_id | escape }}">
+    {{ video | video_tag: image_size: '1280x', controls: true, preload: 'none', playsinline: true, class: 'sl-lp-video__el' }}
+  </div>
+{%- elsif video_url != blank -%}
+  {%- liquid
+    if video_url.type == 'youtube'
+      assign embed_src = 'https://www.youtube-nocookie.com/embed/' | append: video_url.id | append: '?autoplay=1&rel=0&modestbranding=1&playsinline=1'
+    else
+      assign embed_src = 'https://player.vimeo.com/video/' | append: video_url.id | append: '?autoplay=1&dnt=1'
+    endif
+  -%}
+  <div class="sl-lp-video" data-sl-video="{{ video_id | escape }}">
+    <button
+      type="button"
+      class="sl-lp-video__facade"
+      data-sl-video-embed="{{ embed_src | escape }}"
+      data-sl-video-title="{{ title | default: 'Video' | escape }}"
+      aria-label="Video abspielen: {{ title | default: 'Video' | escape }}"
+    >
+      {%- if poster != blank -%}
+        {%- render 'sl-lp-image', image: poster, widths: '480,720,960,1280', sizes: '(min-width: 990px) 900px, 100vw', class: 'sl-lp-video__poster' -%}
+      {%- endif -%}
+      <span class="sl-lp-video__play">{%- render 'sl-lp-icon', name: 'play', size: 28 -%}</span>
+    </button>
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="sl-lp-video sl-lp-video--placeholder" data-sl-unverified="missing">
+    <span class="sl-lp-video__play">{%- render 'sl-lp-icon', name: 'play', size: 28 -%}</span>
+    <p>Hier später: echtes, nachvollziehbares Video. Datei hochladen oder YouTube-/Vimeo-Link einfügen.</p>
+  </div>
+{%- endif -%}

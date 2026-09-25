@@ -1,0 +1,926 @@
+{
+  "sections": {
+    "hero": {
+      "type": "sl-lp-hero",
+      "settings": {
+        "anchor": "start",
+        "eyebrow": "SICHERLUFT · Sicherheit im Wohnmobil",
+        "heading": "Gas zu. Heizung an. Und die Luft?",
+        "subheading": "Der Nacht-Check, der auf vielen Wohnmobil-Checklisten fehlt.",
+        "text": "<p>Bevor du schlafen gehst, prüfst du Gas, Türen, Fenster und Strom. Aber weißt du auch, was die Luft in deinem Wohnmobil gerade macht?</p>",
+        "cta_label": "Nacht-Check starten",
+        "cta_link": "#irrtuemer",
+        "secondary_label": "Warum SICHERLUFT?",
+        "secondary_link": "#so-funktioniert",
+        "device_image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "device_crop": "left_half",
+        "device_alt": "SICHERLUFT Gas- und CO-Melder: Display mit Temperatur, CO- und Gaswert sowie Luftfeuchtigkeit, darunter die Anzeigen Betrieb, Alarm und Störung",
+        "device_note": "Display: CO · Gas · °C · %RH"
+      }
+    },
+    "irrtuemer": {
+      "type": "sl-lp-cards",
+      "blocks": {
+        "annahme_rauchmelder": {
+          "type": "card",
+          "settings": {
+            "icon": "smoke-alarm",
+            "label": "Annahme 1",
+            "title": "„Mein Rauchmelder passt auf.“",
+            "text": "<p><strong>Rauchmelder und CO-Melder messen unterschiedliche Gefahren.</strong> Ein klassischer Rauchmelder reagiert auf Rauch, wie er bei einem Brand entsteht. Kohlenmonoxid ist ein Gas, das bei unvollständiger Verbrennung entstehen kann – auch ohne sichtbaren Rauch. Dafür braucht es einen eigenen CO-Sensor.</p>",
+            "card_id": "rauchmelder",
+            "track_event": "card_link_click",
+            "dev_note": "Quelle: BfR-Broschüre „Gesundheitsrisiken durch Kohlenmonoxid“ – CO entsteht bei unvollständiger Verbrennung; 41 % der Befragten glauben fälschlich, Rauchmelder würden bei CO alarmieren."
+          }
+        },
+        "annahme_geruch": {
+          "type": "card",
+          "settings": {
+            "icon": "no-odor",
+            "label": "Annahme 2",
+            "title": "„Kohlenmonoxid würde ich schon merken.“",
+            "text": "<p><strong>Kohlenmonoxid ist nicht zuverlässig über den Geruch wahrnehmbar.</strong> Es ist farb- und geruchlos. Erste Beschwerden wie Kopfschmerzen, Schwindel oder Übelkeit sind unspezifisch und werden leicht anderen Ursachen zugeschrieben.</p>",
+            "card_id": "geruch",
+            "track_event": "card_link_click",
+            "dev_note": "Quelle: BfR-Broschüre, S. 4: „Kohlenmonoxid ist ein farb- und geruchloses Gas […]. Erste unspezifische Vergiftungssymptome sind Übelkeit, Schwindel oder Kopfschmerzen.“"
+          }
+        },
+        "annahme_licht": {
+          "type": "card",
+          "settings": {
+            "icon": "light",
+            "label": "Annahme 3",
+            "title": "„Das grüne Licht bedeutet, dass alles okay ist.“",
+            "text": "<p><strong>Eine Betriebsanzeige zeigt in erster Linie, dass ein Gerät aktiv beziehungsweise mit Strom versorgt ist.</strong> Sie zeigt nicht automatisch einen aktuellen Messwert der Raumluft.</p>",
+            "card_id": "gruenes-licht",
+            "track_event": "card_link_click",
+            "dev_note": "Allgemeine Funktionsbeschreibung einer Betriebsanzeige. SICHERLUFT selbst hat eine grüne LED „Betrieb“ (Gerätebeschriftung, Seite Sicherheitsinformationen)."
+          }
+        },
+        "fakt_bfr": {
+          "type": "fact",
+          "settings": {
+            "value": "41 %",
+            "text": "<p>der Befragten denken, Rauchmelder alarmieren bei CO in der Umgebungsluft. 44 % denken, man könne CO riechen. [CLAIM VERIFIZIEREN: Wortlaut und Basis mit der BfR-Broschüre abgleichen – Basis: 832 Befragte, die schon von CO-Vergiftungsfällen gehört haben; repräsentative Telefonbefragung Februar–März 2019, n = 1.012]</p>",
+            "source_label": "BfR – Gesundheitsrisiken durch Kohlenmonoxid",
+            "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
+            "dev_note": "Aus der BfR-Broschüre (ISBN 978-3-948484-00-2), Abschnitt „Woran kann man Kohlenmonoxid erkennen?“. Statistik erst nach eigener Prüfung live schalten: Platzhalter aus dem Text entfernen."
+          }
+        },
+        "quelle_bfr": {
+          "type": "source",
+          "settings": {
+            "label": "Gesundheitsrisiken durch Kohlenmonoxid (PDF)",
+            "publisher": "Bundesinstitut für Risikobewertung (BfR)",
+            "link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
+            "dev_note": "Belegt: CO ist farb- und geruchlos; unspezifische erste Symptome (Übelkeit, Schwindel, Kopfschmerzen); CO entsteht bei unvollständiger Verbrennung kohlenstoffhaltiger Stoffe."
+          }
+        }
+      },
+      "block_order": [
+        "annahme_rauchmelder",
+        "annahme_geruch",
+        "annahme_licht",
+        "fakt_bfr",
+        "quelle_bfr"
+      ],
+      "settings": {
+        "anchor": "irrtuemer",
+        "tracking_name": "irrtuemer",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Drei verbreitete Annahmen",
+        "heading": "Drei Dinge, bei denen sich viele Camper sicherer fühlen, als sie tatsächlich informiert sind.",
+        "heading_size": "m",
+        "intro": "<p>Keine davon ist leichtsinnig. Aber jede lässt eine Lücke, die man kennen sollte.</p>",
+        "align": "left",
+        "layout": "cards",
+        "columns": "3",
+        "card_style": "quote",
+        "min_live_cards": 0,
+        "sources_heading": "Quellen"
+      }
+    },
+    "wohnmobil": {
+      "type": "sl-lp-cards",
+      "blocks": {
+        "faktor_heizung": {
+          "type": "card",
+          "settings": {
+            "icon": "flame",
+            "title": "Heizung",
+            "text": "<p>Viele Wohnmobile heizen mit Gas oder Diesel – oft nachts, wenn Fenster und Dachluken geschlossen sind.</p>",
+            "card_id": "heizung"
+          }
+        },
+        "faktor_kocher": {
+          "type": "card",
+          "settings": {
+            "icon": "stove",
+            "title": "Kocher",
+            "text": "<p>Ein Gaskocher verbrennt Gas offen im Innenraum. Deshalb gehört beim Kochen ausreichende Belüftung dazu.</p>",
+            "card_id": "kocher"
+          }
+        },
+        "faktor_fluessiggas": {
+          "type": "card",
+          "settings": {
+            "icon": "gas-cylinder",
+            "title": "Flüssiggas",
+            "text": "<p>Propan und Butan werden in Flaschen mitgeführt und über Leitungen verteilt. Flüssiggas ist schwerer als Luft und sammelt sich bei einem Leck eher am Boden.</p>",
+            "card_id": "fluessiggas"
+          }
+        },
+        "faktor_abgaswege": {
+          "type": "card",
+          "settings": {
+            "icon": "exhaust",
+            "title": "Abgaswege",
+            "text": "<p>Heizung und Kühlschrank führen Abgase über Kamine nach außen. Sind diese beschädigt, undicht oder zugestellt, kann Abgas in den Innenraum gelangen.</p>",
+            "card_id": "abgaswege"
+          }
+        },
+        "faktor_raum": {
+          "type": "card",
+          "settings": {
+            "icon": "volume",
+            "title": "Begrenztes Raumvolumen",
+            "text": "<p>Auf wenigen Kubikmetern verändert sich die Luft schneller als in einer Wohnung.</p>",
+            "card_id": "raumvolumen"
+          }
+        },
+        "faktor_schlafen": {
+          "type": "card",
+          "settings": {
+            "icon": "bed",
+            "title": "Schlafbereich",
+            "text": "<p>Geschlafen wird oft nur wenige Meter von Heizung und Küche entfernt.</p>",
+            "card_id": "schlafbereich"
+          }
+        },
+        "faktor_stellplatz": {
+          "type": "card",
+          "settings": {
+            "icon": "car-fumes",
+            "title": "Nachbarn auf dem Stellplatz",
+            "text": "<p>Auf Stell- und Campingplätzen stehen Fahrzeuge dicht beieinander. Laufende Motoren, Generatoren oder Heizungen in der Nähe sind Abgasquellen, die du nicht beeinflussen kannst.</p>",
+            "card_id": "stellplatz"
+          }
+        },
+        "hinweis_ruhe": {
+          "type": "note",
+          "settings": {
+            "icon": "shield-check",
+            "text": "<p><strong>Keiner dieser Punkte ist ein Grund zur Sorge.</strong> Zusammen sind sie ein guter Grund, die Luft nicht dem Gefühl zu überlassen. Wichtig bleibt: Ein Melder ersetzt keine regelmäßige Gasprüfung und keine Wartung von Heizung und Abgasführung.</p>",
+            "dev_note": "Letzter Satz sinngemäß aus der Seite „Sicherheitsinformationen“ (Wichtiger Hinweis)."
+          }
+        }
+      },
+      "block_order": [
+        "faktor_heizung",
+        "faktor_kocher",
+        "faktor_fluessiggas",
+        "faktor_abgaswege",
+        "faktor_raum",
+        "faktor_schlafen",
+        "faktor_stellplatz",
+        "hinweis_ruhe"
+      ],
+      "settings": {
+        "anchor": "wohnmobil",
+        "tracking_name": "wohnmobil",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "Warum das Wohnmobil ein eigener Fall ist",
+        "heading": "Im Wohnmobil kommen mehrere Faktoren auf engem Raum zusammen.",
+        "heading_size": "m",
+        "intro": "<p>Küche, Wohnzimmer und Schlafzimmer auf wenigen Quadratmetern: Deshalb lohnt es sich, ein Wohnmobil nicht wie ein gewöhnliches Wohnzimmer zu betrachten.</p>",
+        "align": "left",
+        "layout": "grid",
+        "columns": "4",
+        "card_style": "plain",
+        "min_live_cards": 0,
+        "sources_heading": "Quellen"
+      }
+    },
+    "anzeige_alarm": {
+      "type": "sl-lp-steps",
+      "blocks": {
+        "zustand_an": {
+          "type": "step",
+          "settings": {
+            "indicator": "led",
+            "title": "Gerät ist eingeschaltet",
+            "text": "<p>Die Betriebsanzeige leuchtet. Sie sagt: Das Gerät hat Strom und ist aktiv. Über die Luft im Raum sagt sie noch nichts.</p>",
+            "observe_label": "Was du siehst:",
+            "observe": "eine leuchtende Statusanzeige"
+          }
+        },
+        "zustand_misst": {
+          "type": "step",
+          "settings": {
+            "indicator": "sensor",
+            "title": "Gerät misst",
+            "text": "<p>Der Sensor erfasst die Luft im Raum – im Hintergrund, ohne dass du etwas tun musst.</p>",
+            "observe_label": "Was du siehst:",
+            "observe": "von außen zunächst nichts"
+          }
+        },
+        "zustand_display": {
+          "type": "step",
+          "settings": {
+            "indicator": "display",
+            "title": "Display zeigt einen Wert",
+            "text": "<p>Ein Display macht die Messung sichtbar. Du siehst selbst, was gerade angezeigt wird – nicht erst, wenn es laut wird.</p>",
+            "observe_label": "Was du siehst:",
+            "observe": "eine Zahl, zum Beispiel für CO in ppm"
+          }
+        },
+        "zustand_alarm": {
+          "type": "step",
+          "settings": {
+            "indicator": "alarm",
+            "title": "Gerät löst Alarm aus",
+            "text": "<p>Erreicht die Messung einen im Gerät festgelegten Alarmwert, warnt das Gerät akustisch und optisch. Der Alarm ist das Signal zum Handeln.</p>",
+            "observe_label": "Was du siehst:",
+            "observe": "die rote Alarmanzeige – und du hörst einen Warnton",
+            "dev_note": "Akustische und optische Alarmanzeige: Seite „Sicherheitsinformationen“ (verweist auf Prüfberichte). Rote LED „Alarm“: Gerätebeschriftung. Lautstärke in dB NICHT belegt."
+          }
+        },
+        "hinweis_grenzwerte": {
+          "type": "note",
+          "settings": {
+            "icon": "bell",
+            "text": "<p>Ab welchem Wert und nach welcher Zeit SICHERLUFT Alarm gibt: [CLAIM VERIFIZIEREN: Alarmgrenzen und Ansprechzeiten laut Bedienungsanleitung/Prüfbericht]</p>",
+            "dev_note": "Keine ppm-Werte veröffentlichen, bevor Bedienungsanleitung oder Prüfbericht vorliegen."
+          }
+        },
+        "hinweis_alarm": {
+          "type": "note",
+          "settings": {
+            "icon": "shield-check",
+            "text": "<p>Ein Alarm darf nie ignoriert werden: den Bereich verlassen und die Hinweise der Bedienungsanleitung befolgen.</p>",
+            "dev_note": "Quelle: Seite „Sicherheitsinformationen“, Abschnitt „Verhalten bei Alarm“."
+          }
+        }
+      },
+      "block_order": [
+        "zustand_an",
+        "zustand_misst",
+        "zustand_display",
+        "zustand_alarm",
+        "hinweis_grenzwerte",
+        "hinweis_alarm"
+      ],
+      "settings": {
+        "anchor": "anzeige-und-alarm",
+        "tracking_name": "anzeige_alarm",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Anzeige und Alarm",
+        "heading": "Ein Alarm ist wichtig. Eine sichtbare Messung gibt dir zusätzliche Information.",
+        "heading_size": "m",
+        "intro": "<p>Vier Zustände, die leicht verwechselt werden – und was sie dir jeweils sagen.</p>",
+        "step_prefix": "Zustand",
+        "link_label": "Technische Nachweise ansehen",
+        "link_url": "/pages/nachweise"
+      }
+    },
+    "so_funktioniert": {
+      "type": "sl-lp-product",
+      "blocks": {
+        "funktion_co": {
+          "type": "feature",
+          "settings": {
+            "icon": "co",
+            "title": "Kohlenmonoxid (CO)",
+            "text": "<p>Anzeige des CO-Werts in ppm (parts per million) direkt auf dem Display.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „CO … PPM“ auf dem Referenzfoto sicherluft-echtes-produktfoto-referenz.jpg."
+          }
+        },
+        "funktion_gas": {
+          "type": "feature",
+          "settings": {
+            "icon": "gas",
+            "title": "Brennbare Gase",
+            "text": "<p>Anzeige in %LEL – dem Anteil an der unteren Explosionsgrenze (UEG).</p>",
+            "dev_note": "Quelle: Display-Beschriftung „GAS … %LEL“. OFFEN: welche Gasarten erfasst werden (Propan/Butan = Flüssiggas im Wohnmobil?) – siehe Hinweis unten."
+          }
+        },
+        "funktion_temperatur": {
+          "type": "feature",
+          "settings": {
+            "icon": "thermometer",
+            "title": "Temperatur",
+            "text": "<p>Raumtemperatur in °C.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „°C“."
+          }
+        },
+        "funktion_feuchte": {
+          "type": "feature",
+          "settings": {
+            "icon": "droplet",
+            "title": "Luftfeuchtigkeit",
+            "text": "<p>Relative Luftfeuchtigkeit in %RH – im Wohnmobil auch ein Hinweis fürs Lüften.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „RH%“."
+          }
+        },
+        "funktion_warnung": {
+          "type": "feature",
+          "settings": {
+            "icon": "speaker",
+            "title": "Akustische und optische Warnung",
+            "text": "<p>Im Alarmfall warnt das Gerät hörbar und mit der roten Alarmanzeige. Dazu kommen die Anzeigen „Betrieb“ und „Störung“.</p>",
+            "dev_note": "Quelle: Seite „Sicherheitsinformationen“ (optische und akustische Status- und Alarmanzeigen laut Prüfberichten) und LED-Beschriftung am Gerät. Lautstärke (dB) nicht belegt – nicht nennen."
+          }
+        },
+        "funktion_stecker": {
+          "type": "feature",
+          "settings": {
+            "icon": "plug",
+            "title": "Einstecken statt montieren",
+            "text": "<p>Integrierter Netzstecker: direkt in eine Steckdose, ohne Bohren.</p>",
+            "dev_note": "Quelle: Rückseite auf dem Referenzfoto. Stromversorgung im Wohnmobil (Landstrom, Wechselrichter, Batterie, 12 V) ist NICHT belegt – siehe FAQ."
+          }
+        },
+        "hinweis_gasarten": {
+          "type": "note",
+          "settings": {
+            "text": "<p>Welche brennbaren Gase SICHERLUFT erfasst – insbesondere Propan und Butan (Flüssiggas): [CLAIM VERIFIZIEREN: Gasarten laut Datenblatt bzw. Prüfbericht EN 50194-1]</p>"
+          }
+        },
+        "hinweis_messdaten": {
+          "type": "note",
+          "settings": {
+            "text": "<p>Anzeigebereiche, Messgenauigkeit, Aufwärmzeit, Sensorart und Sensorlebensdauer: [CLAIM VERIFIZIEREN: Werte aus Datenblatt/Bedienungsanleitung]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "funktion_co",
+        "funktion_gas",
+        "funktion_temperatur",
+        "funktion_feuchte",
+        "funktion_warnung",
+        "funktion_stecker",
+        "hinweis_gasarten",
+        "hinweis_messdaten"
+      ],
+      "settings": {
+        "anchor": "so-funktioniert",
+        "tracking_name": "so_funktioniert",
+        "background": "sky",
+        "spacing": "normal",
+        "eyebrow": "So funktioniert SICHERLUFT",
+        "heading": "Sehen statt raten.",
+        "heading_size": "l",
+        "intro": "<p>SICHERLUFT wird eingesteckt und zeigt auf dem Display, was es misst – direkt am Gerät ablesbar.</p>",
+        "image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "image_crop": "left_half",
+        "image_alt": "SICHERLUFT Gas- und CO-Melder, Vorderseite mit Display und den Anzeigen Betrieb, Alarm und Störung",
+        "image_caption": "Anzeigen am Gerät: Betrieb (grün), Alarm (rot), Störung (gelb)",
+        "video_heading": "SICHERLUFT im echten Test",
+        "video_text": "<p>Eine nachvollziehbare Messung am echten Gerät – so, wie sie passiert.</p>",
+        "video_caption": "Ungeschnittene Aufnahme [CLAIM VERIFIZIEREN: nur stehen lassen, wenn das Video tatsächlich ungeschnitten ist]",
+        "cta_label": "Zum passenden Set",
+        "cta_link": "#angebot"
+      }
+    },
+    "platzierung": {
+      "type": "sl-lp-placement",
+      "blocks": {
+        "position_schlafen": {
+          "type": "spot",
+          "settings": {
+            "label": "Gerät 1",
+            "title": "Schlafbereich",
+            "text": "<p>[CLAIM VERIFIZIEREN: Montagehöhe und Abstand im Schlafbereich laut Bedienungsanleitung]</p>",
+            "x": 91,
+            "y": 36,
+            "dev_note": "Position ist ein Platzhalter. Erst mit Herstellerangabe veröffentlichen."
+          }
+        },
+        "position_gas": {
+          "type": "spot",
+          "settings": {
+            "label": "Gerät 2",
+            "title": "Bereich Heizung und Kocher",
+            "text": "<p>[CLAIM VERIFIZIEREN: Position für Flüssiggas (bodennah?) und CO laut Herstellerangaben – nicht direkt über dem Kocher]</p>",
+            "x": 60,
+            "y": 76,
+            "dev_note": "Position ist ein Platzhalter. Flüssiggas ist schwerer als Luft, CO verteilt sich im Raum – ein Kombigerät braucht eine belegte Montagehöhe."
+          }
+        },
+        "hinweis_offen": {
+          "type": "note",
+          "settings": {
+            "text": "<p>Konkrete Montagepositionen für Wohnmobile veröffentlichen wir, sobald die Herstellerangaben vorliegen. [CLAIM VERIFIZIEREN: Herstellerempfehlung zu Anzahl und Position je Fahrzeuggröße; Eignung für Freizeitfahrzeuge (EN 50291-2) klären – bisher ist nur EN 50291-1 (Haushalt) genannt]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "position_schlafen",
+        "position_gas",
+        "hinweis_offen"
+      ],
+      "settings": {
+        "anchor": "platzierung",
+        "tracking_name": "platzierung",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Platzierung",
+        "heading": "Wo ein Melder steht, ist genauso wichtig wie welcher.",
+        "heading_size": "m",
+        "intro": "<p>Kohlenmonoxid verteilt sich mit der Raumluft. Propan und Butan sind schwerer als Luft und sammeln sich eher am Boden. Und Schlafbereich, Heizung und Kocher liegen im Wohnmobil oft an verschiedenen Stellen.</p>",
+        "legend_heading": "Typische Bereiche im Wohnmobil",
+        "zone_1": "Schlafbereich",
+        "zone_2": "Küche mit Gaskocher",
+        "zone_3": "Heizung",
+        "zone_4": "Gasflaschenkasten",
+        "zone_5": "Abgasführung",
+        "legend_note": "Schematische Darstellung. Grundrisse unterscheiden sich je nach Modell.",
+        "avoid_heading": "Laut Sicherheitsinformationen nicht empfohlen",
+        "avoid_text": "<ul><li>unmittelbar über Kochstellen oder Spülen</li><li>direkt neben Abluft- oder Dunstabzugssystemen</li><li>im Außenbereich oder außerhalb der vorgesehenen Betriebsbedingungen</li></ul><p>Maßgeblich sind die Montagehinweise der mitgelieferten Bedienungsanleitung.</p>",
+        "avoid_source": "Seite „Sicherheitsinformationen“ (/pages/sicherheitsinformationen), Abschnitt „Sichere Verwendung“",
+        "set_heading": "Warum zwei Geräte sinnvoll sein können",
+        "set_text": "<p>Ein Gerät misst dort, wo es steht. Liegen Schlafbereich und Gasgeräte in deinem Wohnmobil auseinander oder sind durch Türen getrennt, deckt ein zweites Gerät den zweiten Bereich ab.</p>",
+        "cta_label": "Zum Wohnmobil-Set",
+        "cta_link": "#angebot"
+      }
+    },
+    "vertrauen": {
+      "type": "sl-lp-cards",
+      "blocks": {
+        "vertrauen_quellen": {
+          "type": "card",
+          "settings": {
+            "icon": "source",
+            "title": "Technische Angaben mit Quellen",
+            "text": "<p>Was wir über das Gerät sagen, belegen wir mit Produktdaten, Prüfberichten und öffentlich zugänglichen Quellen. [CLAIM VERIFIZIEREN: erst live, wenn Datenblatt und Prüfberichte verlinkt sind]</p>",
+            "card_id": "quellen"
+          }
+        },
+        "vertrauen_nachweise": {
+          "type": "card",
+          "settings": {
+            "icon": "document-check",
+            "title": "Nachweise öffentlich einsehbar",
+            "text": "<p>Prüfberichte, Konformitätserklärung und Unternehmensangaben findest du gesammelt auf einer Seite. [CLAIM VERIFIZIEREN: erst live, wenn /pages/nachweise mit echten Dokumenten veröffentlicht ist]</p>",
+            "link": "/pages/nachweise",
+            "link_label": "Zu den Nachweisen",
+            "card_id": "nachweise",
+            "track_event": "proof_link_click"
+          }
+        },
+        "vertrauen_bedingungen": {
+          "type": "card",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Klare Rückgabe- und Garantiebedingungen",
+            "text": "<p>Widerruf, Rückgabe und Garantie sind schriftlich geregelt und vor dem Kauf nachlesbar. [CLAIM VERIFIZIEREN: Widerrufsbelehrung sowie Rückgabe- und Garantiebedingungen veröffentlichen – die „100 Tage Geld-zurück-Garantie“ der Startseite ist bisher nirgends schriftlich geregelt]</p>",
+            "card_id": "bedingungen"
+          }
+        }
+      },
+      "block_order": [
+        "vertrauen_quellen",
+        "vertrauen_nachweise",
+        "vertrauen_bedingungen"
+      ],
+      "settings": {
+        "anchor": "vertrauen",
+        "tracking_name": "vertrauen",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "Vertrauen",
+        "heading": "Keine erfundenen Geschichten. Keine anonymen Experten.",
+        "heading_size": "m",
+        "intro": "<p>Erfahrungen echter Kundinnen und Kunden zeigen wir hier, sobald sie vorliegen – mit Namen und nachvollziehbar. Bis dahin halten wir uns an das, was du selbst prüfen kannst.</p>",
+        "align": "left",
+        "layout": "cards",
+        "columns": "3",
+        "card_style": "plain",
+        "min_live_cards": 0,
+        "sources_heading": "Quellen",
+        "editor_hint": "<p>Hier später ergänzen: echte Kundenbewertungen über einen Bewertungs-App-Block, Creator-Videos (Block „Creator-Video“, bezahlte Kooperationen als Werbung kennzeichnen) und ggf. eine benannte Fachperson (Block „Benannte Fachperson“). Keine Platzhalter-Bewertungen verwenden.</p>"
+      }
+    },
+    "nachweise": {
+      "type": "sl-lp-cards",
+      "blocks": {
+        "nachweis_pruefberichte": {
+          "type": "card",
+          "settings": {
+            "icon": "document-check",
+            "title": "Prüfberichte",
+            "text": "<p>Prüfberichte zum Gerät als PDF.</p>",
+            "link_label": "Prüfberichte ansehen",
+            "link_required": true,
+            "card_id": "pruefberichte",
+            "track_event": "proof_link_click",
+            "dev_note": "Gefunden, aber nicht verifiziert: Seite „Sicherheitsinformationen“ und ein Produktbild nennen die Berichte CTG2508220922E-SR380AR (CO, EN 50291-1:2018/AC:2021-01) und CTG2508220922E-SR381AR (Gas, EN 50194-1:2023), Prüflabor Shenzhen CTG Testing Co., Ltd., 22.08.2025, Referenzmodell GC03. Die PDFs liegen nicht im Shop: unter Inhalte → Dateien hochladen und hier verlinken. Klären: Ist SICHERLUFT baugleich mit GC03?"
+          }
+        },
+        "nachweis_konformitaet": {
+          "type": "card",
+          "settings": {
+            "icon": "seal",
+            "title": "Konformitätserklärung",
+            "text": "<p>EU-Konformitätserklärung des Herstellers.</p>",
+            "link_label": "Erklärung ansehen",
+            "link_required": true,
+            "card_id": "konformitaet",
+            "track_event": "proof_link_click",
+            "dev_note": "Liegt nicht im Shop."
+          }
+        },
+        "nachweis_produktdaten": {
+          "type": "card",
+          "settings": {
+            "icon": "datasheet",
+            "title": "Produktdaten",
+            "text": "<p>Datenblatt und Bedienungsanleitung.</p>",
+            "link_label": "Datenblatt ansehen",
+            "link_required": true,
+            "card_id": "produktdaten",
+            "track_event": "proof_link_click",
+            "dev_note": "Datenblatt/Anleitung als PDF hochladen – idealerweise mit Gasarten, Alarmgrenzen, Anzeigebereichen, Stromversorgung und Lebensdauer."
+          }
+        },
+        "nachweis_hersteller": {
+          "type": "card",
+          "settings": {
+            "icon": "building",
+            "title": "Hersteller & EU-Verantwortlicher",
+            "text": "<p>Wer das Gerät herstellt und wer in der EU verantwortlich ist.</p>",
+            "link_label": "Angaben ansehen",
+            "link_required": true,
+            "card_id": "hersteller",
+            "track_event": "proof_link_click",
+            "dev_note": "Herstellerangaben (GPSR) sind aktuell nirgends im Shop veröffentlicht."
+          }
+        },
+        "nachweis_garantie": {
+          "type": "card",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Garantie",
+            "text": "<p>Garantiebedingungen im Wortlaut.</p>",
+            "link_label": "Garantiebedingungen",
+            "link_required": true,
+            "card_id": "garantie",
+            "track_event": "proof_link_click",
+            "dev_note": "Startseite nennt „100 Tage Geld-zurück-Garantie“ – Bedingungen sind nicht veröffentlicht."
+          }
+        },
+        "nachweis_rueckgabe": {
+          "type": "card",
+          "settings": {
+            "icon": "return",
+            "title": "Widerruf & Rückgabe",
+            "text": "<p>Widerrufsbelehrung und Ablauf einer Rückgabe.</p>",
+            "link": "/pages/widerrufsrecht",
+            "link_label": "Zur Widerrufsbelehrung",
+            "link_required": true,
+            "card_id": "rueckgabe",
+            "track_event": "proof_link_click",
+            "dev_note": "/pages/widerrufsrecht existiert nur als unveröffentlichter Platzhalter."
+          }
+        },
+        "nachweis_kontakt": {
+          "type": "card",
+          "settings": {
+            "icon": "mail",
+            "title": "Kontakt",
+            "text": "<p>Fragen zum Gerät oder zu den Nachweisen? Schreib uns.</p>",
+            "link": "/pages/contact",
+            "link_label": "Kontakt aufnehmen",
+            "link_required": true,
+            "card_id": "kontakt",
+            "track_event": "proof_link_click"
+          }
+        },
+        "button_alle": {
+          "type": "button",
+          "settings": {
+            "label": "Alle Nachweise ansehen",
+            "link": "/pages/nachweise",
+            "style": "primary",
+            "button_id": "alle-nachweise",
+            "track_event": "proof_link_click"
+          }
+        }
+      },
+      "block_order": [
+        "nachweis_pruefberichte",
+        "nachweis_konformitaet",
+        "nachweis_produktdaten",
+        "nachweis_hersteller",
+        "nachweis_garantie",
+        "nachweis_rueckgabe",
+        "nachweis_kontakt",
+        "button_alle"
+      ],
+      "settings": {
+        "anchor": "nachweise",
+        "tracking_name": "nachweise",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Nachweise",
+        "heading": "Du sollst nicht einfach glauben, was wir behaupten.",
+        "heading_size": "m",
+        "intro": "<p>Technische Angaben gehören belegt. Deshalb machen wir relevante Prüfberichte, Produktinformationen und Unternehmensdaten transparent zugänglich.</p>",
+        "align": "left",
+        "layout": "grid",
+        "columns": "4",
+        "card_style": "link",
+        "min_live_cards": 3,
+        "sources_heading": "Quellen"
+      }
+    },
+    "angebot": {
+      "type": "sl-lp-offer",
+      "blocks": {
+        "angebot_einzel": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 1,
+            "title": "1 Gerät",
+            "subtitle": "Ein Messpunkt",
+            "text": "<p>Zum Beispiel als Ergänzung oder für einen einzelnen Bereich.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_1er.png",
+            "image_alt": "Ein SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Gerät auswählen",
+            "offer_id": "einzelgeraet"
+          }
+        },
+        "angebot_wohnmobil": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 2,
+            "title": "Wohnmobil-Set",
+            "subtitle": "2 Geräte",
+            "text": "<p>Ein Gerät für den Schlafbereich, eins für den Bereich mit Heizung und Kocher.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_2er_versetzt.png",
+            "image_alt": "Zwei SICHERLUFT Gas- und CO-Melder",
+            "highlight": true,
+            "highlight_label": "Unsere Empfehlung fürs Wohnmobil",
+            "preselected": true,
+            "cta_label": "Set auswählen",
+            "offer_id": "wohnmobil-set"
+          }
+        },
+        "angebot_zuhause": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 3,
+            "title": "Wohnmobil + Zuhause",
+            "subtitle": "3 Geräte",
+            "text": "<p>Das Wohnmobil-Set plus ein Gerät für zu Hause.</p>",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_3er.png",
+            "image_alt": "Drei SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Set auswählen",
+            "offer_id": "wohnmobil-zuhause"
+          }
+        }
+      },
+      "block_order": [
+        "angebot_einzel",
+        "angebot_wohnmobil",
+        "angebot_zuhause"
+      ],
+      "settings": {
+        "anchor": "angebot",
+        "tracking_name": "angebot",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "Angebot",
+        "heading": "Das passende Set fürs Wohnmobil",
+        "heading_size": "m",
+        "intro": "<p>Ein Gerät misst dort, wo es steht. Deshalb richtet sich die Anzahl danach, wie viele Bereiche du im Blick behalten möchtest.</p>",
+        "legend": "Anzahl der Geräte wählen",
+        "cta_label": "Set auswählen",
+        "free_shipping_text": "versandkostenfrei (DE)",
+        "shipping_text": "zzgl. Versandkosten",
+        "shipping_link": "/pages/versand",
+        "shipping_link_label": "Versand & Lieferung",
+        "show_payment_icons": true,
+        "sticky_cta": true,
+        "sticky_label": "Set auswählen",
+        "dev_note": "Kaching Bundles (automatischer Mengenrabatt) ist im Shop aktiv. Ob er bei 2 oder 3 Geräten greift, ist aus dem Theme nicht erkennbar – diese Seite zeigt bewusst Menge × regulären Shopify-Preis. Ein eventueller Kaching-Rabatt erscheint erst im Warenkorb."
+      }
+    },
+    "faq": {
+      "type": "sl-lp-faq",
+      "blocks": {
+        "faq_rauchmelder": {
+          "type": "item",
+          "settings": {
+            "question": "Warum reicht ein Rauchmelder nicht?",
+            "answer": "<p>Ein klassischer Rauchmelder reagiert auf Rauch. Kohlenmonoxid ist ein farb- und geruchloses Gas, das bei unvollständiger Verbrennung entstehen kann – auch ohne Rauch, etwa bei einer Heizung oder einem Kocher. Dafür braucht es einen CO-Sensor. SICHERLUFT ersetzt deinen Rauchmelder nicht, sondern ergänzt ihn.</p>",
+            "faq_id": "rauchmelder",
+            "dev_note": "Quelle: BfR-Broschüre. Gerät ist laut Beschriftung ein „Gas & CO-Melder“ (kein Rauchmelder)."
+          }
+        },
+        "faq_misst": {
+          "type": "item",
+          "settings": {
+            "question": "Was misst das Gerät?",
+            "answer": "<p>Das Display zeigt Werte für Kohlenmonoxid (CO, in ppm), brennbare Gase (in %LEL, Anteil an der unteren Explosionsgrenze), die Temperatur (°C) und die relative Luftfeuchtigkeit (%RH). Dazu kommen die Anzeigen „Betrieb“, „Alarm“ und „Störung“.</p>",
+            "faq_id": "was-misst-das-geraet",
+            "dev_note": "Quelle: Display- und LED-Beschriftung auf dem Referenzfoto. Gasarten offen – eigene Frage."
+          }
+        },
+        "faq_gasarten": {
+          "type": "item",
+          "settings": {
+            "question": "Erkennt SICHERLUFT Flüssiggas (Propan/Butan)?",
+            "answer": "<p>[CLAIM VERIFIZIEREN: Gasarten laut Datenblatt bzw. Prüfbericht EN 50194-1 – für Wohnmobile entscheidend]</p>",
+            "faq_id": "fluessiggas"
+          }
+        },
+        "faq_platzierung": {
+          "type": "item",
+          "settings": {
+            "question": "Wo wird das Gerät platziert?",
+            "answer": "<p>Maßgeblich sind die Montagehinweise der mitgelieferten Bedienungsanleitung. Nicht empfohlen sind laut unseren Sicherheitsinformationen Positionen unmittelbar über Kochstellen oder Spülen, direkt neben Abluft- oder Dunstabzugssystemen und im Außenbereich.</p>",
+            "faq_id": "platzierung",
+            "dev_note": "Quelle: Seite „Sicherheitsinformationen“. Konkrete Wohnmobil-Empfehlung (Höhe, Abstände, Anzahl) fehlt noch."
+          }
+        },
+        "faq_fahrt": {
+          "type": "item",
+          "settings": {
+            "question": "Kann ich es während der Fahrt nutzen?",
+            "answer": "<p>[CLAIM VERIFIZIEREN: Herstellerangabe zum Betrieb während der Fahrt; Eignung für Freizeitfahrzeuge (EN 50291-2) – bisher ist nur EN 50291-1 (Haushalt) genannt]</p>",
+            "faq_id": "waehrend-der-fahrt"
+          }
+        },
+        "faq_strom": {
+          "type": "item",
+          "settings": {
+            "question": "Welche Stromversorgung brauche ich?",
+            "answer": "<p>SICHERLUFT wird über den integrierten Netzstecker direkt in eine Steckdose gesteckt. [CLAIM VERIFIZIEREN: Nennspannung, Betrieb im Wohnmobil über Landstrom oder Wechselrichter, Batterie-/Backup-Funktion, 12-V-Betrieb]</p>",
+            "faq_id": "stromversorgung",
+            "dev_note": "Kritisch für die Zielgruppe: Ohne Batterie/12 V funktioniert das Gerät beim Freistehen ohne Landstrom oder Wechselrichter nachts nicht."
+          }
+        },
+        "faq_fehlalarm": {
+          "type": "item",
+          "settings": {
+            "question": "Kann es Fehlalarme geben?",
+            "answer": "<p>[CLAIM VERIFIZIEREN: Verhalten bei Störgrößen laut Hersteller, z. B. Sprays, Alkohol oder Kochdünste]</p>",
+            "faq_id": "fehlalarme"
+          }
+        },
+        "faq_lebensdauer": {
+          "type": "item",
+          "settings": {
+            "question": "Wie lange hält der Sensor?",
+            "answer": "<p>[CLAIM VERIFIZIEREN: Sensorlebensdauer und Anzeige am Ende der Lebensdauer laut Bedienungsanleitung]</p>",
+            "faq_id": "lebensdauer"
+          }
+        },
+        "faq_rueckgabe": {
+          "type": "item",
+          "settings": {
+            "question": "Was passiert bei einer Rückgabe?",
+            "answer": "<p>Beim Onlinekauf hast du als Verbraucher ein gesetzliches Widerrufsrecht von 14 Tagen. [CLAIM VERIFIZIEREN: Widerrufsbelehrung veröffentlichen; Ablauf, Rücksendekosten und ggf. freiwillige Garantie („100 Tage“) schriftlich regeln und hier verlinken]</p>",
+            "faq_id": "rueckgabe"
+          }
+        },
+        "faq_nachweise": {
+          "type": "item",
+          "settings": {
+            "question": "Welche Nachweise gibt es?",
+            "answer": "<p>Prüfberichte, Konformitätserklärung und Produktdaten stellen wir gesammelt bereit. [CLAIM VERIFIZIEREN: Seite /pages/nachweise mit den Dokumenten veröffentlichen]</p>",
+            "faq_id": "nachweise"
+          }
+        },
+        "faq_gaspruefung": {
+          "type": "item",
+          "settings": {
+            "question": "Ersetzt SICHERLUFT die Gasprüfung?",
+            "answer": "<p>Nein. Ein Gas- oder CO-Melder ersetzt nie die fachgerechte Installation, Prüfung und Wartung von Heizung, Gasanlage und Abgasführung. Er ergänzt sie.</p>",
+            "faq_id": "gaspruefung",
+            "dev_note": "Quelle: Seite „Sicherheitsinformationen“, Abschnitt „Wichtiger Hinweis“."
+          }
+        },
+        "faq_app": {
+          "type": "item",
+          "settings": {
+            "question": "Brauche ich eine App?",
+            "answer": "<p>Nein. Die Werte werden direkt auf dem Display des Geräts angezeigt.</p>",
+            "faq_id": "app",
+            "dev_note": "Quelle: Gerät mit eigenem Display; keine App im Produkttext erwähnt."
+          }
+        }
+      },
+      "block_order": [
+        "faq_rauchmelder",
+        "faq_misst",
+        "faq_gasarten",
+        "faq_platzierung",
+        "faq_fahrt",
+        "faq_strom",
+        "faq_fehlalarm",
+        "faq_lebensdauer",
+        "faq_rueckgabe",
+        "faq_nachweise",
+        "faq_gaspruefung",
+        "faq_app"
+      ],
+      "settings": {
+        "anchor": "faq",
+        "tracking_name": "faq",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "FAQ",
+        "heading": "Häufige Fragen",
+        "heading_size": "m",
+        "intro": "<p>Deine Frage fehlt? <a href=\"/pages/contact\">Schreib uns</a>.</p>"
+      }
+    },
+    "nacht_check_liste": {
+      "type": "sl-lp-lead",
+      "blocks": {
+        "punkt_gas": {
+          "type": "item",
+          "settings": {
+            "text": "Gasflasche und Absperrhähne"
+          }
+        },
+        "punkt_heizung": {
+          "type": "item",
+          "settings": {
+            "text": "Heizung und Abgaskamin frei"
+          }
+        },
+        "punkt_lueftung": {
+          "type": "item",
+          "settings": {
+            "text": "Lüftung und Dachluken"
+          }
+        },
+        "punkt_strom": {
+          "type": "item",
+          "settings": {
+            "text": "Strom und Ladezustand"
+          }
+        },
+        "punkt_luft": {
+          "type": "item",
+          "settings": {
+            "text": "Luft: ein Blick auf den CO- und Gasmelder"
+          }
+        }
+      },
+      "block_order": [
+        "punkt_gas",
+        "punkt_heizung",
+        "punkt_lueftung",
+        "punkt_strom",
+        "punkt_luft"
+      ],
+      "settings": {
+        "delivery_ready": false,
+        "anchor": "nacht-check-liste",
+        "tracking_name": "lead_magnet",
+        "background": "night",
+        "spacing": "normal",
+        "eyebrow": "Kostenlose Checkliste",
+        "heading": "Der 60-Sekunden-Nacht-Check fürs Wohnmobil",
+        "heading_size": "m",
+        "text": "<p>Die wichtigsten Punkte, die du vor dem Schlafengehen einmal prüfen kannst.</p>",
+        "list_heading": "Das steht drin",
+        "email_label": "Deine E-Mail-Adresse",
+        "email_placeholder": "name@beispiel.de",
+        "cta_label": "Nacht-Check kostenlos erhalten",
+        "consent": "<p>Mit der Anmeldung erhältst du den Nacht-Check und gelegentlich Hinweise zu Sicherheit im Wohnmobil per E-Mail. Abmeldung jederzeit über den Link in jeder E-Mail.</p>",
+        "tags": "newsletter, lead-nacht-check-wohnmobil",
+        "success_text": "<p>Danke! Bitte bestätige deine Anmeldung über den Link in deinem Postfach. Danach schicken wir dir den Nacht-Check.</p>",
+        "dev_note": "Offen vor Livegang: 1) Checkliste (PDF oder E-Mail) erstellen. 2) Double-Opt-in für E-Mail-Marketing aktivieren. 3) Flow auf den Tag „lead-nacht-check-wohnmobil“ anlegen (Shopify Email oder Klaviyo). Danach „Versand des Nacht-Checks ist eingerichtet“ aktivieren."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "irrtuemer",
+    "wohnmobil",
+    "anzeige_alarm",
+    "so_funktioniert",
+    "platzierung",
+    "vertrauen",
+    "nachweise",
+    "angebot",
+    "faq",
+    "nacht_check_liste"
+  ]
+}

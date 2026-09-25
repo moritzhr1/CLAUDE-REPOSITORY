@@ -1,0 +1,116 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: Liniensymbole (24 × 24, currentColor).
+  Rein dekorativ (aria-hidden). Neue Symbole hier ergänzen und in den Section-Schemas
+  bei den Icon-Auswahllisten nachtragen.
+
+  Accepts:
+  - name: {String} Symbolname, z. B. 'flame'
+  - size: {Number} Kantenlänge in px (optional, Standard 24)
+  - class: {String} zusätzliche CSS-Klasse (optional)
+
+  Usage:
+  {% render 'sl-lp-icon', name: 'flame', size: 28 %}
+{%- endcomment -%}
+{%- liquid
+  assign icon_size = size | default: 24
+  assign icon_fill = 'none'
+  if name == 'play'
+    assign icon_fill = 'currentColor'
+  endif
+-%}
+{%- if name != blank and name != 'none' -%}
+  <svg class="sl-lp-icon {{ class }}" width="{{ icon_size }}" height="{{ icon_size }}" viewBox="0 0 24 24" fill="{{ icon_fill }}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    {%- case name -%}
+      {%- when 'smoke-alarm' -%}
+        <path d="M3 3.5h18"/><path d="M6 3.5v1.8a6 6 0 0 0 12 0V3.5"/><path d="M10 6.5h4"/><path d="M8 20.5c1-1 1-2.2 0-3.2s-1-2.2 0-3.2"/><path d="M12 21c1-1 1-2.2 0-3.2s-1-2.2 0-3.2"/><path d="M16 20.5c1-1 1-2.2 0-3.2s-1-2.2 0-3.2"/>
+      {%- when 'no-odor' -%}
+        <path d="M3 8.5h10.5a2.8 2.8 0 1 0-2.8-2.8"/><path d="M3 12.5h14a3 3 0 1 1-3 3"/><path d="M3 16.5h5"/><path d="M4 3.5l16.5 17"/>
+      {%- when 'light' -%}
+        <circle cx="12" cy="12" r="3.5"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>
+      {%- when 'flame' -%}
+        <path d="M12 21.5c-3.6 0-6.5-2.6-6.5-6.4 0-3.9 2.9-6.3 4.2-9.6.2 2.2 1.3 3.5 2.6 4 .1-2.4 1.3-4.6 3.2-6 .4 3.6 3 5.6 3 10.9 0 4.2-3 7.1-6.5 7.1z"/><path d="M12 21.5c-1.7 0-3-1.3-3-3.1 0-1.9 1.6-3 2.4-4.6.9 1.3 3.6 2.4 3.6 4.9 0 1.6-1.3 2.8-3 2.8z"/>
+      {%- when 'stove' -%}
+        <rect x="3" y="8" width="18" height="12" rx="2"/><circle cx="8.5" cy="14" r="2.6"/><circle cx="15.5" cy="14" r="2.6"/><path d="M8 3c.8.8.8 1.9 0 2.8M12 3c.8.8.8 1.9 0 2.8M16 3c.8.8.8 1.9 0 2.8"/>
+      {%- when 'gas-cylinder' -%}
+        <rect x="7" y="6.5" width="10" height="14.5" rx="4"/><path d="M10 6.5V3.8h4v2.7"/><path d="M9 3.5h6"/><path d="M7 11.5h10"/>
+      {%- when 'exhaust' -%}
+        <path d="M4.5 21v-5.5a2 2 0 0 1 2-2H12V6.5"/><path d="M9.5 6.5h5"/><path d="M15.5 3c1.2.9 1.2 2.1 0 3"/><path d="M19 4.5c1.2.9 1.2 2.1 0 3"/>
+      {%- when 'volume' -%}
+        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>
+      {%- when 'bed' -%}
+        <path d="M3 18.5v-11"/><path d="M3 14.5h18v4"/><path d="M21 14.5v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11.5" r="1.9"/>
+      {%- when 'car-fumes' -%}
+        <path d="M4 16.5v-3.8l2-4.2h8.5l3 4.2h1.7a1.8 1.8 0 0 1 1.8 1.8v2"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="16.5" cy="17" r="1.8"/><path d="M1.8 20.8c.9-.7 1.8-.7 2.7 0"/><path d="M1.5 17.5h1.3"/>
+      {%- when 'power' -%}
+        <path d="M12 3v8"/><path d="M6.4 6.9a8 8 0 1 0 11.2 0"/>
+      {%- when 'sensor' -%}
+        <circle cx="12" cy="12" r="1.8"/><path d="M8.6 8.6a4.8 4.8 0 0 0 0 6.8M15.4 8.6a4.8 4.8 0 0 1 0 6.8M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>
+      {%- when 'display' -%}
+        <rect x="5" y="2.5" width="14" height="19" rx="3"/><rect x="7.5" y="5.5" width="9" height="7.5" rx="1"/><path d="M9 17h.01M12 17h.01M15 17h.01"/>
+      {%- when 'bell' -%}
+        <path d="M6 16.5v-5.5a6 6 0 1 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>
+      {%- when 'co' -%}
+        <circle cx="8.5" cy="12" r="4.5"/><circle cx="17" cy="12" r="3.5"/><path d="M13 12h.5"/>
+      {%- when 'gas' -%}
+        <path d="M12 2.8c2.6 3 5 5.3 5 9.3a5 5 0 0 1-10 0c0-2.7 1.8-4.2 3-6.2.3 1.5 1 2.4 2 2.8z"/><path d="M5 21h14"/>
+      {%- when 'thermometer' -%}
+        <path d="M14 14.6V5a2 2 0 1 0-4 0v9.6a4 4 0 1 0 4 0z"/><path d="M12 9.5v6.5"/>
+      {%- when 'droplet' -%}
+        <path d="M12 3s6 6.2 6 10.6a6 6 0 1 1-12 0C6 9.2 12 3 12 3z"/><path d="M9.2 14.5a2.9 2.9 0 0 0 2.3 2.4"/>
+      {%- when 'speaker' -%}
+        <path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5"/><path d="M18 7a7 7 0 0 1 0 10"/>
+      {%- when 'plug' -%}
+        <path d="M9 3v5M15 3v5"/><path d="M6 8h12v3a6 6 0 0 1-12 0z"/><path d="M12 17v4"/>
+      {%- when 'document-check' -%}
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/>
+      {%- when 'seal' -%}
+        <circle cx="12" cy="9" r="5.5"/><path d="M9 13.8L7.5 21l4.5-2.5 4.5 2.5-1.5-7.2"/><path d="M9.8 9l1.5 1.5 3-3"/>
+      {%- when 'datasheet' -%}
+        <rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4"/><path d="M8.5 9.5h7M8.5 13h7M8.5 16.5h4"/>
+      {%- when 'building' -%}
+        <path d="M4 21V8.5l8-5.5 8 5.5V21"/><path d="M9.5 21v-6h5v6"/><path d="M3 21h18"/><path d="M9 10.5h.01M15 10.5h.01"/>
+      {%- when 'shield-check' -%}
+        <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>
+      {%- when 'return' -%}
+        <path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>
+      {%- when 'mail' -%}
+        <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/>
+      {%- when 'arrow-right' -%}
+        <path d="M5 12h14M13 6l6 6-6 6"/>
+      {%- when 'arrow-down' -%}
+        <path d="M12 5v14M6 13l6 6 6-6"/>
+      {%- when 'check' -%}
+        <path d="M5 12.5l4.5 4.5L19 7.5"/>
+      {%- when 'info' -%}
+        <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>
+      {%- when 'play' -%}
+        <path d="M8 5.5v13l10-6.5z" stroke="none"/>
+      {%- when 'link-out' -%}
+        <path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>
+      {%- when 'plus' -%}
+        <path d="M12 5v14M5 12h14"/>
+      {%- when 'eye' -%}
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>
+      {%- when 'camper' -%}
+        <path d="M3 17V8a2 2 0 0 1 2-2h11.5l4 5v6"/><path d="M3 11h17.5"/><path d="M8 6v5"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/><path d="M9.3 17.5h5.4M3 17.5h2.7M18.3 17.5h2.2"/>
+      {%- when 'home' -%}
+        <path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/>
+      {%- when 'video' -%}
+        <rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10.5l5-3v9l-5-3z"/>
+      {%- when 'person' -%}
+        <circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>
+      {%- when 'moon' -%}
+        <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>
+      {%- when 'window' -%}
+        <rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/>
+      {%- when 'battery' -%}
+        <rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10.5v3"/><path d="M6.5 10.5v3M9.5 10.5v3"/>
+      {%- when 'truck' -%}
+        <path d="M3 6.5h11v10H3z"/><path d="M14 9.5h4l3 3.5v3.5h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>
+      {%- when 'source' -%}
+        <path d="M6 3.5h9l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z"/><path d="M15 3.5v4h4"/><path d="M8.5 12h7M8.5 15.5h7"/>
+      {%- else -%}
+        <circle cx="12" cy="12" r="8"/>
+    {%- endcase -%}
+  </svg>
+{%- endif -%}

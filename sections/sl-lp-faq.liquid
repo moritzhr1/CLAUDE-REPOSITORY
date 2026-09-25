@@ -1,0 +1,212 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · FAQ
+  Natives <details>/<summary>: ohne JavaScript bedienbar, per Tastatur erreichbar, Inhalte
+  bleiben für Suchmaschinen im HTML. Antworten mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor.
+  Tracking: sl-lp.js meldet faq_open mit der FAQ-ID.
+{%- endcomment -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'faq' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+
+  assign states = '|'
+  assign live_items = 0
+  for block in section.blocks
+    assign t = block.settings.question | append: ' ' | append: block.settings.answer
+    capture c
+      render 'sl-lp-claim-check', text: t
+    endcapture
+    assign st = ''
+    if c contains 'unverified'
+      assign st = 'claim'
+    elsif block.settings.question == blank or block.settings.answer == blank
+      assign st = 'missing'
+    else
+      assign live_items = live_items | plus: 1
+    endif
+    assign states = states | append: block.id | append: '=' | append: st | append: '|'
+  endfor
+  assign section_live = true
+  if live_items == 0
+    assign section_live = false
+  endif
+-%}
+
+{%- if section_live or request.design_mode -%}
+  {%- render 'sl-lp-assets' -%}
+  <section
+    id="{{ anchor }}"
+    class="sl-lp sl-lp-faq sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    aria-labelledby="{{ heading_id }}"
+    data-sl-section="{{ track }}"
+    data-sl-view="{{ track }}"
+    {% unless section_live %}data-sl-unverified{% endunless %}
+  >
+    <div class="sl-lp__container sl-lp-faq__grid">
+      {%- unless section_live -%}{%- render 'sl-lp-devflag', reason: 'section', detail: 'keine belegte Antwort' -%}{%- endunless -%}
+      <div class="sl-lp-faq__head">
+        {%- render 'sl-lp-section-head',
+          eyebrow: section.settings.eyebrow,
+          heading: section.settings.heading,
+          heading_id: heading_id,
+          intro: section.settings.intro,
+          align: 'left',
+          size: section.settings.heading_size
+        -%}
+      </div>
+
+      <div class="sl-lp-faq__list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign key = '|' | append: block.id | append: '='
+            assign st = states | split: key | last | split: '|' | first
+            if st != blank
+              unless request.design_mode
+                continue
+              endunless
+            endif
+            assign s = block.settings
+            assign faq_id = s.faq_id | default: s.question | default: block.id | handleize
+          -%}
+          <details
+            class="sl-lp-faq__item{% if st != blank %} sl-lp-card--dev-hidden{% endif %}"
+            id="faq-{{ faq_id }}"
+            data-sl-faq="{{ faq_id }}"
+            {{ block.shopify_attributes }}
+            {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}
+          >
+            <summary class="sl-lp-faq__q">
+              <span>{{ s.question | escape }}</span>
+              <span class="sl-lp-faq__toggle" aria-hidden="true">{%- render 'sl-lp-icon', name: 'plus', size: 20 -%}</span>
+            </summary>
+            <div class="sl-lp-faq__a sl-lp-rte">
+              {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+              {{ s.answer }}
+              {%- if request.design_mode and s.dev_note != blank -%}
+                <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LP · FAQ",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Antworten nur mit belegten Informationen. Fragen mit [CLAIM VERIFIZIEREN] in Frage oder Antwort erscheinen nur hier im Editor."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "faq"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "faq"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "FAQ"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Häufige Fragen"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Frage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Frage"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Antwort"
+        },
+        {
+          "type": "text",
+          "id": "faq_id",
+          "label": "Tracking-ID",
+          "info": "z. B. rauchmelder – für das Event faq_open und den Anker #faq-…"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Quelle / interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · FAQ",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

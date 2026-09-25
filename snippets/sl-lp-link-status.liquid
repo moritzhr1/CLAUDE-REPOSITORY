@@ -1,0 +1,29 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: Link-Guard.
+
+  Gibt aus:
+    "missing"      – kein Link hinterlegt
+    "unpublished"  – Link auf /pages/<handle>, die Seite existiert nicht oder ist nicht veröffentlicht
+    ""             – Link ist verwendbar (Anker, externe URLs, mailto:, andere Shop-Pfade)
+
+  So führen Buttons und Nachweis-Karten live nie auf eine 404-Seite (z. B. /pages/nachweise,
+  solange diese Seite noch nicht angelegt ist). Im Theme-Editor bleiben sie mit Hinweis sichtbar.
+
+  Accepts:
+  - link: {String}
+
+  Usage:
+  {%- capture sl_link_state -%}{%- render 'sl-lp-link-status', link: block.settings.link -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign sl_link = link | strip
+  if sl_link == blank
+    echo 'missing'
+  elsif sl_link contains '/pages/'
+    assign sl_handle = sl_link | split: '/pages/' | last | split: '#' | first | split: '?' | first | split: '/' | first
+    assign sl_page = pages[sl_handle]
+    if sl_page.url == blank or sl_page.published_at == blank
+      echo 'unpublished'
+    endif
+  endif
+-%}

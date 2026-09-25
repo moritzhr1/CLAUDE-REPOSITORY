@@ -1,0 +1,341 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Zustände / Timeline
+  Erklärt den Unterschied zwischen „eingeschaltet“, „misst“, „zeigt einen Wert“ und „Alarm“.
+  Keine Grenzwerte ohne Beleg: Schritte oder Hinweise mit [CLAIM VERIFIZIEREN] erscheinen nur im Editor.
+{%- endcomment -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign live_steps = 0
+  for block in section.blocks
+    if block.type == 'step'
+      assign t = block.settings.title | append: ' ' | append: block.settings.text | append: ' ' | append: block.settings.observe
+      capture c
+        render 'sl-lp-claim-check', text: t
+      endcapture
+      unless c contains 'unverified'
+        assign live_steps = live_steps | plus: 1
+      endunless
+    endif
+  endfor
+  assign section_live = true
+  if live_steps == 0
+    assign section_live = false
+  endif
+
+  assign link_state = 'missing'
+  if section.settings.link_label != blank
+    capture link_state
+      render 'sl-lp-link-status', link: section.settings.link_url
+    endcapture
+    assign link_state = link_state | strip
+  endif
+-%}
+
+{%- if section_live or request.design_mode -%}
+  {%- render 'sl-lp-assets' -%}
+  <section
+    id="{{ anchor }}"
+    class="sl-lp sl-lp-steps sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    aria-labelledby="SlHeading-{{ section.id }}"
+    data-sl-section="{{ track }}"
+    data-sl-view="{{ track }}"
+    {% unless section_live %}data-sl-unverified{% endunless %}
+  >
+    <div class="sl-lp__container">
+      {%- unless section_live -%}{%- render 'sl-lp-devflag', reason: 'section', detail: 'kein belegter Schritt' -%}{%- endunless -%}
+
+      {%- render 'sl-lp-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        heading_id: heading_id,
+        intro: section.settings.intro,
+        align: 'left',
+        size: section.settings.heading_size
+      -%}
+
+      <ol class="sl-lp-steps__list" role="list">
+        {%- assign step_no = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'step' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign s = block.settings
+            assign t = s.title | append: ' ' | append: s.text | append: ' ' | append: s.observe
+            capture c
+              render 'sl-lp-claim-check', text: t
+            endcapture
+            assign unverified = false
+            if c contains 'unverified'
+              assign unverified = true
+            endif
+          -%}
+          {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+          {%- assign step_no = step_no | plus: 1 -%}
+          <li
+            class="sl-lp-step sl-lp-step--{{ s.indicator }}{% if unverified %} sl-lp-card--dev-hidden{% endif %}"
+            {{ block.shopify_attributes }}
+            {% if unverified %}data-sl-unverified="claim"{% endif %}
+          >
+            {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+            <div class="sl-lp-step__visual" aria-hidden="true">
+              {%- case s.indicator -%}
+                {%- when 'led' -%}
+                  <svg viewBox="0 0 72 72" width="72" height="72"><rect x="8" y="8" width="56" height="56" rx="16" fill="#0e1b28"/><circle cx="36" cy="36" r="15" fill="#2fcf7a" opacity=".16"/><circle cx="36" cy="36" r="7" fill="#2fcf7a"/></svg>
+                {%- when 'sensor' -%}
+                  <svg viewBox="0 0 72 72" width="72" height="72" fill="none" stroke="#079bf8" stroke-width="3" stroke-linecap="round"><circle cx="36" cy="36" r="5" fill="#079bf8" stroke="none"/><path d="M27 27a13 13 0 0 0 0 18M45 27a13 13 0 0 1 0 18"/><path d="M19 19a24 24 0 0 0 0 34M53 19a24 24 0 0 1 0 34" opacity=".45"/><path d="M11 11a35 35 0 0 0 0 50M61 11a35 35 0 0 1 0 50" opacity=".2"/></svg>
+                {%- when 'display' -%}
+                  <svg viewBox="0 0 72 72" width="72" height="72"><rect x="6" y="12" width="60" height="48" rx="9" fill="#0e1b28"/><rect x="12" y="18" width="48" height="36" rx="4" fill="#e3ebe6"/><text x="17" y="28" font-family="ui-monospace, Menlo, monospace" font-size="8" font-weight="700" fill="#0e1b28">CO</text><text x="44" y="49" font-family="ui-monospace, Menlo, monospace" font-size="7" font-weight="700" fill="#0e1b28">ppm</text><g fill="#0e1b28"><rect x="17" y="36" width="7" height="3" rx="1"/><rect x="27" y="36" width="7" height="3" rx="1"/><rect x="37" y="36" width="7" height="3" rx="1"/></g></svg>
+                {%- when 'alarm' -%}
+                  <svg viewBox="0 0 72 72" width="72" height="72" fill="none" stroke-linecap="round"><rect x="8" y="8" width="56" height="56" rx="16" fill="#0e1b28"/><circle cx="30" cy="36" r="15" fill="#c1121c" opacity=".22"/><circle cx="30" cy="36" r="7" fill="#e0353f"/><path d="M47 29a10 10 0 0 1 0 14" stroke="#e0353f" stroke-width="3"/><path d="M53 24a17 17 0 0 1 0 24" stroke="#e0353f" stroke-width="3" opacity=".5"/></svg>
+                {%- else -%}
+                  <span class="sl-lp-step__icon">{%- render 'sl-lp-icon', name: 'info', size: 32 -%}</span>
+              {%- endcase -%}
+            </div>
+            <div class="sl-lp-step__body">
+              <p class="sl-lp-step__num">{{ section.settings.step_prefix | default: 'Zustand' | escape }} {{ step_no }}</p>
+              <h3 class="sl-lp-step__h">{{ s.title | escape }}</h3>
+              {%- if s.text != blank -%}<div class="sl-lp-step__text sl-lp-rte">{{ s.text }}</div>{%- endif -%}
+              {%- if s.observe != blank -%}
+                <p class="sl-lp-step__observe"><span>{{ s.observe_label | default: 'Was du siehst:' | escape }}</span> {{ s.observe | escape }}</p>
+              {%- endif -%}
+              {%- if request.design_mode and s.dev_note != blank -%}
+                <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type != 'note' -%}{%- continue -%}{%- endif -%}
+        {%- liquid
+          assign s = block.settings
+          capture c
+            render 'sl-lp-claim-check', text: s.text
+          endcapture
+          assign unverified = false
+          if c contains 'unverified'
+            assign unverified = true
+          endif
+        -%}
+        {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+        <div class="sl-lp-note{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+          {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+          {%- assign note_icon = s.icon | default: 'info' -%}
+          <span class="sl-lp-note__icon">{%- render 'sl-lp-icon', name: note_icon, size: 22 -%}</span>
+          <div class="sl-lp-note__text sl-lp-rte">{{ s.text }}</div>
+          {%- if request.design_mode and s.dev_note != blank -%}
+            <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+      {%- if section.settings.link_label != blank -%}
+        {%- if link_state == blank -%}
+          <p class="sl-lp-steps__more">
+            <a
+              href="{{ section.settings.link_url | escape }}"
+              id="sl-{{ track }}-nachweise"
+              class="sl-lp-link"
+              data-sl-track="proof_link_click"
+              data-sl-label="{{ section.settings.link_label | escape }}"
+            >
+              {{- section.settings.link_label | escape -}}
+              {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+            </a>
+          </p>
+        {%- elsif request.design_mode -%}
+          <p class="sl-lp-steps__more sl-lp-card--dev-hidden" data-sl-unverified="{{ link_state }}">
+            <span class="sl-lp-link">{{ section.settings.link_label | escape }} → {{ section.settings.link_url | default: '(kein Ziel)' | escape }}</span>
+            {%- render 'sl-lp-devflag', reason: link_state -%}
+          </p>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LP · Zustände",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "anzeige-und-alarm"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "anzeige_alarm"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "night", "label": "Nachtblau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "text",
+      "id": "step_prefix",
+      "label": "Bezeichnung vor der Nummer",
+      "default": "Zustand"
+    },
+    {
+      "type": "header",
+      "content": "Link zu Nachweisen"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Linktext",
+      "default": "Technische Nachweise ansehen"
+    },
+    {
+      "type": "text",
+      "id": "link_url",
+      "label": "Ziel",
+      "default": "/pages/nachweise",
+      "info": "Wird live erst angezeigt, wenn die Zielseite veröffentlicht ist."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Zustand",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "indicator",
+          "label": "Grafik",
+          "options": [
+            { "value": "led", "label": "Betriebsanzeige (grün)" },
+            { "value": "sensor", "label": "Sensor misst" },
+            { "value": "display", "label": "Display zeigt Wert" },
+            { "value": "alarm", "label": "Alarm" }
+          ],
+          "default": "led"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Gerät ist eingeschaltet"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Erklärung"
+        },
+        {
+          "type": "text",
+          "id": "observe_label",
+          "label": "Beschriftung Beobachtung",
+          "default": "Was du siehst:"
+        },
+        {
+          "type": "text",
+          "id": "observe",
+          "label": "Beobachtung"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz / Quelle",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "Hinweis",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Symbol",
+          "options": [
+            { "value": "info", "label": "Info" },
+            { "value": "shield-check", "label": "Schild" },
+            { "value": "bell", "label": "Alarm" }
+          ],
+          "default": "info"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Zustände",
+      "blocks": [
+        { "type": "step", "settings": { "indicator": "led", "title": "Gerät ist eingeschaltet" } },
+        { "type": "step", "settings": { "indicator": "sensor", "title": "Gerät misst" } },
+        { "type": "step", "settings": { "indicator": "display", "title": "Display zeigt einen Wert" } },
+        { "type": "step", "settings": { "indicator": "alarm", "title": "Gerät löst Alarm aus" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

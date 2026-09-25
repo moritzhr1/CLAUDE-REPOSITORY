@@ -1,0 +1,289 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Lead-Magnet
+  Standard: Shopify-Kundenformular (E-Mail-Marketing-Einwilligung + Tags, z. B. für einen
+  Klaviyo- oder Shopify-Email-Flow). Alternativ ein eingebettetes Klaviyo-Formular (Formular-ID).
+
+  Live erst, wenn „Versand des Nacht-Checks ist eingerichtet“ aktiviert ist – das Formular
+  verspricht etwas, das dann auch zuverlässig ankommen muss (Double-Opt-in + Automation).
+  Tracking: lead_submit (Absenden), lead_success (Bestätigung nach dem Absenden).
+{%- endcomment -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'nacht-check-liste' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign form_id = 'SlLeadForm-' | append: section.id
+  assign klaviyo_id = section.settings.klaviyo_form_id | strip
+
+  assign section_live = section.settings.delivery_ready
+  assign t = section.settings.heading | append: ' ' | append: section.settings.text | append: ' ' | append: section.settings.consent
+  capture c
+    render 'sl-lp-claim-check', text: t
+  endcapture
+  if c contains 'unverified'
+    assign section_live = false
+  endif
+-%}
+
+{%- if section_live or request.design_mode -%}
+  {%- render 'sl-lp-assets' -%}
+  <section
+    id="{{ anchor }}"
+    class="sl-lp sl-lp-leadm sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    aria-labelledby="{{ heading_id }}"
+    data-sl-section="{{ track }}"
+    data-sl-view="{{ track }}"
+    {% unless section_live %}data-sl-unverified{% endunless %}
+  >
+    <div class="sl-lp__container sl-lp-leadm__grid">
+      {%- unless section_live -%}
+        {%- if c contains 'unverified' -%}
+          {%- render 'sl-lp-devflag', reason: 'claim' -%}
+        {%- else -%}
+          {%- render 'sl-lp-devflag', reason: 'Section live ausgeblendet, bis der Versand des Nacht-Checks eingerichtet ist (Double-Opt-in + E-Mail-Automation). Danach Häkchen „Versand ist eingerichtet“ setzen.' -%}
+        {%- endif -%}
+      {%- endunless -%}
+
+      <div class="sl-lp-leadm__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sl-lp-eyebrow{% if section.settings.background == 'night' %} sl-lp-eyebrow--light{% endif %}">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-h2 sl-lp-h2--{{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}
+          <div class="sl-lp-intro sl-lp-rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          {%- if section.settings.list_heading != blank -%}
+            <p class="sl-lp-leadm__listh">{{ section.settings.list_heading | escape }}</p>
+          {%- endif -%}
+          <ul class="sl-lp-leadm__list" role="list">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="sl-lp-leadm__check" aria-hidden="true">{%- render 'sl-lp-icon', name: 'check', size: 16 -%}</span>
+                <span>{{ block.settings.text | escape }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="sl-lp-leadm__card">
+        {%- if klaviyo_id != blank -%}
+          <div class="klaviyo-form-{{ klaviyo_id | escape }}" data-sl-lead-form="klaviyo"></div>
+          {%- if request.design_mode -%}
+            <p class="sl-lp-devnote">Klaviyo-Formular {{ klaviyo_id | escape }} – erscheint nur, wenn die Klaviyo-App-Einbettung aktiv ist.</p>
+          {%- endif -%}
+        {%- else -%}
+          {%- form 'customer', id: form_id, class: 'sl-lp-leadm__form', data-sl-lead-form: 'shopify' -%}
+            <input type="hidden" name="contact[tags]" value="{{ section.settings.tags | escape }}">
+            {%- if form.posted_successfully? -%}
+              <div class="sl-lp-leadm__success" role="status" tabindex="-1" data-sl-lead-success>
+                {%- render 'sl-lp-icon', name: 'check', size: 22 -%}
+                <div class="sl-lp-rte">{{ section.settings.success_text }}</div>
+              </div>
+            {%- else -%}
+              <label class="sl-lp-leadm__label" for="SlLeadEmail-{{ section.id }}">{{ section.settings.email_label | escape }}</label>
+              <div class="sl-lp-leadm__row">
+                <input
+                  id="SlLeadEmail-{{ section.id }}"
+                  class="sl-lp-leadm__input"
+                  type="email"
+                  name="contact[email]"
+                  value="{{ form.email }}"
+                  autocomplete="email"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  required
+                  aria-required="true"
+                  placeholder="{{ section.settings.email_placeholder | escape }}"
+                  {% if form.errors %}aria-invalid="true" aria-describedby="SlLeadError-{{ section.id }}"{% endif %}
+                >
+                <button type="submit" class="sl-lp-cta sl-lp-cta--accent sl-lp-leadm__submit" id="sl-{{ track }}-submit" name="commit">
+                  {{- section.settings.cta_label | escape -}}
+                </button>
+              </div>
+              {%- if form.errors -%}
+                <p class="sl-lp-leadm__error" id="SlLeadError-{{ section.id }}" role="alert">
+                  {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+                </p>
+              {%- endif -%}
+              {%- if section.settings.consent != blank -%}
+                <div class="sl-lp-leadm__consent sl-lp-rte">{{ section.settings.consent }}</div>
+              {%- endif -%}
+              {%- if shop.privacy_policy != blank -%}
+                <p class="sl-lp-leadm__privacy">
+                  <a href="{{ shop.privacy_policy.url }}" data-sl-track="privacy_link_click">{{ shop.privacy_policy.title | default: 'Datenschutzerklärung' | escape }}</a>
+                </p>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+
+      {%- if request.design_mode and section.settings.dev_note != blank -%}
+        <p class="sl-lp-devnote sl-lp-devnote--block">{{ section.settings.dev_note | escape | newline_to_br }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LP · Lead-Magnet",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "delivery_ready",
+      "label": "Versand des Nacht-Checks ist eingerichtet",
+      "default": false,
+      "info": "Erst aktivieren, wenn Double-Opt-in und die E-Mail-Automation mit der Checkliste laufen. Vorher ist die Section live ausgeblendet."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "nacht-check-liste"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "lead_magnet"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "night", "label": "Nachtblau" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "white", "label": "Weiß" }
+      ],
+      "default": "night"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Kostenlose Checkliste"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Der 60-Sekunden-Nacht-Check fürs Wohnmobil"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Die wichtigsten Punkte, die du vor dem Schlafengehen einmal prüfen kannst.</p>"
+    },
+    {
+      "type": "text",
+      "id": "list_heading",
+      "label": "Überschrift Vorschau-Liste",
+      "default": "Das steht drin"
+    },
+    {
+      "type": "header",
+      "content": "Formular"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Feldbeschriftung",
+      "default": "Deine E-Mail-Adresse"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Platzhalter",
+      "default": "name@beispiel.de"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Nacht-Check kostenlos erhalten"
+    },
+    {
+      "type": "richtext",
+      "id": "consent",
+      "label": "Einwilligungstext",
+      "default": "<p>Mit der Anmeldung erhältst du den Nacht-Check und gelegentlich Hinweise zu Sicherheit im Wohnmobil per E-Mail. Abmeldung jederzeit über den Link in jeder E-Mail.</p>"
+    },
+    {
+      "type": "text",
+      "id": "tags",
+      "label": "Kunden-Tags",
+      "default": "newsletter, lead-nacht-check-wohnmobil",
+      "info": "„newsletter“ aktiviert die E-Mail-Marketing-Einwilligung in Shopify. Der zweite Tag kann einen Flow auslösen."
+    },
+    {
+      "type": "richtext",
+      "id": "success_text",
+      "label": "Text nach dem Absenden",
+      "default": "<p>Danke! Bitte bestätige deine Anmeldung über den Link in deinem Postfach. Danach schicken wir dir den Nacht-Check.</p>"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_form_id",
+      "label": "Klaviyo-Formular-ID (optional)",
+      "info": "Ersetzt das Shopify-Formular durch ein eingebettetes Klaviyo-Formular (Klaviyo-App-Einbettung muss aktiv sein)."
+    },
+    {
+      "type": "textarea",
+      "id": "dev_note",
+      "label": "Interne Notiz",
+      "info": "Nur im Editor sichtbar."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Checklisten-Punkt",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Lead-Magnet"
+    }
+  ]
+}
+{% endschema %}

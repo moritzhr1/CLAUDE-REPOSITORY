@@ -1,0 +1,9 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: gemeinsame Assets für alle sl-lp-Sections.
+
+  Jede Section rendert dieses Snippet, damit sie auch einzeln (neu angeordnet, auf einer anderen
+  Seite) funktioniert. Mehrfach eingebundene Dateien lädt der Browser nur einmal aus dem Cache;
+  sl-lp.js schützt sich selbst gegen doppelte Initialisierung. Keine externen Libraries.
+{%- endcomment -%}
+{{ 'sl-lp.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sl-lp.js' | asset_url }}" defer="defer"></script>

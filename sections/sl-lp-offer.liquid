@@ -1,0 +1,549 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit · Angebot
+  - Preise kommen ausschließlich aus Shopify (Variantenpreis × Menge). Keine Rabattlogik im Theme.
+  - Streichpreise nur, wenn in Shopify ein echter Vergleichspreis gepflegt ist.
+  - „Versandkostenfrei“ nur ab der im Theme hinterlegten Schwelle (Theme-Einstellungen →
+    Cart Drawer → „Amount limit for free shipping“, aktuell passend zur Versandrate ab 80 €).
+  - Warenkorb über das vorhandene <product-form> des Themes (AJAX, öffnet den Cart-Drawer).
+    Ohne JavaScript funktioniert das Formular als normaler POST auf /cart/add.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'angebot' | handleize
+  assign track = section.settings.tracking_name | default: anchor | handleize
+  assign heading_id = 'SlHeading-' | append: section.id
+  assign form_id = 'SlOfferForm-' | append: section.id
+
+  assign free_shipping_cents = 0
+  if settings.product_free_shipping != blank
+    assign free_shipping_cents = settings.product_free_shipping | times: 100
+  endif
+
+  assign states = '|'
+  assign live_options = 0
+  assign default_index = 0
+  assign highlight_index = 0
+  assign first_index = 0
+  for block in section.blocks
+    if block.type != 'option'
+      continue
+    endif
+    assign st = ''
+    if block.settings.product == blank
+      assign st = 'missing'
+    else
+      assign t = block.settings.title | append: ' ' | append: block.settings.subtitle | append: ' ' | append: block.settings.text | append: ' ' | append: block.settings.highlight_label | append: ' ' | append: block.settings.cta_label
+      capture c
+        render 'sl-lp-claim-check', text: t
+      endcapture
+      if c contains 'unverified'
+        assign st = 'claim'
+      endif
+    endif
+    assign states = states | append: block.id | append: '=' | append: st | append: '|'
+
+    if st == blank or request.design_mode and block.settings.product != blank
+      if first_index == 0
+        assign first_index = forloop.index
+      endif
+      if block.settings.preselected and default_index == 0
+        assign default_index = forloop.index
+      endif
+      if block.settings.highlight and highlight_index == 0
+        assign highlight_index = forloop.index
+      endif
+    endif
+    if st == blank
+      assign live_options = live_options | plus: 1
+    endif
+  endfor
+  if default_index == 0
+    assign default_index = highlight_index
+  endif
+  if default_index == 0
+    assign default_index = first_index
+  endif
+
+  assign default_product = nil
+  assign default_variant = nil
+  assign default_qty = 1
+  assign default_title = ''
+  for block in section.blocks
+    if forloop.index == default_index
+      assign default_product = block.settings.product
+      assign default_variant = default_product.selected_or_first_available_variant
+      assign default_qty = block.settings.quantity
+      assign default_title = block.settings.title
+    endif
+  endfor
+
+  assign section_live = true
+  if live_options == 0
+    assign section_live = false
+  endif
+-%}
+
+{%- if section_live or request.design_mode -%}
+  <section
+    id="{{ anchor }}"
+    class="sl-lp sl-lp-offer sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% unless section_live %} sl-lp--dev-hidden{% endunless %}"
+    aria-labelledby="{{ heading_id }}"
+    data-sl-section="{{ track }}"
+    data-sl-view="{{ track }}"
+    data-sl-offer-section
+    {% unless section_live %}data-sl-unverified{% endunless %}
+  >
+    <div class="sl-lp__container">
+      {%- unless section_live -%}{%- render 'sl-lp-devflag', reason: 'section', detail: 'kein Angebot mit Produkt hinterlegt' -%}{%- endunless -%}
+
+      {%- render 'sl-lp-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        heading_id: heading_id,
+        intro: section.settings.intro,
+        align: 'center',
+        size: section.settings.heading_size
+      -%}
+
+      {%- if default_product != blank -%}
+        <product-form class="sl-lp-offer__form" data-section-id="{{ section.id }}" data-hide-errors="false" data-sl-offer-form>
+          <div class="product-form__error-message-wrapper sl-lp-offer__error" role="alert" hidden>
+            <span class="product-form__error-message"></span>
+          </div>
+          {%- form 'product', default_product, id: form_id, class: 'sl-lp-offer__formel', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden" name="id" value="{{ default_variant.id }}" data-sl-offer-variant>
+            <fieldset class="sl-lp-offer__options">
+              <legend class="visually-hidden">{{ section.settings.legend | default: 'Anzahl der Geräte wählen' | escape }}</legend>
+              {%- for block in section.blocks -%}
+                {%- if block.type != 'option' -%}{%- continue -%}{%- endif -%}
+                {%- liquid
+                  assign key = '|' | append: block.id | append: '='
+                  assign st = states | split: key | last | split: '|' | first
+                  if st == 'missing'
+                    continue
+                  endif
+                  if st != blank
+                    unless request.design_mode
+                      continue
+                    endunless
+                  endif
+
+                  assign s = block.settings
+                  assign product = s.product
+                  assign variant = product.selected_or_first_available_variant
+                  assign qty = s.quantity
+                  assign total = variant.price | times: qty
+                  assign compare_total = 0
+                  if variant.compare_at_price > variant.price
+                    assign compare_total = variant.compare_at_price | times: qty
+                  endif
+                  assign offer_id = s.offer_id | default: block.id | handleize
+                  assign input_id = 'SlOffer-' | append: section.id | append: '-' | append: forloop.index
+                  assign cta_label = s.cta_label | default: section.settings.cta_label
+                  assign is_default = false
+                  if forloop.index == default_index
+                    assign is_default = true
+                  endif
+                  assign free_shipping = false
+                  if free_shipping_cents > 0 and total >= free_shipping_cents
+                    assign free_shipping = true
+                  endif
+                -%}
+                <div
+                  class="sl-lp-option{% if s.highlight %} sl-lp-option--highlight{% endif %}{% if is_default %} is-selected{% endif %}{% if st != blank %} sl-lp-card--dev-hidden{% endif %}"
+                  {{ block.shopify_attributes }}
+                  {% if st != blank %}data-sl-unverified="{{ st }}"{% endif %}
+                >
+                  {%- if st != blank -%}{%- render 'sl-lp-devflag', reason: st -%}{%- endif -%}
+                  <div class="sl-lp-option__top">
+                    <input
+                      type="radio"
+                      id="{{ input_id }}"
+                      class="sl-lp-option__radio"
+                      name="quantity"
+                      value="{{ qty }}"
+                      {% if is_default %}checked{% endif %}
+                      {% unless variant.available %}disabled{% endunless %}
+                      data-variant-id="{{ variant.id }}"
+                      data-sl-offer="{{ offer_id }}"
+                      data-sl-qty="{{ qty }}"
+                      data-sl-price="{{ total | money | strip_html | escape }}"
+                      data-sl-cta-label="{{ cta_label | escape }}"
+                      data-sl-option-title="{{ s.title | escape }}"
+                    >
+                    <label class="sl-lp-option__name" for="{{ input_id }}">
+                      <span class="sl-lp-option__head">{{ s.title | escape }}</span>
+                      {%- if s.subtitle != blank -%}
+                        <span class="sl-lp-option__sub">{{ s.subtitle | escape }}</span>
+                      {%- endif -%}
+                    </label>
+                    {%- if s.highlight and s.highlight_label != blank -%}
+                      <span class="sl-lp-option__chip">{{ s.highlight_label | escape }}</span>
+                    {%- endif -%}
+                  </div>
+
+                  {%- if s.image != blank -%}
+                    <div class="sl-lp-option__media">
+                      {%- render 'sl-lp-image', image: s.image, widths: '160,240,320,480', sizes: '(min-width: 990px) 200px, 30vw', alt: s.image_alt, class: 'sl-lp-option__img' -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if s.text != blank -%}
+                    <div class="sl-lp-option__text sl-lp-rte">{{ s.text }}</div>
+                  {%- endif -%}
+
+                  <div class="sl-lp-option__price">
+                    <p class="sl-lp-option__total">
+                      {%- if compare_total > 0 -%}
+                        <s class="sl-lp-option__compare"><span class="visually-hidden">Vorher</span> {{ compare_total | money }}</s>
+                      {%- endif -%}
+                      <span class="sl-lp-option__amount">{{ total | money }}</span>
+                    </p>
+                    {%- if qty > 1 -%}
+                      <p class="sl-lp-option__unit">{{ qty }} × {{ variant.price | money }}</p>
+                    {%- endif -%}
+                    <p class="sl-lp-option__legal">
+                      {%- if cart.taxes_included -%}inkl. MwSt. · {% endif -%}
+                      <span class="sl-lp-nowrap">
+                        {%- if free_shipping -%}
+                          {{ section.settings.free_shipping_text | default: 'versandkostenfrei (DE)' | escape }}
+                        {%- else -%}
+                          {{ section.settings.shipping_text | default: 'zzgl. Versandkosten' | escape }}
+                        {%- endif -%}
+                      </span>
+                    </p>
+                    {%- unless variant.available -%}
+                      <p class="sl-lp-option__soldout">Derzeit nicht verfügbar</p>
+                    {%- endunless -%}
+                  </div>
+                  {%- if request.design_mode and s.dev_note != blank -%}
+                    <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </fieldset>
+
+            <div class="sl-lp-offer__submitrow">
+              <button
+                type="submit"
+                name="add"
+                id="sl-{{ track }}-cta"
+                class="sl-lp-cta sl-lp-cta--primary sl-lp-offer__submit"
+                data-sl-track="offer_cta_click"
+                {% unless default_variant.available %}disabled{% endunless %}
+              >
+                <span class="sl-lp-offer__submitlabel" data-sl-offer-label>{{ section.settings.cta_label | default: 'Set auswählen' | escape }}</span>
+                {%- render 'loading-spinner' -%}
+              </button>
+              <p class="sl-lp-offer__summary" data-sl-offer-summary aria-live="polite">
+                {%- for block in section.blocks -%}
+                  {%- if forloop.index == default_index -%}
+                    {{ block.settings.title | escape }} · {{ default_variant.price | times: default_qty | money }}
+                  {%- endif -%}
+                {%- endfor -%}
+              </p>
+            </div>
+          {%- endform -%}
+        </product-form>
+
+        <div class="sl-lp-offer__meta">
+          {%- if section.settings.shipping_link != blank -%}
+            {%- capture ship_state -%}{%- render 'sl-lp-link-status', link: section.settings.shipping_link -%}{%- endcapture -%}
+            {%- assign ship_state = ship_state | strip -%}
+            {%- if ship_state == blank -%}
+              <a class="sl-lp-link sl-lp-link--small" href="{{ section.settings.shipping_link | escape }}" data-sl-track="shipping_info_click">{{ section.settings.shipping_link_label | default: 'Versand & Lieferung' | escape }}</a>
+            {%- elsif request.design_mode -%}
+              <span class="sl-lp-card--dev-hidden" data-sl-unverified="{{ ship_state }}">{{ section.settings.shipping_link_label | default: 'Versand & Lieferung' | escape }} → {{ section.settings.shipping_link | escape }}</span>
+              {%- render 'sl-lp-devflag', reason: ship_state -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+            <ul class="sl-lp-offer__payments" role="list" aria-label="Verfügbare Zahlungsarten">
+              {%- for type in shop.enabled_payment_types -%}
+                <li>{{ type | payment_type_svg_tag: class: 'sl-lp-offer__payicon' }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.product_link_label != blank -%}
+            <a class="sl-lp-link sl-lp-link--small" href="{{ default_product.url }}" data-sl-track="product_page_click">{{ section.settings.product_link_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- elsif request.design_mode -%}
+        <p class="sl-lp-devnote sl-lp-devnote--block">Bitte in den Angebots-Blöcken ein Produkt auswählen.</p>
+      {%- endif -%}
+
+      {%- if request.design_mode and section.settings.dev_note != blank -%}
+        <p class="sl-lp-devnote sl-lp-devnote--block">{{ section.settings.dev_note | escape | newline_to_br }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.sticky_cta and section_live and default_product != blank -%}
+      <div class="sl-lp-sticky" data-sl-sticky hidden>
+        <div class="sl-lp-sticky__inner">
+          <p class="sl-lp-sticky__text">
+            <span>{{ default_title | escape }}</span>
+            <strong>{{ default_variant.price | times: default_qty | money }}</strong>
+          </p>
+          <a
+            href="#{{ anchor }}"
+            id="sl-sticky-cta"
+            class="sl-lp-cta sl-lp-cta--primary sl-lp-cta--small"
+            data-sl-track="sticky_cta_click"
+            data-sl-label="{{ section.settings.sticky_label | escape }}"
+          >
+            {{- section.settings.sticky_label | default: 'Set auswählen' | escape -}}
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "LP · Angebot",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Preise werden live aus Shopify berechnet (Variantenpreis × Menge). Keine Rabatte oder Streichpreise im Theme pflegen."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "angebot"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "angebot"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "sky", "label": "Heller Verlauf" }
+      ],
+      "default": "mist"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Angebot"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Das passende Set fürs Wohnmobil"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Überschriftgröße",
+      "options": [
+        { "value": "s", "label": "Klein" },
+        { "value": "m", "label": "Mittel" },
+        { "value": "l", "label": "Groß" }
+      ],
+      "default": "m"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "text",
+      "id": "legend",
+      "label": "Beschriftung Auswahl (Screenreader)",
+      "default": "Anzahl der Geräte wählen"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Set auswählen"
+    },
+    {
+      "type": "header",
+      "content": "Versand & Hinweise"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_text",
+      "label": "Text ab Versandkostenfrei-Schwelle",
+      "default": "versandkostenfrei (DE)",
+      "info": "Schwelle kommt aus den Theme-Einstellungen (Cart Drawer → Amount limit for free shipping). Muss zur Versandrate in Shopify passen."
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Text unter der Schwelle",
+      "default": "zzgl. Versandkosten"
+    },
+    {
+      "type": "text",
+      "id": "shipping_link",
+      "label": "Link Versandinformationen",
+      "info": "z. B. /pages/versand – erscheint live erst, wenn die Seite veröffentlicht ist."
+    },
+    {
+      "type": "text",
+      "id": "shipping_link_label",
+      "label": "Linktext Versandinformationen",
+      "default": "Versand & Lieferung"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Aktive Zahlungsarten anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_link_label",
+      "label": "Link zur Produktseite (optional)",
+      "info": "Leer lassen, um keinen Link zur Produktseite zu zeigen."
+    },
+    {
+      "type": "header",
+      "content": "Mobile Sticky-Leiste"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_cta",
+      "label": "Sticky-Leiste auf Mobilgeräten",
+      "default": true,
+      "info": "Erscheint nach dem Hero und verschwindet, sobald das Angebot sichtbar ist. Keine Countdowns."
+    },
+    {
+      "type": "text",
+      "id": "sticky_label",
+      "label": "Beschriftung Sticky-Button",
+      "default": "Set auswählen"
+    },
+    {
+      "type": "textarea",
+      "id": "dev_note",
+      "label": "Interne Notiz",
+      "info": "Nur im Editor sichtbar."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Angebot",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Produkt"
+        },
+        {
+          "type": "range",
+          "id": "quantity",
+          "label": "Anzahl Geräte",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "1 Gerät"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Unterzeile"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Begründung"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Alternativtext Bild"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Hervorheben",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "highlight_label",
+          "label": "Hinweis-Label",
+          "info": "Nur eine nachvollziehbare Empfehlung – kein Rabatt-Badge, keine Knappheit."
+        },
+        {
+          "type": "checkbox",
+          "id": "preselected",
+          "label": "Vorausgewählt",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Button-Text bei Auswahl",
+          "default": "Set auswählen"
+        },
+        {
+          "type": "text",
+          "id": "offer_id",
+          "label": "Tracking-ID",
+          "info": "z. B. wohnmobil-set"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LP · Angebot",
+      "blocks": [
+        { "type": "option", "settings": { "quantity": 1, "title": "1 Gerät" } },
+        { "type": "option", "settings": { "quantity": 2, "title": "Wohnmobil-Set", "highlight": true, "preselected": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

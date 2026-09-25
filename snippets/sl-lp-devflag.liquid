@@ -1,0 +1,28 @@
+{%- comment -%}
+  SICHERLUFT Landingpage-Kit: Hinweis-Label für Inhalte, die live ausgeblendet sind.
+  Wird ausschließlich im Theme-Editor ausgegeben.
+
+  Accepts:
+  - reason: {String} 'claim' | 'missing' | 'unpublished' | 'section' | freier Text
+  - detail: {String} optionaler Zusatz (z. B. Zielpfad)
+
+  Usage:
+  {% render 'sl-lp-devflag', reason: 'claim' %}
+{%- endcomment -%}
+{%- if request.design_mode -%}
+  <span class="sl-lp-devflag" role="note">
+    {%- case reason -%}
+      {%- when 'claim' -%}
+        Live ausgeblendet · Angabe noch nicht belegt [CLAIM VERIFIZIEREN]
+      {%- when 'missing' -%}
+        Live ausgeblendet · Link/Dokument fehlt noch
+      {%- when 'unpublished' -%}
+        Live ausgeblendet · Zielseite existiert nicht oder ist nicht veröffentlicht
+      {%- when 'section' -%}
+        Section live ausgeblendet
+      {%- else -%}
+        {{ reason }}
+    {%- endcase -%}
+    {%- if detail != blank %} ({{ detail }}){% endif -%}
+  </span>
+{%- endif -%}
