@@ -6,10 +6,11 @@
         "anchor": "artikel",
         "tracking_name": "article",
         "masthead": "SICHERLUFT Ratgeber",
-        "meta_line": "Heizsaison 2026 · 5 Min. Lesezeit",
+        "meta_line": "Heizsaison 2026",
         "kicker": "Die unterschätzte Gefahr in deutschen Haushalten",
-        "heading": "Die Heizung wurde gewartet.\nAber wer misst die Luft danach?",
-        "deck": "Warum eine gewartete Gastherme wichtig ist – aber keine permanente Überwachung der Raumluft ersetzt.",
+        "heading": "Du siehst es nicht.\nDu riechst es nicht.\nUnd nachts schläfst du.",
+        "accent_last_line": true,
+        "deck": "Kohlenmonoxid ist unsichtbar und geruchlos. Genau deshalb kann eine gefährliche Situation lange unbemerkt bleiben.",
         "byline_mode": "person",
         "brand_name": "SICHERLUFT Ratgeber",
         "person_name": "Konrad Wilhelm Hartenfels",
@@ -17,91 +18,17 @@
         "name_prefix": "Von",
         "date_label": "zuletzt bearbeitet:",
         "date": "26.09.2026",
-        "image": "shopify://shop_images/sicherluft-haushalt-abend-gastherme.jpg",
-        "image_alt": "Symbolbild: Familie am Abend im Wohnzimmer, an der Wand eine Gastherme",
+        "image": "shopify://shop_images/sicherluft-einsatz-mehrfamilienhaus-nacht.jpg",
+        "image_alt": "Symbolbild: Rettungsdienst und Feuerwehr nachts vor einem Mehrfamilienhaus",
         "image_caption": "Symbolbild",
-        "lead": "<p>Einmal im Jahr kommt der Fachmann. Die Anlage wird geprüft, gewartet und wieder in Betrieb genommen. Danach fühlen wir uns sicher.</p><p>Doch zwischen diesem Termin und der nächsten Wartung liegen hunderte Nächte.</p>",
-        "statement": "Und in dieser Zeit misst der Handwerker deine Raumluft nicht.",
-        "bridge": "<p>Genau hier entsteht eine Sicherheitslücke, über die erstaunlich wenige Haushalte nachdenken.</p>",
+        "lead": "",
+        "statement": "",
+        "bridge": "<p>Eine Heizungswartung ist wichtig. <strong>Doch sie ist keine permanente Kontrolle der Raumluft.</strong></p>",
         "cta_label": "60-Sekunden-Haus-Check starten",
         "cta_link": "#haus-check",
         "secondary_label": "Warum das wichtig ist",
-        "secondary_link": "#heiznacht"
+        "secondary_link": "#wartung"
       }
-    },
-    "heiznacht": {
-      "type": "sl-lp-cards",
-      "settings": {
-        "anchor": "heiznacht",
-        "tracking_name": "heiznacht",
-        "background": "night",
-        "spacing": "normal",
-        "eyebrow": "Ein ganz normaler Abend",
-        "heading": "Nichts davon fühlt sich gefährlich an.",
-        "heading_size": "m",
-        "align": "left",
-        "layout": "timeline",
-        "columns": "2",
-        "card_style": "plain",
-        "min_live_cards": 0,
-        "sources_heading": "Quellen"
-      },
-      "blocks": {
-        "nacht_heizung": {
-          "type": "card",
-          "settings": {
-            "icon": "flame",
-            "label": "18:30",
-            "title": "Die Heizung läuft.",
-            "text": "<p>Draußen wird es kalt. Drinnen wird es warm.</p>",
-            "card_id": "heizung"
-          }
-        },
-        "nacht_fenster": {
-          "type": "card",
-          "settings": {
-            "icon": "home",
-            "label": "21:00",
-            "title": "Die Fenster bleiben geschlossen.",
-            "text": "<p>Die Wärme soll schließlich im Haus bleiben.</p>",
-            "card_id": "fenster"
-          }
-        },
-        "nacht_schlafen": {
-          "type": "card",
-          "settings": {
-            "icon": "bed",
-            "label": "23:15",
-            "title": "Alle gehen schlafen.",
-            "text": "<p>Die Heizung arbeitet weiter.</p>",
-            "card_id": "schlafen"
-          }
-        },
-        "nacht_raumluft": {
-          "type": "card",
-          "settings": {
-            "icon": "moon",
-            "label": "02:30",
-            "title": "Niemand beobachtet die Raumluft.",
-            "text": "<p>Und genau das ist völlig normal.</p>",
-            "card_id": "raumluft"
-          }
-        },
-        "nacht_fazit": {
-          "type": "note",
-          "settings": {
-            "icon": "none",
-            "text": "<p><strong>Die meisten Risiken fühlen sich im Alltag nicht wie Risiken an.</strong></p>"
-          }
-        }
-      },
-      "block_order": [
-        "nacht_heizung",
-        "nacht_fenster",
-        "nacht_schlafen",
-        "nacht_raumluft",
-        "nacht_fazit"
-      ]
     },
     "wartung": {
       "type": "sl-hc-maintenance",
@@ -109,9 +36,9 @@
         "anchor": "wartung",
         "tracking_name": "maintenance_section",
         "background": "white",
-        "spacing": "normal",
-        "heading": "Der Handwerker war da.\nDie Therme wurde gewartet.\nUnd seitdem?",
-        "intro": "<p>Eine professionelle Wartung ist wichtig. Sie prüft deine Heizungsanlage zu einem bestimmten Zeitpunkt.</p>",
+        "spacing": "compact",
+        "heading": "Die Therme wurde gewartet.\nAber wer misst heute Nacht?",
+        "intro": "<p>Eine Wartung prüft die Anlage zu einem bestimmten Zeitpunkt.</p>",
         "break_line": "Aber eine Wartung ist eine Momentaufnahme.",
         "break_text": "Sie misst nicht heute Nacht.\nNicht nächste Woche.\nUnd nicht drei Monate später permanent deine Raumluft.",
         "compare_intro": "Wartung und laufende Messung erfüllen zwei unterschiedliche Aufgaben.",
@@ -124,6 +51,60 @@
         "display_region": "146,98,234,371",
         "quote": "Die Wartung war wichtig.\nAber wer misst heute?"
       }
+    },
+    "heiznacht": {
+      "type": "sl-hc-evening",
+      "settings": {
+        "anchor": "heiznacht",
+        "tracking_name": "heiznacht",
+        "spacing": "compact",
+        "eyebrow": "Ein ganz normaler Abend",
+        "heading": "Nichts davon fühlt sich gefährlich an.",
+        "image": "shopify://shop_images/sicherluft-haushalt-abend-gastherme.jpg",
+        "image_alt": "Symbolbild: Familie am Abend auf dem Sofa, an der Wand eine Gastherme",
+        "badge_text": "Symbolbild",
+        "note": "<p><strong>Die meisten Risiken fühlen sich im Alltag nicht wie Risiken an.</strong></p>"
+      },
+      "blocks": {
+        "nacht_heizung": {
+          "type": "step",
+          "settings": {
+            "time": "18:30",
+            "title": "Die Heizung läuft.",
+            "text": "<p>Draußen wird es kalt. Drinnen wird es warm.</p>"
+          }
+        },
+        "nacht_fenster": {
+          "type": "step",
+          "settings": {
+            "time": "21:00",
+            "title": "Die Fenster bleiben geschlossen.",
+            "text": "<p>Die Wärme soll schließlich im Haus bleiben.</p>"
+          }
+        },
+        "nacht_schlafen": {
+          "type": "step",
+          "settings": {
+            "time": "23:15",
+            "title": "Alle gehen schlafen.",
+            "text": "<p>Die Heizung arbeitet weiter.</p>"
+          }
+        },
+        "nacht_raumluft": {
+          "type": "step",
+          "settings": {
+            "time": "02:30",
+            "title": "Niemand beobachtet die Raumluft.",
+            "text": "<p>Und genau das ist völlig normal.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "nacht_heizung",
+        "nacht_fenster",
+        "nacht_schlafen",
+        "nacht_raumluft"
+      ]
     },
     "denkfehler": {
       "type": "sl-lp-cards",
@@ -217,18 +198,14 @@
       ]
     },
     "ernstfall": {
-      "type": "sl-lp-alert",
+      "type": "sl-hc-alert",
       "settings": {
         "anchor": "ernstfall",
         "tracking_name": "emergency",
-        "image": "shopify://shop_images/sicherluft-einsatz-mehrfamilienhaus-nacht.jpg",
-        "image_alt": "Symbolbild: Rettungsdienst und Feuerwehr nachts bei Regen vor einem Mehrfamilienhaus",
-        "badge_text": "Symbolbild",
-        "placeholder_label": "",
-        "placeholder_live": false,
-        "eyebrow": "Im Ernstfall",
-        "heading": "Du siehst es nicht. Du riechst es nicht. Und nachts schläfst du.",
-        "text": "<p>Genau deshalb ist Kohlenmonoxid so tückisch: Dein Körper ist kein Messgerät.</p>",
+        "spacing": "compact",
+        "eyebrow": "Kohlenmonoxid in Deutschland",
+        "heading": "Im Ernstfall zählt nicht dein Bauchgefühl.",
+        "text": "<p>Kohlenmonoxid ist farb- und geruchlos. Dein Körper ist kein Messgerät.</p>",
         "stats_note": "Zahlen für ganz Deutschland.",
         "source_label": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 5 (Daten: GBE Bund 2021)",
         "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
@@ -710,8 +687,8 @@
   },
   "order": [
     "artikel",
-    "heiznacht",
     "wartung",
+    "heiznacht",
     "denkfehler",
     "ernstfall",
     "licht",

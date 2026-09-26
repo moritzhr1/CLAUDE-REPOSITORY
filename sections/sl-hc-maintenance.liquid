@@ -3,8 +3,9 @@
   Kernargument der Seite im Artikel-Stil: Die Wartung prüft die Anlage zu einem Zeitpunkt,
   laufende Messung behält die Raumluft im Blick. Fachbetriebe und Wartung werden ausdrücklich als
   wichtig dargestellt – es geht um zwei unterschiedliche Aufgaben.
-  Aufbau: Serifen-Schlagzeile, Einleitung, großer Satz („Momentaufnahme“), drei Zeilen, Gegenüberstellung
-  (links Wartung mit Symbol, rechts Messung mit echtem Display-Ausschnitt), Zitat.
+  Aufbau: Serifen-Schlagzeile (letzte Zeile hervorgehoben), Einleitung, großer Satz („Momentaufnahme“),
+  drei Zeilen, Gegenüberstellung (links Wartung mit Symbol, rechts Messung mit echtem Display-Ausschnitt),
+  Zitat als dunkles Band (letzte Zeile hervorgehoben).
   Tracking: data-sl-section / data-sl-view = Tracking-Name (Standard maintenance_section).
 {%- endcomment -%}
 {%- render 'sl-lp-assets' -%}
@@ -14,13 +15,15 @@
   assign track = section.settings.tracking_name | default: 'maintenance_section' | handleize | replace: '-', '_'
   assign heading_id = 'SlHcHeading-' | append: section.id
   assign not_lines = section.settings.break_text | newline_to_br | split: '<br />'
+  assign heading_lines = section.settings.heading | strip | newline_to_br | split: '<br />'
+  assign quote_lines = section.settings.quote | strip | newline_to_br | split: '<br />'
   assign months = 'J,F,M,A,M,J,J,A,S,O,N,D' | split: ','
   assign visit_month = section.settings.visit_month | default: 10
 -%}
 
 <section
   id="{{ anchor }}"
-  class="sl-lp sl-hc-maint sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  class="sl-lp sl-hc-maint sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}{% if section.settings.quote != blank %} sl-hc-maint--quote{% endif %}"
   aria-labelledby="{{ heading_id }}"
   data-sl-section="{{ track }}"
   data-sl-view="{{ track }}"
@@ -30,7 +33,14 @@
       {%- if section.settings.eyebrow != blank -%}
         <p class="sl-lp-eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
-      <h2 id="{{ heading_id }}" class="sl-hc-maint__h">{{ section.settings.heading | escape | newline_to_br }}</h2>
+      <h2 id="{{ heading_id }}" class="sl-hc-maint__h">
+        {%- for line in heading_lines -%}
+          {%- assign l = line | strip -%}
+          {%- if l == blank -%}{%- continue -%}{%- endif -%}
+          <span class="sl-hc-maint__hline{% if forloop.last and forloop.length > 1 %} sl-hc-maint__hline--accent{% endif %}">{{ l | escape }}</span>
+          {%- unless forloop.last %} {% endunless -%}
+        {%- endfor -%}
+      </h2>
       {%- if section.settings.intro != blank -%}
         <div class="sl-hc-maint__intro sl-lp-rte">{{ section.settings.intro }}</div>
       {%- endif -%}
@@ -100,14 +110,24 @@
       </div>
     </div>
 
-    {%- if section.settings.quote != blank -%}
-      <figure class="sl-hc-quote">
-        <blockquote class="sl-hc-quote__text">
-          <p>{{ section.settings.quote | escape | newline_to_br }}</p>
-        </blockquote>
-      </figure>
-    {%- endif -%}
   </div>
+
+  {%- if section.settings.quote != blank -%}
+    <figure class="sl-hc-quote">
+      <div class="sl-lp__container">
+        <blockquote class="sl-hc-quote__text">
+          <p>
+            {%- for line in quote_lines -%}
+              {%- assign l = line | strip -%}
+              {%- if l == blank -%}{%- continue -%}{%- endif -%}
+              <span class="sl-hc-quote__line{% if forloop.last and forloop.length > 1 %} sl-hc-quote__line--accent{% endif %}">{{ l | escape }}</span>
+              {%- unless forloop.last %} {% endunless -%}
+            {%- endfor -%}
+          </p>
+        </blockquote>
+      </div>
+    </figure>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -161,8 +181,8 @@
       "type": "textarea",
       "id": "heading",
       "label": "Schlagzeile (H2)",
-      "info": "Zeilenumbruch = neue Zeile.",
-      "default": "Der Handwerker war da.\nDie Therme wurde gewartet.\nUnd seitdem?"
+      "info": "Zeilenumbruch = neue Zeile. Die letzte Zeile wird hervorgehoben.",
+      "default": "Die Therme wurde gewartet.\nAber wer misst heute Nacht?"
     },
     {
       "type": "richtext",
@@ -248,6 +268,7 @@
       "type": "textarea",
       "id": "quote",
       "label": "Zitat",
+      "info": "Zeilenumbruch = neue Zeile. Die letzte Zeile wird hervorgehoben.",
       "default": "Die Wartung war wichtig.\nAber wer misst heute?"
     }
   ],

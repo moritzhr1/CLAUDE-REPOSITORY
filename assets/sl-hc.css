@@ -9,7 +9,6 @@
  */
 
 /* ---------- Redaktions-Tokens (wie Artikel-Kopf der Wohnmobil-Seite) ---------- */
-.sl-lp.sl-hc-article,
 .sl-lp.sl-hc-maint {
   --sl-article-ink: #20201d;
   --sl-article-soft: #59564f;
@@ -18,15 +17,31 @@
   --sl-article-serif: Georgia, 'Times New Roman', serif;
 }
 
+:root {
+  --sl-hc-dark: #0a1422;
+}
+
 .sl-hc-flip {
   transform: rotate(180deg);
 }
 
 /* =====================================================================
- * Artikel-Aufmacher
+ * Aufmacher: warnender Redaktionsbericht auf Dunkel mit Einsatz-Symbolbild
+ * Gleiche Artikel-Tokens wie oben, hier hell auf dunkel. Mobil: Text, Bild, Autorenzeile, Buttons.
+ * Desktop: Text links, Bild als rechte Hälfte bis zum Rand.
  * ===================================================================== */
 .sl-lp.sl-lp-article.sl-hc-article {
-  padding-block: 2.8rem 5.6rem;
+  --sl-hc-hero-bg: #070a0f;
+  --sl-article-ink: #ffffff;
+  --sl-article-soft: rgba(255, 255, 255, 0.66);
+  --sl-article-rule: rgba(255, 255, 255, 0.2);
+  --sl-article-kicker: var(--sl-signal);
+  --sl-article-serif: Georgia, 'Times New Roman', serif;
+  position: relative;
+  overflow: hidden;
+  padding-block: 1.6rem 3.6rem;
+  background: var(--sl-hc-hero-bg);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .sl-hc-masthead {
@@ -35,15 +50,15 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 0.4rem 1.6rem;
-  margin-bottom: 2.4rem;
-  padding: 1rem 0 0.9rem;
-  border-top: 3px solid var(--sl-article-ink);
+  margin-bottom: 1.6rem;
+  padding: 0.8rem 0 0.7rem;
+  border-top: 2px solid var(--sl-article-ink);
   border-bottom: 1px solid var(--sl-article-rule);
 }
 
 .sl-lp .sl-hc-masthead__name {
   color: var(--sl-article-ink);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700 !important;
   line-height: 1.3;
   letter-spacing: 0.2em;
@@ -52,65 +67,123 @@
 
 .sl-lp .sl-hc-masthead__meta {
   color: var(--sl-article-soft);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.3;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
+.sl-lp .sl-hc-article__kicker {
+  margin-bottom: 1.2rem;
+  font-size: 1.15rem;
+  letter-spacing: 0.14em;
+}
+
+.sl-lp .sl-hc-article__kicker::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2px;
+  margin-right: 0.8rem;
+  background: currentColor;
+  vertical-align: 0.3em;
+}
+
+/* Schriftgröße aus der Breite: „Du riechst es nicht.“ (ca. 9,4 Geviert) passt immer in eine Zeile.
+ * Die hervorgehobene letzte Zeile bricht bewusst in zwei kurze Zeilen („Und nachts / schläfst du.“). */
 .sl-lp .sl-hc-article__h1 {
-  color: var(--sl-article-ink) !important;
+  color: #ffffff !important;
   font-family: var(--sl-article-serif) !important;
-  font-size: clamp(3.2rem, 1.9rem + 3.4vw, 5.6rem);
-  font-weight: 600 !important;
-  line-height: 1.1;
+  font-size: min(4.4rem, calc((100vw - 2 * var(--sl-gutter)) / 9.7));
+  font-weight: 700 !important;
+  line-height: 1.12;
   letter-spacing: -0.025em;
+}
+
+.sl-lp .sl-hc-article__line {
+  display: block;
+  font-family: var(--sl-article-serif) !important;
+  font-weight: 700 !important;
+}
+
+.sl-lp .sl-hc-article__line--accent {
+  max-width: 8em;
+  color: var(--sl-signal);
   text-wrap: balance;
 }
 
-.sl-lp .sl-hc-article__deck {
-  margin-top: 1.6rem;
-}
-
-.sl-hc-article .sl-lp-article__byline--top {
-  margin-bottom: 0;
+.sl-lp.sl-hc-article .sl-hc-article__deck {
+  max-width: 46ch;
+  margin-top: 1.4rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.7rem;
+  font-style: normal !important;
+  line-height: 1.5;
 }
 
 .sl-lp .sl-hc-article__figure {
-  margin: 2.8rem calc(var(--sl-gutter) * -1) 0;
+  margin: 2rem calc(var(--sl-gutter) * -1) 0;
 }
 
 .sl-hc-article__media {
-  aspect-ratio: 1 / 1;
+  position: relative;
+  aspect-ratio: 6 / 5;
   overflow: hidden;
-  background: #1c1813;
+  background: #02060c;
 }
 
 .sl-lp .sl-hc-article__media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   max-width: none;
   object-fit: cover;
+  object-position: 50% 60%;
 }
 
-.sl-lp .sl-hc-article__caption {
-  padding: 0.8rem var(--sl-gutter) 0;
-  color: var(--sl-article-soft);
-  font-size: 1.2rem;
+.sl-hc-article__media::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 28%;
+  background: linear-gradient(180deg, rgba(7, 10, 15, 0) 0%, var(--sl-hc-hero-bg) 100%);
+  pointer-events: none;
+}
+
+.sl-lp .sl-hc-article__badge {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 2;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.sl-hc-article__body {
-  max-width: 68rem;
-  margin-top: 3.2rem;
+.sl-hc-article .sl-lp-article__byline--top {
+  margin: 0.4rem 0 0;
+  padding-block: 1.4rem;
+}
+
+.sl-lp.sl-hc-article .sl-lp-article__avatar--initials {
+  background: #ece7df;
+  color: #16181c;
 }
 
 .sl-lp .sl-hc-article__lead,
 .sl-lp .sl-hc-article__bridge {
-  color: var(--sl-article-ink);
-  font-size: clamp(1.8rem, 1.62rem + 0.45vw, 2.1rem);
-  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.8rem;
+  line-height: 1.5;
 }
 
 .sl-lp .sl-hc-article__lead p,
@@ -118,28 +191,35 @@
   font-family: var(--sl-article-serif) !important;
 }
 
-.sl-lp .sl-hc-article__statement {
-  margin-top: 2.8rem;
-  padding-left: 1.6rem;
-  border-left: 4px solid var(--sl-signal);
-  color: var(--sl-article-ink);
+.sl-lp .sl-hc-article__lead strong,
+.sl-lp .sl-hc-article__bridge strong {
+  color: #ffffff;
   font-family: var(--sl-article-serif) !important;
-  font-size: clamp(2.3rem, 1.8rem + 1.3vw, 3.2rem);
-  font-weight: 600 !important;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-weight: 700 !important;
 }
 
-.sl-lp .sl-hc-article__bridge {
-  margin-top: 2.8rem;
+.sl-lp .sl-hc-article__lead,
+.sl-lp .sl-hc-article__bridge,
+.sl-lp .sl-hc-article__statement {
+  margin-top: 1.6rem;
+}
+
+.sl-lp .sl-hc-article__statement {
+  padding-left: 1.4rem;
+  border-left: 4px solid var(--sl-signal);
+  color: #ffffff;
+  font-family: var(--sl-article-serif) !important;
+  font-size: 2.2rem;
+  font-weight: 700 !important;
+  line-height: 1.25;
 }
 
 .sl-hc-article__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.8rem 2.4rem;
-  margin-top: 3.2rem;
+  gap: 0.4rem 2.4rem;
+  margin-top: 2.4rem;
 }
 
 .sl-hc-article__actions .sl-lp-cta {
@@ -147,23 +227,39 @@
 }
 
 @media screen and (max-width: 749px) {
+  /* Button-Text bis 320 px in einer Zeile */
   .sl-lp .sl-hc-article__actions .sl-lp-cta {
-    padding-inline: 1.6rem;
-    font-size: 1.65rem;
+    gap: 0.6rem;
+    padding-inline: 1.2rem;
+    font-size: clamp(1.5rem, 4.25vw, 1.65rem);
+  }
+
+  .sl-hc-article__actions .sl-lp-link {
+    width: 100%;
+    justify-content: center;
   }
 }
 
 @media screen and (min-width: 750px) {
   .sl-lp.sl-lp-article.sl-hc-article {
-    padding-block: 4rem 7.2rem;
+    padding-block: 2.4rem 5.6rem;
   }
 
-  .sl-lp .sl-hc-article__figure {
-    margin-inline: 0;
+  .sl-hc-article__head,
+  .sl-hc-article__body {
+    max-width: 64rem;
   }
 
-  .sl-lp .sl-hc-article__caption {
-    padding-inline: 0;
+  .sl-lp .sl-hc-article__h1 {
+    font-size: min(5.4rem, calc((100vw - 2 * var(--sl-gutter)) / 9.7));
+  }
+
+  .sl-lp.sl-hc-article .sl-hc-article__deck {
+    font-size: 1.9rem;
+  }
+
+  .sl-hc-article__media {
+    aspect-ratio: 16 / 10;
   }
 
   .sl-hc-article__actions .sl-lp-cta {
@@ -173,26 +269,62 @@
 
 @media screen and (min-width: 990px) {
   .sl-lp.sl-lp-article.sl-hc-article {
-    padding-block: 4.8rem 9.6rem;
-  }
-
-  .sl-hc-article__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 6.4rem;
+    display: flex;
     align-items: center;
+    min-height: clamp(62rem, calc(100vh - 12rem), 84rem);
+    padding-block: 5.6rem;
   }
 
-  .sl-hc-article__grid--noimage {
-    grid-template-columns: minmax(0, 72rem);
+  /* Textspalte endet vor der Bildhälfte (Bild = rechte 50 % der Seite) */
+  .sl-hc-article__head,
+  .sl-hc-article__body {
+    position: relative;
+    z-index: 1;
+    max-width: calc(50vw - 4.8rem - max(var(--sl-gutter), (100vw - var(--page-width, 120rem)) / 2 + var(--sl-gutter)));
+  }
+
+  .sl-hc-article__grid--noimage .sl-hc-article__head,
+  .sl-hc-article__grid--noimage .sl-hc-article__body {
+    max-width: 72rem;
+  }
+
+  .sl-lp .sl-hc-article__h1 {
+    font-size: min(5.4rem, calc((50vw - 8.8rem) / 9.7));
   }
 
   .sl-lp .sl-hc-article__figure {
-    margin-top: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    margin: 0;
   }
 
-  .sl-hc-article__body {
-    margin-top: 6.4rem;
+  .sl-hc-article__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+
+  .sl-lp .sl-hc-article__media img {
+    object-position: 45% 55%;
+  }
+
+  .sl-hc-article__media::after {
+    top: 0;
+    height: auto;
+    background: linear-gradient(90deg, var(--sl-hc-hero-bg) 0%, rgba(7, 10, 15, 0.5) 14%, rgba(7, 10, 15, 0) 36%),
+      linear-gradient(180deg, rgba(7, 10, 15, 0) 72%, rgba(7, 10, 15, 0.55) 100%);
+  }
+
+  .sl-lp .sl-hc-article__badge {
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .sl-hc-article .sl-lp-article__byline--top {
+    margin-top: 2.4rem;
   }
 }
 
@@ -206,14 +338,25 @@
 .sl-lp .sl-hc-maint__h {
   color: var(--sl-article-ink) !important;
   font-family: var(--sl-article-serif) !important;
-  font-size: clamp(3rem, 2rem + 2.6vw, 5rem);
-  font-weight: 600 !important;
+  font-size: min(5rem, calc((100vw - 2 * var(--sl-gutter)) / 10.2));
+  font-weight: 700 !important;
   line-height: 1.12;
   letter-spacing: -0.025em;
 }
 
+.sl-lp .sl-hc-maint__hline {
+  display: block;
+  text-wrap: balance;
+  font-family: var(--sl-article-serif) !important;
+  font-weight: 700 !important;
+}
+
+.sl-lp .sl-hc-maint__hline--accent {
+  color: var(--sl-signal-ink);
+}
+
 .sl-lp .sl-hc-maint__intro {
-  margin-top: 2rem;
+  margin-top: 1.6rem;
   max-width: 58ch;
   color: var(--sl-article-ink);
   font-size: clamp(1.8rem, 1.62rem + 0.45vw, 2.1rem);
@@ -225,8 +368,8 @@
 }
 
 .sl-hc-maint__break {
-  margin-top: 4.8rem;
-  padding-block: 3.2rem;
+  margin-top: 3.2rem;
+  padding-block: 2.8rem;
   border-top: 1px solid var(--sl-article-rule);
   border-bottom: 1px solid var(--sl-article-rule);
 }
@@ -267,7 +410,7 @@
 }
 
 .sl-lp .sl-hc-maint__subhead {
-  margin-top: 4.8rem;
+  margin-top: 3.6rem;
   max-width: 36ch;
   color: var(--sl-ink);
   font-family: var(--sl-font-h);
@@ -280,7 +423,7 @@
 .sl-hc-compare {
   display: grid;
   gap: 1.6rem;
-  margin-top: 2.8rem;
+  margin-top: 2rem;
 }
 
 .sl-hc-compare__card {
@@ -430,32 +573,50 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Zitat */
+/* Zitat: dunkles Band über die volle Breite, schließt die Section ab und geht nahtlos in die
+ * folgende dunkle Section über (gleiche Farbe wie deren Oberkante, siehe „Normaler Abend“). */
+.sl-lp.sl-hc-maint--quote {
+  padding-bottom: 0;
+}
+
 .sl-lp .sl-hc-quote {
-  margin: 5.6rem auto 0;
-  max-width: 78rem;
-  padding: 3.2rem 0;
-  border-top: 3px solid var(--sl-article-ink);
-  border-bottom: 1px solid var(--sl-article-rule);
+  margin: var(--sl-space) 0 0;
+  padding: 5.6rem 0 4.8rem;
+  border-top: 4px solid var(--sl-signal);
+  background: var(--sl-hc-dark, #0a1422);
   text-align: center;
 }
 
 .sl-lp .sl-hc-quote__text p {
-  color: var(--sl-article-ink);
+  max-width: 22ch;
+  margin-inline: auto;
+  color: #ffffff;
   font-family: var(--sl-article-serif) !important;
-  font-size: clamp(3rem, 1.8rem + 3.4vw, 5.4rem);
+  font-size: min(6rem, calc((100vw - 2 * var(--sl-gutter)) / 9.4));
   font-style: italic;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   line-height: 1.12;
   letter-spacing: -0.02em;
 }
 
-.sl-lp .sl-hc-quote__text p::before {
+.sl-lp .sl-hc-quote__line {
+  display: block;
+  text-wrap: balance;
+  font-family: var(--sl-article-serif) !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+}
+
+.sl-lp .sl-hc-quote__line--accent {
+  color: var(--sl-signal);
+}
+
+.sl-lp .sl-hc-quote__line:first-child::before {
   content: '„';
   color: var(--sl-signal);
 }
 
-.sl-lp .sl-hc-quote__text p::after {
+.sl-lp .sl-hc-quote__line:last-child::after {
   content: '“';
   color: var(--sl-signal);
 }
@@ -486,12 +647,139 @@
   }
 
   .sl-lp .sl-hc-maint__subhead {
-    margin-top: 6.4rem;
+    margin-top: 5.6rem;
   }
 
   .sl-lp .sl-hc-quote {
-    margin-top: 8rem;
-    padding: 4.8rem 0;
+    padding: 8rem 0 7.2rem;
+  }
+}
+
+/* =====================================================================
+ * Ein ganz normaler Abend: Familienbild + Zeitleiste (Klassen der Kit-Zeitleiste)
+ * Oberkante in der Farbe des Zitat-Bands davor, damit beide nahtlos ineinander übergehen.
+ * ===================================================================== */
+.sl-lp.sl-hc-evening {
+  padding-top: calc(var(--sl-space) * 0.5);
+  background: radial-gradient(90% 60% at 100% 100%, rgba(20, 70, 118, 0.55) 0%, rgba(20, 70, 118, 0) 60%),
+    linear-gradient(180deg, var(--sl-hc-dark, #0a1422) 0%, var(--sl-night) 45%, var(--sl-night-2) 100%);
+}
+
+.sl-lp .sl-hc-evening__aside .sl-lp-head {
+  margin-bottom: 0;
+}
+
+.sl-lp .sl-hc-evening__figure {
+  margin: 2.4rem calc(var(--sl-gutter) * -1) 3.2rem;
+}
+
+.sl-hc-evening__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #1c1813;
+}
+
+.sl-lp .sl-hc-evening__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+@media screen and (min-width: 750px) {
+  .sl-lp .sl-hc-evening__figure {
+    margin-inline: 0;
+  }
+
+  .sl-hc-evening__media {
+    aspect-ratio: 16 / 10;
+    border-radius: var(--sl-radius);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp.sl-hc-evening > .sl-lp__container > .sl-hc-evening__aside {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .sl-lp.sl-hc-evening > .sl-lp__container > .sl-hc-evening__main {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0.8rem;
+  }
+
+  .sl-lp .sl-hc-evening__figure {
+    margin: 2.4rem 0 0;
+  }
+
+  .sl-hc-evening__media {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* =====================================================================
+ * Ernstfall kompakt (ohne Bild): Aussage, belegte Zahlen, Button
+ * Zahlen, Quelle und Buttons nutzen die Klassen des Kit-Ernstfall-Blocks.
+ * ===================================================================== */
+.sl-lp.sl-hc-alert {
+  --sl-heading-color: #ffffff;
+  --sl-text-color: rgba(255, 255, 255, 0.88);
+  --sl-soft-color: rgba(255, 255, 255, 0.74);
+  --sl-line: rgba(255, 255, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(70% 90% at 100% 0%, rgba(40, 110, 255, 0.22) 0%, rgba(40, 110, 255, 0) 60%),
+    radial-gradient(60% 80% at 0% 100%, rgba(229, 36, 45, 0.16) 0%, rgba(229, 36, 45, 0) 60%),
+    var(--sl-ink-bg, #050b14);
+  color: var(--sl-text-color);
+}
+
+.sl-hc-alert__grid {
+  display: grid;
+}
+
+.sl-lp .sl-hc-alert__h {
+  max-width: 16ch;
+}
+
+.sl-lp .sl-hc-alert__stats {
+  margin-top: 2.8rem;
+}
+
+.sl-hc-alert__actions.sl-lp-alert__actions {
+  margin-top: 2.8rem;
+}
+
+@media screen and (min-width: 990px) {
+  .sl-hc-alert__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'copy facts'
+      'actions facts';
+    column-gap: 8rem;
+    align-items: start;
+  }
+
+  .sl-hc-alert__copy {
+    grid-area: copy;
+  }
+
+  .sl-hc-alert__facts {
+    grid-area: facts;
+    align-self: center;
+  }
+
+  .sl-hc-alert__actions.sl-lp-alert__actions {
+    grid-area: actions;
+  }
+
+  .sl-lp .sl-hc-alert__stats {
+    margin-top: 0;
   }
 }
 

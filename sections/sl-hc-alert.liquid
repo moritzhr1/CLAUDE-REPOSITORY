@@ -1,0 +1,251 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · Ernstfall kompakt (ohne Bild)
+  Das Einsatz-Symbolbild steht im Aufmacher. Hier deshalb nur Aussage, belegte Zahlen mit Quelle und
+  Button, damit dasselbe Bild nicht zweimal erscheint. Zahlen im Stil des Ernstfall-Bildblocks des Kits
+  (gleiche Klassen sl-lp-alert__stats …), dunkler Hintergrund mit leichtem Blaulicht-Schimmer.
+  Claim-Guard wie dort: Zahlen oder Quelle mit [CLAIM VERIFIZIEREN] / [QUELLE] erscheinen nur im Theme-Editor.
+  Tracking: data-sl-section / data-sl-view = Tracking-Name (Standard emergency), Button = emergency_cta.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'ernstfall' | handleize
+  assign track = section.settings.tracking_name | default: 'emergency' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+
+  assign live_stats = 0
+  assign stat_count = 0
+  for block in section.blocks
+    if block.type == 'stat'
+      assign stat_count = stat_count | plus: 1
+      assign t = block.settings.value | append: ' ' | append: block.settings.text
+      capture c
+        render 'sl-lp-claim-check', text: t
+      endcapture
+      unless c contains 'unverified'
+        assign live_stats = live_stats | plus: 1
+      endunless
+    endif
+  endfor
+
+  assign source_live = true
+  capture source_claim
+    render 'sl-lp-claim-check', text: section.settings.source_label
+  endcapture
+  if source_claim contains 'unverified' or section.settings.source_label == blank
+    assign source_live = false
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-hc-alert sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container sl-hc-alert__grid">
+    <div class="sl-hc-alert__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sl-lp-eyebrow sl-lp-eyebrow--signal">
+          {%- render 'sl-lp-icon', name: 'siren', size: 18 -%}
+          <span>{{ section.settings.eyebrow | escape }}</span>
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="{{ heading_id }}" class="sl-lp-h2 sl-lp-h2--l sl-hc-alert__h">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="sl-lp-alert__text sl-hc-alert__text sl-lp-rte">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if stat_count > 0 -%}
+      {%- if live_stats > 0 or request.design_mode -%}
+        <div class="sl-hc-alert__facts">
+          <ul class="sl-lp-alert__stats sl-hc-alert__stats" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.type != 'stat' -%}{%- continue -%}{%- endif -%}
+              {%- liquid
+                assign s = block.settings
+                assign t = s.value | append: ' ' | append: s.text
+                capture c
+                  render 'sl-lp-claim-check', text: t
+                endcapture
+                assign unverified = false
+                if c contains 'unverified'
+                  assign unverified = true
+                endif
+              -%}
+              {%- if unverified and request.design_mode == false -%}{%- continue -%}{%- endif -%}
+              <li class="sl-lp-alert__stat{% if forloop.first %} sl-lp-alert__stat--main{% endif %}{% if unverified %} sl-lp-card--dev-hidden{% endif %}" {{ block.shopify_attributes }} {% if unverified %}data-sl-unverified="claim"{% endif %}>
+                {%- if unverified -%}{%- render 'sl-lp-devflag', reason: 'claim' -%}{%- endif -%}
+                <p class="sl-lp-alert__value">{{ s.value | escape }}</p>
+                <p class="sl-lp-alert__label">{{ s.text | escape }}</p>
+                {%- if request.design_mode and s.dev_note != blank -%}
+                  <p class="sl-lp-devnote">{{ s.dev_note | escape | newline_to_br }}</p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if source_live or section.settings.stats_note != blank -%}
+            <p class="sl-lp-alert__source">
+              {%- if section.settings.stats_note != blank -%}
+                <span>{{ section.settings.stats_note | escape }}</span>
+              {%- endif -%}
+              {%- if source_live -%}
+                <span>
+                  Quelle:
+                  {% if section.settings.source_link != blank -%}
+                    <a href="{{ section.settings.source_link | escape }}" target="_blank" rel="noopener" data-sl-track="source_link_click" data-sl-label="{{ section.settings.source_label | escape }}">{{ section.settings.source_label | escape }}</a>
+                  {%- else -%}
+                    {{ section.settings.source_label | escape }}
+                  {%- endif %}
+                </span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="sl-lp-alert__actions sl-hc-alert__actions">
+        <a
+          href="{{ section.settings.cta_link | default: '#haus-check' | escape }}"
+          id="emergency_cta"
+          class="sl-lp-cta sl-lp-cta--signal"
+          data-sl-track="emergency_cta"
+          data-sl-label="{{ section.settings.cta_label | escape }}"
+        >
+          <span>{{ section.settings.cta_label | escape }}</span>
+          {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · Ernstfall kompakt",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Ohne Bild – das Einsatz-Symbolbild steht bereits im Aufmacher. Nur belegte Zahlen live: Blöcke mit [CLAIM VERIFIZIEREN] erscheinen nur hier im Editor."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "ernstfall"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "emergency"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "compact"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Kohlenmonoxid in Deutschland"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Im Ernstfall zählt nicht dein Bauchgefühl."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Zahlen & Quelle"
+    },
+    {
+      "type": "text",
+      "id": "stats_note",
+      "label": "Einordnung der Zahlen",
+      "info": "z. B. „Zahlen für ganz Deutschland.“"
+    },
+    {
+      "type": "text",
+      "id": "source_label",
+      "label": "Quelle"
+    },
+    {
+      "type": "text",
+      "id": "source_link",
+      "label": "Link zur Quelle"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Haus-Check starten"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel Button",
+      "default": "#haus-check"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Zahl",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Wert",
+          "info": "Nur mit geprüfter Quelle und exaktem Wortlaut. Die erste Zahl erscheint als Hauptzahl."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Aussage"
+        },
+        {
+          "type": "textarea",
+          "id": "dev_note",
+          "label": "Quelle / interne Notiz",
+          "info": "Nur im Editor sichtbar."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Ernstfall kompakt"
+    }
+  ]
+}
+{% endschema %}

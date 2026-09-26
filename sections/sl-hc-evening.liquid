@@ -1,0 +1,205 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · Ein ganz normaler Abend
+  Trügerische Normalität: Symbolbild (Familie am Abend, Therme an der Wand) und die Zeitleiste
+  18:30 / 21:00 / 23:15 / 02:30 mit Fazit. Die Zeitleiste nutzt dieselben Klassen wie die Kit-Section
+  sl-lp-cards im Layout „Zeitleiste“ und sieht deshalb genauso aus. Bild mobil zwischen Überschrift und
+  Zeitleiste, auf dem Desktop links unter der Überschrift.
+  Oberkante in derselben Farbe wie das Zitat-Band der Wartungs-Section (nahtloser Übergang).
+  Tracking: data-sl-section / data-sl-view = Tracking-Name (Standard heiznacht).
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'heiznacht' | handleize
+  assign track = section.settings.tracking_name | default: 'heiznacht' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-cards sl-lp-cards--timeline sl-hc-evening sl-lp--night sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    <div class="sl-hc-evening__aside">
+      {%- render 'sl-lp-section-head',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        heading_id: heading_id,
+        intro: section.settings.intro,
+        align: 'left',
+        size: 'm'
+      -%}
+
+      {%- if section.settings.image != blank -%}
+        <figure class="sl-hc-evening__figure">
+          <div class="sl-hc-evening__media">
+            {%- render 'sl-lp-image',
+              image: section.settings.image,
+              widths: '480,720,960,1206',
+              sizes: '(min-width: 990px) 42vw, 100vw',
+              alt: section.settings.image_alt,
+              class: 'sl-hc-evening__img'
+            -%}
+            {%- if section.settings.badge_text != blank -%}
+              <span class="sl-hc-article__badge sl-hc-evening__badge">{{ section.settings.badge_text | escape }}</span>
+            {%- endif -%}
+          </div>
+        </figure>
+      {%- elsif request.design_mode -%}
+        {%- render 'sl-lp-devflag', reason: 'Bild auswählen (normaler Haushalt am Abend, Symbolbild)' -%}
+      {%- endif -%}
+    </div>
+
+    <div class="sl-hc-evening__main">
+      {%- if section.blocks.size > 0 -%}
+        <ul class="sl-lp-cards__list sl-lp-cards__list--timeline sl-lp-cols-1 sl-lp-cardstyle--plain" role="list">
+          {%- for block in section.blocks -%}
+            {%- assign s = block.settings -%}
+            <li class="sl-lp-card" id="sl-{{ track }}-{{ forloop.index }}" {{ block.shopify_attributes }}>
+              {%- if s.time != blank -%}
+                <p class="sl-lp-card__label">{{ s.time | escape }}</p>
+              {%- endif -%}
+              {%- if s.title != blank -%}
+                <h3 class="sl-lp-card__h">{{ s.title | escape }}</h3>
+              {%- endif -%}
+              {%- if s.text != blank -%}
+                <div class="sl-lp-card__text sl-lp-rte">{{ s.text }}</div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.note != blank -%}
+        <div class="sl-lp-cards__extras">
+          <div class="sl-lp-note">
+            <div class="sl-lp-note__text sl-lp-rte">{{ section.settings.note }}</div>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · Normaler Abend",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "heiznacht"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "heiznacht"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "compact"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Ein ganz normaler Abend"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Nichts davon fühlt sich gefährlich an."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild",
+      "info": "Normaler Haushalt am Abend (trügerische Normalität). Quadratisch."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alternativtext"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Kennzeichnung auf dem Bild",
+      "default": "Symbolbild"
+    },
+    {
+      "type": "header",
+      "content": "Fazit unter der Zeitleiste"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Text",
+      "default": "<p><strong>Die meisten Risiken fühlen sich im Alltag nicht wie Risiken an.</strong></p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Zeitpunkt",
+      "settings": [
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Uhrzeit",
+          "default": "18:30"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Aussage",
+          "default": "Die Heizung läuft."
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Normaler Abend",
+      "blocks": [
+        { "type": "step", "settings": { "time": "18:30", "title": "Die Heizung läuft." } },
+        { "type": "step", "settings": { "time": "21:00", "title": "Die Fenster bleiben geschlossen." } },
+        { "type": "step", "settings": { "time": "23:15", "title": "Alle gehen schlafen." } },
+        { "type": "step", "settings": { "time": "02:30", "title": "Niemand beobachtet die Raumluft." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
