@@ -1,0 +1,237 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · CO und Gas
+  Zwei Gefahren, zwei Spalten, dazwischen der echte Display-Ausschnitt (CO in ppm, Gas in %LEL laut
+  Display-Beschriftung). Bewusst kurz und ohne Technik-Textwand.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'co-und-gas' | handleize
+  assign track = section.settings.tracking_name | default: 'co_gas' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+  assign left_lines = section.settings.left_text | newline_to_br | split: '<br />'
+  assign right_lines = section.settings.right_text | newline_to_br | split: '<br />'
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-hc-duo sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    {%- render 'sl-lp-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_id: heading_id,
+      intro: section.settings.intro,
+      align: 'center',
+      size: 'm'
+    -%}
+
+    <div class="sl-hc-duo__grid">
+      <div class="sl-hc-duo__item sl-hc-duo__item--co">
+        <p class="sl-hc-duo__symbol">{{ section.settings.left_symbol | escape }}</p>
+        {%- if section.settings.left_name != blank -%}
+          <h3 class="sl-hc-duo__name">{{ section.settings.left_name | escape }}</h3>
+        {%- endif -%}
+        <ul class="sl-hc-duo__lines" role="list">
+          {%- for line in left_lines -%}
+            {%- assign l = line | strip -%}
+            {%- if l == blank -%}{%- continue -%}{%- endif -%}
+            <li>{{ l | escape }}</li>
+          {%- endfor -%}
+        </ul>
+        {%- if section.settings.left_unit != blank -%}
+          <p class="sl-hc-duo__unit">{{ section.settings.left_unit | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.display_image != blank -%}
+        <figure class="sl-hc-duo__display">
+          {%- render 'sl-lp-image',
+            image: section.settings.display_image,
+            crop: 'region',
+            region: section.settings.display_region,
+            widths: '240,360,480,640',
+            sizes: '(min-width: 990px) 260px, 60vw',
+            alt: section.settings.display_alt,
+            class: 'sl-hc-duo__img'
+          -%}
+        </figure>
+      {%- endif -%}
+
+      <div class="sl-hc-duo__item sl-hc-duo__item--gas">
+        <p class="sl-hc-duo__symbol">{{ section.settings.right_symbol | escape }}</p>
+        {%- if section.settings.right_name != blank -%}
+          <h3 class="sl-hc-duo__name">{{ section.settings.right_name | escape }}</h3>
+        {%- endif -%}
+        <ul class="sl-hc-duo__lines" role="list">
+          {%- for line in right_lines -%}
+            {%- assign l = line | strip -%}
+            {%- if l == blank -%}{%- continue -%}{%- endif -%}
+            <li>{{ l | escape }}</li>
+          {%- endfor -%}
+        </ul>
+        {%- if section.settings.right_unit != blank -%}
+          <p class="sl-hc-duo__unit">{{ section.settings.right_unit | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.closing != blank -%}
+      <p class="sl-hc-duo__closing">{{ section.settings.closing | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · CO und Gas",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "co-und-gas"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "co_gas"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Kohlenmonoxid und Gas sind zwei verschiedene Gefahren."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Links"
+    },
+    {
+      "type": "text",
+      "id": "left_symbol",
+      "label": "Kürzel",
+      "default": "CO"
+    },
+    {
+      "type": "text",
+      "id": "left_name",
+      "label": "Name",
+      "default": "Kohlenmonoxid"
+    },
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Zeilen",
+      "default": "Farblos.\nGeruchlos.\nEntsteht bei Verbrennungsprozessen."
+    },
+    {
+      "type": "text",
+      "id": "left_unit",
+      "label": "Anzeige"
+    },
+    {
+      "type": "header",
+      "content": "Rechts"
+    },
+    {
+      "type": "text",
+      "id": "right_symbol",
+      "label": "Kürzel",
+      "default": "GAS"
+    },
+    {
+      "type": "text",
+      "id": "right_name",
+      "label": "Name",
+      "default": "Brennbare Gase"
+    },
+    {
+      "type": "textarea",
+      "id": "right_text",
+      "label": "Zeilen",
+      "default": "Eine andere Gefahr.\nWird separat erkannt und angezeigt."
+    },
+    {
+      "type": "text",
+      "id": "right_unit",
+      "label": "Anzeige"
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "image_picker",
+      "id": "display_image",
+      "label": "Foto mit Display (echtes Gerät)",
+      "info": "Empfohlen: sicherluft-echtes-produktfoto-referenz.jpg"
+    },
+    {
+      "type": "text",
+      "id": "display_region",
+      "label": "Ausschnitt",
+      "default": "146,98,234,371",
+      "info": "links, oben, Breite, Höhe in Promille des Fotos."
+    },
+    {
+      "type": "text",
+      "id": "display_alt",
+      "label": "Alternativtext",
+      "default": "Display des SICHERLUFT Melders mit CO-Wert und Gaswert"
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Schlusssatz",
+      "default": "SICHERLUFT macht beide Messbereiche auf einem Display sichtbar."
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · CO und Gas"
+    }
+  ]
+}
+{% endschema %}

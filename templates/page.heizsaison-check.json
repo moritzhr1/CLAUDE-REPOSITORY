@@ -1,0 +1,726 @@
+{
+  "sections": {
+    "artikel": {
+      "type": "sl-hc-article",
+      "settings": {
+        "anchor": "artikel",
+        "tracking_name": "article",
+        "masthead": "SICHERLUFT Ratgeber",
+        "meta_line": "Heizsaison 2026 · 5 Min. Lesezeit",
+        "kicker": "Die unterschätzte Gefahr in deutschen Haushalten",
+        "heading": "Die Heizung wurde gewartet.\nAber wer misst die Luft danach?",
+        "deck": "Warum eine gewartete Gastherme wichtig ist – aber keine permanente Überwachung der Raumluft ersetzt.",
+        "byline_mode": "person",
+        "brand_name": "SICHERLUFT Ratgeber",
+        "person_name": "Konrad Wilhelm Hartenfels",
+        "person_confirmed": true,
+        "name_prefix": "Von",
+        "date_label": "zuletzt bearbeitet:",
+        "date": "26.09.2026",
+        "image": "shopify://shop_images/sicherluft-haushalt-abend-gastherme.jpg",
+        "image_alt": "Symbolbild: Familie am Abend im Wohnzimmer, an der Wand eine Gastherme",
+        "image_caption": "Symbolbild",
+        "lead": "<p>Einmal im Jahr kommt der Fachmann. Die Anlage wird geprüft, gewartet und wieder in Betrieb genommen. Danach fühlen wir uns sicher.</p><p>Doch zwischen diesem Termin und der nächsten Wartung liegen hunderte Nächte.</p>",
+        "statement": "Und in dieser Zeit misst der Handwerker deine Raumluft nicht.",
+        "bridge": "<p>Genau hier entsteht eine Sicherheitslücke, über die erstaunlich wenige Haushalte nachdenken.</p>",
+        "cta_label": "60-Sekunden-Haus-Check starten",
+        "cta_link": "#haus-check",
+        "secondary_label": "Warum das wichtig ist",
+        "secondary_link": "#heiznacht"
+      }
+    },
+    "heiznacht": {
+      "type": "sl-lp-cards",
+      "settings": {
+        "anchor": "heiznacht",
+        "tracking_name": "heiznacht",
+        "background": "night",
+        "spacing": "normal",
+        "eyebrow": "Ein ganz normaler Abend",
+        "heading": "Nichts davon fühlt sich gefährlich an.",
+        "heading_size": "m",
+        "align": "left",
+        "layout": "timeline",
+        "columns": "2",
+        "card_style": "plain",
+        "min_live_cards": 0,
+        "sources_heading": "Quellen"
+      },
+      "blocks": {
+        "nacht_heizung": {
+          "type": "card",
+          "settings": {
+            "icon": "flame",
+            "label": "18:30",
+            "title": "Die Heizung läuft.",
+            "text": "<p>Draußen wird es kalt. Drinnen wird es warm.</p>",
+            "card_id": "heizung"
+          }
+        },
+        "nacht_fenster": {
+          "type": "card",
+          "settings": {
+            "icon": "home",
+            "label": "21:00",
+            "title": "Die Fenster bleiben geschlossen.",
+            "text": "<p>Die Wärme soll schließlich im Haus bleiben.</p>",
+            "card_id": "fenster"
+          }
+        },
+        "nacht_schlafen": {
+          "type": "card",
+          "settings": {
+            "icon": "bed",
+            "label": "23:15",
+            "title": "Alle gehen schlafen.",
+            "text": "<p>Die Heizung arbeitet weiter.</p>",
+            "card_id": "schlafen"
+          }
+        },
+        "nacht_raumluft": {
+          "type": "card",
+          "settings": {
+            "icon": "moon",
+            "label": "02:30",
+            "title": "Niemand beobachtet die Raumluft.",
+            "text": "<p>Und genau das ist völlig normal.</p>",
+            "card_id": "raumluft"
+          }
+        },
+        "nacht_fazit": {
+          "type": "note",
+          "settings": {
+            "icon": "none",
+            "text": "<p><strong>Die meisten Risiken fühlen sich im Alltag nicht wie Risiken an.</strong></p>"
+          }
+        }
+      },
+      "block_order": [
+        "nacht_heizung",
+        "nacht_fenster",
+        "nacht_schlafen",
+        "nacht_raumluft",
+        "nacht_fazit"
+      ]
+    },
+    "wartung": {
+      "type": "sl-hc-maintenance",
+      "settings": {
+        "anchor": "wartung",
+        "tracking_name": "maintenance_section",
+        "background": "white",
+        "spacing": "normal",
+        "heading": "Der Handwerker war da.\nDie Therme wurde gewartet.\nUnd seitdem?",
+        "intro": "<p>Eine professionelle Wartung ist wichtig. Sie prüft deine Heizungsanlage zu einem bestimmten Zeitpunkt.</p>",
+        "break_line": "Aber eine Wartung ist eine Momentaufnahme.",
+        "break_text": "Sie misst nicht heute Nacht.\nNicht nächste Woche.\nUnd nicht drei Monate später permanent deine Raumluft.",
+        "compare_intro": "Wartung und laufende Messung erfüllen zwei unterschiedliche Aufgaben.",
+        "left_label": "Wartung",
+        "left_text": "Ein Termin.\nDie Anlage wird geprüft.",
+        "visit_month": 10,
+        "right_label": "Messung",
+        "right_text": "Tag für Tag.\nMesswerte direkt sichtbar.",
+        "display_image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "display_region": "146,98,234,371",
+        "quote": "Die Wartung war wichtig.\nAber wer misst heute?"
+      }
+    },
+    "denkfehler": {
+      "type": "sl-lp-cards",
+      "settings": {
+        "anchor": "denkfehler",
+        "tracking_name": "denkfehler",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Falsche Sicherheit",
+        "heading": "Drei Sätze, die beruhigend klingen. Bis man genauer hinsieht.",
+        "heading_size": "m",
+        "align": "left",
+        "layout": "cards",
+        "columns": "3",
+        "card_style": "myth",
+        "min_live_cards": 0,
+        "sources_heading": "Quellen",
+        "stats_heading": "So verbreitet sind diese Denkfehler",
+        "stats_source": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 10–13 – Befragung 2019, n = 1.012 (41 % und 44 %: Basis 832 Befragte, die schon von CO-Vergiftungen gehört hatten)",
+        "stats_source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf"
+      },
+      "blocks": {
+        "denkfehler_wartung": {
+          "type": "card",
+          "settings": {
+            "icon": "document-check",
+            "label": "Denkfehler 1",
+            "belief": "„Die Heizung wurde doch gerade gewartet.“",
+            "title": "Eine Wartung ist keine permanente Raumluftmessung.",
+            "text": "<p>Sie prüft die Anlage an einem Termin. Was danach Nacht für Nacht in der Raumluft passiert, misst sie nicht.</p>",
+            "card_id": "wartung",
+            "dev_note": "Unterscheidung Wartung (Prüfung der Anlage zu einem Zeitpunkt) und laufender Messung der Raumluft. Keine Zahlen, kein Vorwurf an Fachbetriebe."
+          }
+        },
+        "denkfehler_rauchmelder": {
+          "type": "card",
+          "settings": {
+            "icon": "smoke-alarm",
+            "label": "Denkfehler 2",
+            "belief": "„Mein Rauchmelder passt auf.“",
+            "title": "Ein Rauchmelder warnt nicht vor Kohlenmonoxid.",
+            "text": "<p>Er reagiert auf Rauch. Kohlenmonoxid entsteht auch ohne Brand – etwa bei unvollständiger Verbrennung in Therme, Kamin oder Ofen.</p>",
+            "card_id": "rauchmelder",
+            "dev_note": "BfR-Broschüre S. 13: „Ein Rauchmelder warnt NICHT vor Kohlenmonoxid, sondern nur spezielle Kohlenmonoxid-Melder.“ S. 3: CO entsteht bei unvollständiger Verbrennung."
+          }
+        },
+        "denkfehler_geruch": {
+          "type": "card",
+          "settings": {
+            "icon": "no-odor",
+            "label": "Denkfehler 3",
+            "belief": "„Kohlenmonoxid würde ich schon merken.“",
+            "title": "Kohlenmonoxid riechst du nicht.",
+            "text": "<p>Es ist farb- und geruchlos. Erste Anzeichen wie Kopfschmerzen oder Schwindel hält man leicht für etwas anderes.</p>",
+            "card_id": "geruch",
+            "dev_note": "BfR-Broschüre S. 4: farb- und geruchlos; erste Symptome unspezifisch (Übelkeit, Schwindel, Kopfschmerzen)."
+          }
+        },
+        "zahl_rauchmelder": {
+          "type": "stat",
+          "settings": {
+            "value": "41 %",
+            "text": "glauben, ein Rauchmelder würde auch bei Kohlenmonoxid Alarm schlagen.",
+            "dev_note": "BfR S. 11: „41 % denken, Rauchmelder alarmieren bei CO in der Umgebungsluft“. Basis: 832 Befragte, die schon von CO-Vergiftungen gehört hatten (S. 10)."
+          }
+        },
+        "zahl_riechen": {
+          "type": "stat",
+          "settings": {
+            "value": "44 %",
+            "text": "glauben, Kohlenmonoxid riechen zu können.",
+            "dev_note": "BfR S. 11: „44 % denken, man könne CO riechen“. Basis: 832 (S. 10)."
+          }
+        },
+        "zahl_melder": {
+          "type": "stat",
+          "settings": {
+            "value": "15 %",
+            "text": "haben einen Kohlenmonoxid-Melder.",
+            "dev_note": "BfR S. 13: „… haben nur 15 Prozent einen Kohlenmonoxid-Melder installiert.“ Basis: alle 1.012 Befragten."
+          }
+        }
+      },
+      "block_order": [
+        "denkfehler_wartung",
+        "denkfehler_rauchmelder",
+        "denkfehler_geruch",
+        "zahl_rauchmelder",
+        "zahl_riechen",
+        "zahl_melder"
+      ]
+    },
+    "ernstfall": {
+      "type": "sl-lp-alert",
+      "settings": {
+        "anchor": "ernstfall",
+        "tracking_name": "emergency",
+        "image": "shopify://shop_images/sicherluft-einsatz-mehrfamilienhaus-nacht.jpg",
+        "image_alt": "Symbolbild: Rettungsdienst und Feuerwehr nachts bei Regen vor einem Mehrfamilienhaus",
+        "badge_text": "Symbolbild",
+        "placeholder_label": "",
+        "placeholder_live": false,
+        "eyebrow": "Im Ernstfall",
+        "heading": "Du siehst es nicht. Du riechst es nicht. Und nachts schläfst du.",
+        "text": "<p>Genau deshalb ist Kohlenmonoxid so tückisch: Dein Körper ist kein Messgerät.</p>",
+        "stats_note": "Zahlen für ganz Deutschland.",
+        "source_label": "BfR, Gesundheitsrisiken durch Kohlenmonoxid, S. 5 (Daten: GBE Bund 2021)",
+        "source_link": "https://www.bfr.bund.de/cm/350/gesundheitsrisiken-durch-kohlenmonoxid.pdf",
+        "cta_label": "Haus-Check starten",
+        "cta_link": "#haus-check"
+      },
+      "blocks": {
+        "stat_tote": {
+          "type": "stat",
+          "settings": {
+            "value": "117",
+            "text": "Menschen starben 2021 in Deutschland an einer unbeabsichtigten Kohlenmonoxid-Vergiftung.",
+            "dev_note": "BfR-Broschüre S. 5: „Mit insgesamt 397 registrierten Fällen im Jahr 2021 waren Kohlenmonoxid-Vergiftungen … die Vergiftungsart mit den meisten Todesfällen. 117 Fälle gingen dabei auf unbeabsichtigte Vergiftungen zurück.“ Bewusst die 117 unbeabsichtigten Fälle, nicht die 397 insgesamt."
+          }
+        },
+        "stat_klinik": {
+          "type": "stat",
+          "settings": {
+            "value": "2.199",
+            "text": "Menschen kamen 2021 wegen einer Kohlenmonoxid-Vergiftung ins Krankenhaus.",
+            "dev_note": "BfR-Broschüre S. 5: „Im Jahr 2021 wurden insgesamt 2.199 Personen aufgrund einer Kohlenmonoxid-Vergiftung ins Krankenhaus aufgenommen.“ (Quelle dort: GBE Bund 2021)"
+          }
+        }
+      },
+      "block_order": [
+        "stat_tote",
+        "stat_klinik"
+      ]
+    },
+    "licht": {
+      "type": "sl-lp-contrast",
+      "settings": {
+        "anchor": "sehen",
+        "tracking_name": "green_light_section",
+        "eyebrow": "Grünes Licht oder echte Information?",
+        "heading": "Ein grünes Licht ist kein Messwert.",
+        "intro": "<p>Es zeigt dir, dass ein Gerät läuft.<br>Es zeigt dir nicht automatisch, was gerade in der Luft passiert.</p>",
+        "left_label": "Gerät läuft",
+        "left_text": "Mehr sagt dir das Licht nicht.",
+        "display_image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "display_region": "146,98,234,371",
+        "display_alt": "Display des SICHERLUFT Melders mit Temperatur, CO- und Gaswert sowie Luftfeuchtigkeit",
+        "right_label": "Du siehst den Messwert",
+        "right_text": "CO, Gas, Temperatur und Luftfeuchte als Zahl.",
+        "closing": "Ein Blick – und du weißt, woran du bist.",
+        "cta_label": "60-Sekunden-Haus-Check starten",
+        "cta_link": "#haus-check"
+      }
+    },
+    "co_gas": {
+      "type": "sl-hc-duo",
+      "settings": {
+        "anchor": "co-und-gas",
+        "tracking_name": "co_gas",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "",
+        "heading": "Kohlenmonoxid und Gas sind zwei verschiedene Gefahren.",
+        "left_symbol": "CO",
+        "left_name": "Kohlenmonoxid",
+        "left_text": "Farblos.\nGeruchlos.\nEntsteht bei Verbrennungsprozessen.",
+        "left_unit": "Anzeige am Gerät in ppm",
+        "right_symbol": "GAS",
+        "right_name": "Brennbare Gase",
+        "right_text": "Eine andere Gefahr.\nWird separat erkannt und angezeigt.",
+        "right_unit": "Anzeige am Gerät in %LEL",
+        "display_image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "display_region": "146,98,234,371",
+        "display_alt": "Display des SICHERLUFT Melders mit CO-Wert in ppm und Gaswert in %LEL",
+        "closing": "SICHERLUFT macht beide Messbereiche auf einem Display sichtbar."
+      }
+    },
+    "loesung": {
+      "type": "sl-lp-product",
+      "settings": {
+        "anchor": "loesung",
+        "tracking_name": "product",
+        "background": "sky",
+        "spacing": "normal",
+        "eyebrow": "Die Lösung",
+        "heading": "Sehen statt raten.",
+        "heading_size": "l",
+        "intro": "<p>SICHERLUFT zeigt dir direkt am Gerät, was gemessen wird.</p><p><strong>Vier Werte. Ein Blick. Kein Rätselraten.</strong></p>",
+        "image": "shopify://shop_images/sicherluft-echtes-produktfoto-referenz.jpg",
+        "image_crop": "left_half",
+        "image_alt": "SICHERLUFT Gas- und CO-Melder, Vorderseite mit Display und den Anzeigen Betrieb, Alarm und Störung",
+        "image_caption": "Anzeigen am Gerät: Betrieb (grün), Alarm (rot), Störung (gelb)",
+        "video_heading": "",
+        "video_text": "",
+        "video_caption": "",
+        "cta_label": "Passendes Set finden",
+        "cta_link": "#haus-check",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nOhne App"
+      },
+      "blocks": {
+        "funktion_co": {
+          "type": "feature",
+          "settings": {
+            "icon": "co",
+            "title": "Kohlenmonoxid (CO)",
+            "text": "<p>Der CO-Wert in ppm – direkt auf dem Display.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „CO … PPM“ auf dem Referenzfoto."
+          }
+        },
+        "funktion_gas": {
+          "type": "feature",
+          "settings": {
+            "icon": "gas",
+            "title": "Brennbare Gase",
+            "text": "<p>Anzeige in %LEL, dem Anteil an der unteren Explosionsgrenze.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „GAS … %LEL“. OFFEN: welche Gasarten erfasst werden (Erdgas/Methan im Haushalt?) – siehe Hinweis unten."
+          }
+        },
+        "funktion_temperatur": {
+          "type": "feature",
+          "settings": {
+            "icon": "thermometer",
+            "title": "Temperatur",
+            "text": "<p>Raumtemperatur in °C.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „°C“."
+          }
+        },
+        "funktion_feuchte": {
+          "type": "feature",
+          "settings": {
+            "icon": "droplet",
+            "title": "Luftfeuchtigkeit",
+            "text": "<p>Relative Luftfeuchte in %RH.</p>",
+            "dev_note": "Quelle: Display-Beschriftung „RH%“."
+          }
+        },
+        "funktion_warnung": {
+          "type": "feature",
+          "settings": {
+            "icon": "speaker",
+            "title": "Akustische Warnung",
+            "text": "<p>Bei Alarm ertönt ein Warnton.</p>",
+            "dev_note": "Quelle: Seite „Sicherheitsinformationen“ (akustische Alarmanzeige laut Prüfberichten). Lautstärke (dB) nicht belegt – nicht nennen."
+          }
+        },
+        "funktion_anzeige": {
+          "type": "feature",
+          "settings": {
+            "icon": "light",
+            "title": "Sichtbare Anzeige",
+            "text": "<p>Rote Alarm-LED, dazu die Anzeigen „Betrieb“ und „Störung“.</p>",
+            "dev_note": "Quelle: LED-Beschriftung am Gerät (Betrieb, Alarm, Störung) und Seite „Sicherheitsinformationen“ (optische Anzeigen)."
+          }
+        },
+        "funktion_stecker": {
+          "type": "feature",
+          "settings": {
+            "icon": "plug",
+            "title": "Einstecken statt montieren",
+            "text": "<p>Integrierter Netzstecker: in die Steckdose, fertig. Kein Bohren.</p>",
+            "dev_note": "Quelle: Rückseite auf dem Referenzfoto."
+          }
+        },
+        "hinweis_gasarten": {
+          "type": "note",
+          "settings": {
+            "text": "<p>Welche brennbaren Gase SICHERLUFT erfasst – insbesondere Erdgas (Methan) im Haushalt: [CLAIM VERIFIZIEREN: Gasarten laut Datenblatt bzw. Prüfbericht EN 50194-1]</p>"
+          }
+        },
+        "hinweis_messdaten": {
+          "type": "note",
+          "settings": {
+            "text": "<p>Anzeigebereiche, Messgenauigkeit, Aufwärmzeit, Sensorart und Sensorlebensdauer: [CLAIM VERIFIZIEREN: Werte aus Datenblatt/Bedienungsanleitung]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "funktion_co",
+        "funktion_gas",
+        "funktion_temperatur",
+        "funktion_feuchte",
+        "funktion_warnung",
+        "funktion_anzeige",
+        "funktion_stecker",
+        "hinweis_gasarten",
+        "hinweis_messdaten"
+      ]
+    },
+    "haus_check": {
+      "type": "sl-hc-quiz",
+      "settings": {
+        "anchor": "haus-check",
+        "tracking_name": "quiz",
+        "offer_anchor": "angebot",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "60-Sekunden-Haus-Check",
+        "heading": "Wie viele Messpunkte passen zu deinem Zuhause?",
+        "intro": "<p>Vier kurze Fragen. Danach zeigen wir dir, welches Set zu deiner Wohnsituation passt.</p>",
+        "q1": "Wie heizt du?",
+        "q2": "Wie viele getrennte Bereiche möchtest du im Blick behalten?",
+        "q2_help": "Zum Beispiel Heizungsbereich, Schlafzimmer, Wohnbereich oder Garage.",
+        "q3": "Sind Schlafbereich und Heiz-/Gerätebereich getrennt?",
+        "q4": "Gibt es zusätzlich einen dieser Bereiche?",
+        "q4_help": "Mehrfachauswahl möglich.",
+        "next_label": "Weiter",
+        "finish_label": "Ergebnis anzeigen",
+        "back_label": "Zurück",
+        "result_eyebrow": "Dein Ergebnis",
+        "result_prefix": "Für deine Wohnsituation empfehlen wir",
+        "pick_label": "Passendes Set",
+        "result_cta": "Empfohlenes Set auswählen",
+        "restart_label": "Haus-Check neu starten",
+        "badge_label": "Empfehlung aus deinem Haus-Check",
+        "final_cta_after": "Empfohlenes Set auswählen",
+        "fallback_note": "Faustregel ohne Haus-Check: ein Gerät pro Bereich, den du im Blick behalten willst.",
+        "sticky": true,
+        "sticky_text": "4 Fragen · 60 Sekunden",
+        "sticky_label": "Haus-Check starten",
+        "sticky_after_prefix": "Empfohlen:",
+        "sticky_after_label": "Jetzt absichern"
+      }
+    },
+    "platzierung": {
+      "type": "sl-hc-house",
+      "settings": {
+        "anchor": "platzierung",
+        "tracking_name": "placement",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Platzierung",
+        "heading": "Ein Gerät misst dort, wo es steht.",
+        "intro": "<p>Mehrere getrennte Bereiche können mehrere Messpunkte sinnvoll machen – etwa dort, wo etwas verbrannt wird, und dort, wo geschlafen wird.</p>",
+        "legend_heading": "Typische Bereiche im Haushalt",
+        "zone_1": "Schlafzimmer",
+        "zone_2": "Wohnbereich",
+        "zone_3": "Küche",
+        "zone_4": "Therme / Heizraum",
+        "zone_5": "Keller",
+        "zone_6": "Garage",
+        "legend_note": "Schematische Darstellung. Grundrisse unterscheiden sich. Maßgeblich für die Platzierung ist die Bedienungsanleitung.",
+        "set_heading": "Mehrere Bereiche. Mehrere Messpunkte.",
+        "set_text": "<p>Ein Gerät misst die Luft dort, wo es steht. Liegen Heizung und Schlafzimmer auseinander, schafft ein zweiter Messpunkt zusätzliche Abdeckung.</p>",
+        "cta_label": "Passendes Set ansehen",
+        "cta_link": "#angebot"
+      }
+    },
+    "angebot": {
+      "type": "sl-lp-offer",
+      "settings": {
+        "anchor": "angebot",
+        "tracking_name": "angebot",
+        "background": "mist",
+        "spacing": "normal",
+        "eyebrow": "Angebot",
+        "heading": "Wähle den passenden Schutz für dein Zuhause.",
+        "heading_size": "m",
+        "intro": "<p>Ein Gerät misst dort, wo es steht. Wähle einen Messpunkt pro Bereich, den du im Blick behalten willst.</p>",
+        "legend": "Anzahl der Geräte wählen",
+        "cta_label": "Jetzt Zuhause absichern",
+        "free_shipping_text": "versandkostenfrei (DE)",
+        "shipping_text": "zzgl. Versandkosten",
+        "shipping_link": "/pages/versand",
+        "shipping_link_label": "Versand & Lieferung",
+        "show_payment_icons": true,
+        "sticky_cta": false,
+        "sticky_label": "Jetzt absichern",
+        "sticky_prefix": "ab",
+        "trust_items": "Werte direkt am Display\nOhne App\nVersandkostenfrei ab 80 € (DE)",
+        "kaching_deal": "ZuSp",
+        "price_note": "Streichpreis = Summe der Einzelpreise.",
+        "dev_note": "Set-Preise = Kaching-Deal „SICHERLUFT Mengenrabatt“ (Deal-ID ZuSp, Festpreise): 2 Geräte 99,95 €, 3 Geräte 129,95 €, 4 Geräte 159,95 €; 1 Gerät regulär 59,95 €. Wird der Kaching-Deal geändert, hier die Set-Preise anpassen (Event sl_price_mismatch meldet Abweichungen im Warenkorb).\nKeine Dauer-Empfehlung: Der Haus-Check markiert das passende Set („Empfehlung aus deinem Haus-Check“). Die Sticky-Leiste dieser Seite steuert die Section „HC · 60-Sekunden-Haus-Check“."
+      },
+      "blocks": {
+        "bundle_1": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 1,
+            "title": "1 Gerät",
+            "subtitle": "Für einen Messpunkt",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_1er.png",
+            "image_alt": "Ein SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": true,
+            "cta_label": "Jetzt Zuhause absichern",
+            "offer_id": "bundle_1",
+            "display": "card"
+          }
+        },
+        "bundle_2": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 2,
+            "title": "2 Geräte",
+            "subtitle": "Für zwei Bereiche",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_2er_versetzt.png",
+            "image_alt": "Zwei SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Jetzt Zuhause absichern",
+            "offer_id": "bundle_2",
+            "display": "card",
+            "offer_price": "99,95"
+          }
+        },
+        "bundle_3": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 3,
+            "title": "3 Geräte",
+            "subtitle": "Für mehrere Bereiche",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_3er.png",
+            "image_alt": "Drei SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Jetzt Zuhause absichern",
+            "offer_id": "bundle_3",
+            "display": "card",
+            "offer_price": "129,95"
+          }
+        },
+        "bundle_4": {
+          "type": "option",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "quantity": 4,
+            "title": "4 Geräte",
+            "subtitle": "Für größere Wohnsituationen",
+            "image": "shopify://shop_images/Kaching-Bundles-sicherluft_bundle_4er_v3_2.png",
+            "image_alt": "Vier SICHERLUFT Gas- und CO-Melder",
+            "highlight": false,
+            "preselected": false,
+            "cta_label": "Jetzt Zuhause absichern",
+            "offer_id": "bundle_4",
+            "display": "card",
+            "offer_price": "159,95"
+          }
+        }
+      },
+      "block_order": [
+        "bundle_1",
+        "bundle_2",
+        "bundle_3",
+        "bundle_4"
+      ]
+    },
+    "faq": {
+      "type": "sl-lp-faq",
+      "settings": {
+        "anchor": "faq",
+        "tracking_name": "faq",
+        "background": "white",
+        "spacing": "normal",
+        "eyebrow": "Fragen & Antworten",
+        "heading": "Fragen, bevor du dich entscheidest",
+        "heading_size": "m",
+        "intro": "<p>Deine Frage fehlt? <a href=\"/pages/contact\">Schreib uns</a>.</p>"
+      },
+      "blocks": {
+        "faq_rauchmelder": {
+          "type": "item",
+          "settings": {
+            "question": "Warum reicht mein Rauchmelder nicht?",
+            "answer": "<p>Weil ein Rauchmelder nicht vor Kohlenmonoxid warnt – das stellt auch das Bundesinstitut für Risikobewertung klar. Rauchmelder reagieren auf Rauch. Kohlenmonoxid ist farb- und geruchlos und entsteht auch ohne Feuer, etwa bei unvollständiger Verbrennung in Therme, Kamin oder Ofen. SICHERLUFT ersetzt deinen Rauchmelder nicht, sondern ergänzt ihn um das, was er nicht kann.</p>",
+            "faq_id": "rauchmelder",
+            "dev_note": "Quelle: BfR-Broschüre S. 13 („Ein Rauchmelder warnt NICHT vor Kohlenmonoxid …“) und S. 3/4."
+          }
+        },
+        "faq_wartung": {
+          "type": "item",
+          "settings": {
+            "question": "Ersetzt SICHERLUFT die Heizungswartung?",
+            "answer": "<p>Nein. Eine fachgerechte Wartung der Heizungsanlage bleibt wichtig. Sie prüft die Anlage zu einem bestimmten Zeitpunkt. SICHERLUFT erfüllt eine andere Aufgabe: Das Gerät überwacht die Messwerte am jeweiligen Standort zwischen diesen Terminen.</p>",
+            "faq_id": "wartung",
+            "dev_note": "Vorgabe aus dem Briefing; deckt sich mit der Seite „Sicherheitsinformationen“ (Melder ersetzen keine Wartung)."
+          }
+        },
+        "faq_was_misst_das_geraet": {
+          "type": "item",
+          "settings": {
+            "question": "Was misst SICHERLUFT?",
+            "answer": "<p>Vier Werte direkt auf dem Display: Kohlenmonoxid (CO, in ppm), brennbare Gase (in %LEL, Anteil an der unteren Explosionsgrenze), Temperatur (°C) und relative Luftfeuchte (%RH). Dazu drei Anzeigen: Betrieb (grün), Alarm (rot) und Störung (gelb).</p>",
+            "faq_id": "was-misst-das-geraet",
+            "dev_note": "Quelle: Display- und LED-Beschriftung auf dem Referenzfoto. Gasarten offen – nicht nennen."
+          }
+        },
+        "faq_co_und_gas": {
+          "type": "item",
+          "settings": {
+            "question": "Was ist der Unterschied zwischen CO und Gas?",
+            "answer": "<p>Kohlenmonoxid (CO) entsteht bei unvollständiger Verbrennung – etwa in Therme, Kamin oder Ofen. Es ist farb- und geruchlos und ein gefährliches Atemgift. Brennbare Gase sind eine andere Gefahr: Sie können zum Beispiel aus undichten Leitungen oder Geräten austreten. SICHERLUFT zeigt beide Werte getrennt an – CO in ppm, brennbare Gase in %LEL.</p>",
+            "faq_id": "co-und-gas",
+            "dev_note": "BfR S. 3/4 (Entstehung, farb- und geruchlos, Atemgift); Display-Beschriftung. Keine Gasarten nennen, solange nicht belegt."
+          }
+        },
+        "faq_platzierung": {
+          "type": "item",
+          "settings": {
+            "question": "Wo sollte ich ein Gerät platzieren?",
+            "answer": "<p>Ein Gerät misst dort, wo es steht. Sinnvoll sind die Nähe zu Geräten, in denen etwas verbrannt wird – etwa Therme, Kamin oder Ofen –, und das Schlafzimmer. Maßgeblich sind die Montagehinweise der mitgelieferten Bedienungsanleitung. Nicht empfohlen sind laut unseren Sicherheitsinformationen Positionen unmittelbar über Kochstellen oder Spülen, direkt neben Abluft- oder Dunstabzugssystemen und im Außenbereich.</p>",
+            "faq_id": "platzierung",
+            "dev_note": "BfR-Broschüre S. 21: CO-Melder „in der Nähe zum Gerät und im Schlafzimmer“ (dort für batteriebetriebene Melder formuliert). Ausschlüsse: Seite „Sicherheitsinformationen“."
+          }
+        },
+        "faq_anzahl": {
+          "type": "item",
+          "settings": {
+            "question": "Wie viele Geräte brauche ich?",
+            "answer": "<p>Ein Gerät misst dort, wo es steht. Als Faustregel gilt: ein Messpunkt pro Bereich, den du im Blick behalten willst – zum Beispiel Heizungsbereich und Schlafzimmer. Der 60-Sekunden-Haus-Check hilft dir, die passende Anzahl zu finden.</p>",
+            "faq_id": "anzahl",
+            "dev_note": "Eigene Empfehlungslogik (Haus-Check), gestützt auf BfR S. 21 (Gerät + Schlafzimmer)."
+          }
+        },
+        "faq_app": {
+          "type": "item",
+          "settings": {
+            "question": "Brauche ich WLAN oder eine App?",
+            "answer": "<p>Nein. Alle Werte stehen direkt auf dem Display des Geräts. Kein Konto, kein Smartphone, keine Kopplung.</p>",
+            "faq_id": "app",
+            "dev_note": "Quelle: Gerät mit eigenem Display; keine App im Produkttext erwähnt."
+          }
+        },
+        "faq_bohren": {
+          "type": "item",
+          "settings": {
+            "question": "Muss ich bohren?",
+            "answer": "<p>Nein. SICHERLUFT hat einen integrierten Netzstecker und kommt direkt in die Steckdose. Kein Bohren, keine Montage.</p>",
+            "faq_id": "bohren",
+            "dev_note": "Quelle: Rückseite auf dem Referenzfoto (Netzstecker)."
+          }
+        },
+        "faq_alarm": {
+          "type": "item",
+          "settings": {
+            "question": "Was passiert bei einem Alarm?",
+            "answer": "<p>SICHERLUFT warnt mit Warnton und roter Alarm-LED, sobald der Alarmwert erreicht ist. Nimm jeden Alarm ernst: Verlass die Wohnung sofort mit allen Personen und ruf die Feuerwehr (112) – so empfiehlt es auch das BfR. Folge zusätzlich den Hinweisen der Bedienungsanleitung.</p>",
+            "faq_id": "alarm",
+            "dev_note": "BfR-Broschüre S. 21: „Bei Alarm sofort alle Personen im Haus evakuieren und die Feuerwehr rufen.“ Alarmwerte selbst nicht belegt – keine Zahlen."
+          }
+        },
+        "faq_haus_check": {
+          "type": "item",
+          "settings": {
+            "question": "Wie funktioniert der Haus-Check?",
+            "answer": "<p>Vier kurze Fragen: wie du heizt, wie viele getrennte Bereiche du im Blick behalten willst, ob Schlaf- und Heizbereich getrennt sind und ob es weitere Bereiche wie Kamin, Keller oder Garage gibt. Daraus ergibt sich eine Empfehlung – ein Messpunkt pro Bereich, bis zum 4er-Set. Die Empfehlung ist eine Orientierung; maßgeblich bleiben die Hinweise der Bedienungsanleitung.</p>",
+            "faq_id": "haus-check",
+            "dev_note": "Beschreibt die Logik in assets/sl-hc.js (recommend)."
+          }
+        }
+      },
+      "block_order": [
+        "faq_rauchmelder",
+        "faq_wartung",
+        "faq_was_misst_das_geraet",
+        "faq_co_und_gas",
+        "faq_platzierung",
+        "faq_anzahl",
+        "faq_app",
+        "faq_bohren",
+        "faq_alarm",
+        "faq_haus_check"
+      ]
+    },
+    "final": {
+      "type": "sl-lp-cta",
+      "settings": {
+        "anchor": "jetzt",
+        "tracking_name": "final_cta",
+        "style": "signal",
+        "align": "center",
+        "spacing": "normal",
+        "icon": "moon",
+        "eyebrow": "Heute Abend die Heizung an?",
+        "heading": "Die Wartung war ein Termin. Die nächste Heiznacht ist heute.",
+        "text": "<p>Vier kurze Fragen zeigen dir, welches Set zu deinem Zuhause passt.</p>",
+        "cta_label": "60-Sekunden-Haus-Check starten",
+        "cta_link": "#haus-check",
+        "trust_items": "Werte direkt am Display\nAlarm hörbar + sichtbar\nEinstecken statt bohren\nOhne App"
+      }
+    }
+  },
+  "order": [
+    "artikel",
+    "heiznacht",
+    "wartung",
+    "denkfehler",
+    "ernstfall",
+    "licht",
+    "co_gas",
+    "loesung",
+    "haus_check",
+    "platzierung",
+    "angebot",
+    "faq",
+    "final"
+  ]
+}

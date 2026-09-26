@@ -1,0 +1,249 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · Haus-/Raumplan
+  Analog zur Platzierungsgrafik der Wohnmobil-Seite (gleiche Klassen sl-lp-plan / sl-lp-setbox):
+  schematischer Hausschnitt mit bis zu sechs nummerierten Bereichen, Legende und dunklem Hinweis
+  „Mehrere Bereiche. Mehrere Messpunkte.“ mit Button. Keine Montagepositionen (maßgeblich ist die
+  Bedienungsanleitung).
+  Tracking: Button = placement_cta_click.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'platzierung' | handleize
+  assign track = section.settings.tracking_name | default: 'placement' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+  assign zone_pos = '33.3,40.2|30,59.8|55,58.9|47.8,83.9|21.1,86.6|79.8,52.1' | split: '|'
+  assign zone_count = 0
+  for i in (1..6)
+    assign zkey = 'zone_' | append: i
+    if section.settings[zkey] != blank
+      assign zone_count = zone_count | plus: 1
+    endif
+  endfor
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-placement sl-hc-house sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    {%- render 'sl-lp-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_id: heading_id,
+      intro: section.settings.intro,
+      align: 'left',
+      size: 'm'
+    -%}
+
+    <figure class="sl-lp-plan sl-hc-house__plan">
+      <div class="sl-lp-plan__canvas sl-hc-house__canvas">
+        {%- render 'sl-hc-house-plan', uid: section.id -%}
+        {%- for i in (1..6) -%}
+          {%- assign zkey = 'zone_' | append: i -%}
+          {%- if section.settings[zkey] != blank -%}
+            {%- assign xy = zone_pos[forloop.index0] | split: ',' -%}
+            <span class="sl-lp-plan__zone" style="--x: {{ xy[0] }}%; --y: {{ xy[1] }}%;" aria-hidden="true">{{ i }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if zone_count > 0 -%}
+        <figcaption class="sl-lp-plan__legend">
+          {%- if section.settings.legend_heading != blank -%}
+            <p class="sl-lp-plan__legendh">{{ section.settings.legend_heading | escape }}</p>
+          {%- endif -%}
+          <ol class="sl-lp-plan__zones sl-hc-house__zones" role="list">
+            {%- for i in (1..6) -%}
+              {%- assign zkey = 'zone_' | append: i -%}
+              {%- if section.settings[zkey] != blank -%}
+                <li><span class="sl-lp-plan__num">{{ i }}</span>{{ section.settings[zkey] | escape }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ol>
+          {%- if section.settings.legend_note != blank -%}
+            <p class="sl-lp-plan__legendnote">{{ section.settings.legend_note | escape }}</p>
+          {%- endif -%}
+        </figcaption>
+      {%- endif -%}
+    </figure>
+
+    {%- if section.settings.set_heading != blank or section.settings.set_text != blank -%}
+      <aside class="sl-lp-setbox" aria-label="{{ section.settings.set_heading | escape }}">
+        <div class="sl-lp-setbox__icons" aria-hidden="true">
+          {%- render 'sl-lp-icon', name: 'display', size: 22 -%}
+          {%- render 'sl-lp-icon', name: 'display', size: 22 -%}
+        </div>
+        <div class="sl-lp-setbox__body">
+          {%- if section.settings.set_heading != blank -%}
+            <h3 class="sl-lp-setbox__h">{{ section.settings.set_heading | escape }}</h3>
+          {%- endif -%}
+          {%- if section.settings.set_text != blank -%}
+            <div class="sl-lp-rte">{{ section.settings.set_text }}</div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_link | default: '#angebot' | escape }}"
+            id="sl-{{ track }}-cta"
+            class="sl-lp-cta sl-lp-cta--signal"
+            data-sl-track="placement_cta_click"
+            data-sl-label="{{ section.settings.cta_label | escape }}"
+          >
+            <span>{{ section.settings.cta_label | escape }}</span>
+            {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+          </a>
+        {%- endif -%}
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · Haus-/Raumplan",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "platzierung"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "placement"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "Platzierung"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Ein Gerät misst dort, wo es steht."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Bereiche im Plan"
+    },
+    {
+      "type": "text",
+      "id": "legend_heading",
+      "label": "Überschrift Legende",
+      "default": "Typische Bereiche im Haushalt"
+    },
+    {
+      "type": "text",
+      "id": "zone_1",
+      "label": "Bereich 1 (Obergeschoss links)",
+      "default": "Schlafzimmer"
+    },
+    {
+      "type": "text",
+      "id": "zone_2",
+      "label": "Bereich 2 (Erdgeschoss links)",
+      "default": "Wohnbereich"
+    },
+    {
+      "type": "text",
+      "id": "zone_3",
+      "label": "Bereich 3 (Erdgeschoss rechts)",
+      "default": "Küche"
+    },
+    {
+      "type": "text",
+      "id": "zone_4",
+      "label": "Bereich 4 (Keller rechts)",
+      "default": "Therme / Heizraum"
+    },
+    {
+      "type": "text",
+      "id": "zone_5",
+      "label": "Bereich 5 (Keller links)",
+      "default": "Keller"
+    },
+    {
+      "type": "text",
+      "id": "zone_6",
+      "label": "Bereich 6 (Anbau)",
+      "default": "Garage"
+    },
+    {
+      "type": "text",
+      "id": "legend_note",
+      "label": "Hinweis unter der Legende",
+      "default": "Schematische Darstellung. Grundrisse unterscheiden sich."
+    },
+    {
+      "type": "header",
+      "content": "Hinweis mit Button"
+    },
+    {
+      "type": "text",
+      "id": "set_heading",
+      "label": "Überschrift",
+      "default": "Mehrere Bereiche. Mehrere Messpunkte."
+    },
+    {
+      "type": "richtext",
+      "id": "set_text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Passendes Set ansehen"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel Button",
+      "default": "#angebot"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Haus-/Raumplan"
+    }
+  ]
+}
+{% endschema %}

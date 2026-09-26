@@ -1,0 +1,9 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check: eigene Assets zusätzlich zum Landingpage-Kit (sl-lp-assets).
+  Wird nur von sl-hc-Sections geladen – die Regeln in sl-hc.css und das Verhalten aus sl-hc.js
+  betreffen deshalb ausschließlich Seiten mit diesen Sections (nicht die Wohnmobil-Seite).
+  Achtung Kaskade: Jede sl-lp-Section bindet sl-lp.css erneut ein; spätere Kopien stehen in der
+  Kaskade hinter sl-hc.css. Überschreibungen in sl-hc.css brauchen deshalb höhere Spezifität.
+{%- endcomment -%}
+{{ 'sl-hc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'sl-hc.js' | asset_url }}" defer="defer"></script>

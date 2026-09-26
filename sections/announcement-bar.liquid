@@ -1,9 +1,10 @@
 {%- comment -%}
-  SICHERLUFT: Auf der Performance-Landingpage /pages/wohnmobil-nacht-check (Template-Suffix
-  „wohnmobil-nacht-check“) erscheint kein Countdown – die Seite verzichtet bewusst auf
-  Countdown- und Knappheits-Elemente. Auf allen anderen Seiten bleibt der Banner unverändert.
+  SICHERLUFT: Auf den Performance-Landingpages /pages/wohnmobil-nacht-check und
+  /pages/heizsaison-check (Template-Suffixe „wohnmobil-nacht-check“ und „heizsaison-check“) erscheint
+  kein Countdown – die Seiten verzichten bewusst auf Countdown- und Knappheits-Elemente.
+  Auf allen anderen Seiten bleibt der Banner unverändert.
 {%- endcomment -%}
-{%- unless template.suffix == 'wohnmobil-nacht-check' -%}
+{%- unless template.suffix == 'wohnmobil-nacht-check' or template.suffix == 'heizsaison-check' -%}
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
 
 <div class="section-announcement">

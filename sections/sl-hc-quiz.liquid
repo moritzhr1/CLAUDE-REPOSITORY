@@ -1,0 +1,433 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · 60-Sekunden-Haus-Check
+  Vier Fragen → Empfehlung (1–4 Messpunkte). Das Ergebnis wählt im Angebot (sl-lp-offer) das passende
+  Set aus, markiert es mit einem Hinweis und stellt Sticky-Leiste und Schluss-Button um (assets/sl-hc.js).
+  Mengenlogik: ein Messpunkt pro relevantem Bereich – mindestens so viele, wie angegeben (Frage 2),
+  und mindestens so viele, wie sich aus getrennten Schlaf-/Heizbereichen (Frage 3) und zusätzlichen
+  Bereichen (Frage 4) ergeben; höchstens 4 (größtes Set).
+  Ohne JavaScript bleiben alle Fragen sichtbar; der Hinweis darunter nennt die Faustregel.
+  Die mobile Sticky-Leiste dieser Seite sitzt ebenfalls hier (vor dem Ergebnis: „Haus-Check starten“,
+  danach: empfohlenes Set + Preis und „Jetzt absichern“).
+  Tracking (sl-hc.js): quiz_start, quiz_step_1–4, quiz_complete, quiz_result, sticky_cta_click.
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'haus-check' | handleize
+  assign track = section.settings.tracking_name | default: 'quiz' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+  assign offer_anchor = section.settings.offer_anchor | default: 'angebot' | handleize
+
+  assign q1_keys = 'gas|kamin|pellet|wp|mix' | split: '|'
+  assign q1_labels = 'Gastherme / Gasetagenheizung|Kamin / Kaminofen|Pellet / andere Verbrennung|Wärmepumpe / elektrisch|Mehrere Systeme / weiß ich nicht genau' | split: '|'
+  assign q1_icons = 'boiler|fireplace|pellet|heatpump|question' | split: '|'
+
+  assign q2_keys = '1|2|3|4' | split: '|'
+  assign q2_labels = '1|2|3|4 oder mehr' | split: '|'
+  assign q2_subs = 'Bereich|Bereiche|Bereiche|Bereiche' | split: '|'
+
+  assign q3_keys = 'ja|nein|mehrere' | split: '|'
+  assign q3_labels = 'Ja|Nein|Mehrere Schlafbereiche' | split: '|'
+
+  assign q4_keys = 'ofen|keller|garage|schlaf2|none' | split: '|'
+  assign q4_labels = 'Kamin / Ofen|Keller / Heizraum|Garage|Weiterer Schlafbereich|Keiner davon' | split: '|'
+  assign q4_icons = 'fireplace|basement|garage|bed|none' | split: '|'
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-hc-quiz sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+  data-sl-hc-quiz
+  data-offer="#{{ offer_anchor }}"
+  data-badge="{{ section.settings.badge_label | escape }}"
+  data-final-after="{{ section.settings.final_cta_after | escape }}"
+  data-sticky-after-prefix="{{ section.settings.sticky_after_prefix | escape }}"
+  data-sticky-after-label="{{ section.settings.sticky_after_label | escape }}"
+>
+  <div class="sl-lp__container">
+    {%- render 'sl-lp-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_id: heading_id,
+      intro: section.settings.intro,
+      align: 'center',
+      size: 'm'
+    -%}
+
+    <div class="sl-hc-quiz__card">
+      <div class="sl-hc-quiz__progress">
+        <p class="sl-hc-quiz__count" aria-live="polite">
+          <span class="visually-hidden">Frage </span><span data-sl-hc-count>1 / 4</span>
+        </p>
+        <div class="sl-hc-quiz__bar" aria-hidden="true"><span data-sl-hc-bar></span></div>
+      </div>
+
+      <form class="sl-hc-quiz__form" data-sl-hc-form novalidate>
+        <fieldset class="sl-hc-quiz__step is-active" id="quiz_step_1" data-step="1" data-name="heizung" tabindex="-1">
+          <legend class="sl-hc-quiz__q">{{ section.settings.q1 | escape }}</legend>
+          <div class="sl-hc-quiz__options sl-hc-quiz__options--list">
+            {%- for key in q1_keys -%}
+              <label class="sl-hc-opt">
+                <input class="sl-hc-opt__input" type="radio" name="heizung" value="{{ key }}" data-label="{{ q1_labels[forloop.index0] | escape }}">
+                <span class="sl-hc-opt__icon">{%- render 'sl-hc-icon', name: q1_icons[forloop.index0], size: 28 -%}</span>
+                <span class="sl-hc-opt__label">{{ q1_labels[forloop.index0] | escape }}</span>
+                <span class="sl-hc-opt__mark" aria-hidden="true"></span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+        <fieldset class="sl-hc-quiz__step" id="quiz_step_2" data-step="2" data-name="bereiche" tabindex="-1">
+          <legend class="sl-hc-quiz__q">{{ section.settings.q2 | escape }}</legend>
+          {%- if section.settings.q2_help != blank -%}
+            <p class="sl-hc-quiz__help">{{ section.settings.q2_help | escape }}</p>
+          {%- endif -%}
+          <div class="sl-hc-quiz__options sl-hc-quiz__options--numbers">
+            {%- for key in q2_keys -%}
+              <label class="sl-hc-opt sl-hc-opt--number">
+                <input class="sl-hc-opt__input" type="radio" name="bereiche" value="{{ key }}" data-label="{{ q2_labels[forloop.index0] | escape }}">
+                <span class="sl-hc-opt__num">{% if key == '4' %}4+{% else %}{{ key }}{% endif %}</span>
+                <span class="sl-hc-opt__label">{% if key == '4' %}oder mehr{% else %}{{ q2_subs[forloop.index0] }}{% endif %}</span>
+                <span class="sl-hc-opt__mark" aria-hidden="true"></span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+        <fieldset class="sl-hc-quiz__step" id="quiz_step_3" data-step="3" data-name="getrennt" tabindex="-1">
+          <legend class="sl-hc-quiz__q">{{ section.settings.q3 | escape }}</legend>
+          <div class="sl-hc-quiz__options sl-hc-quiz__options--list">
+            {%- for key in q3_keys -%}
+              <label class="sl-hc-opt">
+                <input class="sl-hc-opt__input" type="radio" name="getrennt" value="{{ key }}" data-label="{{ q3_labels[forloop.index0] | escape }}">
+                <span class="sl-hc-opt__label">{{ q3_labels[forloop.index0] | escape }}</span>
+                <span class="sl-hc-opt__mark" aria-hidden="true"></span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+        <fieldset class="sl-hc-quiz__step" id="quiz_step_4" data-step="4" data-name="extras" data-multi tabindex="-1">
+          <legend class="sl-hc-quiz__q">{{ section.settings.q4 | escape }}</legend>
+          {%- if section.settings.q4_help != blank -%}
+            <p class="sl-hc-quiz__help">{{ section.settings.q4_help | escape }}</p>
+          {%- endif -%}
+          <div class="sl-hc-quiz__options sl-hc-quiz__options--list">
+            {%- for key in q4_keys -%}
+              <label class="sl-hc-opt sl-hc-opt--check">
+                <input class="sl-hc-opt__input" type="checkbox" name="extras" value="{{ key }}" data-label="{{ q4_labels[forloop.index0] | escape }}"{% if key == 'none' %} data-exclusive{% endif %}>
+                <span class="sl-hc-opt__icon">
+                  {%- if q4_icons[forloop.index0] == 'bed' -%}
+                    {%- render 'sl-lp-icon', name: 'bed', size: 28 -%}
+                  {%- else -%}
+                    {%- render 'sl-hc-icon', name: q4_icons[forloop.index0], size: 28 -%}
+                  {%- endif -%}
+                </span>
+                <span class="sl-hc-opt__label">{{ q4_labels[forloop.index0] | escape }}</span>
+                <span class="sl-hc-opt__mark" aria-hidden="true"></span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+        <div class="sl-hc-quiz__nav" data-sl-hc-nav>
+          <button type="button" class="sl-hc-quiz__back" data-sl-hc-back hidden>
+            {%- render 'sl-lp-icon', name: 'arrow-right', size: 16, class: 'sl-hc-flip' -%}
+            <span>{{ section.settings.back_label | escape }}</span>
+          </button>
+          <button
+            type="button"
+            class="sl-lp-cta sl-lp-cta--primary sl-hc-quiz__next"
+            data-sl-hc-next
+            data-label-next="{{ section.settings.next_label | escape }}"
+            data-label-finish="{{ section.settings.finish_label | escape }}"
+            disabled
+          >
+            <span data-sl-hc-next-text>{{ section.settings.next_label | escape }}</span>
+            {%- render 'sl-lp-icon', name: 'arrow-right', size: 18 -%}
+          </button>
+        </div>
+
+        <div class="sl-hc-quiz__result" id="quiz_result" data-sl-hc-result hidden tabindex="-1">
+          {%- if section.settings.result_eyebrow != blank -%}
+            <p class="sl-lp-eyebrow sl-hc-quiz__reye">{{ section.settings.result_eyebrow | escape }}</p>
+          {%- endif -%}
+          <p class="sl-hc-quiz__rh">
+            {{ section.settings.result_prefix | escape }} <strong data-sl-hc-n></strong>.
+          </p>
+          <p class="sl-hc-quiz__why" data-sl-hc-why></p>
+          <div class="sl-hc-quiz__pick" data-sl-hc-pick hidden>
+            <span class="sl-hc-quiz__picklabel">{{ section.settings.pick_label | escape }}</span>
+            <strong class="sl-hc-quiz__pickname" data-sl-hc-pick-name></strong>
+            <span class="sl-hc-quiz__pickdeal" data-sl-hc-pick-deal></span>
+          </div>
+          <div class="sl-hc-quiz__ractions">
+            <a
+              href="#{{ offer_anchor }}"
+              id="quiz_result_cta"
+              class="sl-lp-cta sl-lp-cta--signal sl-lp-cta--xl"
+              data-sl-hc-apply
+              data-sl-track="quiz_result_cta"
+              data-sl-label="{{ section.settings.result_cta | escape }}"
+            >
+              <span>{{ section.settings.result_cta | escape }}</span>
+              {%- render 'sl-lp-icon', name: 'arrow-down', size: 20 -%}
+            </a>
+            <button type="button" class="sl-hc-quiz__restart" data-sl-hc-restart>{{ section.settings.restart_label | escape }}</button>
+          </div>
+        </div>
+      </form>
+
+      {%- if section.settings.fallback_note != blank -%}
+        <noscript><p class="sl-hc-quiz__noscript">{{ section.settings.fallback_note | escape }}</p></noscript>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.sticky -%}
+    <div class="sl-lp-sticky sl-hc-sticky" data-sl-hc-sticky hidden>
+      <div class="sl-lp-sticky__inner">
+        <p class="sl-lp-sticky__text sl-hc-sticky__text" data-sl-hc-sticky-text>
+          <span>{{ section.settings.sticky_text | escape }}</span>
+        </p>
+        <a
+          href="#{{ anchor }}"
+          id="sl-hc-sticky-cta"
+          class="sl-lp-cta sl-lp-cta--signal sl-lp-cta--small"
+          data-sl-hc-sticky-cta
+          data-sl-track="sticky_cta_click"
+          data-sl-label="{{ section.settings.sticky_label | escape }}"
+        >
+          {{- section.settings.sticky_label | escape -}}
+        </a>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "HC · Haus-Check",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Vier Fragen → Empfehlung 1–4 Messpunkte. Das Ergebnis wählt das passende Set in der Section „LP · Angebot“ aus (Sprungmarke unten)."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "haus-check"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "quiz"
+    },
+    {
+      "type": "text",
+      "id": "offer_anchor",
+      "label": "Sprungmarke des Angebots",
+      "default": "angebot"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" },
+        { "value": "sky", "label": "Heller Verlauf" }
+      ],
+      "default": "mist"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile",
+      "default": "60-Sekunden-Haus-Check"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift (H2)",
+      "default": "Wie viele Messpunkte passen zu deinem Zuhause?"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "header",
+      "content": "Fragen"
+    },
+    {
+      "type": "text",
+      "id": "q1",
+      "label": "Frage 1",
+      "default": "Wie heizt du?"
+    },
+    {
+      "type": "text",
+      "id": "q2",
+      "label": "Frage 2",
+      "default": "Wie viele getrennte Bereiche möchtest du im Blick behalten?"
+    },
+    {
+      "type": "text",
+      "id": "q2_help",
+      "label": "Hilfetext Frage 2",
+      "default": "Zum Beispiel Heizungsbereich, Schlafzimmer, Wohnbereich oder Garage."
+    },
+    {
+      "type": "text",
+      "id": "q3",
+      "label": "Frage 3",
+      "default": "Sind Schlafbereich und Heiz-/Gerätebereich getrennt?"
+    },
+    {
+      "type": "text",
+      "id": "q4",
+      "label": "Frage 4",
+      "default": "Gibt es zusätzlich einen dieser Bereiche?"
+    },
+    {
+      "type": "text",
+      "id": "q4_help",
+      "label": "Hilfetext Frage 4",
+      "default": "Mehrfachauswahl möglich."
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Button „Weiter“",
+      "default": "Weiter"
+    },
+    {
+      "type": "text",
+      "id": "finish_label",
+      "label": "Button nach Frage 4",
+      "default": "Ergebnis anzeigen"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Zurück",
+      "default": "Zurück"
+    },
+    {
+      "type": "header",
+      "content": "Ergebnis"
+    },
+    {
+      "type": "text",
+      "id": "result_eyebrow",
+      "label": "Dachzeile",
+      "default": "Dein Ergebnis"
+    },
+    {
+      "type": "text",
+      "id": "result_prefix",
+      "label": "Satzanfang",
+      "default": "Für deine Wohnsituation empfehlen wir"
+    },
+    {
+      "type": "text",
+      "id": "pick_label",
+      "label": "Beschriftung Set",
+      "default": "Passendes Set"
+    },
+    {
+      "type": "text",
+      "id": "result_cta",
+      "label": "Button",
+      "default": "Empfohlenes Set auswählen"
+    },
+    {
+      "type": "text",
+      "id": "restart_label",
+      "label": "Neu starten",
+      "default": "Haus-Check neu starten"
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Hinweis am empfohlenen Set (Angebot)",
+      "default": "Empfehlung aus deinem Haus-Check"
+    },
+    {
+      "type": "text",
+      "id": "final_cta_after",
+      "label": "Schluss-Button nach dem Haus-Check",
+      "info": "Ersetzt nach abgeschlossenem Haus-Check die Beschriftung des Schluss-Buttons (Section „LP · CTA-Box“ mit Tracking-Name final_cta).",
+      "default": "Empfohlenes Set auswählen"
+    },
+    {
+      "type": "text",
+      "id": "fallback_note",
+      "label": "Hinweis ohne JavaScript",
+      "default": "Faustregel ohne Haus-Check: ein Gerät pro Bereich, den du im Blick behalten willst."
+    },
+    {
+      "type": "header",
+      "content": "Mobile Sticky-Leiste"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky-Leiste anzeigen (nur mobil)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sticky_text",
+      "label": "Text vor dem Haus-Check",
+      "default": "4 Fragen · 60 Sekunden"
+    },
+    {
+      "type": "text",
+      "id": "sticky_label",
+      "label": "Button vor dem Haus-Check",
+      "default": "Haus-Check starten"
+    },
+    {
+      "type": "text",
+      "id": "sticky_after_prefix",
+      "label": "Text nach dem Haus-Check",
+      "default": "Empfohlen:"
+    },
+    {
+      "type": "text",
+      "id": "sticky_after_label",
+      "label": "Button nach dem Haus-Check",
+      "default": "Jetzt absichern"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Haus-Check"
+    }
+  ]
+}
+{% endschema %}

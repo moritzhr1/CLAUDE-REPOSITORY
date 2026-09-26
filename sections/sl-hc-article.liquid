@@ -1,0 +1,390 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · Artikel-Aufmacher (enthält das einzige h1 der Seite)
+  Redaktioneller Einstieg im Stil des Artikel-Kopfs der Wohnmobil-Seite: Ratgeber-Kopfzeile, Dachzeile,
+  Serifen-Schlagzeile, kursive Unterzeile, Autorenzeile zwischen Linien (gleiche Klassen wie
+  sections/sl-lp-article.liquid), Aufmacherbild mit Bildunterschrift, Vorspann, Kernsatz, Buttons.
+
+  Autorenzeile wie im Artikel-Kopf der Wohnmobil-Seite:
+  - Marke (Standard): Name + Signet (Favicon, falls kein eigenes Bild).
+  - Person: echter Name oder Pseudonym der tatsächlichen Autoren; erscheint live nur mit Name und
+    gesetztem Haken „Autorenschaft bestätigt“. Ohne Foto zeigt der Kreis die Initialen.
+  Tracking: Haupt-Button hero_cta, Textlink article_cta (jeweils auch als ID).
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'artikel' | handleize
+  assign track = section.settings.tracking_name | default: 'article' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+
+  assign wants_person = false
+  if section.settings.byline_mode == 'person'
+    assign wants_person = true
+  endif
+  assign person_live = false
+  if wants_person and section.settings.person_confirmed and section.settings.person_name != blank
+    assign person_live = true
+  endif
+
+  assign author_initials = ''
+  if person_live
+    assign author_name = section.settings.person_name
+    assign author_role = section.settings.person_role
+    assign author_image = section.settings.person_image
+    if author_image == blank
+      assign name_parts = author_name | strip | split: ' '
+      assign author_initials = name_parts.first | slice: 0
+      if name_parts.size > 1
+        assign last_initial = name_parts.last | slice: 0
+        assign author_initials = author_initials | append: last_initial
+      endif
+      assign author_initials = author_initials | upcase
+    endif
+  else
+    assign author_name = section.settings.brand_name
+    assign author_role = ''
+    assign author_image = section.settings.brand_image | default: settings.favicon
+  endif
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-lp-article sl-hc-article"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+  data-sl-page="{{ page.handle | default: template.suffix }}"
+>
+  <div class="sl-lp__container">
+    {%- if wants_person and person_live == false and request.design_mode -%}
+      {%- render 'sl-lp-devflag',
+        reason: 'Person erscheint erst live mit Name und gesetztem Haken „Autorenschaft bestätigt“. Bis dahin zeigt die Seite die Marken-Zeile.'
+      -%}
+    {%- endif -%}
+
+    <div class="sl-hc-article__grid{% if section.settings.image == blank %} sl-hc-article__grid--noimage{% endif %}">
+      <header class="sl-hc-article__head">
+        {%- if section.settings.masthead != blank or section.settings.meta_line != blank -%}
+          <div class="sl-hc-masthead">
+            {%- if section.settings.masthead != blank -%}
+              <p class="sl-hc-masthead__name">{{ section.settings.masthead | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.meta_line != blank -%}
+              <p class="sl-hc-masthead__meta">{{ section.settings.meta_line | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.kicker != blank -%}
+          <p class="sl-lp-article__kicker">{{ section.settings.kicker | escape }}</p>
+        {%- endif -%}
+        <h1 id="{{ heading_id }}" class="sl-hc-article__h1">{{ section.settings.heading | escape | newline_to_br }}</h1>
+        {%- if section.settings.deck != blank -%}
+          <p class="sl-lp-article__deck sl-hc-article__deck">{{ section.settings.deck | escape }}</p>
+        {%- endif -%}
+
+        {%- if author_name != blank or section.settings.date != blank -%}
+          <div class="sl-lp-article__byline sl-lp-article__byline--top">
+            {%- if author_image != blank -%}
+              <span class="sl-lp-article__avatar{% unless person_live %} sl-lp-article__avatar--brand{% endunless %}">
+                <img
+                  src="{{ author_image | image_url: width: 128 }}"
+                  srcset="{{ author_image | image_url: width: 64 }} 64w, {{ author_image | image_url: width: 128 }} 128w, {{ author_image | image_url: width: 192 }} 192w"
+                  sizes="64px"
+                  width="64"
+                  height="64"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                >
+              </span>
+            {%- elsif author_initials != blank -%}
+              <span class="sl-lp-article__avatar sl-lp-article__avatar--initials" aria-hidden="true">{{ author_initials | escape }}</span>
+            {%- endif -%}
+            <div class="sl-lp-article__byline-copy">
+              {%- if author_name != blank -%}
+                <p class="sl-lp-article__author">
+                  {%- if section.settings.name_prefix != blank -%}
+                    <span class="sl-lp-article__by">{{ section.settings.name_prefix | escape }} </span>
+                  {%- endif -%}
+                  {{- author_name | escape -}}
+                  {%- if author_role != blank -%}
+                    <span class="sl-lp-article__role">{{ author_role | escape }}</span>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+              {%- if section.settings.date != blank -%}
+                <p class="sl-lp-article__meta">
+                  <span class="sl-lp-article__date">
+                    {%- if section.settings.date_label != blank -%}{{ section.settings.date_label | escape }} {% endif -%}
+                    {{- section.settings.date | escape -}}
+                  </span>
+                </p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </header>
+
+      {%- if section.settings.image != blank -%}
+        <figure class="sl-hc-article__figure">
+          <div class="sl-hc-article__media">
+            {%- render 'sl-lp-image',
+              image: section.settings.image,
+              widths: '480,720,960,1206',
+              sizes: '(min-width: 990px) 46vw, 100vw',
+              loading: 'eager',
+              priority: true,
+              alt: section.settings.image_alt,
+              class: 'sl-hc-article__img'
+            -%}
+          </div>
+          {%- if section.settings.image_caption != blank -%}
+            <figcaption class="sl-hc-article__caption">{{ section.settings.image_caption | escape }}</figcaption>
+          {%- endif -%}
+        </figure>
+      {%- elsif request.design_mode -%}
+        {%- render 'sl-lp-devflag', reason: 'Aufmacherbild auswählen (normaler Haushalt am Abend)' -%}
+      {%- endif -%}
+    </div>
+
+    <div class="sl-hc-article__body">
+      {%- if section.settings.lead != blank -%}
+        <div class="sl-hc-article__lead sl-lp-rte">{{ section.settings.lead }}</div>
+      {%- endif -%}
+      {%- if section.settings.statement != blank -%}
+        <p class="sl-hc-article__statement">{{ section.settings.statement | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.bridge != blank -%}
+        <div class="sl-hc-article__bridge sl-lp-rte">{{ section.settings.bridge }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank or section.settings.secondary_label != blank -%}
+        <div class="sl-hc-article__actions">
+          {%- if section.settings.cta_label != blank -%}
+            <a
+              href="{{ section.settings.cta_link | default: '#haus-check' | escape }}"
+              id="hero_cta"
+              class="sl-lp-cta sl-lp-cta--signal sl-lp-cta--xl"
+              data-sl-track="hero_cta"
+              data-sl-label="{{ section.settings.cta_label | escape }}"
+            >
+              <span>{{ section.settings.cta_label | escape }}</span>
+              {%- render 'sl-lp-icon', name: 'arrow-down', size: 20 -%}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a
+              href="{{ section.settings.secondary_link | default: '#' | escape }}"
+              id="article_cta"
+              class="sl-lp-link"
+              data-sl-track="article_cta"
+              data-sl-label="{{ section.settings.secondary_label | escape }}"
+            >
+              {{- section.settings.secondary_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · Artikel-Aufmacher",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Redaktioneller Einstieg mit dem einzigen H1 der Seite. Autorenzeile wie im Artikel-Kopf der Wohnmobil-Seite."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "artikel"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "article"
+    },
+    {
+      "type": "text",
+      "id": "masthead",
+      "label": "Ratgeber-Kopfzeile",
+      "default": "SICHERLUFT Ratgeber"
+    },
+    {
+      "type": "text",
+      "id": "meta_line",
+      "label": "Redaktionszeile",
+      "info": "z. B. Heizsaison 2026 · 5 Min. Lesezeit"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Schlagzeile (H1)",
+      "info": "Zeilenumbruch = neue Zeile.",
+      "default": "Die Heizung wurde gewartet.\nAber wer misst die Luft danach?"
+    },
+    {
+      "type": "textarea",
+      "id": "deck",
+      "label": "Unterzeile (kursiv)"
+    },
+    {
+      "type": "header",
+      "content": "Autorenzeile"
+    },
+    {
+      "type": "select",
+      "id": "byline_mode",
+      "label": "Absender",
+      "options": [
+        { "value": "brand", "label": "Marke" },
+        { "value": "person", "label": "Person" }
+      ],
+      "default": "brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Name (Marke)",
+      "default": "SICHERLUFT Ratgeber"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Signet (Marke)",
+      "info": "Leer = Favicon des Shops."
+    },
+    {
+      "type": "text",
+      "id": "person_name",
+      "label": "Name (Person)",
+      "info": "Echter Name oder Pseudonym der tatsächlichen Autoren."
+    },
+    {
+      "type": "text",
+      "id": "person_role",
+      "label": "Titel / Funktion (Person)",
+      "info": "Nur echte, nachweisbare Titel und Funktionen."
+    },
+    {
+      "type": "image_picker",
+      "id": "person_image",
+      "label": "Foto (Person)",
+      "info": "Nur ein echtes Foto der Person, für die der Name steht, mit ihrer Einwilligung. Ohne Foto zeigt der Kreis die Initialen."
+    },
+    {
+      "type": "checkbox",
+      "id": "person_confirmed",
+      "label": "Autorenschaft bestätigt",
+      "info": "Bestätigt: Der Name steht für die tatsächlichen Autoren dieses Textes (Pseudonym möglich); ein Foto zeigt die echte Person mit ihrer Einwilligung. Ohne Haken erscheint live die Marken-Zeile.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "name_prefix",
+      "label": "Text vor dem Namen",
+      "default": "Von"
+    },
+    {
+      "type": "text",
+      "id": "date_label",
+      "label": "Text vor dem Datum",
+      "default": "zuletzt bearbeitet:"
+    },
+    {
+      "type": "text",
+      "id": "date",
+      "label": "Datum",
+      "info": "z. B. 26.09.2026"
+    },
+    {
+      "type": "header",
+      "content": "Aufmacherbild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild",
+      "info": "Normaler Haushalt am Abend, keine Katastrophe. Quadratisch oder hochkant."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Alternativtext"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Bildunterschrift",
+      "default": "Symbolbild"
+    },
+    {
+      "type": "header",
+      "content": "Artikeltext"
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Vorspann"
+    },
+    {
+      "type": "text",
+      "id": "statement",
+      "label": "Kernsatz (hervorgehoben)"
+    },
+    {
+      "type": "richtext",
+      "id": "bridge",
+      "label": "Überleitung"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Haupt-Button",
+      "default": "60-Sekunden-Haus-Check starten"
+    },
+    {
+      "type": "text",
+      "id": "cta_link",
+      "label": "Ziel Haupt-Button",
+      "default": "#haus-check"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Textlink",
+      "default": "Warum das wichtig ist"
+    },
+    {
+      "type": "text",
+      "id": "secondary_link",
+      "label": "Ziel Textlink",
+      "default": "#heiznacht"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Artikel-Aufmacher"
+    }
+  ]
+}
+{% endschema %}

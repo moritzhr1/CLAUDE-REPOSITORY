@@ -1,0 +1,260 @@
+{%- comment -%}
+  SICHERLUFT Heizsaison-Check · Wartung und Messung
+  Kernargument der Seite im Artikel-Stil: Die Wartung prüft die Anlage zu einem Zeitpunkt,
+  laufende Messung behält die Raumluft im Blick. Fachbetriebe und Wartung werden ausdrücklich als
+  wichtig dargestellt – es geht um zwei unterschiedliche Aufgaben.
+  Aufbau: Serifen-Schlagzeile, Einleitung, großer Satz („Momentaufnahme“), drei Zeilen, Gegenüberstellung
+  (links Wartung mit Symbol, rechts Messung mit echtem Display-Ausschnitt), Zitat.
+  Tracking: data-sl-section / data-sl-view = Tracking-Name (Standard maintenance_section).
+{%- endcomment -%}
+{%- render 'sl-lp-assets' -%}
+{%- render 'sl-hc-assets' -%}
+{%- liquid
+  assign anchor = section.settings.anchor | default: 'wartung' | handleize
+  assign track = section.settings.tracking_name | default: 'maintenance_section' | handleize | replace: '-', '_'
+  assign heading_id = 'SlHcHeading-' | append: section.id
+  assign not_lines = section.settings.break_text | newline_to_br | split: '<br />'
+  assign months = 'J,F,M,A,M,J,J,A,S,O,N,D' | split: ','
+  assign visit_month = section.settings.visit_month | default: 10
+-%}
+
+<section
+  id="{{ anchor }}"
+  class="sl-lp sl-hc-maint sl-lp--{{ section.settings.background }} sl-lp--space-{{ section.settings.spacing }}"
+  aria-labelledby="{{ heading_id }}"
+  data-sl-section="{{ track }}"
+  data-sl-view="{{ track }}"
+>
+  <div class="sl-lp__container">
+    <header class="sl-hc-maint__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sl-lp-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 id="{{ heading_id }}" class="sl-hc-maint__h">{{ section.settings.heading | escape | newline_to_br }}</h2>
+      {%- if section.settings.intro != blank -%}
+        <div class="sl-hc-maint__intro sl-lp-rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+
+    {%- if section.settings.break_line != blank -%}
+      <div class="sl-hc-maint__break">
+        <p class="sl-hc-maint__breakline">{{ section.settings.break_line | escape }}</p>
+        {%- if section.settings.break_text != blank -%}
+          <ul class="sl-hc-maint__not" role="list">
+            {%- for line in not_lines -%}
+              {%- assign l = line | strip -%}
+              {%- if l == blank -%}{%- continue -%}{%- endif -%}
+              <li>{{ l | escape }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.compare_intro != blank -%}
+      <p class="sl-hc-maint__subhead">{{ section.settings.compare_intro | escape }}</p>
+    {%- endif -%}
+
+    <div class="sl-hc-compare">
+      <div class="sl-hc-compare__card sl-hc-compare__card--visit">
+        <div class="sl-hc-compare__visual sl-hc-compare__visual--icons" aria-hidden="true">
+          <span class="sl-hc-compare__icon">{%- render 'sl-hc-icon', name: 'wrench', size: 34 -%}</span>
+          <span class="sl-hc-compare__icon">{%- render 'sl-lp-icon', name: 'document-check', size: 34 -%}</span>
+        </div>
+        <p class="sl-hc-compare__label">{{ section.settings.left_label | escape }}</p>
+        <p class="sl-hc-compare__text">{{ section.settings.left_text | escape | newline_to_br }}</p>
+        <div class="sl-hc-year sl-hc-year--once" aria-hidden="true">
+          <ol class="sl-hc-year__ticks" role="list">
+            {%- for m in months -%}
+              <li class="sl-hc-year__tick{% if forloop.index == visit_month %} is-on{% endif %}"><span>{{ m }}</span></li>
+            {%- endfor -%}
+          </ol>
+        </div>
+      </div>
+
+      <div class="sl-hc-compare__card sl-hc-compare__card--measure">
+        <div class="sl-hc-compare__visual sl-hc-compare__visual--display" aria-hidden="true">
+          {%- if section.settings.display_image != blank -%}
+            {%- render 'sl-lp-image',
+              image: section.settings.display_image,
+              crop: 'region',
+              region: section.settings.display_region,
+              widths: '160,240,320,480',
+              sizes: '160px',
+              alt: '',
+              class: 'sl-hc-compare__display'
+            -%}
+          {%- else -%}
+            <span class="sl-hc-compare__icon">{%- render 'sl-lp-icon', name: 'display', size: 34 -%}</span>
+          {%- endif -%}
+        </div>
+        <p class="sl-hc-compare__label">{{ section.settings.right_label | escape }}</p>
+        <p class="sl-hc-compare__text">{{ section.settings.right_text | escape | newline_to_br }}</p>
+        <div class="sl-hc-year sl-hc-year--always" aria-hidden="true">
+          <ol class="sl-hc-year__ticks" role="list">
+            {%- for m in months -%}
+              <li class="sl-hc-year__tick is-on"><span>{{ m }}</span></li>
+            {%- endfor -%}
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.quote != blank -%}
+      <figure class="sl-hc-quote">
+        <blockquote class="sl-hc-quote__text">
+          <p>{{ section.settings.quote | escape | newline_to_br }}</p>
+        </blockquote>
+      </figure>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "HC · Wartung vs. Messung",
+  "tag": "div",
+  "class": "sl-lp-shopify-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Sprungmarke (ID)",
+      "default": "wartung"
+    },
+    {
+      "type": "text",
+      "id": "tracking_name",
+      "label": "Tracking-Name",
+      "default": "maintenance_section"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "white", "label": "Weiß" },
+        { "value": "mist", "label": "Hellblau-Grau" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Abstand oben/unten",
+      "options": [
+        { "value": "compact", "label": "Kompakt" },
+        { "value": "normal", "label": "Normal" },
+        { "value": "large", "label": "Groß" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dachzeile"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Schlagzeile (H2)",
+      "info": "Zeilenumbruch = neue Zeile.",
+      "default": "Der Handwerker war da.\nDie Therme wurde gewartet.\nUnd seitdem?"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Einleitung"
+    },
+    {
+      "type": "text",
+      "id": "break_line",
+      "label": "Großer Satz",
+      "default": "Aber eine Wartung ist eine Momentaufnahme."
+    },
+    {
+      "type": "textarea",
+      "id": "break_text",
+      "label": "Zeilen darunter",
+      "info": "Eine Zeile pro Aussage."
+    },
+    {
+      "type": "text",
+      "id": "compare_intro",
+      "label": "Überleitung zur Gegenüberstellung"
+    },
+    {
+      "type": "header",
+      "content": "Links: Wartung"
+    },
+    {
+      "type": "text",
+      "id": "left_label",
+      "label": "Beschriftung",
+      "default": "Wartung"
+    },
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Text",
+      "default": "Ein Termin.\nDie Anlage wird geprüft."
+    },
+    {
+      "type": "range",
+      "id": "visit_month",
+      "label": "Markierter Monat im Jahresband",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Rechts: Messung"
+    },
+    {
+      "type": "text",
+      "id": "right_label",
+      "label": "Beschriftung",
+      "default": "Messung"
+    },
+    {
+      "type": "textarea",
+      "id": "right_text",
+      "label": "Text",
+      "default": "Tag für Tag.\nMesswerte direkt sichtbar."
+    },
+    {
+      "type": "image_picker",
+      "id": "display_image",
+      "label": "Foto mit Display (echtes Gerät)",
+      "info": "Empfohlen: sicherluft-echtes-produktfoto-referenz.jpg"
+    },
+    {
+      "type": "text",
+      "id": "display_region",
+      "label": "Ausschnitt",
+      "default": "146,98,234,371",
+      "info": "links, oben, Breite, Höhe in Promille des Fotos. 146,98,234,371 = Display auf dem Referenzfoto."
+    },
+    {
+      "type": "header",
+      "content": "Zitat"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Zitat",
+      "default": "Die Wartung war wichtig.\nAber wer misst heute?"
+    }
+  ],
+  "presets": [
+    {
+      "name": "HC · Wartung vs. Messung"
+    }
+  ]
+}
+{% endschema %}

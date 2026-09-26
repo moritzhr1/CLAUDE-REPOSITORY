@@ -1,0 +1,1023 @@
+/*
+ * SICHERLUFT Heizsaison-Check (sl-hc-*) – ergänzt das Landingpage-Kit (assets/sl-lp.css).
+ * Wird nur von sl-hc-Sections geladen und wirkt deshalb nur auf Seiten mit diesen Sections.
+ * Gestaltung übernimmt Tokens und Bausteine der Wohnmobil-Seite (Farben, Buttons, Karten, Linien).
+ *
+ * Kaskade: Jede sl-lp-Section bindet sl-lp.css erneut ein, spätere Kopien stehen hinter dieser Datei.
+ * Anpassungen an sl-lp-Klassen deshalb immer mit höherer Spezifität (über eine sl-hc-Klasse).
+ * Serifen-Elemente brauchen font-family mit !important, weil das Theme p/span/div global überschreibt.
+ */
+
+/* ---------- Redaktions-Tokens (wie Artikel-Kopf der Wohnmobil-Seite) ---------- */
+.sl-lp.sl-hc-article,
+.sl-lp.sl-hc-maint {
+  --sl-article-ink: #20201d;
+  --sl-article-soft: #59564f;
+  --sl-article-rule: #c9c3b8;
+  --sl-article-kicker: #075b91;
+  --sl-article-serif: Georgia, 'Times New Roman', serif;
+}
+
+.sl-hc-flip {
+  transform: rotate(180deg);
+}
+
+/* =====================================================================
+ * Artikel-Aufmacher
+ * ===================================================================== */
+.sl-lp.sl-lp-article.sl-hc-article {
+  padding-block: 2.8rem 5.6rem;
+}
+
+.sl-hc-masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.6rem;
+  margin-bottom: 2.4rem;
+  padding: 1rem 0 0.9rem;
+  border-top: 3px solid var(--sl-article-ink);
+  border-bottom: 1px solid var(--sl-article-rule);
+}
+
+.sl-lp .sl-hc-masthead__name {
+  color: var(--sl-article-ink);
+  font-size: 1.3rem;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.sl-lp .sl-hc-masthead__meta {
+  color: var(--sl-article-soft);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sl-lp .sl-hc-article__h1 {
+  color: var(--sl-article-ink) !important;
+  font-family: var(--sl-article-serif) !important;
+  font-size: clamp(3.2rem, 1.9rem + 3.4vw, 5.6rem);
+  font-weight: 600 !important;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.sl-lp .sl-hc-article__deck {
+  margin-top: 1.6rem;
+}
+
+.sl-hc-article .sl-lp-article__byline--top {
+  margin-bottom: 0;
+}
+
+.sl-lp .sl-hc-article__figure {
+  margin: 2.8rem calc(var(--sl-gutter) * -1) 0;
+}
+
+.sl-hc-article__media {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #1c1813;
+}
+
+.sl-lp .sl-hc-article__media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.sl-lp .sl-hc-article__caption {
+  padding: 0.8rem var(--sl-gutter) 0;
+  color: var(--sl-article-soft);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+.sl-hc-article__body {
+  max-width: 68rem;
+  margin-top: 3.2rem;
+}
+
+.sl-lp .sl-hc-article__lead,
+.sl-lp .sl-hc-article__bridge {
+  color: var(--sl-article-ink);
+  font-size: clamp(1.8rem, 1.62rem + 0.45vw, 2.1rem);
+  line-height: 1.62;
+}
+
+.sl-lp .sl-hc-article__lead p,
+.sl-lp .sl-hc-article__bridge p {
+  font-family: var(--sl-article-serif) !important;
+}
+
+.sl-lp .sl-hc-article__statement {
+  margin-top: 2.8rem;
+  padding-left: 1.6rem;
+  border-left: 4px solid var(--sl-signal);
+  color: var(--sl-article-ink);
+  font-family: var(--sl-article-serif) !important;
+  font-size: clamp(2.3rem, 1.8rem + 1.3vw, 3.2rem);
+  font-weight: 600 !important;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.sl-lp .sl-hc-article__bridge {
+  margin-top: 2.8rem;
+}
+
+.sl-hc-article__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 2.4rem;
+  margin-top: 3.2rem;
+}
+
+.sl-hc-article__actions .sl-lp-cta {
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .sl-lp .sl-hc-article__actions .sl-lp-cta {
+    padding-inline: 1.6rem;
+    font-size: 1.65rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .sl-lp.sl-lp-article.sl-hc-article {
+    padding-block: 4rem 7.2rem;
+  }
+
+  .sl-lp .sl-hc-article__figure {
+    margin-inline: 0;
+  }
+
+  .sl-lp .sl-hc-article__caption {
+    padding-inline: 0;
+  }
+
+  .sl-hc-article__actions .sl-lp-cta {
+    width: auto;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-lp.sl-lp-article.sl-hc-article {
+    padding-block: 4.8rem 9.6rem;
+  }
+
+  .sl-hc-article__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 6.4rem;
+    align-items: center;
+  }
+
+  .sl-hc-article__grid--noimage {
+    grid-template-columns: minmax(0, 72rem);
+  }
+
+  .sl-lp .sl-hc-article__figure {
+    margin-top: 0;
+  }
+
+  .sl-hc-article__body {
+    margin-top: 6.4rem;
+  }
+}
+
+/* =====================================================================
+ * Wartung vs. Messung
+ * ===================================================================== */
+.sl-hc-maint__head {
+  max-width: 72rem;
+}
+
+.sl-lp .sl-hc-maint__h {
+  color: var(--sl-article-ink) !important;
+  font-family: var(--sl-article-serif) !important;
+  font-size: clamp(3rem, 2rem + 2.6vw, 5rem);
+  font-weight: 600 !important;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.sl-lp .sl-hc-maint__intro {
+  margin-top: 2rem;
+  max-width: 58ch;
+  color: var(--sl-article-ink);
+  font-size: clamp(1.8rem, 1.62rem + 0.45vw, 2.1rem);
+  line-height: 1.6;
+}
+
+.sl-lp .sl-hc-maint__intro p {
+  font-family: var(--sl-article-serif) !important;
+}
+
+.sl-hc-maint__break {
+  margin-top: 4.8rem;
+  padding-block: 3.2rem;
+  border-top: 1px solid var(--sl-article-rule);
+  border-bottom: 1px solid var(--sl-article-rule);
+}
+
+.sl-lp .sl-hc-maint__breakline {
+  color: var(--sl-article-ink);
+  font-family: var(--sl-article-serif) !important;
+  font-size: clamp(3.1rem, 2rem + 2.8vw, 5.2rem);
+  text-wrap: balance;
+  font-weight: 600 !important;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.sl-lp .sl-hc-maint__not {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 2.4rem;
+}
+
+.sl-lp .sl-hc-maint__not li {
+  position: relative;
+  padding-left: 2.8rem;
+  color: var(--sl-ink);
+  font-size: clamp(1.8rem, 1.6rem + 0.5vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.sl-lp .sl-hc-maint__not li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 1.6rem;
+  height: 2px;
+  background: var(--sl-signal);
+}
+
+.sl-lp .sl-hc-maint__subhead {
+  margin-top: 4.8rem;
+  max-width: 36ch;
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(2.2rem, 1.8rem + 1.1vw, 3rem);
+  font-weight: 700 !important;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.sl-hc-compare {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 2.8rem;
+}
+
+.sl-hc-compare__card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  padding: 2.8rem 2.4rem 2.4rem;
+  border: 1px solid var(--sl-line);
+  border-radius: var(--sl-radius);
+  background: #fff;
+}
+
+.sl-hc-compare__card--visit {
+  background: var(--sl-mist);
+  border-color: transparent;
+}
+
+.sl-hc-compare__card--measure {
+  border-color: transparent;
+  background: radial-gradient(120% 90% at 85% 0%, rgba(20, 70, 118, 0.85) 0%, rgba(20, 70, 118, 0) 60%),
+    linear-gradient(180deg, var(--sl-night) 0%, var(--sl-night-2) 100%);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.sl-hc-compare__visual {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 12.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.sl-hc-compare__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 1.6rem;
+  background: #fff;
+  color: var(--sl-navy);
+  box-shadow: var(--sl-shadow);
+}
+
+.sl-hc-compare__card--measure .sl-hc-compare__icon {
+  background: rgba(255, 255, 255, 0.08);
+  color: #8fd1ff;
+  box-shadow: none;
+}
+
+.sl-lp .sl-hc-compare__display {
+  width: 8rem;
+  height: auto;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 40px rgba(143, 209, 255, 0.35);
+}
+
+.sl-lp .sl-hc-compare__label {
+  color: var(--sl-blue-ink);
+  font-size: 1.3rem;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.sl-lp .sl-hc-compare__card--measure .sl-hc-compare__label {
+  color: #8fd1ff;
+}
+
+.sl-lp .sl-hc-compare__text {
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(2.2rem, 1.9rem + 0.8vw, 2.8rem);
+  font-weight: 700 !important;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.sl-lp .sl-hc-compare__card--measure .sl-hc-compare__text {
+  color: #fff;
+}
+
+/* Jahresband: Wartung = ein Termin, Messung = jeden Tag */
+.sl-hc-year {
+  margin-top: 1.6rem;
+}
+
+.sl-lp .sl-hc-year__ticks {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+}
+
+.sl-lp .sl-hc-year__ticks::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--sl-line-strong);
+}
+
+.sl-hc-year__tick {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+
+.sl-hc-year__tick::before {
+  content: '';
+  position: relative;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 2px var(--sl-line-strong);
+}
+
+.sl-hc-year__tick.is-on::before {
+  background: var(--sl-navy);
+  box-shadow: 0 0 0 4px rgba(8, 43, 74, 0.12);
+}
+
+.sl-lp .sl-hc-year__tick span {
+  color: var(--sl-soft-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.sl-hc-year--always .sl-hc-year__ticks::before {
+  background: linear-gradient(90deg, #22b567, #8fd1ff);
+  height: 3px;
+}
+
+.sl-hc-year--always .sl-hc-year__tick::before {
+  background: #8fd1ff;
+  box-shadow: none;
+}
+
+.sl-lp .sl-hc-year--always .sl-hc-year__tick span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Zitat */
+.sl-lp .sl-hc-quote {
+  margin: 5.6rem auto 0;
+  max-width: 78rem;
+  padding: 3.2rem 0;
+  border-top: 3px solid var(--sl-article-ink);
+  border-bottom: 1px solid var(--sl-article-rule);
+  text-align: center;
+}
+
+.sl-lp .sl-hc-quote__text p {
+  color: var(--sl-article-ink);
+  font-family: var(--sl-article-serif) !important;
+  font-size: clamp(3rem, 1.8rem + 3.4vw, 5.4rem);
+  font-style: italic;
+  font-weight: 600 !important;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.sl-lp .sl-hc-quote__text p::before {
+  content: '„';
+  color: var(--sl-signal);
+}
+
+.sl-lp .sl-hc-quote__text p::after {
+  content: '“';
+  color: var(--sl-signal);
+}
+
+@media screen and (min-width: 750px) {
+  .sl-hc-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+
+  .sl-hc-compare__card {
+    padding: 3.6rem 3.2rem 3.2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-hc-maint__break {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 6.4rem;
+    align-items: end;
+    margin-top: 6.4rem;
+    padding-block: 4.8rem;
+  }
+
+  .sl-lp .sl-hc-maint__not {
+    margin-top: 0;
+  }
+
+  .sl-lp .sl-hc-maint__subhead {
+    margin-top: 6.4rem;
+  }
+
+  .sl-lp .sl-hc-quote {
+    margin-top: 8rem;
+    padding: 4.8rem 0;
+  }
+}
+
+/* =====================================================================
+ * CO und Gas
+ * ===================================================================== */
+.sl-hc-duo__grid {
+  display: grid;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.sl-hc-duo__item {
+  display: grid;
+  gap: 0.6rem;
+  padding: 2.8rem 2.4rem;
+  border-top: 3px solid var(--sl-ink);
+  border-radius: 0 0 var(--sl-radius) var(--sl-radius);
+  background: #fff;
+  box-shadow: var(--sl-shadow);
+}
+
+.sl-hc-duo__item--gas {
+  border-top-color: var(--sl-blue-ink);
+}
+
+.sl-lp .sl-hc-duo__symbol {
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(5.6rem, 4rem + 4vw, 8.8rem);
+  font-weight: 700 !important;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.sl-lp .sl-hc-duo__item--gas .sl-hc-duo__symbol {
+  color: var(--sl-blue-ink);
+}
+
+.sl-lp .sl-hc-duo__name {
+  color: var(--sl-soft-color) !important;
+  font-family: var(--sl-font-b) !important;
+  font-size: 1.3rem;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sl-lp .sl-hc-duo__lines {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 0.8rem;
+}
+
+.sl-lp .sl-hc-duo__lines li {
+  color: var(--sl-ink);
+  font-size: clamp(1.9rem, 1.7rem + 0.5vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.sl-lp .sl-hc-duo__unit {
+  margin-top: 1.2rem;
+  color: var(--sl-soft-color);
+  font-size: 1.35rem;
+}
+
+.sl-hc-duo__display {
+  justify-self: center;
+  width: min(24rem, 64vw);
+  padding: 1.2rem;
+  border-radius: 2.4rem;
+  background: #0b0f14;
+  box-shadow: 0 30px 60px -30px rgba(8, 43, 74, 0.6), 0 0 0 1px rgba(8, 43, 74, 0.08);
+}
+
+.sl-lp .sl-hc-duo__img {
+  width: 100%;
+  border-radius: 1.2rem;
+}
+
+.sl-lp .sl-hc-duo__closing {
+  margin: 4rem auto 0;
+  max-width: 30ch;
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(2.2rem, 1.8rem + 1.1vw, 3rem);
+  font-weight: 700 !important;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+@media screen and (max-width: 989px) {
+  .sl-lp .sl-hc-duo__display {
+    order: 3;
+    margin-top: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sl-hc-duo__grid {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 4rem;
+  }
+
+  .sl-hc-duo__display {
+    width: 22rem;
+  }
+
+  .sl-hc-duo__item {
+    align-self: stretch;
+    align-content: start;
+    padding: 3.6rem 3.2rem;
+  }
+}
+
+/* =====================================================================
+ * 60-Sekunden-Haus-Check
+ * ===================================================================== */
+.sl-hc-quiz__card {
+  position: relative;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding: 2.4rem 2rem 2.8rem;
+  border-radius: var(--sl-radius);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(8, 43, 74, 0.06), 0 24px 60px -24px rgba(8, 43, 74, 0.25);
+}
+
+.sl-hc-quiz__progress {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.sl-lp .sl-hc-quiz__count {
+  flex-shrink: 0;
+  color: var(--sl-navy);
+  font-size: 1.4rem;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.sl-hc-quiz__bar {
+  position: relative;
+  flex: 1;
+  height: 0.6rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--sl-mist);
+}
+
+.sl-hc-quiz__bar span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 25%;
+  border-radius: inherit;
+  background: var(--sl-signal);
+  transition: width 0.35s ease;
+}
+
+.sl-lp .sl-hc-quiz__step {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+.sl-hc-quiz.is-ready .sl-hc-quiz__step:not(.is-active),
+.sl-hc-quiz__step[hidden],
+.sl-hc-quiz__result[hidden],
+.sl-hc-quiz__nav[hidden],
+.sl-hc-quiz__pick[hidden],
+.sl-hc-quiz__back[hidden] {
+  display: none !important;
+}
+
+.sl-hc-quiz:not(.is-ready) .sl-hc-quiz__step + .sl-hc-quiz__step {
+  margin-top: 3.2rem;
+}
+
+.sl-lp .sl-hc-quiz__q {
+  margin-bottom: 1.6rem;
+  padding: 0;
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(2.2rem, 1.9rem + 0.9vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.sl-lp .sl-hc-quiz__help {
+  margin: -0.8rem 0 1.6rem;
+  color: var(--sl-soft-color);
+  font-size: 1.5rem;
+}
+
+.sl-hc-quiz__options {
+  display: grid;
+  gap: 1rem;
+}
+
+.sl-hc-quiz__options--numbers {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sl-hc-opt {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.4rem;
+  min-height: 6.4rem;
+  padding: 1.2rem 1.6rem;
+  border: 1.5px solid var(--sl-line-strong);
+  border-radius: var(--sl-radius-sm);
+  background: #fff;
+  color: var(--sl-ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sl-hc-opt:not(:has(.sl-hc-opt__icon)) {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.sl-hc-opt:hover {
+  border-color: var(--sl-navy);
+}
+
+.sl-hc-opt.is-checked,
+.sl-hc-opt:has(.sl-hc-opt__input:checked) {
+  border-color: var(--sl-signal);
+  background: #fff8f4;
+  box-shadow: 0 0 0 1px var(--sl-signal);
+}
+
+.sl-hc-opt:has(.sl-hc-opt__input:focus-visible) {
+  outline: 3px solid var(--sl-blue);
+  outline-offset: 2px;
+}
+
+.sl-hc-opt__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sl-hc-opt__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 1.2rem;
+  background: var(--sl-mist);
+  color: var(--sl-navy);
+}
+
+.sl-hc-opt.is-checked .sl-hc-opt__icon,
+.sl-hc-opt:has(.sl-hc-opt__input:checked) .sl-hc-opt__icon {
+  background: #ffe6da;
+  color: var(--sl-signal-ink);
+}
+
+.sl-lp .sl-hc-opt__label {
+  font-size: 1.65rem;
+  font-weight: 600 !important;
+  line-height: 1.3;
+}
+
+.sl-hc-opt__mark {
+  position: relative;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--sl-line-strong);
+}
+
+.sl-hc-opt--check .sl-hc-opt__mark {
+  border-radius: 0.6rem;
+}
+
+.sl-hc-opt.is-checked .sl-hc-opt__mark,
+.sl-hc-opt:has(.sl-hc-opt__input:checked) .sl-hc-opt__mark {
+  background: var(--sl-signal);
+  box-shadow: none;
+}
+
+.sl-hc-opt.is-checked .sl-hc-opt__mark::after,
+.sl-hc-opt:has(.sl-hc-opt__input:checked) .sl-hc-opt__mark::after {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  left: 0.75rem;
+  width: 0.6rem;
+  height: 1rem;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.sl-hc-opt--number {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'num mark' 'label mark';
+  align-items: end;
+  row-gap: 0.2rem;
+  min-height: 9.6rem;
+  padding: 1.6rem;
+}
+
+.sl-lp .sl-hc-opt__num {
+  grid-area: num;
+  color: var(--sl-navy);
+  font-family: var(--sl-font-h);
+  font-size: 4rem;
+  font-weight: 700 !important;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.sl-hc-opt--number .sl-hc-opt__label {
+  grid-area: label;
+  color: var(--sl-soft-color);
+  font-size: 1.4rem;
+}
+
+.sl-hc-opt--number .sl-hc-opt__mark {
+  grid-area: mark;
+  align-self: start;
+}
+
+.sl-hc-quiz__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+}
+
+.sl-lp button.sl-hc-quiz__back,
+.sl-lp button.sl-hc-quiz__restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  padding: 0 0.4rem !important;
+  border: 0 !important;
+  background: none !important;
+  color: var(--sl-navy) !important;
+  font-family: var(--sl-font-b) !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-decoration: underline;
+  text-transform: none !important;
+  text-underline-offset: 0.3em;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+
+.sl-lp button.sl-hc-quiz__next {
+  margin-left: auto;
+}
+
+.sl-lp button.sl-hc-quiz__next[disabled] {
+  opacity: 0.35;
+}
+
+.sl-hc-quiz__result {
+  outline: none;
+  text-align: center;
+}
+
+.sl-lp .sl-hc-quiz__reye {
+  margin-bottom: 1rem;
+  color: var(--sl-signal-ink);
+}
+
+.sl-lp .sl-hc-quiz__rh {
+  color: var(--sl-ink);
+  font-family: var(--sl-font-h);
+  font-size: clamp(2.6rem, 2rem + 1.8vw, 4rem);
+  font-weight: 700 !important;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.sl-lp .sl-hc-quiz__rh strong {
+  color: var(--sl-signal-ink);
+  font-weight: 700 !important;
+  white-space: nowrap;
+}
+
+.sl-lp .sl-hc-quiz__why {
+  max-width: 56ch;
+  margin: 1.6rem auto 0;
+  color: var(--sl-soft-color);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.sl-hc-quiz__pick {
+  display: grid;
+  gap: 0.2rem;
+  margin: 2.4rem auto 0;
+  max-width: 42rem;
+  padding: 1.6rem 2rem;
+  border-radius: var(--sl-radius-sm);
+  background: var(--sl-mist);
+}
+
+.sl-lp .sl-hc-quiz__picklabel {
+  color: var(--sl-soft-color);
+  font-size: 1.2rem;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sl-lp .sl-hc-quiz__pickname {
+  color: var(--sl-ink);
+  font-size: 2.2rem;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.sl-lp .sl-hc-quiz__pickdeal {
+  color: var(--sl-ok);
+  font-size: 1.4rem;
+  font-weight: 600 !important;
+}
+
+.sl-hc-quiz__ractions {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+}
+
+.sl-hc-quiz__ractions .sl-lp-cta {
+  width: 100%;
+}
+
+.sl-lp .sl-hc-quiz__noscript {
+  margin-top: 2.4rem;
+  color: var(--sl-soft-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .sl-hc-quiz__card {
+    padding: 3.6rem 4.8rem 4rem;
+  }
+
+  .sl-hc-quiz__options--numbers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sl-hc-quiz__ractions .sl-lp-cta {
+    width: auto;
+  }
+}
+
+/* =====================================================================
+ * Angebot: Empfehlung aus dem Haus-Check (Klassen des Kits, hier nur ergänzt)
+ * ===================================================================== */
+.sl-lp-offer .sl-lp-option.sl-hc-reco {
+  scroll-margin-top: 12rem;
+}
+
+/* =====================================================================
+ * Haus-/Raumplan
+ * ===================================================================== */
+.sl-hc-house .sl-lp-plan__canvas.sl-hc-house__canvas {
+  aspect-ratio: 900 / 560;
+}
+
+@media screen and (min-width: 990px) {
+  .sl-hc-house .sl-lp-plan__zones.sl-hc-house__zones {
+    grid-template-columns: repeat(6, auto);
+  }
+}
+
+/* =====================================================================
+ * Mobile Sticky-Leiste (Klassen des Kits, Text darf umbrechen)
+ * ===================================================================== */
+/* deckend: große Überschriften dahinter scheinen sonst durch */
+.sl-lp-sticky.sl-hc-sticky {
+  background: #ffffff;
+}
+
+.sl-lp .sl-lp-sticky.sl-hc-sticky .sl-lp-sticky__text {
+  flex-wrap: wrap;
+  min-width: 0;
+  white-space: normal;
+}
+
+.sl-lp .sl-lp-sticky.sl-hc-sticky .sl-lp-sticky__text strong {
+  font-size: 1.7rem;
+}
+
+.sl-lp .sl-lp-sticky.sl-hc-sticky .sl-lp-cta--small {
+  flex-shrink: 0;
+  padding: 0 1.6rem;
+}
+
+/* =====================================================================
+ * Satzweise Zeilen in Überschriften wiederverwendeter Sections (sl-hc.js setzt die Spans)
+ * ===================================================================== */
+.sl-hc-line {
+  display: block;
+}
+
+/* sl-hc.css wird nur auf dieser Seite geladen – gilt damit nur für die Grünes-Licht-Section hier */
+.sl-lp .sl-lp-contrast__closing {
+  text-wrap: balance;
+}
