@@ -132,6 +132,8 @@
     (function () {
       if (customElements.get('sicherluft-loop-video')) return;
 
+      var RETRY_EVENTS = ['touchend', 'click', 'keydown'];
+
       class SicherluftLoopVideo extends HTMLElement {
         connectedCallback() {
           this.video = this.querySelector('video');
@@ -165,7 +167,7 @@
 
         disconnectedCallback() {
           if (this.observer) this.observer.disconnect();
-          if (this.retry) document.removeEventListener('touchstart', this.retry);
+          this.stopRetry();
         }
 
         onIntersect(entries) {
@@ -212,16 +214,26 @@
           if (p && p.catch) {
             p.catch(function () {
               // Autoplay refused (e.g. iOS Low Power Mode). Poster stays visible
-              // with no play button; retry on the first touch anywhere.
+              // with no play button; retry on the next tap anywhere. Safari only
+              // grants playback permission on touchend/click, not touchstart.
               if (self.retry) return;
               self.retry = function () {
-                document.removeEventListener('touchstart', self.retry);
-                self.retry = null;
-                self.video.play().catch(function () {});
+                self.video.play().then(self.stopRetry.bind(self), function () {});
               };
-              document.addEventListener('touchstart', self.retry, { passive: true, once: true });
+              RETRY_EVENTS.forEach(function (type) {
+                document.addEventListener(type, self.retry, { passive: true, capture: true });
+              });
             });
           }
+        }
+
+        stopRetry() {
+          var retry = this.retry;
+          if (!retry) return;
+          this.retry = null;
+          RETRY_EVENTS.forEach(function (type) {
+            document.removeEventListener(type, retry, { capture: true });
+          });
         }
       }
 
