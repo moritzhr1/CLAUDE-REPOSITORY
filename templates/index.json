@@ -11,6 +11,9 @@
   "sections": {
     "new_hero_sl_hero": {
       "type": "new-hero",
+      "custom_css": [
+        "[class*=\"star\"],[class*=\"Star\"],[class*=\"rating\"] svg,[class*=\"rating\"] svg * {color: #00b67a !important; fill: #00b67a !important;}"
+      ],
       "settings": {
         "use_theme_colors": false,
         "section_padding_vertical": 60,
@@ -29,14 +32,14 @@
         "badge_font_size": 14,
         "badge_font_size_mobile": 11,
         "show_rating": true,
-        "rating_value": "",
-        "review_count": "10.000+",
+        "rating_value": "4.8/5",
+        "review_count": "+200",
         "rating_text_color": "#000000",
         "star_color": "#f8cc07",
         "rating_stars_size": 19,
-        "rating_text_size": 16,
+        "rating_text_size": 17,
         "rating_label_size": 16,
-        "rating_count_size": 13,
+        "rating_count_size": 12,
         "profile_image_1": "shopify://shop_images/1000_F_508277_xnJ6l4rAclZVxlY0exGh0AbuCeRFB8.jpg",
         "profile_image_2": "shopify://shop_images/istockphoto-1396350277-612x612.jpg",
         "profile_image_3": "shopify://shop_images/portrait-firefighter-protective-suit-helmet-260nw-2552918413.webp",
@@ -79,7 +82,7 @@
         "hero_image": "shopify://shop_images/Hero_Image.png",
         "image_position": "right",
         "fit_image_to_height": true,
-        "button_bg": "#077bf8",
+        "button_bg": "#0794f8",
         "button_text_color": "#edf0f3",
         "button_width": 220,
         "contain_section": false,
@@ -88,13 +91,13 @@
         "content_padding_vertical": 20,
         "content_padding_horizontal": 20,
         "content_padding_mobile": 15,
-        "container_padding_top": 50,
+        "container_padding_top": 40,
         "container_padding_right": 40,
         "container_padding_bottom": 40,
         "container_padding_left": 40,
-        "container_padding_top_mobile": 50,
-        "container_padding_right_mobile": 40,
-        "container_padding_bottom_mobile": 35,
+        "container_padding_top_mobile": 30,
+        "container_padding_right_mobile": 20,
+        "container_padding_bottom_mobile": 30,
         "container_padding_left_mobile": 20,
         "enable_border": false,
         "border_width": 1,
@@ -108,65 +111,33 @@
         "container_gradient_direction": "to bottom"
       }
     },
-    "benefits_carousel_warheq": {
-      "type": "benefits-carousel",
+    "179037277135b7fdc5": {
+      "type": "_blocks",
       "blocks": {
-        "benefit_RAyAW7": {
-          "type": "benefit",
+        "ai_gen_block_a6458d1_BaeEDN": {
+          "type": "ai_gen_block_a6458d1",
           "settings": {
-            "benefit_text": "Rund um die Uhr geschützt"
-          }
-        },
-        "benefit_KQVUVQ": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "Werte jederzeit im Blick"
-          }
-        },
-        "benefit_cgCaFh": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "Warnt frühzeitig bei CO & Gas"
-          }
-        },
-        "benefit_8TFL7j": {
-          "type": "benefit",
-          "settings": {
-            "benefit_text": "Einstecken. Fertig. Sicher."
-          }
+            "kicker": "Wissen & Sicherheit",
+            "title": "Die unterschätzte Gefahr in deutschen Wohnmobilen - warum ein grünes Licht noch kein Messwert ist.",
+            "subtitle": "Unsichtbar, geruchlos, gefährlich – Kohlenmonoxid kann unbemerkt zur ernsten Gefahr werden.",
+            "author_portrait": "shopify://shop_images/IMG_4404.jpg",
+            "author_name": "Dr. Johannes Friedrich Albrecht-Hohenberg",
+            "publish_date": "25. Mai 2026",
+            "desktop_width_percent": 50,
+            "body_font": "assistant_n4",
+            "background_color": "#ffffff",
+            "text_color": "#20201d",
+            "muted_color": "#59564f",
+            "rule_color": "#c9c3b8",
+            "accent_color": "#075b91"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "benefit_RAyAW7",
-        "benefit_KQVUVQ",
-        "benefit_cgCaFh",
-        "benefit_8TFL7j"
+        "ai_gen_block_a6458d1_BaeEDN"
       ],
-      "custom_css": [
-        ".benefits-carousel-item {font-weight: 600; font-size: 16px; letter-spacing: -0.2px; white-space: nowrap;}"
-      ],
-      "settings": {
-        "heading": "WARUM MENSCHEN SICH FÜR ZUSÄTZLICHE LUFTÜBERWACHUNG ENTSCHEIDEN",
-        "empty_text": "",
-        "margin_top": -20,
-        "margin_bottom": 0,
-        "scroll_speed": 55,
-        "heading_size": 26,
-        "heading_size_mobile": 20,
-        "heading_color": "#020416",
-        "heading_gradient_start": "#dcefff",
-        "heading_gradient_end": "#0794f8",
-        "use_theme_colors": true,
-        "background_color": "#ef4a65",
-        "border_start_color": "#ef4a65",
-        "border_end_color": "#ffb1be",
-        "item_background": "#020416",
-        "item_text_color": "#020416",
-        "item_border_start": "#ffb1be",
-        "item_border_end": "#ef4a65",
-        "item_font_size_mobile": 14,
-        "empty_text_color": "#020416"
-      }
+      "settings": {}
     },
     "image_with_text_94kKYP": {
       "type": "image-with-text",
@@ -175,7 +146,7 @@
           "type": "subtitle",
           "settings": {
             "subtitle_text": "Wissenswertes",
-            "subtitle_size": 1.3,
+            "subtitle_size": 1.5,
             "subtitle_color": "#333333",
             "margin_top": -11,
             "margin_bottom": -12
@@ -184,9 +155,9 @@
         "paragraph_rTdWCR": {
           "type": "paragraph",
           "settings": {
-            "paragraph_text": "<p>Kohlenmonoxid (CO) kann immer dann entstehen, wenn Brennstoffe wie Gas, Öl, Holz oder Kohle nicht vollständig verbrennen. Damit ist das Risiko nicht auf alte Häuser oder bestimmte Heizsysteme beschränkt – relevant kann es überall dort werden, wo geheizt, gekocht oder mit Verbrennungsgeräten gearbeitet wird.</p><p>Besonders tückisch: CO ist unsichtbar und geruchlos. Man kann eine erhöhte Konzentration also nicht einfach sehen, riechen oder zuverlässig selbst bemerken. Gelangt Kohlenmonoxid in die Raumluft, kann es die Sauerstoffversorgung des Körpers beeinträchtigen.</p><p>Genau deshalb wird die Gefahr häufig unterschätzt: Das Problem kündigt sich nicht offensichtlich an. Wer Gastherme, Kamin, Ofen oder andere Verbrennungsgeräte nutzt, sollte sich deshalb nicht allein auf die eigenen Sinne verlassen.</p>",
-            "margin_top": 3,
-            "margin_bottom": -20,
+            "paragraph_text": "<h6>Kohlenmonoxid (CO) kann immer dann entstehen, wenn Brennstoffe wie Gas, Öl, Holz oder Kohle nicht vollständig verbrennen. Damit ist das Risiko nicht auf alte Häuser oder bestimmte Heizsysteme beschränkt – relevant kann es überall dort werden, wo geheizt, gekocht oder mit Verbrennungsgeräten gearbeitet wird.</h6><h6>Besonders tückisch: CO ist unsichtbar und geruchlos. Man kann eine erhöhte Konzentration also nicht einfach sehen, riechen oder zuverlässig selbst bemerken. Gelangt Kohlenmonoxid in die Raumluft, kann es die Sauerstoffversorgung des Körpers beeinträchtigen.</h6><h6>Genau deshalb wird die Gefahr häufig unterschätzt: Das Problem kündigt sich nicht offensichtlich an. Wer Gastherme, Kamin, Ofen oder andere Verbrennungsgeräte nutzt, sollte sich deshalb nicht allein auf die eigenen Sinne verlassen.</h6>",
+            "margin_top": -20,
+            "margin_bottom": -4,
             "paragraph_color": "#333333"
           }
         }
@@ -205,18 +176,18 @@
         "image_position": "left",
         "text_align": "left",
         "column_width": 55,
-        "padding_top": 25,
-        "padding_bottom": 5,
-        "container_padding": 5,
+        "padding_top": 50,
+        "padding_bottom": 25,
+        "container_padding": 10,
         "content_spacing": 30,
         "desktop_content_spacing": 40,
         "section_border_radius": 0,
         "heading": "Was ist Kohlenmonoxid – und warum betrifft es praktisch jeden Haushalt ?",
         "heading_accent": "",
         "image": "shopify://shop_images/Kohlenmonoxid_Aufklaerung_image.png",
-        "heading_font_size_mobile": 2.2,
+        "heading_font_size_mobile": 2,
         "heading_font_size_desktop": 2,
-        "accent_font_size_mobile": 2.5,
+        "accent_font_size_mobile": 2.4,
         "accent_font_size_desktop": 3,
         "text_font_size_mobile": 1.1,
         "text_font_size_desktop": 1.2,
@@ -295,7 +266,7 @@
         "heading": "Sicherheit beginnt, bevor es piept. Schützen Sie ihre Familie rechtzeitig.",
         "heading_accent": "BEVOR ES KRITISCH WIRD",
         "image": "shopify://shop_images/f90749cf-479a-463b-8dfa-c0bffdcec441.png",
-        "heading_font_size_mobile": 2.6,
+        "heading_font_size_mobile": 2.2,
         "heading_font_size_desktop": 3.7,
         "accent_font_size_mobile": 2.4,
         "accent_font_size_desktop": 3,
@@ -311,7 +282,7 @@
         "text_padding_left": 20,
         "text_padding_right": 0,
         "mobile_text_padding_vertical": 0,
-        "mobile_text_padding_horizontal": 0,
+        "mobile_text_padding_horizontal": 20,
         "button_padding_vertical": 12,
         "button_padding_horizontal": 15,
         "button_border_radius": 4,
@@ -338,10 +309,10 @@
           "type": "subtitle",
           "settings": {
             "subtitle_text": "Besonders gefährdet sind Haushalte mit Feuerstätten, Gasgeräten und schlecht belüfteten Bereichen.",
-            "subtitle_size": 1.5,
+            "subtitle_size": 1.6,
             "subtitle_color": "#333333",
-            "margin_top": -2,
-            "margin_bottom": -4
+            "margin_top": 0,
+            "margin_bottom": -6
           }
         },
         "paragraph_fpBtxY": {
@@ -371,7 +342,7 @@
         "padding_bottom": 0,
         "container_padding": 0,
         "content_spacing": 30,
-        "desktop_content_spacing": 40,
+        "desktop_content_spacing": 45,
         "section_border_radius": 0,
         "heading": "Welche Personen & Orte besonders gefährdet sind",
         "heading_accent": "",
@@ -392,7 +363,7 @@
         "text_padding_left": 0,
         "text_padding_right": 0,
         "mobile_text_padding_vertical": 0,
-        "mobile_text_padding_horizontal": 0,
+        "mobile_text_padding_horizontal": 20,
         "button_padding_vertical": 12,
         "button_padding_horizontal": 24,
         "button_border_radius": 4,
@@ -619,80 +590,125 @@
         "empty_text_color": "#020416"
       }
     },
-    "customer_reviews_carousel_h7TQED": {
+    "customer_reviews_carousel_CfAXtV": {
       "type": "customer-reviews-carousel",
       "blocks": {
-        "review_familie_sl1": {
+        "review_WwTERF": {
           "type": "review",
           "settings": {
+            "review_image": "shopify://shop_images/6c217378-8fd8-4178-8393-ecb24a5cdfe7.png",
+            "image_position": "center center",
+            "wrap_image": false,
             "rating": 5,
-            "review_title": "Direkt das Bundle genommen",
-            "review_text": "Wir haben uns gleich für mehrere Geräte entschieden – eins fürs Schlafzimmer, eins fürs Kinderzimmer und eins für den Flur bei der Gastherme. So mussten wir nicht überlegen, welcher Raum wichtiger ist. Die Einrichtung ging bei allen dreien gleich schnell, und jedes zeigt seine Werte einzeln an.",
-            "reviewer_name": "Nadine H.",
-            "reviewer_age": "",
-            "show_verified_badge": false,
-            "show_purchased_product": true,
-            "product_reference": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 3,
-            "show_purchase_date": false
+            "review_text": "Ich nutze SicherLuft bei unseren Reisen im Camper, Die Einrichtung war schnell erledigt und ich finde es gut, unterwegs noch ein extra Auge auf die Luftqualität bzw. mögliche Gefahren zu haben. Safety First!",
+            "reviewer_name": "TravelingWithMarcel",
+            "reviewer_age": "33",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
           }
         },
-        "review_wohnmobil_sl2": {
+        "review_iQtNRk": {
           "type": "review",
           "settings": {
+            "review_image": "shopify://shop_images/Image_2b49c0c7-7c97-42de-82d4-59699977632a.jpg",
+            "image_position": "center center",
+            "wrap_image": false,
             "rating": 5,
-            "review_title": "Für unser Wohnmobil gekauft",
-            "review_text": "Da wir viel mit dem Wohnmobil unterwegs sind, wollten wir neben dem eingebauten Rauchmelder auch eine Kontrolle für Gas und Kohlenmonoxid haben. Das Gerät lässt sich einfach an die Bordsteckdose anschließen und läuft seitdem unauffällig mit – genau das, was wir für unterwegs gesucht haben.",
-            "reviewer_name": "Thomas B.",
-            "reviewer_age": "",
-            "show_verified_badge": false,
-            "show_purchased_product": true,
-            "product_reference": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 1,
-            "show_purchase_date": false
+            "review_text": "Kam an, ausgepackt, aufgestellt und fertig. Ich hatte ehrlich gesagt keine Lust auf irgendeine komplizierte Einrichtung. Das Display ist übersichtlich und man versteht direkt, was angezeigt wird. Gibt mir ein sicheres Gefühl!",
+            "reviewer_name": "Gertrud Hagemann",
+            "reviewer_age": "67",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
           }
         },
-        "review_zuhause_sl3": {
+        "review_GW3rKM": {
           "type": "review",
           "settings": {
+            "review_image": "shopify://shop_images/87915faa-3dd1-42d1-87c7-c192bde75585.png",
+            "image_position": "center center",
+            "wrap_image": false,
             "rating": 5,
-            "review_title": "Einfach eingesteckt und fertig",
-            "review_text": "Für unsere Wohnung reicht uns ein einzelnes Gerät völlig aus. Ich hatte keine Lust auf komplizierte Ersteinrichtung, aber hier musste ich nur den Stecker in die Dose stecken. Auf dem Display sieht man auf einen Blick, ob alles im normalen Bereich liegt.",
-            "reviewer_name": "Julia M.",
-            "reviewer_age": "",
-            "show_verified_badge": false,
-            "show_purchased_product": true,
-            "product_reference": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 1,
-            "show_purchase_date": false
+            "review_text": "Wir haben direkt das 2er-Set genommen. Eins steht bei uns zuhause und eins kommt mit in den Wohnwagen.\nFand ich einfach praktischer, als später nochmal einzeln nachzubestellen.",
+            "reviewer_name": "Nina Siebertz",
+            "reviewer_age": "37",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
           }
         },
-        "review_reise_sl4": {
+        "review_7qFdgc": {
           "type": "review",
           "settings": {
+            "review_image": "shopify://shop_images/F64E3863-0031-4010-9341-B990F06B0572.jpg",
+            "image_position": "center center",
+            "wrap_image": false,
             "rating": 5,
-            "review_title": "Eins zuhause, eins für unterwegs",
-            "review_text": "Bei uns läuft ein Gerät dauerhaft zu Hause im Flur, das zweite aus dem Set nehmen wir je nach Saison mit ins Wohnmobil oder ins Ferienhaus. So ist immer eines da, ohne dass wir etwas umbauen oder neu einrichten müssen.",
-            "reviewer_name": "Frank S.",
-            "reviewer_age": "",
-            "show_verified_badge": false,
-            "show_purchased_product": true,
-            "product_reference": "sicherluft-4-in-1-co-gasmelder",
-            "quantity": 2,
-            "show_purchase_date": false
+            "review_text": "Mir war nie klar, dass man Kohlenmonoxid weder sehen, noch riechen kann. Gerade mit Kamin und Kids im Haus wollte ich auf Nummer Sichergehen. Bin froh Sicherluft gefunden zu haben.",
+            "reviewer_name": "Familie Neuhoff",
+            "reviewer_age": "45",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_ePBm86": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/e6e423a9-c865-4f58-88f9-c76606f445ff.png",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 4,
+            "review_text": "Auf eine nervige Einrichtung hatte ich absolut keinen Bock. Das Display ist super übersichtlich und zeigt sofort, was Sache ist. Gibt mir einfach ein richtig gutes und sicheres Gefühl!",
+            "reviewer_name": "Elke",
+            "reviewer_age": "51",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
           }
         }
       },
       "block_order": [
-        "review_familie_sl1",
-        "review_wohnmobil_sl2",
-        "review_zuhause_sl3",
-        "review_reise_sl4"
+        "review_WwTERF",
+        "review_iQtNRk",
+        "review_GW3rKM",
+        "review_7qFdgc",
+        "review_ePBm86"
+      ],
+      "custom_css": [
+        "svg,svg * {fill: #00b67a !important; stroke: #00b67a !important;}",
+        "[class*=\"star\"],[class*=\"rating\"],[class*=\"verify\"],[class*=\"badge\"] {color: #00b67a !important;}",
+        "[class*=\"verify\"],[class*=\"badge\"] {background: #e8f7f1 !important;}"
       ],
       "name": "Customer Reviews",
       "settings": {
         "use_theme_colors": true,
-        "show_rating_summary": false,
         "section_width": 1200,
         "section_background": "#ffffff",
         "title_text": "Das sagen",
@@ -736,7 +752,7 @@
         "review_text_size_mobile": 12,
         "reviewer_info_color": "#000000",
         "reviewer_info_bg_color": "#f5f5f5",
-        "verified_badge_text": "Verifizierter Kauf",
+        "verified_badge_text": "Verifizierter Kunde",
         "verified_badge_color": "#ef4a65",
         "verified_icon_color": "#ef4a65",
         "enable_reviewer_info_border": false,
@@ -754,14 +770,14 @@
         "product_border_style": "solid",
         "summary_star_color": "#ffbf00",
         "summary_text_color": "#000000",
-        "rating_prefix": "Bewertet mit",
+        "rating_prefix": "Rated",
         "rating_number": "4.8",
         "based_on_text": "basierend auf Kundenbewertungen",
         "custom_review_count_text": "",
         "rating_count_color": "#333333",
         "rating_value_color": "#000000",
         "rating_summary_bg_color": "#fef6e6",
-        "purchase_date_prefix": "Gekauft am",
+        "purchase_date_prefix": "Purchased on",
         "purchase_date_color": "#000000",
         "purchase_date_icon_color": "#000000",
         "based_on_text_color": "#333333",
@@ -775,6 +791,35 @@
         "rating_summary_border_color": "#ffbf00",
         "rating_summary_border_radius": 50
       }
+    },
+    "17898867992ee0d991": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_a6f08a7_rPagx6": {
+          "type": "ai_gen_block_a6f08a7",
+          "settings": {
+            "logo": "shopify://shop_images/image-1789725584613_8609897c-4e07-4d89-b67b-f06e8ba3dca7.webp",
+            "logo_link": "",
+            "desktop_width_percent": 100,
+            "logo_width": 390,
+            "mobile_logo_width": 150,
+            "bar_height": 55,
+            "mobile_bar_height": 60,
+            "vertical_padding": 8,
+            "background_color": "#ffffff",
+            "use_gradient": false,
+            "gradient_color": "#dcefff",
+            "border_color": "#e5e7eb",
+            "border_width": 0,
+            "placeholder_color": "#6b7280"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a6f08a7_rPagx6"
+      ],
+      "settings": {}
     },
     "sticky_add_to_cart_UMK9T3": {
       "type": "sticky-add-to-cart",
@@ -817,7 +862,7 @@
             "product": "sicherluft-4-in-1-co-gasmelder",
             "badge_text": "Bestseller",
             "button_label": "In den Warenkorb legen",
-            "guarantee_text": "100 Tage Geld-zurück-Garantie",
+            "guarantee_text": "",
             "show_rating": true,
             "rating_value": "4,9",
             "review_count": "127",
@@ -845,14 +890,14 @@
       "type": "sicherluft-garantie",
       "name": "SICHERLUFT Garantie",
       "settings": {
-        "badge_text": "100 TAGE GARANTIE",
-        "heading": "100 Tage Geld-zurück-Garantie",
-        "description": "Testen Sie SICHERLUFT ohne Risiko. Wenn Sie nicht zufrieden sind, können Sie Ihre Bestellung innerhalb von 100 Tagen unkompliziert zurückgeben.",
+        "badge_text": "SICHERE ZAHLUNG",
+        "heading": "Deine Sicherheit ist uns wichtig",
+        "description": "Bezahle deinen Einkauf bei SICHERLUFT sicher und bequem. Deine Zahlungsdaten werden verschlüsselt übertragen und vertraulich behandelt.",
         "button_text": "",
         "button_link": "",
-        "trust_1": "100 Tage Geld-zurück-Garantie",
-        "trust_2": "Schneller Versand",
-        "trust_3": "Einfache Rückgabe",
+        "trust_1": "Sichere, verschlüsselte Zahlung",
+        "trust_2": "Vertrauenswürdige Zahlungsarten",
+        "trust_3": "Schutz deiner Zahlungsdaten",
         "background_color": "#ffffff",
         "accent_color": "#1a4ed8",
         "button_color": "#0f2a7a",
@@ -863,29 +908,6 @@
         "padding_bottom": 20,
         "button_radius": 0
       }
-    },
-    "17898750631c5f7bff": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_b6e63cf_BC9VeL": {
-          "type": "ai_gen_block_b6e63cf",
-          "settings": {
-            "logo": "shopify://shop_images/image-1789725584613_8609897c-4e07-4d89-b67b-f06e8ba3dca7.webp",
-            "logo_alt": "SICHERLUFT Logo",
-            "logo_link": "",
-            "desktop_width_percent": 100,
-            "logo_width": 300,
-            "vertical_padding": 8,
-            "background_color": "#ffffff",
-            "text_color": "#082b4a"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_b6e63cf_BC9VeL"
-      ],
-      "settings": {}
     },
     "store_faq_sl_home": {
       "type": "store-faq",
@@ -986,8 +1008,8 @@
       "name": "t:sections.newsletter.presets.name",
       "settings": {
         "full_width": true,
-        "padding_top": 8,
-        "padding_bottom": 16
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     },
     "1789844917f8e24788": {
@@ -997,6 +1019,7 @@
     "sicherluft_loop_video": {
       "type": "sicherluft-loop-video",
       "settings": {
+        "video": "shopify://files/videos/sicherluft-co-loop.mp4",
         "max_width": 1100,
         "max_width_mobile": 750,
         "border_radius": 0,
@@ -1006,6 +1029,7 @@
         "padding_top_mobile": 16,
         "padding_bottom_mobile": 16,
         "padding_horizontal_mobile": 0,
+        "background": "#f2f1f6",
         "respect_reduced_motion": true
       }
     }
@@ -1013,18 +1037,18 @@
   "order": [
     "new_hero_sl_hero",
     "sicherluft_loop_video",
-    "benefits_carousel_warheq",
+    "179037277135b7fdc5",
     "image_with_text_94kKYP",
     "image_with_text_4RVQNE",
     "image_with_text_PfjNQJ",
     "content_tabs_sl_compare",
     "steps_sl",
     "benefits_carousel_sl",
-    "customer_reviews_carousel_h7TQED",
+    "customer_reviews_carousel_CfAXtV",
+    "17898867992ee0d991",
     "sticky_add_to_cart_UMK9T3",
     "1789832550c6e6294b",
     "sicherluft_garantie_ymcMnJ",
-    "17898750631c5f7bff",
     "store_faq_sl_home",
     "newsletter_Ym8agr",
     "1789844917f8e24788"
