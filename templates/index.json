@@ -1020,7 +1020,7 @@
       "type": "sicherluft-loop-video",
       "settings": {
         "video": "shopify://files/videos/sicherluft-co-loop.mp4",
-        "max_width": 1100,
+        "max_width": 640,
         "max_width_mobile": 750,
         "border_radius": 0,
         "padding_top": 24,
@@ -1029,8 +1029,7 @@
         "padding_top_mobile": 16,
         "padding_bottom_mobile": 16,
         "padding_horizontal_mobile": 0,
-        "background": "#f2f1f6",
-        "respect_reduced_motion": true
+        "background": "#f2f1f6"
       }
     }
   },
