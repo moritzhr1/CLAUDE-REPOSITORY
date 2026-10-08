@@ -22,7 +22,7 @@
 
   #shopify-section-{{ sid }} .sl-loop__frame {
     width: 100%;
-    max-width: {{ section.settings.max_width }}px;
+    max-width: {{ section.settings.max_width_desktop }}px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: {{ section.settings.border_radius }}px;
@@ -178,7 +178,7 @@
     },
     {
       "type": "range",
-      "id": "max_width",
+      "id": "max_width_desktop",
       "min": 320,
       "max": 1600,
       "step": 20,
