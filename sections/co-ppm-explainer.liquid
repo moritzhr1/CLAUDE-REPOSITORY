@@ -1,0 +1,1509 @@
+{%- comment -%}
+  SICHERLUFT · CO-Werte erklärt (PPM)
+  Startseiten-Section zwischen Gefahrenblock und Produktvergleich:
+  Kopfbereich, farbcodierte PPM-Skala mit zwei Markern, PPM-Stufen als Karten,
+  hervorgehobener Hinweisblock und Accordion.
+
+  - Eigenständig: keine externen Libraries, keine zusätzlichen Assets oder Snippets.
+  - Skala und Karten entstehen aus den Blöcken „PPM-Stufe“ (Start in ppm, Farbe, Texte).
+  - Nutzt Theme-Container (.page-width), Theme-Schriften und die Reveal-Animation des
+    Themes (Einstellung „Abschnitte beim Scrollen einblenden“).
+  - px statt rem, weil das Theme 1rem = 10px setzt.
+  - Klassen enthalten bewusst kein „title“/„heading“: global-title-fix im Theme
+    überschreibt sonst Farben mit !important.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id
+
+  assign c_bg = s.background_color | default: '#FFFFFF'
+  assign c_card = s.card_color | default: '#FFFFFF'
+  assign c_text = s.text_color | default: '#082B4A'
+  assign c_accent = s.accent_color | default: '#0794F8'
+
+  assign reveal_cls = ''
+  if settings.animations_reveal_on_scroll
+    assign reveal_cls = ' scroll-trigger animate--slide-in'
+  endif
+
+  assign animate_chart = false
+  if settings.animations_reveal_on_scroll and request.design_mode == false
+    assign animate_chart = true
+  endif
+
+  assign level_count = 0
+  assign item_count = 0
+  assign starts = ''
+  for block in section.blocks
+    case block.type
+      when 'level'
+        assign level_count = level_count | plus: 1
+        assign b_start = block.settings.start | default: 0 | append: ''
+        if starts == ''
+          assign starts = b_start
+        else
+          assign starts = starts | append: ',' | append: b_start
+        endif
+      when 'item'
+        assign item_count = item_count | plus: 1
+    endcase
+  endfor
+  assign start_list = starts | split: ','
+
+  assign scale_min = 0
+  assign scale_max = s.scale_max | default: 100
+  if level_count > 0
+    assign scale_min = start_list.first | plus: 0
+    assign last_start = start_list.last | plus: 0
+    if scale_max <= last_start
+      assign scale_max = last_start | plus: 30
+    endif
+  endif
+  assign span = scale_max | minus: scale_min | times: 1.0
+  if span <= 0
+    assign span = 1.0
+  endif
+
+  assign m1_text = s.marker_1_text | strip
+  assign m1_val = s.marker_1_value | default: 30
+  assign m1_pos = m1_val | minus: scale_min | times: 100.0 | divided_by: span | at_least: 0 | at_most: 100 | round: 2
+  assign m1_side = 'start'
+  if m1_pos > 50
+    assign m1_side = 'end'
+  endif
+
+  assign m2_text = s.marker_2_text | strip
+  assign m2_val = s.marker_2_value | default: 70
+  assign m2_pos = m2_val | minus: scale_min | times: 100.0 | divided_by: span | at_least: 0 | at_most: 100 | round: 2
+  assign m2_side = 'start'
+  if m2_pos > 50
+    assign m2_side = 'end'
+  endif
+
+  assign m1_color = c_accent
+  assign m2_color = c_accent
+-%}
+
+{%- comment -%} Skala, Beschriftungen und Text für Screenreader in einem Durchlauf aufbauen {%- endcomment -%}
+{%- assign bar_html = '' -%}
+{%- assign caps_html = '' -%}
+{%- assign sr_text = '' -%}
+{%- assign li = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.type != 'level' -%}{%- continue -%}{%- endif -%}
+  {%- liquid
+    assign b = block.settings
+    assign b_start = b.start | default: 0
+    assign next_i = li | plus: 1
+    if next_i < level_count
+      assign seg_end = start_list[next_i] | plus: 0
+    else
+      assign seg_end = scale_max
+    endif
+    assign seg_w = seg_end | minus: b_start | times: 100.0 | divided_by: span | at_least: 0 | round: 3
+    assign b_color = b.color | default: '#9AA5B1'
+    assign b_range = b.range | strip
+    assign b_range_short = b_range | remove: 'PPM' | remove: 'ppm' | remove: 'Ppm' | strip
+    if m1_val >= b_start
+      assign m1_color = b_color
+    endif
+    if m2_val >= b_start
+      assign m2_color = b_color
+    endif
+    assign li = li | plus: 1
+  -%}
+  {%- capture seg -%}<span class="co-ppm__seg" style="--w: {{ seg_w }}%; --c: {{ b_color }};"></span>{%- endcapture -%}
+  {%- capture cap -%}
+    <span class="co-ppm__cap" style="--w: {{ seg_w }}%;">
+      <span class="co-ppm__cap-range">{{ b_range_short | escape }}</span>
+      {%- if b.scale_label != blank -%}<span class="co-ppm__cap-name">{{ b.scale_label | escape }}</span>{%- endif -%}
+    </span>
+  {%- endcapture -%}
+  {%- capture sr_item -%}{{ b_range }}: {{ b.scale_label | default: b.title }}. {% endcapture -%}
+  {%- assign bar_html = bar_html | append: seg -%}
+  {%- assign caps_html = caps_html | append: cap -%}
+  {%- assign sr_text = sr_text | append: sr_item -%}
+{%- endfor -%}
+
+<style>
+  .co-ppm {
+    background: var(--co-bg);
+    color: var(--co-text);
+    font-size: 16px;
+    line-height: 1.6;
+    padding-top: calc(var(--co-pt) * 0.75);
+    padding-bottom: calc(var(--co-pb) * 0.75);
+  }
+  .co-ppm *,
+  .co-ppm *::before,
+  .co-ppm *::after {
+    box-sizing: border-box;
+  }
+  :where(.co-ppm) p {
+    margin: 0;
+    color: inherit;
+  }
+  .co-ppm__sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .co-ppm__sr {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .co-ppm__ico {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Kopfbereich */
+  .co-ppm__head {
+    max-width: 820px;
+    margin: 0 auto 32px;
+  }
+  .co-ppm__head--center {
+    text-align: center;
+  }
+  .co-ppm__head--left {
+    margin-left: 0;
+    text-align: left;
+  }
+  .co-ppm__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: var(--co-tint);
+    color: var(--co-accent-ink);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .co-ppm__kicker::before {
+    content: "";
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--co-accent);
+    box-shadow: 0 0 0 4px var(--co-tint-strong);
+  }
+  .co-ppm h2.co-ppm__hl {
+    margin: 18px 0 0;
+    font-size: clamp(28px, 2.6vw + 18px, 48px);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--co-text) !important;
+    text-wrap: balance;
+  }
+  .co-ppm__hl em {
+    font-style: normal;
+    color: var(--co-accent);
+  }
+  .co-ppm__lede {
+    margin-top: 16px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--co-muted);
+  }
+
+  /* PPM-Grafik */
+  .co-ppm__chart {
+    margin: 0;
+    padding: 22px 18px 22px;
+    background: var(--co-card);
+    border: 1px solid var(--co-line);
+    border-radius: var(--co-radius);
+    box-shadow: var(--co-shadow);
+  }
+  .co-ppm__chart-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 22px;
+  }
+  .co-ppm__chart-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--co-text);
+  }
+  .co-ppm__chart-unit {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--co-muted);
+  }
+  .co-ppm__plot {
+    --bar-h: 16px;
+    --gap: 14px;
+    position: relative;
+  }
+  .co-ppm__callout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: fit-content;
+    max-width: 320px;
+    padding: 10px 14px 11px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .co-ppm__callout--start {
+    margin-left: max(0px, calc(var(--pos) - 24px));
+  }
+  .co-ppm__callout--end {
+    margin-left: auto;
+    margin-right: max(0px, calc(100% - var(--pos) - 24px));
+  }
+  .co-ppm__callout::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: inherit;
+    transform: rotate(45deg);
+  }
+  .co-ppm__callout--start::after {
+    left: 18px;
+  }
+  .co-ppm__callout--end::after {
+    right: 18px;
+  }
+  .co-ppm__callout--up {
+    margin-bottom: var(--gap);
+    background: var(--co-text);
+    color: var(--co-card);
+    box-shadow: 0 12px 26px -14px var(--co-shadow-c);
+  }
+  .co-ppm__callout--up::after {
+    bottom: -6px;
+  }
+  .co-ppm__callout--down {
+    margin-top: var(--gap);
+    background: var(--co-card);
+    color: var(--co-text);
+    border: 1px solid var(--co-line-strong);
+    box-shadow: 0 12px 26px -16px var(--co-shadow-c);
+  }
+  .co-ppm__callout--down::after {
+    top: -7px;
+    border-top: 1px solid var(--co-line-strong);
+    border-left: 1px solid var(--co-line-strong);
+  }
+  .co-ppm__callout--down.co-ppm__callout--start::after {
+    left: 17px;
+  }
+  .co-ppm__callout--down.co-ppm__callout--end::after {
+    right: 17px;
+  }
+  .co-ppm__callout-val {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .co-ppm__callout--up .co-ppm__callout-val {
+    color: var(--co-accent-soft);
+  }
+  .co-ppm__callout--down .co-ppm__callout-val {
+    color: var(--co-muted);
+  }
+  .co-ppm__callout-val::before {
+    content: "";
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dot);
+  }
+  .co-ppm__track {
+    position: relative;
+  }
+  .co-ppm__bar {
+    display: flex;
+    height: var(--bar-h);
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--co-line);
+  }
+  .co-ppm__seg {
+    flex: 0 0 var(--w);
+    background: var(--c);
+  }
+  .co-ppm__seg + .co-ppm__seg {
+    box-shadow: inset 2px 0 0 var(--co-card);
+  }
+  .co-ppm__caps {
+    display: flex;
+    margin-top: 10px;
+  }
+  .co-ppm__cap {
+    display: flex;
+    flex: 0 0 var(--w);
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 0 2px;
+    text-align: center;
+  }
+  .co-ppm__cap-range {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    color: var(--co-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .co-ppm__cap-name {
+    display: none;
+    font-size: 13px;
+    line-height: 1.25;
+    color: var(--co-muted);
+  }
+  .co-ppm__pin {
+    position: absolute;
+    z-index: 1;
+    left: var(--pos);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--co-text);
+    pointer-events: none;
+  }
+  .co-ppm__pin--up {
+    top: calc(var(--gap) * -1);
+    height: calc(var(--gap) + var(--bar-h) / 2);
+  }
+  .co-ppm__pin--down {
+    top: calc(var(--bar-h) / 2);
+    bottom: calc(var(--gap) * -1);
+    background: repeating-linear-gradient(to bottom, var(--co-text) 0 4px, transparent 4px 7px);
+  }
+  .co-ppm__pin::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    border: 3px solid var(--co-card);
+    border-radius: 50%;
+    background: var(--dot);
+    box-shadow: 0 0 0 2px var(--co-text);
+  }
+  .co-ppm__pin--up::after {
+    bottom: -8px;
+  }
+  .co-ppm__pin--down::after {
+    top: -8px;
+  }
+
+  /* PPM-Stufen */
+  .co-ppm__levels {
+    display: grid;
+    gap: 12px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .co-ppm__level {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    margin: 0;
+    overflow: hidden;
+    background: var(--co-card);
+    border: 1px solid var(--co-line);
+    border-radius: var(--co-radius);
+    box-shadow: var(--co-shadow-sm);
+  }
+  .co-ppm__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 14px 6px;
+    background: var(--c);
+    color: var(--ink);
+    text-align: center;
+  }
+  .co-ppm__badge-num {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .co-ppm__badge-unit {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+  }
+  .co-ppm__level-body {
+    padding: 16px 18px;
+  }
+  .co-ppm h3.co-ppm__level-name {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--co-text) !important;
+  }
+  .co-ppm__level-text {
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--co-muted);
+  }
+  .co-ppm__level-text p + p,
+  .co-ppm__note-text p + p,
+  .co-ppm__acc-body p + p,
+  .co-ppm__lede p + p {
+    margin-top: 10px;
+  }
+  .co-ppm__foot {
+    max-width: 780px;
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--co-muted);
+  }
+
+  /* Hinweisblock */
+  .co-ppm__note {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 40px;
+    padding: 24px 20px 26px 22px;
+    background: linear-gradient(135deg, var(--co-tint-strong), var(--co-tint));
+    border-left: 5px solid var(--co-accent);
+    border-radius: var(--co-radius);
+  }
+  .co-ppm__note-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--co-card);
+    color: var(--co-accent-ink);
+    box-shadow: var(--co-shadow-sm);
+  }
+  .co-ppm h3.co-ppm__note-hl {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--co-text) !important;
+    text-wrap: balance;
+  }
+  .co-ppm__note-text {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--co-text);
+  }
+
+  /* Accordion */
+  .co-ppm__acc-wrap {
+    margin-top: 48px;
+  }
+  .co-ppm h3.co-ppm__acc-hl {
+    margin: 0 0 20px;
+    font-size: clamp(24px, 1.6vw + 18px, 36px);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--co-text) !important;
+    text-wrap: balance;
+  }
+  .co-ppm__acc-list {
+    display: grid;
+    gap: 12px;
+  }
+  .co-ppm__acc {
+    background: var(--co-card);
+    border: 1px solid var(--co-line);
+    border-radius: var(--co-radius);
+    box-shadow: var(--co-shadow-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .co-ppm__acc[open] {
+    border-color: var(--co-tint-border);
+    box-shadow: var(--co-shadow);
+  }
+  .co-ppm__acc-sum {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 16px 16px 18px;
+    border-radius: var(--co-radius);
+    cursor: pointer;
+    list-style: none;
+  }
+  .co-ppm__acc-sum::-webkit-details-marker {
+    display: none;
+  }
+  .co-ppm__acc-sum::marker {
+    content: "";
+  }
+  .co-ppm__acc-sum:focus-visible {
+    outline: 2px solid var(--co-accent);
+    outline-offset: 2px;
+  }
+  .co-ppm__acc-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--co-tint);
+    color: var(--co-accent-ink);
+  }
+  .co-ppm__acc-icon img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  .co-ppm__acc-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--co-text);
+  }
+  .co-ppm__acc-chev {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--co-tint);
+    color: var(--co-text);
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+  .co-ppm__acc-chev .co-ppm__ico {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+  }
+  .co-ppm__acc-sum:hover .co-ppm__acc-chev {
+    background: var(--co-tint-strong);
+  }
+  .co-ppm__acc[open] .co-ppm__acc-chev {
+    transform: rotate(180deg);
+    background: var(--co-accent);
+    color: #FFFFFF;
+  }
+  .co-ppm__acc-body {
+    padding: 0 18px 18px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--co-muted);
+  }
+  .co-ppm__cta-wrap {
+    margin-top: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .co-ppm {
+      padding-top: var(--co-pt);
+      padding-bottom: var(--co-pb);
+    }
+    .co-ppm__head {
+      margin-bottom: 48px;
+    }
+    .co-ppm__kicker {
+      gap: 10px;
+      padding: 7px 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+    .co-ppm__lede {
+      margin-top: 20px;
+      font-size: 19px;
+    }
+    .co-ppm__chart {
+      padding: 36px 40px 34px;
+    }
+    .co-ppm__chart-cap {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .co-ppm__chart-name {
+      font-size: 21px;
+    }
+    .co-ppm__chart-unit {
+      font-size: 14px;
+      text-align: right;
+    }
+    .co-ppm__plot {
+      --bar-h: 20px;
+      --gap: 16px;
+    }
+    .co-ppm__callout {
+      font-size: 15px;
+    }
+    .co-ppm__cap-range {
+      font-size: 14px;
+    }
+    .co-ppm__cap-name {
+      display: block;
+    }
+    .co-ppm__levels {
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .co-ppm__level {
+      grid-template-columns: 112px minmax(0, 1fr);
+    }
+    .co-ppm__badge-num {
+      font-size: 21px;
+    }
+    .co-ppm__level-body {
+      padding: 20px 26px;
+    }
+    .co-ppm h3.co-ppm__level-name {
+      font-size: 19px;
+    }
+    .co-ppm__level-text {
+      font-size: 16px;
+    }
+    .co-ppm__note {
+      flex-direction: row;
+      gap: 24px;
+      margin-top: 64px;
+      padding: 40px 44px;
+    }
+    .co-ppm__note-icon {
+      width: 56px;
+      height: 56px;
+    }
+    .co-ppm__note-icon .co-ppm__ico {
+      width: 26px;
+      height: 26px;
+    }
+    .co-ppm h3.co-ppm__note-hl {
+      font-size: clamp(24px, 1.2vw + 16px, 32px);
+    }
+    .co-ppm__note-text {
+      max-width: 760px;
+      margin-top: 12px;
+      font-size: 18px;
+    }
+    .co-ppm__acc-wrap {
+      margin-top: 80px;
+    }
+    .co-ppm h3.co-ppm__acc-hl {
+      margin-bottom: 28px;
+    }
+    .co-ppm__acc-sum {
+      padding: 20px 22px;
+      gap: 18px;
+    }
+    .co-ppm__acc-name {
+      font-size: 18px;
+    }
+    .co-ppm__acc-body {
+      padding: 0 22px 22px;
+      font-size: 16px;
+    }
+    .co-ppm__acc--icon .co-ppm__acc-body {
+      padding-left: 80px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .co-ppm__level-body {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      column-gap: 32px;
+      align-items: start;
+      padding: 22px 28px;
+    }
+    .co-ppm__level-text {
+      margin-top: 0;
+    }
+    .co-ppm__acc-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas: "hl list" "cta list";
+      column-gap: 64px;
+      align-items: start;
+    }
+    .co-ppm h3.co-ppm__acc-hl {
+      grid-area: hl;
+      margin-bottom: 0;
+    }
+    .co-ppm__acc-list {
+      grid-area: list;
+    }
+    .co-ppm__cta-wrap {
+      grid-area: cta;
+      margin-top: 28px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .co-ppm__chart.is-armed .co-ppm__bar {
+      clip-path: inset(0 100% 0 0);
+    }
+    .co-ppm__chart.is-armed .co-ppm__pin,
+    .co-ppm__chart.is-armed .co-ppm__callout,
+    .co-ppm__chart.is-armed .co-ppm__caps {
+      opacity: 0;
+    }
+    .co-ppm__chart.is-armed .co-ppm__callout--up {
+      translate: 0 8px;
+    }
+    .co-ppm__chart.is-armed .co-ppm__callout--down {
+      translate: 0 -8px;
+    }
+    .co-ppm__chart.is-inview .co-ppm__bar {
+      clip-path: inset(0 0 0 0);
+      transition: clip-path 1.1s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .co-ppm__chart.is-inview .co-ppm__pin,
+    .co-ppm__chart.is-inview .co-ppm__callout,
+    .co-ppm__chart.is-inview .co-ppm__caps {
+      opacity: 1;
+      translate: 0 0;
+      transition: opacity 0.5s ease, translate 0.5s ease;
+    }
+    .co-ppm__chart.is-inview .co-ppm__caps {
+      transition-delay: 0.45s;
+    }
+    .co-ppm__chart.is-inview .co-ppm__pin--up,
+    .co-ppm__chart.is-inview .co-ppm__callout--up {
+      transition-delay: 0.6s;
+    }
+    .co-ppm__chart.is-inview .co-ppm__pin--down,
+    .co-ppm__chart.is-inview .co-ppm__callout--down {
+      transition-delay: 1s;
+    }
+    @supports (interpolate-size: allow-keywords) {
+      .co-ppm__acc {
+        interpolate-size: allow-keywords;
+      }
+      .co-ppm__acc::details-content {
+        height: 0;
+        overflow: clip;
+        transition: height 0.3s ease, content-visibility 0.3s allow-discrete;
+      }
+      .co-ppm__acc[open]::details-content {
+        height: auto;
+      }
+    }
+  }
+</style>
+
+<div
+  id="CoPpm-{{ uid }}"
+  class="co-ppm"
+  style="
+    --co-bg: {{ c_bg }};
+    --co-card: {{ c_card }};
+    --co-text: {{ c_text }};
+    --co-muted: {{ c_text | color_modify: 'alpha', 0.76 }};
+    --co-line: {{ c_text | color_modify: 'alpha', 0.1 }};
+    --co-line-strong: {{ c_text | color_modify: 'alpha', 0.18 }};
+    --co-accent: {{ c_accent }};
+    --co-accent-ink: {{ c_accent | color_darken: 15 }};
+    --co-accent-soft: {{ c_accent | color_lighten: 20 }};
+    --co-tint: {{ c_accent | color_modify: 'alpha', 0.08 }};
+    --co-tint-strong: {{ c_accent | color_modify: 'alpha', 0.16 }};
+    --co-tint-border: {{ c_accent | color_modify: 'alpha', 0.4 }};
+    --co-shadow-c: {{ c_text | color_modify: 'alpha', 0.45 }};
+    --co-shadow: 0 1px 2px {{ c_text | color_modify: 'alpha', 0.05 }}, 0 16px 40px -20px {{ c_text | color_modify: 'alpha', 0.3 }};
+    --co-shadow-sm: 0 1px 2px {{ c_text | color_modify: 'alpha', 0.05 }}, 0 8px 20px -14px {{ c_text | color_modify: 'alpha', 0.22 }};
+    --co-radius: {{ s.radius }}px;
+    --co-pt: {{ s.padding_top }}px;
+    --co-pb: {{ s.padding_bottom }}px;
+  "
+>
+  <svg class="co-ppm__sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="co-ppm-{{ uid }}-family" viewBox="0 0 24 24"><circle cx="8" cy="6.5" r="2.5"/><circle cx="16" cy="6.5" r="2.5"/><circle cx="12" cy="13" r="2"/><path d="M3.5 20v-3.5A3.5 3.5 0 0 1 7 13h2"/><path d="M20.5 20v-3.5A3.5 3.5 0 0 0 17 13h-2"/><path d="M9 20v-1.5a3 3 0 0 1 6 0V20"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-eye" viewBox="0 0 24 24"><path d="M2 12c2.2-4.2 5.8-6.5 10-6.5s7.8 2.3 10 6.5c-2.2 4.2-5.8 6.5-10 6.5S4.2 16.2 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-air" viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-alert" viewBox="0 0 24 24"><path d="M12 4L2.8 19.5h18.4z"/><path d="M12 10v4.5"/><path d="M12 17h.01"/></symbol>
+      <symbol id="co-ppm-{{ uid }}-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="page-width co-ppm__wrap" style="--page-width: {{ s.max_width }}px;">
+    {%- if s.overline != blank or s.heading != blank or s.subheading != blank -%}
+      <div class="co-ppm__head co-ppm__head--{{ s.header_alignment }}{{ reveal_cls }}">
+        {%- if s.overline != blank -%}
+          <p class="co-ppm__kicker">{{ s.overline | escape }}</p>
+        {%- endif -%}
+        {%- if s.heading != blank -%}
+          <h2 class="co-ppm__hl">{{ s.heading }}</h2>
+        {%- endif -%}
+        {%- if s.subheading != blank -%}
+          <div class="co-ppm__lede">{{ s.subheading }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if level_count > 0 -%}
+      <figure
+        class="co-ppm__chart{{ reveal_cls }}"
+        data-co-ppm-chart
+        {% if animate_chart %}data-co-animate{% endif %}
+      >
+        {%- if s.chart_title != blank or s.chart_unit != blank -%}
+          <figcaption class="co-ppm__chart-cap">
+            {%- if s.chart_title != blank -%}<span class="co-ppm__chart-name">{{ s.chart_title | escape }}</span>{%- endif -%}
+            {%- if s.chart_unit != blank -%}<span class="co-ppm__chart-unit">{{ s.chart_unit | escape }}</span>{%- endif -%}
+          </figcaption>
+        {%- endif -%}
+        <p class="co-ppm__sr">{{ sr_text | strip }}</p>
+
+        <div class="co-ppm__plot">
+          {%- if m1_text != blank -%}
+            <div class="co-ppm__callout co-ppm__callout--up co-ppm__callout--{{ m1_side }}" style="--pos: {{ m1_pos }}%; --dot: {{ m1_color }};">
+              <span class="co-ppm__callout-val">{{ m1_val }} ppm</span>
+              <span class="co-ppm__callout-txt">{{ m1_text | escape }}</span>
+            </div>
+          {%- endif -%}
+
+          <div class="co-ppm__track" aria-hidden="true">
+            <div class="co-ppm__bar">{{ bar_html }}</div>
+            <div class="co-ppm__caps">{{ caps_html }}</div>
+            {%- if m1_text != blank -%}
+              <span class="co-ppm__pin co-ppm__pin--up" style="--pos: {{ m1_pos }}%; --dot: {{ m1_color }};"></span>
+            {%- endif -%}
+            {%- if m2_text != blank -%}
+              <span class="co-ppm__pin co-ppm__pin--down" style="--pos: {{ m2_pos }}%; --dot: {{ m2_color }};"></span>
+            {%- endif -%}
+          </div>
+
+          {%- if m2_text != blank -%}
+            <div class="co-ppm__callout co-ppm__callout--down co-ppm__callout--{{ m2_side }}" style="--pos: {{ m2_pos }}%; --dot: {{ m2_color }};">
+              <span class="co-ppm__callout-val">{{ m2_val }} ppm</span>
+              <span class="co-ppm__callout-txt">{{ m2_text | escape }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </figure>
+
+      <ol class="co-ppm__levels" role="list">
+        {%- assign ci = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type != 'level' -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign ci = ci | plus: 1
+            assign b = block.settings
+            assign b_color = b.color | default: '#9AA5B1'
+            assign b_ink = '#FFFFFF'
+            assign b_bright = b_color | color_brightness
+            if b_bright > 150
+              assign b_ink = '#0B1F33'
+            endif
+            assign b_range = b.range | strip
+            assign b_num = b_range | remove: 'PPM' | remove: 'ppm' | remove: 'Ppm' | strip
+            assign b_range_down = b_range | downcase
+          -%}
+          <li
+            class="co-ppm__level{{ reveal_cls }}"
+            style="--c: {{ b_color }}; --ink: {{ b_ink }}; --animation-order: {{ ci }};"
+            {{ block.shopify_attributes }}
+          >
+            <div class="co-ppm__badge">
+              <span class="co-ppm__badge-num">{{ b_num | escape }}</span>
+              {%- if b_range_down contains 'ppm' -%}
+                <span class="co-ppm__badge-unit">PPM</span>
+              {%- endif -%}
+            </div>
+            <div class="co-ppm__level-body">
+              {%- if b.title != blank -%}
+                <h3 class="co-ppm__level-name">{{ b.title | escape }}</h3>
+              {%- endif -%}
+              {%- if b.text != blank -%}
+                <div class="co-ppm__level-text">{{ b.text }}</div>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+
+      {%- if s.footnote != blank -%}
+        <div class="co-ppm__foot">{{ s.footnote }}</div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if s.note_heading != blank or s.note_text != blank -%}
+      <div class="co-ppm__note{{ reveal_cls }}">
+        {%- if s.note_icon != 'none' -%}
+          <span class="co-ppm__note-icon" aria-hidden="true">
+            <svg class="co-ppm__ico" viewBox="0 0 24 24"><use href="#co-ppm-{{ uid }}-{{ s.note_icon }}"></use></svg>
+          </span>
+        {%- endif -%}
+        <div class="co-ppm__note-body">
+          {%- if s.note_heading != blank -%}
+            <h3 class="co-ppm__note-hl">{{ s.note_heading }}</h3>
+          {%- endif -%}
+          {%- if s.note_text != blank -%}
+            <div class="co-ppm__note-text">{{ s.note_text }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if item_count > 0 or s.accordion_heading != blank -%}
+      <div class="co-ppm__acc-wrap{{ reveal_cls }}">
+        {%- if s.accordion_heading != blank -%}
+          <h3 class="co-ppm__acc-hl">{{ s.accordion_heading }}</h3>
+        {%- endif -%}
+
+        {%- if item_count > 0 -%}
+          <div class="co-ppm__acc-list">
+            {%- assign ai = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type != 'item' -%}{%- continue -%}{%- endif -%}
+              {%- liquid
+                assign ai = ai | plus: 1
+                assign has_icon = false
+                if block.settings.custom_icon != blank or block.settings.icon != 'none'
+                  assign has_icon = true
+                endif
+              -%}
+              <details
+                class="co-ppm__acc{% if has_icon %} co-ppm__acc--icon{% endif %}"
+                {% if s.accordion_single %}name="co-ppm-{{ uid }}"{% endif %}
+                {% if s.accordion_first_open and ai == 1 %}open{% endif %}
+                {{ block.shopify_attributes }}
+              >
+                <summary class="co-ppm__acc-sum">
+                  {%- if block.settings.custom_icon != blank -%}
+                    <span class="co-ppm__acc-icon" aria-hidden="true">
+                      {{- block.settings.custom_icon | image_url: width: 96 | image_tag: alt: '', loading: 'lazy', width: 24, height: 24 -}}
+                    </span>
+                  {%- elsif block.settings.icon != 'none' -%}
+                    <span class="co-ppm__acc-icon" aria-hidden="true">
+                      <svg class="co-ppm__ico" viewBox="0 0 24 24"><use href="#co-ppm-{{ uid }}-{{ block.settings.icon }}"></use></svg>
+                    </span>
+                  {%- endif -%}
+                  <span class="co-ppm__acc-name">{{ block.settings.title | escape }}</span>
+                  <span class="co-ppm__acc-chev" aria-hidden="true">
+                    <svg class="co-ppm__ico" viewBox="0 0 24 24"><use href="#co-ppm-{{ uid }}-chevron"></use></svg>
+                  </span>
+                </summary>
+                {%- if block.settings.text != blank -%}
+                  <div class="co-ppm__acc-body">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </details>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if s.button_label != blank -%}
+          <div class="co-ppm__cta-wrap">
+            <a class="button button--primary co-ppm__cta" href="{{ s.button_link | default: routes.all_products_collection_url }}">
+              {{- s.button_label | escape -}}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('CoPpm-{{ uid }}');
+    if (!root) return;
+
+    if (window.Shopify && window.Shopify.designMode) {
+      document.addEventListener('shopify:block:select', function (event) {
+        if (!event.detail || event.detail.sectionId !== '{{ uid }}') return;
+        if (event.target && event.target.tagName === 'DETAILS') event.target.open = true;
+      });
+    }
+
+    var chart = root.querySelector('[data-co-animate]');
+    if (!chart || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    chart.classList.add('is-armed');
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          chart.classList.add('is-inview');
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(chart);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "CO-Werte erklärt (PPM)",
+  "tag": "section",
+  "class": "section co-ppm-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Allgemein"
+    },
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "Frühzeitig erkennen. Rechtzeitig handeln."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Was Kohlenmonoxid schon bei <em>niedrigen Werten</em> im Körper auslösen kann",
+      "info": "Kursiv markierter Text erscheint in der Akzentfarbe."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheadline",
+      "default": "<p>Kohlenmonoxid kann unbemerkt in die Raumluft gelangen. Noch bevor ein klassischer Alarm auslöst, können bereits Beschwerden wie Müdigkeit, Kopfschmerzen, Konzentrationsprobleme oder Übelkeit auftreten.</p>"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Ausrichtung Kopfbereich",
+      "options": [
+        { "value": "center", "label": "Zentriert" },
+        { "value": "left", "label": "Linksbündig" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "PPM-Grafik"
+    },
+    {
+      "type": "paragraph",
+      "content": "Farbbereiche, Kurzlabels und Bereichsangaben der Skala kommen aus den Blöcken „PPM-Stufe“."
+    },
+    {
+      "type": "text",
+      "id": "chart_title",
+      "label": "Titel",
+      "default": "So ordnen sich CO-Werte in der Raumluft ein"
+    },
+    {
+      "type": "text",
+      "id": "chart_unit",
+      "label": "Einheit / Zusatz neben dem Titel",
+      "default": "Kohlenmonoxid-Konzentration in ppm (Teile pro Million)"
+    },
+    {
+      "type": "number",
+      "id": "scale_max",
+      "label": "Skalen-Ende in ppm",
+      "default": 100,
+      "info": "Rechter Rand der Grafik. Muss größer sein als der Beginn der letzten Stufe."
+    },
+    {
+      "type": "number",
+      "id": "marker_1_value",
+      "label": "Marker 1: Position in ppm",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "marker_1_text",
+      "label": "Marker 1: Text",
+      "default": "SICHERLUFT warnt frühzeitig",
+      "info": "Erscheint über der Skala. Leer lassen, um den Marker auszublenden."
+    },
+    {
+      "type": "number",
+      "id": "marker_2_value",
+      "label": "Marker 2: Position in ppm",
+      "default": 70
+    },
+    {
+      "type": "text",
+      "id": "marker_2_text",
+      "label": "Marker 2: Text",
+      "default": "Viele klassische Melder alarmieren erst deutlich später",
+      "info": "Erscheint unter der Skala. Leer lassen, um den Marker auszublenden."
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Fußnote unter den PPM-Stufen",
+      "default": "<p>Orientierungswerte: Wie Kohlenmonoxid wirkt, hängt von Konzentration, Dauer und Gesundheitszustand ab. Die Einordnung ersetzt keine ärztliche Beratung. Bei Verdacht auf eine Vergiftung: Raum sofort verlassen und den Notruf 112 wählen.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Hinweisblock"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "note_heading",
+      "label": "Hinweisblock-Headline",
+      "default": "Gefährlich ist nicht nur der Spitzenwert – sondern auch die Dauer der Belastung."
+    },
+    {
+      "type": "richtext",
+      "id": "note_text",
+      "label": "Hinweisblock-Text",
+      "default": "<p>Schon niedrigere Kohlenmonoxid-Werte können problematisch werden, wenn sie über längere Zeit unbemerkt in der Raumluft bleiben. Genau deshalb ist es entscheidend, Veränderungen frühzeitig zu sehen – nicht erst dann, wenn es kritisch wird.</p>"
+    },
+    {
+      "type": "select",
+      "id": "note_icon",
+      "label": "Icon im Hinweisblock",
+      "options": [
+        { "value": "none", "label": "Kein Icon" },
+        { "value": "clock", "label": "Uhr / Dauer" },
+        { "value": "alert", "label": "Warnung" },
+        { "value": "eye", "label": "Auge / Sichtbar" },
+        { "value": "air", "label": "Luft / Lüften" },
+        { "value": "shield", "label": "Schutz" },
+        { "value": "info", "label": "Info" }
+      ],
+      "default": "clock"
+    },
+    {
+      "type": "header",
+      "content": "Accordion"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "accordion_heading",
+      "label": "Accordion-Headline",
+      "default": "Warum frühes Erkennen so entscheidend ist"
+    },
+    {
+      "type": "checkbox",
+      "id": "accordion_single",
+      "label": "Immer nur einen Punkt geöffnet",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "accordion_first_open",
+      "label": "Ersten Punkt geöffnet anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text (optional)",
+      "info": "Leer lassen, um keinen Button anzuzeigen."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Kartenfarbe",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Textfarbe",
+      "default": "#082B4A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Akzentfarbe",
+      "default": "#0794F8"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Border-Radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding oben",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding unten",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximale Containerbreite",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    }
+  ],
+  "blocks": [
+    {
+      "type": "level",
+      "name": "PPM-Stufe",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "range",
+          "label": "Bereich",
+          "default": "0–15 PPM",
+          "info": "Erscheint im farbigen Badge und unter der Skala."
+        },
+        {
+          "type": "number",
+          "id": "start",
+          "label": "Beginn der Stufe in ppm",
+          "default": 0,
+          "info": "Bestimmt Position und Breite in der Grafik. Stufen in aufsteigender Reihenfolge anlegen."
+        },
+        {
+          "type": "text",
+          "id": "scale_label",
+          "label": "Label in der Grafik",
+          "default": "Unauffällig",
+          "info": "Kurz halten. Wird auf Smartphones ausgeblendet."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Normale Raumluft / unauffällig"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Beschreibung",
+          "default": "<p>Bei niedrigen Werten bestehen in der Regel keine akuten Beschwerden. Dennoch zeigt die Anzeige, ob sich die Luftqualität verändert.</p>"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Farbe",
+          "default": "#18864B"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Accordion-Punkt",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Früher sehen heißt früher handeln"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Wer die Werte im Blick hat, kann schneller lüften, reagieren und Gefahren ernst nehmen – bevor die Situation eskaliert.</p>"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon (optional)",
+          "options": [
+            { "value": "none", "label": "Kein Icon" },
+            { "value": "family", "label": "Familie / Kinder" },
+            { "value": "clock", "label": "Uhr / Dauer" },
+            { "value": "bell", "label": "Melder / Alarm" },
+            { "value": "eye", "label": "Auge / Sichtbar" },
+            { "value": "air", "label": "Luft / Lüften" },
+            { "value": "shield", "label": "Schutz" },
+            { "value": "heart", "label": "Gesundheit" },
+            { "value": "home", "label": "Zuhause" },
+            { "value": "info", "label": "Info" },
+            { "value": "alert", "label": "Warnung" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Eigenes Icon (optional)",
+          "info": "Ersetzt das ausgewählte Icon. Quadratisch, z. B. SVG oder PNG."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CO-Werte erklärt (PPM)",
+      "blocks": [
+        {
+          "type": "level",
+          "settings": {
+            "range": "0–15 PPM",
+            "start": 0,
+            "scale_label": "Unauffällig",
+            "title": "Normale Raumluft / unauffällig",
+            "text": "<p>Bei niedrigen Werten bestehen in der Regel keine akuten Beschwerden. Dennoch zeigt die Anzeige, ob sich die Luftqualität verändert.</p>",
+            "color": "#18864B"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "range": "16–29 PPM",
+            "start": 16,
+            "scale_label": "Erste Belastung",
+            "title": "Erste Belastung möglich",
+            "text": "<p>Bei längerer Exposition können Müdigkeit, leichte Kopfschmerzen oder Konzentrationsprobleme auftreten – besonders bei empfindlichen Personen.</p>",
+            "color": "#F5C518"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "range": "30–50 PPM",
+            "start": 30,
+            "scale_label": "Warnstufe",
+            "title": "Deutliche Warnstufe",
+            "text": "<p>Hier können bereits Beschwerden wie Kopfschmerzen, Benommenheit, Übelkeit und verlangsamte Reaktionen auftreten. Für Kinder, ältere Menschen und gesundheitlich vorbelastete Personen kann dieser Bereich besonders kritisch sein.</p>",
+            "color": "#F08A24"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "range": "51–69 PPM",
+            "start": 51,
+            "scale_label": "Ernste Belastung",
+            "title": "Ernstzunehmende Belastung",
+            "text": "<p>In diesem Bereich steigt das Risiko für stärkere Symptome wie Verwirrtheit, deutliche Schwäche und Orientierungslosigkeit. Spätestens jetzt ist schnelles Handeln wichtig.</p>",
+            "color": "#C9441A"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "range": "70+ PPM",
+            "start": 70,
+            "scale_label": "Akute Gefahr",
+            "title": "Akute Gefahr",
+            "text": "<p>Hohe Kohlenmonoxid-Konzentrationen können schnell gefährlich werden. Jetzt zählt jede Minute.</p>",
+            "color": "#C1121C"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Kinder reagieren empfindlicher",
+            "text": "<p>Kinder atmen schneller, ihr Körper ist kleiner und sie reagieren empfindlicher auf belastete Raumluft. Beschwerden können daher früher auftreten als bei Erwachsenen.</p>",
+            "icon": "family"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Längere Belastung kann gefährlich sein",
+            "text": "<p>Nicht nur hohe Spitzenwerte sind problematisch. Auch eine über Stunden anhaltende Belastung mit mittleren Werten kann ernst zu nehmende Auswirkungen haben.</p>",
+            "icon": "clock"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Klassische Warnmelder zeigen oft nicht das ganze Bild",
+            "text": "<p>Ein herkömmlicher Melder warnt in erster Linie bei kritischen Alarmwerten. Er zeigt jedoch nicht immer, wie sich Werte vorher entwickeln.</p>",
+            "icon": "bell"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Früher sehen heißt früher handeln",
+            "text": "<p>Wer die Werte im Blick hat, kann schneller lüften, reagieren und Gefahren ernst nehmen – bevor die Situation eskaliert.</p>",
+            "icon": "eye"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
