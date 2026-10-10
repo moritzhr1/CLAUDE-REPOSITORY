@@ -418,9 +418,10 @@
 
 {% stylesheet %}
   /*
-    Sticky-Stack: Countdown-Banner + Sale-Ticker + Header bleiben gemeinsam oben.
-    Die Header-Group-Sections direkt über dem Header bekommen per StickyHeader (unten)
+    Sticky-Stack: Countdown-Banner + Sale-Ticker bleiben beim Scrollen oben.
+    Die Header-Group-Sections direkt über dem Header bekommen per HeaderBannerStack (unten)
     die Klasse .header-sticky-stack__item und ihre gemessenen Offsets als CSS-Variablen.
+    Ist „Fixierter Header“ aktiv, klebt der Header direkt darunter (--header-stack-offset).
     Selektoren mit zwei Klassen, damit sie base.css (gleiche Regeln, eine Klasse) schlagen.
   */
   .shopify-section-group-header-group.header-sticky-stack__item {
@@ -512,7 +513,6 @@
       window.addEventListener('scroll', this.onScrollHandler, false);
 
       this.createObserver();
-      this.initStickyStack();
     }
 
     setHeaderHeight() {
@@ -522,88 +522,6 @@
     disconnectedCallback() {
       this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
       window.removeEventListener('scroll', this.onScrollHandler);
-      this.destroyStickyStack();
-    }
-
-    // Sticky-Stack: Header-Group-Sections direkt über dem Header (Countdown-Banner, Ticker)
-    // kleben mit, jede mit der gemessenen Höhe der darüberliegenden als Abstand nach oben.
-    initStickyStack() {
-      this.stackItems = [];
-      this.stackFrame = null;
-      this.scheduleStackUpdate = () => {
-        if (this.stackFrame) return;
-        this.stackFrame = requestAnimationFrame(() => {
-          this.stackFrame = null;
-          this.updateStickyStack();
-        });
-      };
-      this.onStackSectionChange = () => requestAnimationFrame(() => this.collectStickyStack());
-      this.stackResizeObserver = 'ResizeObserver' in window ? new ResizeObserver(this.scheduleStackUpdate) : null;
-
-      window.addEventListener('resize', this.scheduleStackUpdate);
-      document.addEventListener('shopify:section:load', this.onStackSectionChange);
-      document.addEventListener('shopify:section:unload', this.onStackSectionChange);
-      document.addEventListener('shopify:section:reorder', this.onStackSectionChange);
-
-      this.collectStickyStack();
-    }
-
-    collectStickyStack() {
-      if (!this.header || !this.header.isConnected) return;
-
-      const items = [];
-      let sibling = this.header.previousElementSibling;
-      while (sibling && sibling.classList.contains('shopify-section-group-header-group')) {
-        items.unshift(sibling);
-        sibling = sibling.previousElementSibling;
-      }
-
-      this.stackItems.forEach((item) => {
-        if (!items.includes(item)) this.releaseStackItem(item);
-      });
-      items.forEach((item) => {
-        item.classList.add('header-sticky-stack__item');
-        if (this.stackResizeObserver) this.stackResizeObserver.observe(item);
-      });
-      if (this.stackResizeObserver) this.stackResizeObserver.observe(this.header);
-
-      this.stackItems = items;
-      this.updateStickyStack();
-    }
-
-    updateStickyStack() {
-      let offset = 0;
-      this.stackItems.forEach((item, index) => {
-        item.style.setProperty('--header-stack-top', `${offset}px`);
-        item.style.setProperty('--header-stack-z', `${4 + this.stackItems.length - index}`);
-        offset += item.getBoundingClientRect().height;
-      });
-
-      const root = document.documentElement.style;
-      root.setProperty('--header-stack-offset', `${offset}px`);
-      root.setProperty('--header-stack-height', `${offset + this.header.getBoundingClientRect().height}px`);
-      this.setHeaderHeight();
-    }
-
-    releaseStackItem(item) {
-      item.classList.remove('header-sticky-stack__item');
-      item.style.removeProperty('--header-stack-top');
-      item.style.removeProperty('--header-stack-z');
-      if (this.stackResizeObserver) this.stackResizeObserver.unobserve(item);
-    }
-
-    destroyStickyStack() {
-      if (!this.stackItems) return;
-      if (this.stackFrame) cancelAnimationFrame(this.stackFrame);
-      if (this.stackResizeObserver) this.stackResizeObserver.disconnect();
-      window.removeEventListener('resize', this.scheduleStackUpdate);
-      document.removeEventListener('shopify:section:load', this.onStackSectionChange);
-      document.removeEventListener('shopify:section:unload', this.onStackSectionChange);
-      document.removeEventListener('shopify:section:reorder', this.onStackSectionChange);
-      this.stackItems.forEach((item) => this.releaseStackItem(item));
-      this.stackItems = [];
-      document.documentElement.style.removeProperty('--header-stack-offset');
-      document.documentElement.style.removeProperty('--header-stack-height');
     }
 
     createObserver() {
@@ -677,6 +595,77 @@
   }
 
   customElements.define('sticky-header', StickyHeader);
+
+  // Sticky-Stack: Die Header-Group-Sections direkt über dem Header (Countdown-Banner, Sale-Ticker)
+  // bleiben beim Scrollen oben, jede mit der gemessenen Höhe der darüberliegenden als Abstand.
+  // Unabhängig von StickyHeader: Ob der Header selbst mitklebt, regelt weiter seine Einstellung
+  // „Fixierter Header“; falls ja, setzt er per --header-stack-offset direkt unter den Bannern an.
+  class HeaderBannerStack {
+    constructor() {
+      this.items = [];
+      this.frame = null;
+      this.scheduleUpdate = () => {
+        if (this.frame) return;
+        this.frame = requestAnimationFrame(() => {
+          this.frame = null;
+          this.update();
+        });
+      };
+      this.resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(this.scheduleUpdate) : null;
+
+      const collectAfterRender = () => requestAnimationFrame(() => this.collect());
+      window.addEventListener('resize', this.scheduleUpdate);
+      document.addEventListener('shopify:section:load', collectAfterRender);
+      document.addEventListener('shopify:section:unload', collectAfterRender);
+      document.addEventListener('shopify:section:reorder', collectAfterRender);
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.collect());
+      } else {
+        this.collect();
+      }
+    }
+
+    collect() {
+      const header = document.querySelector('.section-header');
+      const items = [];
+      let sibling = header ? header.previousElementSibling : null;
+      while (sibling && sibling.classList.contains('shopify-section-group-header-group')) {
+        items.unshift(sibling);
+        sibling = sibling.previousElementSibling;
+      }
+
+      this.items.forEach((item) => {
+        if (!items.includes(item)) this.release(item);
+      });
+      items.forEach((item) => {
+        item.classList.add('header-sticky-stack__item');
+        if (this.resizeObserver) this.resizeObserver.observe(item);
+      });
+
+      this.items = items;
+      this.update();
+    }
+
+    update() {
+      let offset = 0;
+      this.items.forEach((item, index) => {
+        item.style.setProperty('--header-stack-top', `${offset}px`);
+        item.style.setProperty('--header-stack-z', `${4 + this.items.length - index}`);
+        offset += item.getBoundingClientRect().height;
+      });
+      document.documentElement.style.setProperty('--header-stack-offset', `${offset}px`);
+    }
+
+    release(item) {
+      item.classList.remove('header-sticky-stack__item');
+      item.style.removeProperty('--header-stack-top');
+      item.style.removeProperty('--header-stack-z');
+      if (this.resizeObserver) this.resizeObserver.unobserve(item);
+    }
+  }
+
+  new HeaderBannerStack();
 {% endjavascript %}
 
 <script type="application/ld+json">

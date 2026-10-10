@@ -14,40 +14,69 @@
     "countdown_bar_sl": {
       "type": "announcement-bar",
       "settings": {
-        "use_theme_colors": true,
-        "announcement_text": "HERBST-SALE — Jetzt sichern und bis zu 50% sparen",
+        "use_theme_colors": false,
+        "announcement_text": "ANGEBOT ENDET IN:",
         "show_days": true,
         "custom_date": true,
-        "end_date": "2026-11-30 23:59:59",
-        "daily_reset": false,
+        "end_date": "2026-10-30 00:00:00",
+        "daily_reset": true,
         "days_label": "TAGE",
         "hours_label": "STD",
         "minutes_label": "MIN",
-        "seconds_label": "SEK"
+        "seconds_label": "SEK",
+        "text_color": "#020416",
+        "timer_bg_color": "#ffffff",
+        "timer_text_color": "#ff0000",
+        "label_text_color": "#ffffff",
+        "gradient_color_1": "#fff5ea",
+        "gradient_color_2": "#ffdae0",
+        "gradient_color_3": "#fdffe7",
+        "gradient_color_4": "#ff99a9"
+      }
+    },
+    "1789739721c99bcbc8": {
+      "type": "apps",
+      "blocks": {
+        "fab_marquee_scrolling_text_app_block_x7JyDm": {
+          "type": "shopify://apps/fab-marquee-scrolling-text/blocks/app-block/c13fc727-3c6a-4e50-b847-b6af5ec54bbe",
+          "settings": {
+            "code": "<div class=\"fab_marquee_default\"></div>"
+          }
+        }
+      },
+      "block_order": [
+        "fab_marquee_scrolling_text_app_block_x7JyDm"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        ".header__menu-item,.header__menu-item span,.menu-list__link,.menu-list__link span {font-size: 17px !important;}"
+      ],
       "settings": {
-        "logo_position": "middle-center",
+        "logo_position": "top-center",
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
-        "sticky_header_type": "on-scroll-up",
+        "sticky_header_type": "none",
         "show_line_separator": true,
-        "use_theme_colors": true,
+        "use_theme_colors": false,
         "use_global_gradient": false,
         "enable_country_selector": true,
         "enable_language_selector": false,
         "enable_customer_avatar": true,
         "margin_bottom": 0,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 0,
+        "padding_bottom": 16
       }
     }
   },
   "order": [
     "countdown_bar_sl",
+    "1789739721c99bcbc8",
     "header"
   ]
 }
