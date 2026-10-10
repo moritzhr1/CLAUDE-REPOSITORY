@@ -74,7 +74,7 @@
   endif
 
   assign m2_text = s.marker_2_text | strip
-  assign m2_val = s.marker_2_value | default: 70
+  assign m2_val = s.marker_2_value | default: 50
   assign m2_pos = m2_val | minus: scale_min | times: 100.0 | divided_by: span | at_least: 0 | at_most: 100 | round: 2
   assign m2_side = 'start'
   if m2_pos > 50
@@ -265,7 +265,7 @@
     flex-direction: column;
     gap: 3px;
     width: fit-content;
-    max-width: 320px;
+    max-width: 360px;
     padding: 10px 14px 11px;
     border-radius: 12px;
     font-size: 14px;
@@ -1164,20 +1164,20 @@
       "type": "text",
       "id": "marker_1_text",
       "label": "Marker 1: Text",
-      "default": "SICHERLUFT warnt frühzeitig",
+      "default": "Ein Melder nach Norm schweigt hier mindestens 2 Stunden. SICHERLUFT zeigt den Wert schon am Display.",
       "info": "Erscheint über der Skala. Leer lassen, um den Marker auszublenden."
     },
     {
       "type": "number",
       "id": "marker_2_value",
       "label": "Marker 2: Position in ppm",
-      "default": 70
+      "default": 50
     },
     {
       "type": "text",
       "id": "marker_2_text",
       "label": "Marker 2: Text",
-      "default": "Viele klassische Melder alarmieren erst deutlich später",
+      "default": "Selbst hier verlangt die Norm EN 50291-1 den Alarm erst nach 60 bis 90 Minuten.",
       "info": "Erscheint unter der Skala. Leer lassen, um den Marker auszublenden."
     },
     {
