@@ -11,379 +11,1395 @@
   "sections": {
     "main": {
       "type": "shop-product-details",
-      "settings": {
-        "use_theme_colors": true,
-        "show_product_info": true,
-        "show_product_gallery": true
-      },
       "blocks": {
-        "divider_top": {
-          "type": "divider",
-          "settings": {}
+        "custom_liquid_QNPGRA": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"\n  padding:12px 0;\n  border-top:1px solid #eeeeee;\n  font-size:13px;\n  font-weight:600;\n  color:#1a1a1a;\n  text-align:center;\n\">\n  ✓ Geprüft nach EN 50291-1 & EN 50194-1\n</div>"
+          }
         },
         "title_9LH9qV": {
           "type": "title",
           "settings": {
             "use_custom_title": true,
-            "custom_title": "SICHERLUFT 4-in-1 CO-/Gas-Detektor"
+            "custom_title": "SICHERLUFT 4-in-1 CO- & Gasmelder",
+            "font_size": 28,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "title_color": "#1a1a1a",
+            "line_height": 1.2
           }
         },
-        "divider_tAFJq8": {
-          "type": "divider",
-          "settings": {}
+        "custom_liquid_7Q7rjR": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"display:flex;align-items:center;gap:6px;flex-wrap:nowrap;margin:6px 0 10px;\">\n  <span style=\"color:#00B67A;font-size:17px;font-weight:700;letter-spacing:0;line-height:1;white-space:nowrap;\">\n    ★★★★★\n  </span>\n\n  <span style=\"font-size:13px;font-weight:600;color:#1A1A1A;line-height:1.2;white-space:nowrap;\">\n    4,8 von 5 · Kundenbewertungen\n  </span>\n</div>"
+          }
         },
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+            "price_color": "#111111",
+            "compare_price_color": "#999999",
+            "sale_badge_bg_color": "#ff424e",
+            "sale_badge_text_color": "#ffffff",
+            "save_badge_enable_border": false,
+            "save_badge_border_color": "#000000",
+            "save_badge_border_width": 1,
+            "save_badge_border_style": "solid",
+            "price_font_size": 26,
+            "compare_price_font_size": 16,
+            "save_badge_font_size": 12,
+            "price_font_weight": "600",
+            "price_margin_top": 6,
+            "price_margin_bottom": 6,
+            "show_save_icon": true,
+            "save_icon_size_ratio": 0.9,
+            "save_icon_position_y": 0,
+            "save_badge_padding_v": 3,
+            "save_badge_padding_h": 6,
+            "custom_save_text": "",
+            "save_badge_display_type": "percentage",
+            "custom_save_amount": ""
+          }
         },
         "product_description_sl": {
           "type": "product_description",
+          "disabled": true,
           "settings": {
-            "heading": "Produktbeschreibung"
+            "show_heading": true,
+            "heading": "Produktbeschreibung",
+            "heading_font_size": 28,
+            "heading_spacing": 20,
+            "heading_color": "#000000",
+            "text_font_size": 16,
+            "line_height": 1.6,
+            "text_alignment": "left",
+            "max_width": 600,
+            "text_color": "#333333",
+            "show_fallback": true,
+            "fallback_text": "No product description available.",
+            "margin_top": 16,
+            "margin_bottom": 16
           }
         },
         "benefits_grid_ieJMMM": {
           "type": "benefits_grid",
+          "disabled": true,
           "settings": {
-            "benefit_1_text": "Mehrere Werte im Blick [CLAIM VERIFIZIEREN]",
+            "benefit_1_text": "Mehrere Werte im Blick",
+            "benefit_1_use_image": false,
+            "benefit_1_use_custom_icon": false,
+            "benefit_1_custom_icon": "",
             "benefit_2_text": "Sofort ablesbares Display",
+            "benefit_2_use_image": false,
+            "benefit_2_use_custom_icon": false,
+            "benefit_2_custom_icon": "",
             "benefit_3_text": "Einfach einstecken",
-            "benefit_4_text": "Kompakt für unterwegs"
+            "benefit_3_use_image": false,
+            "benefit_3_use_custom_icon": false,
+            "benefit_3_custom_icon": "",
+            "benefit_4_text": "Kompakt für unterwegs",
+            "benefit_4_use_image": false,
+            "benefit_4_use_custom_icon": false,
+            "benefit_4_custom_icon": "",
+            "icon_bg_color": "#ffeaee",
+            "enable_icon_circle_stroke": false,
+            "icon_circle_stroke_color": "#ef4a65",
+            "icon_circle_stroke_width": 2,
+            "icon_stroke_color": "#ef4a65",
+            "text_color": "#ef4a65",
+            "font_size": 12,
+            "icon_size": 24,
+            "icon_container_size": 36,
+            "grid_gap": 15,
+            "container_margin_top": 15,
+            "container_margin_bottom": 15
           }
         },
         "bullet_list_sl_main": {
           "type": "bullet_list",
           "settings": {
-            "bullet_1": "Mehrere Werte im Blick",
-            "bullet_2": "Einfach einstecken",
-            "bullet_3": "Kompakt für unterwegs"
+            "bullet_1": "Erkennt CO, Erdgas & Propan",
+            "bullet_2": "Warnt bei kritischen Gaskonzentrationen",
+            "bullet_3": "Für Zuhause & Wohnmobil geeignet",
+            "use_custom_icon_1": false,
+            "custom_icon_1": "",
+            "use_custom_icon_2": false,
+            "custom_icon_2": "",
+            "use_custom_icon_3": false,
+            "custom_icon_3": "",
+            "icon_color": "#0057a8",
+            "text_color": "#1a1a1a",
+            "icon_size": 14,
+            "text_size": 14,
+            "spacing": 5,
+            "show_bg": false,
+            "bg_color": "#f5f5f5",
+            "use_gradient": false,
+            "gradient_start": "#f5f5f5",
+            "gradient_end": "#e0e0e0",
+            "gradient_direction": "to right",
+            "border_radius": 4,
+            "margin_top": 5,
+            "margin_bottom": 5
+          }
+        },
+        "viewer_notice_RxmMNQ": {
+          "type": "viewer_notice",
+          "settings": {
+            "notice_text": "Gefragt:",
+            "suffix_text": "Personen sehen sich das gerade an",
+            "min_viewers": 5,
+            "max_viewers": 15,
+            "background_color": "#f5f9fc",
+            "text_color": "#333333",
+            "dot_color": "#e74c3c",
+            "border_radius": 8,
+            "box_shadow": false,
+            "margin_top": 6,
+            "margin_bottom": 6,
+            "show_border": false,
+            "border_style": "dashed",
+            "border_color": "#b4f2ff",
+            "border_width": 1,
+            "use_icon": false,
+            "custom_icon": "",
+            "icon_size": 16
+          }
+        },
+        "kaching_bundles_app_block_yqn3Pa": {
+          "type": "shopify://apps/kaching-bundles/blocks/app-block/6c637362-a106-4a32-94ac-94dcfd68cdb8",
+          "settings": {
+            "product": "sicherluft-4-in-1-co-gasmelder",
+            "manual_deal_block_id": ""
           }
         },
         "quantity_selector_sl": {
           "type": "quantity_selector",
-          "settings": {}
+          "settings": {
+            "background_color": "#f5f7fa",
+            "button_color": "#ffffff",
+            "text_color": "#1a1a1a",
+            "margin_top": 0,
+            "margin_bottom": 12
+          }
+        },
+        "custom_liquid_DeXz4Y": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "custom_text_9kKi7m": {
+          "type": "custom_text",
+          "settings": {
+            "text": "",
+            "show_description": true,
+            "description": "<p><strong>Nur noch wenige verfügbar</strong></p>",
+            "description_font_size": 16,
+            "description_spacing": 4,
+            "description_color": "#e90f0f",
+            "description_opacity": 0.8,
+            "show_icon": false,
+            "custom_icon": "<svg width=\"24\" height=\"24\" viewbox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"bi bi-stars\"><path d=\"M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z\"></path></svg>",
+            "icon_color": "#333333",
+            "icon_size": 20,
+            "icon_spacing": 8,
+            "icon_alignment": "center",
+            "text_align": "left",
+            "font_size": 16,
+            "text_color": "#333333",
+            "margin_top": -20,
+            "margin_bottom": -8,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "use_container": false,
+            "container_bg": "#f8f8f8",
+            "container_padding_v": 10,
+            "container_padding_h": 14,
+            "border_radius": 4,
+            "show_divider": false,
+            "divider_color": "#e0e0e0",
+            "divider_height": 1,
+            "divider_style": "solid",
+            "divider_spacing": 12
+          }
         },
         "shipping_notice": {
           "type": "shipping_notice",
           "settings": {
-            "notice_text_before": "Bestelle heute – voraussichtlicher Versand bis",
-            "notice_text_after": "[CLAIM VERIFIZIEREN: Bearbeitungszeit]",
-            "days_ahead": 2
+            "notice_text_before": "Lieferung bis:ㅤ",
+            "notice_text_after": "",
+            "days_ahead": 7,
+            "show_suffix": true,
+            "custom_shipping_text": "#0f0101",
+            "custom_date_color": "#333333",
+            "custom_highlight_color_off_theme": "#4caf50",
+            "custom_bg_color_off_theme": "#f5f5f5",
+            "highlight_color": "#0057a8",
+            "dot_color": "#333333",
+            "bg_color": "#ffffff",
+            "enable_border": false,
+            "border_color": "#e5e5e5",
+            "border_width": 1,
+            "border_style": "solid",
+            "font_size": 16,
+            "container_margin_top": 4,
+            "container_margin_bottom": -10,
+            "enable_animation": true,
+            "suffix_text": "."
           }
+        },
+        "delivery_timer_text_based_timer_EBbR4f": {
+          "type": "shopify://apps/delivery-timer/blocks/text_based_timer/bace9725-6846-4fad-8461-027a1ac43ad8",
+          "settings": {}
         },
         "add_to_cart": {
           "type": "add_to_cart",
           "settings": {
-            "button_text_override": "Jetzt SICHERLUFT sichern",
-            "show_price_in_button": false
+            "use_theme_colors": true,
+            "button_text_override": "IN DEN WARENKORB",
+            "show_price_in_button": false,
+            "button_icon": "cart",
+            "custom_icon": "",
+            "icon_size": 20,
+            "buy_box_button_bg_color": "#0057a8",
+            "button_text_color": "#ffffff",
+            "buy_box_button_hover_color": "#004582",
+            "price_color": "#ffffff",
+            "card_border_radius": 6
           }
         },
         "payment_icons_4M99Bi": {
           "type": "payment_icons",
-          "settings": {}
-        },
-        "divider_yp8EHi": {
-          "type": "divider",
-          "settings": {}
+          "settings": {
+            "use_custom_icons": false,
+            "custom_svg_1": "",
+            "custom_svg_2": "",
+            "custom_svg_3": "",
+            "custom_svg_4": "",
+            "custom_svg_5": "",
+            "custom_svg_6": "",
+            "icon_height": 18,
+            "icon_spacing": 4,
+            "alignment": "center",
+            "margin_top": 4,
+            "margin_bottom": 4
+          }
         },
         "delivery_date_block_qwerty": {
           "type": "delivery_date",
           "settings": {
             "heading": "Lieferinformationen",
+            "heading_color": "#000000",
+            "heading_size": 16,
+            "shipping_days": 5,
             "text_before": "Voraussichtlich am",
             "text_after": "",
-            "shipping_days": 5,
-            "subtext": "Versandzeit kann je nach Standort variieren. [CLAIM VERIFIZIEREN]"
+            "show_icon": true,
+            "accent_color": "#ef4a65",
+            "subtext": "Versandzeit kann je nach Standort variieren.",
+            "subtext_color": "#666666",
+            "subtext_size": 14,
+            "background_color": "#ffffff",
+            "border_radius": 4,
+            "padding": 15,
+            "margin_top": 0,
+            "margin_bottom": 15
+          }
+        },
+        "sl_volume_info_SLb7Q2": {
+          "type": "sl_volume_info",
+          "settings": {
+            "show": true,
+            "icon": "tag",
+            "headline": "Mehr Geräte, besserer Stückpreis",
+            "text": "Sichern Sie mehrere Bereiche gleichzeitig und profitieren Sie vom günstigeren Bundle-Preis.",
+            "note": "Je größer das Set, desto niedriger der Preis pro Gerät.",
+            "show_savings": true,
+            "savings_text": "Sie sparen [betrag] gegenüber dem Einzelkauf",
+            "bg_color": "#f3f8fd",
+            "border_color": "#d5e5f5",
+            "accent_color": "#0057a8",
+            "text_color": "#0b2545",
+            "margin_top": 10,
+            "margin_bottom": 0
+          }
+        },
+        "sl_faq_item_SLf1Wo": {
+          "type": "sl_faq_item",
+          "settings": {
+            "show": true,
+            "question": "Wo sollte ich SICHERLUFT einsetzen?",
+            "answer": "<p>Überall dort, wo Kohlenmonoxid oder brennbare Gase entstehen können – zum Beispiel in Wohnräumen, bei Gasgeräten, Feuerstätten oder im Wohnmobil. Die genaue Platzierung erfolgt entsprechend der Bedienungsanleitung.</p>",
+            "icon": "none",
+            "bg_color": "#ffffff",
+            "border_color": "#dbe6f1",
+            "question_color": "#0b2545",
+            "answer_color": "#44566c",
+            "accent_color": "#0057a8",
+            "margin_top": 6
+          }
+        },
+        "sl_faq_item_SLf2Rm": {
+          "type": "sl_faq_item",
+          "settings": {
+            "show": true,
+            "question": "Brauche ich für mehrere Räume mehrere Geräte?",
+            "answer": "<p>Bei getrennten Räumen, mehreren Etagen oder unterschiedlichen Einsatzbereichen können mehrere Melder sinnvoll sein.</p>",
+            "icon": "none",
+            "bg_color": "#ffffff",
+            "border_color": "#dbe6f1",
+            "question_color": "#0b2545",
+            "answer_color": "#44566c",
+            "accent_color": "#0057a8",
+            "margin_top": 0
+          }
+        },
+        "sl_faq_item_SLf3Ei": {
+          "type": "sl_faq_item",
+          "settings": {
+            "show": true,
+            "question": "Muss das Gerät eingerichtet werden?",
+            "answer": "<p>Nein. Einstecken, initialisieren lassen und die Werte direkt am Display ablesen.</p>",
+            "icon": "none",
+            "bg_color": "#ffffff",
+            "border_color": "#dbe6f1",
+            "question_color": "#0b2545",
+            "answer_color": "#44566c",
+            "accent_color": "#0057a8",
+            "margin_top": 0
+          }
+        },
+        "sl_faq_item_SLf4Di": {
+          "type": "sl_faq_item",
+          "settings": {
+            "show": false,
+            "question": "Was zeigt das Display an?",
+            "answer": "<p>Das Display zeigt die aktuellen Messwerte und Betriebsinformationen direkt am Gerät an.</p>",
+            "icon": "none",
+            "bg_color": "#ffffff",
+            "border_color": "#dbe6f1",
+            "question_color": "#0b2545",
+            "answer_color": "#44566c",
+            "accent_color": "#0057a8",
+            "margin_top": 0
+          }
+        },
+        "sl_review_card_SLr8Kd": {
+          "type": "sl_review_card",
+          "settings": {
+            "show": true,
+            "rating_value": 5,
+            "star_count": 5,
+            "star_color": "#00b67a",
+            "headline": "Einfach, übersichtlich und direkt einsatzbereit.",
+            "review_text": "Das Gerät war schnell eingerichtet und die Werte sind direkt auf dem Display sichtbar. Gerade für mehrere Einsatzorte finde ich das sehr praktisch.",
+            "name": "SICHERLUFT Kunde",
+            "role": "",
+            "tag": "",
+            "bg_color": "#ffffff",
+            "border_color": "#dbe6f1",
+            "text_color": "#0b2545",
+            "star_empty_color": "#d4dde6",
+            "accent_color": "#0057a8",
+            "margin_top": 6,
+            "margin_bottom": 0
           }
         }
       },
       "block_order": [
-        "divider_top",
+        "custom_liquid_QNPGRA",
         "title_9LH9qV",
-        "divider_tAFJq8",
+        "custom_liquid_7Q7rjR",
         "price",
         "product_description_sl",
         "benefits_grid_ieJMMM",
         "bullet_list_sl_main",
+        "viewer_notice_RxmMNQ",
+        "kaching_bundles_app_block_yqn3Pa",
         "quantity_selector_sl",
+        "custom_liquid_DeXz4Y",
+        "custom_text_9kKi7m",
         "shipping_notice",
+        "delivery_timer_text_based_timer_EBbR4f",
         "add_to_cart",
         "payment_icons_4M99Bi",
-        "divider_yp8EHi",
+        "sl_volume_info_SLb7Q2",
+        "sl_faq_item_SLf1Wo",
+        "sl_faq_item_SLf2Rm",
+        "sl_faq_item_SLf3Ei",
+        "sl_faq_item_SLf4Di",
+        "sl_review_card_SLr8Kd",
         "delivery_date_block_qwerty"
-      ]
-    },
-    "scrolling_features_bar_AhP6EL": {
-      "type": "scrolling-features-bar",
+      ],
       "settings": {
-        "use_theme_colors": true
-      },
-      "blocks": {
-        "feature_item_1": {
-          "type": "feature_item",
-          "settings": {
-            "text": "MEHRERE MESSWERTE",
-            "icon_type": "svg",
-            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
-          }
-        },
-        "feature_item_2": {
-          "type": "feature_item",
-          "settings": {
-            "text": "EINFACH EINSTECKEN",
-            "icon_type": "svg",
-            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
-          }
-        },
-        "feature_item_3": {
-          "type": "feature_item",
-          "settings": {
-            "text": "KOMPAKTES DESIGN",
-            "icon_type": "svg",
-            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"></path></svg>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_item_1",
-        "feature_item_2",
-        "feature_item_3"
-      ]
-    },
-    "sticky_add_to_cart_NJqgUd": {
-      "type": "sticky-add-to-cart",
-      "settings": {
-        "button_text": "Jetzt SICHERLUFT sichern",
-        "rating_text": ""
+        "use_theme_colors": true,
+        "section_bg_color": "#ffffff",
+        "blocks_spacing": 4,
+        "text_color": "#1a1a1a",
+        "accent_color": "#0057a8",
+        "divider_color": "#eeeeee",
+        "show_product_info": true,
+        "show_product_gallery": true,
+        "thumbnail_border_color": "#eeeeee",
+        "thumbnail_active_border_color": "#0057a8",
+        "arrow_bg_color": "#ffffff",
+        "arrow_border_color": "#eeeeee",
+        "arrow_icon_color": "#000000",
+        "dots_color": "#cccccc",
+        "enable_full_width_image": false
       }
     },
-    "product_benefits_NWiWMe": {
-      "type": "product-benefits",
+    "sicherluft_loop_video_cT7wEt": {
+      "type": "sicherluft-loop-video",
       "settings": {
-        "use_theme_colors": true,
-        "heading_accent": "Technische",
-        "heading_regular": "Vorteile",
-        "subtitle": "Was SICHERLUFT technisch auszeichnet.",
-        "show_image": true,
-        "feature_image": "shopify://shop_images/sicherluft-display-detail-v2.png",
-        "image_alt": "Nahaufnahme des SICHERLUFT Displays"
-      },
+        "video": "shopify://files/videos/sicherluft-co-loop.mp4",
+        "accessible_label": "",
+        "max_width_desktop": 640,
+        "max_width_mobile": 750,
+        "border_radius": 0,
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "padding_horizontal": 40,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16,
+        "padding_horizontal_mobile": 0,
+        "background": "#f2f1f6"
+      }
+    },
+    "1790371908c3753d6d": {
+      "type": "_blocks",
       "blocks": {
-        "benefit_1": {
-          "type": "benefit",
+        "ai_gen_block_a6458d1_aHxTee": {
+          "type": "ai_gen_block_a6458d1",
           "settings": {
-            "title": "Mehrere Messwerte",
-            "description": "CO, Gaswerte, Temperatur und Luftfeuchtigkeit in einem Gerät. [CLAIM VERIFIZIEREN: genaue Sensorliste]",
-            "preset_icon": "check"
+            "kicker": "Wissen & Sicherheit",
+            "title": "Besorgniserregende Zahlen in deutschen Wohnmobilen und Häusern - warum Vorsorge so wichtig ist.",
+            "subtitle": "Unsichtbar, geruchlos, gefährlich – Kohlenmonoxid kann unbemerkt zur ernsten Gefahr werden.",
+            "author_portrait": "shopify://shop_images/IMG_4404.jpg",
+            "author_name": "Dr. Johannes Friedrich Albrecht-Hohenberg",
+            "publish_date": "25. September 2026",
+            "desktop_width_percent": 50,
+            "body_font": "assistant_n4",
+            "background_color": "#ffffff",
+            "text_color": "#20201d",
+            "muted_color": "#59564f",
+            "rule_color": "#c9c3b8",
+            "accent_color": "#075b91"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_a6458d1_aHxTee"
+      ],
+      "settings": {}
+    },
+    "image_with_text_cQdijb": {
+      "type": "image-with-text",
+      "blocks": {
+        "subtitle_AJ6dfa": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle_text": "Wissenswertes",
+            "subtitle_size": 1.8,
+            "subtitle_color": "#333333",
+            "margin_top": 0,
+            "margin_bottom": 0
           }
         },
-        "benefit_2": {
-          "type": "benefit",
+        "paragraph_EEwCeg": {
+          "type": "paragraph",
           "settings": {
-            "title": "Echtzeit-Display",
-            "description": "Werte werden direkt am Gerät angezeigt – ohne App.",
-            "preset_icon": "check"
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Einfache Inbetriebnahme",
-            "description": "Einstecken und starten.",
-            "preset_icon": "check"
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Kompaktes Format",
-            "description": "Geeignet für verschiedene Räume und unterwegs. [PRODUKTDATEN ERFORDERLICH: Maße]",
-            "preset_icon": "check"
+            "paragraph_text": "<p>Kohlenmonoxid (CO) kann immer dann entstehen, wenn Brennstoffe wie Gas, Öl, Holz oder Kohle nicht vollständig verbrennen. Damit ist das Risiko nicht auf alte Häuser oder bestimmte Heizsysteme beschränkt – relevant kann es überall dort werden, wo geheizt, gekocht oder mit Verbrennungsgeräten gearbeitet wird.</p><p>Besonders tückisch: CO ist unsichtbar und geruchlos. Man kann eine erhöhte Konzentration also nicht einfach sehen, riechen oder zuverlässig selbst bemerken. Gelangt Kohlenmonoxid in die Raumluft, kann es die Sauerstoffversorgung des Körpers beeinträchtigen.</p><p>Genau deshalb wird die Gefahr häufig unterschätzt: Das Problem kündigt sich nicht offensichtlich an. Wer Gastherme, Kamin, Ofen oder andere Verbrennungsgeräte nutzt, sollte sich deshalb nicht allein auf die eigenen Sinne verlassen.</p>",
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "paragraph_color": "#333333"
           }
         }
       },
       "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4"
-      ]
-    },
-    "product_comparison_ahRqAP": {
-      "type": "product-comparison",
+        "subtitle_AJ6dfa",
+        "paragraph_EEwCeg"
+      ],
+      "custom_css": [],
+      "name": "Image with Text",
       "settings": {
         "use_theme_colors": true,
-        "show_heading": true,
-        "title_part_1": "SICHERLUFT im",
-        "title_part_2": "Vergleich",
-        "subheading": "Objektive Merkmale im direkten Vergleich."
-      },
+        "image_position": "left",
+        "text_align": "left",
+        "column_width": 50,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "container_padding": 20,
+        "content_spacing": 30,
+        "desktop_content_spacing": 40,
+        "section_border_radius": 0,
+        "heading": "Was ist Kohlenmonoxid – und warum betrifft es praktisch jeden Haushalt ?",
+        "heading_accent": "",
+        "image": "shopify://shop_images/Kohlenmonoxid_Aufklaerung_image.png",
+        "heading_font_size_mobile": 2.6,
+        "heading_font_size_desktop": 3.6,
+        "accent_font_size_mobile": 2.6,
+        "accent_font_size_desktop": 3.6,
+        "text_font_size_mobile": 1.7,
+        "text_font_size_desktop": 1.8,
+        "content_elements_spacing": 15,
+        "desktop_content_elements_spacing": 15,
+        "heading_bottom_margin": 0,
+        "desktop_heading_bottom_margin": 0,
+        "text_bottom_margin": 0,
+        "desktop_text_bottom_margin": 0,
+        "text_padding_vertical": 0,
+        "text_padding_left": 0,
+        "text_padding_right": 0,
+        "mobile_text_padding_vertical": 0,
+        "mobile_text_padding_horizontal": 0,
+        "button_padding_vertical": 12,
+        "button_padding_horizontal": 24,
+        "button_border_radius": 4,
+        "background_color": "#ffffff",
+        "use_gradient": true,
+        "gradient_start_color": "#ffffff",
+        "gradient_end_color": "#dcefff",
+        "gradient_angle": 90,
+        "heading_color": "#333333",
+        "accent_color": "#ef4a65",
+        "text_color": "#555555",
+        "button_bg_color": "#ef4a65",
+        "button_text_color": "#ffffff",
+        "image_max_width": 800,
+        "image_max_height": 0,
+        "image_border_radius": 8,
+        "image_padding": 0
+      }
+    },
+    "image_with_text_nDbrXA": {
+      "type": "image-with-text",
       "blocks": {
-        "product_column_1": {
-          "type": "product_column",
+        "subtitle_PK9rCB": {
+          "type": "subtitle",
           "settings": {
-            "product_name": "SICHERLUFT",
-            "product_subtitle": "4-in-1",
-            "highlight_column": true,
-            "highlight_color": "#079bf8"
+            "subtitle_text": "Kohlenmonoxid kündigt sich nicht an.",
+            "subtitle_size": 1.8,
+            "subtitle_color": "#333333",
+            "margin_top": 0,
+            "margin_bottom": 0
           }
         },
-        "product_column_2": {
-          "type": "product_column",
+        "paragraph_dVqjXE": {
+          "type": "paragraph",
           "settings": {
-            "product_name": "Einfacher Melder",
-            "product_subtitle": "Basis",
-            "highlight_column": false
-          }
-        },
-        "feature_row_1": {
-          "type": "feature_row",
-          "settings": {
-            "feature_name": "Erkannte Werte",
-            "value_type": "text",
-            "text_value_1": "CO, Gas, Temperatur, Feuchtigkeit",
-            "text_value_2": "Meist nur CO"
-          }
-        },
-        "feature_row_2": {
-          "type": "feature_row",
-          "settings": {
-            "feature_name": "Display",
-            "value_type": "checkmark",
-            "value_1": "yes",
-            "value_2": "no"
-          }
-        },
-        "feature_row_3": {
-          "type": "feature_row",
-          "settings": {
-            "feature_name": "Echtzeitanzeige",
-            "value_type": "text",
-            "text_value_1": "[CLAIM VERIFIZIEREN]",
-            "text_value_2": "Meist nein"
-          }
-        },
-        "feature_row_4": {
-          "type": "feature_row",
-          "settings": {
-            "feature_name": "Temperaturanzeige",
-            "value_type": "text",
-            "text_value_1": "Ja, integriert",
-            "text_value_2": "Meist nein"
-          }
-        },
-        "feature_row_5": {
-          "type": "feature_row",
-          "settings": {
-            "feature_name": "Installation",
-            "value_type": "text",
-            "text_value_1": "Einstecken (Schuko-Stecker)",
-            "text_value_2": "Wandmontage üblich"
+            "paragraph_text": "<p>CO ist farb- und geruchlos und kann ohne Messgerät unbemerkt bleiben. Eine kontinuierliche Überwachung hilft dabei, auffällige Werte frühzeitig zu erkennen.</p>",
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "paragraph_color": "#333333"
           }
         }
       },
       "block_order": [
-        "product_column_1",
-        "product_column_2",
-        "feature_row_1",
-        "feature_row_2",
-        "feature_row_3",
-        "feature_row_4",
-        "feature_row_5"
-      ]
+        "subtitle_PK9rCB",
+        "paragraph_dVqjXE"
+      ],
+      "name": "Image with Text",
+      "settings": {
+        "use_theme_colors": true,
+        "image_position": "right",
+        "text_align": "left",
+        "column_width": 50,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "container_padding": 20,
+        "content_spacing": 30,
+        "desktop_content_spacing": 40,
+        "section_border_radius": 0,
+        "heading": "Sicherheit beginnt, bevor es piept. Schützen Sie ihre Familie rechtzeitig.",
+        "heading_accent": "BEVOR ES KRITISCH WIRD",
+        "image": "shopify://shop_images/f90749cf-479a-463b-8dfa-c0bffdcec441.png",
+        "heading_font_size_mobile": 2.6,
+        "heading_font_size_desktop": 3.6,
+        "accent_font_size_mobile": 2.6,
+        "accent_font_size_desktop": 3.6,
+        "text_font_size_mobile": 1.7,
+        "text_font_size_desktop": 1.8,
+        "content_elements_spacing": 15,
+        "desktop_content_elements_spacing": 15,
+        "heading_bottom_margin": 0,
+        "desktop_heading_bottom_margin": 0,
+        "text_bottom_margin": 0,
+        "desktop_text_bottom_margin": 0,
+        "text_padding_vertical": 0,
+        "text_padding_left": 0,
+        "text_padding_right": 0,
+        "mobile_text_padding_vertical": 0,
+        "mobile_text_padding_horizontal": 0,
+        "button_padding_vertical": 12,
+        "button_padding_horizontal": 24,
+        "button_border_radius": 4,
+        "background_color": "#ffffff",
+        "use_gradient": false,
+        "gradient_start_color": "#f5f5f5",
+        "gradient_end_color": "#ffffff",
+        "gradient_angle": 90,
+        "heading_color": "#333333",
+        "accent_color": "#ef4a65",
+        "text_color": "#555555",
+        "button_bg_color": "#ef4a65",
+        "button_text_color": "#ffffff",
+        "image_max_width": 800,
+        "image_max_height": 0,
+        "image_border_radius": 8,
+        "image_padding": 0
+      }
     },
-    "store_faq_Lpd3PW": {
+    "image_with_text_89kTB8": {
+      "type": "image-with-text",
+      "blocks": {
+        "subtitle_7riMJ4": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle_text": "Besonders gefährdet sind Haushalte mit Feuerstätten, Gasgeräten und schlecht belüfteten Bereichen.",
+            "subtitle_size": 1.8,
+            "subtitle_color": "#333333",
+            "margin_top": 0,
+            "margin_bottom": 0
+          }
+        },
+        "paragraph_DQd7it": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "<p>Erhöhte Risiken bestehen zum Beispiel in Häusern und Wohnungen mit Gastherme, Kamin, Ofen oder Heizung, aber auch in Kellern, Garagen, Werkstätten sowie in Wohnmobilen, Wohnwagen und Booten. Besonders aufmerksam sollten Familien mit Kindern, ältere Menschen, Schwangere sowie Personen mit Herz- oder Atemwegserkrankungen sein.</p>",
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "paragraph_color": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "subtitle_7riMJ4",
+        "paragraph_DQd7it"
+      ],
+      "name": "Image with Text",
+      "settings": {
+        "use_theme_colors": true,
+        "image_position": "left",
+        "text_align": "left",
+        "column_width": 50,
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "container_padding": 20,
+        "content_spacing": 30,
+        "desktop_content_spacing": 40,
+        "section_border_radius": 0,
+        "heading": "Welche Personen & Orte besonders gefährdet sind",
+        "heading_accent": "",
+        "image": "shopify://shop_images/A2AE0B4D-9E62-458E-A2D2-81C6BD439CCA.png",
+        "heading_font_size_mobile": 2.6,
+        "heading_font_size_desktop": 3.6,
+        "accent_font_size_mobile": 2.6,
+        "accent_font_size_desktop": 3.6,
+        "text_font_size_mobile": 1.7,
+        "text_font_size_desktop": 1.8,
+        "content_elements_spacing": 15,
+        "desktop_content_elements_spacing": 15,
+        "heading_bottom_margin": 0,
+        "desktop_heading_bottom_margin": 0,
+        "text_bottom_margin": 0,
+        "desktop_text_bottom_margin": 0,
+        "text_padding_vertical": 0,
+        "text_padding_left": 0,
+        "text_padding_right": 0,
+        "mobile_text_padding_vertical": 0,
+        "mobile_text_padding_horizontal": 0,
+        "button_padding_vertical": 12,
+        "button_padding_horizontal": 24,
+        "button_border_radius": 4,
+        "background_color": "#ffffff",
+        "use_gradient": false,
+        "gradient_start_color": "#f5f5f5",
+        "gradient_end_color": "#ffffff",
+        "gradient_angle": 90,
+        "heading_color": "#333333",
+        "accent_color": "#ef4a65",
+        "text_color": "#555555",
+        "button_bg_color": "#ef4a65",
+        "button_text_color": "#ffffff",
+        "image_max_width": 800,
+        "image_max_height": 0,
+        "image_border_radius": 8,
+        "image_padding": 0
+      }
+    },
+    "co_ppm_explainer_jTaDVy": {
+      "type": "co-ppm-explainer",
+      "blocks": {
+        "level_e44gB6": {
+          "type": "level",
+          "settings": {
+            "range": "0–15 PPM",
+            "start": 0,
+            "scale_label": "Unauffällig",
+            "title": "Normale Raumluft / unauffällig",
+            "text": "<p>Bei niedrigen Werten bestehen in der Regel keine akuten Beschwerden. Dennoch zeigt die Anzeige, ob sich die Luftqualität verändert.</p>",
+            "color": "#18864b"
+          }
+        },
+        "level_89xABh": {
+          "type": "level",
+          "settings": {
+            "range": "16–29 PPM",
+            "start": 16,
+            "scale_label": "Erste Belastung",
+            "title": "Erste Belastung möglich",
+            "text": "<p>Bei längerer Exposition können Müdigkeit, leichte Kopfschmerzen oder Konzentrationsprobleme auftreten – besonders bei empfindlichen Personen.</p>",
+            "color": "#f5c518"
+          }
+        },
+        "level_GkkXq8": {
+          "type": "level",
+          "settings": {
+            "range": "30–50 PPM",
+            "start": 30,
+            "scale_label": "Warnstufe",
+            "title": "Deutliche Warnstufe",
+            "text": "<p>Hier können bereits Beschwerden wie Kopfschmerzen, Benommenheit, Übelkeit und verlangsamte Reaktionen auftreten. Für Kinder, ältere Menschen und gesundheitlich vorbelastete Personen kann dieser Bereich besonders kritisch sein.</p>",
+            "color": "#f08a24"
+          }
+        },
+        "level_q6mrhU": {
+          "type": "level",
+          "settings": {
+            "range": "51–69 PPM",
+            "start": 51,
+            "scale_label": "Ernste Belastung",
+            "title": "Ernstzunehmende Belastung",
+            "text": "<p>In diesem Bereich steigt das Risiko für stärkere Symptome wie Verwirrtheit, deutliche Schwäche und Orientierungslosigkeit. Spätestens jetzt ist schnelles Handeln wichtig.</p>",
+            "color": "#c9441a"
+          }
+        },
+        "level_pyVyza": {
+          "type": "level",
+          "settings": {
+            "range": "70+ PPM",
+            "start": 70,
+            "scale_label": "Akute Gefahr",
+            "title": "Akute Gefahr",
+            "text": "<p>Hohe Kohlenmonoxid-Konzentrationen können schnell gefährlich werden. Jetzt zählt jede Minute.</p>",
+            "color": "#c1121c"
+          }
+        },
+        "item_BpAigG": {
+          "type": "item",
+          "settings": {
+            "title": "Kinder reagieren empfindlicher",
+            "text": "<p>Kinder atmen schneller, ihr Körper ist kleiner und sie reagieren empfindlicher auf belastete Raumluft. Beschwerden können daher früher auftreten als bei Erwachsenen.</p>",
+            "icon": "family"
+          }
+        },
+        "item_B9byPa": {
+          "type": "item",
+          "settings": {
+            "title": "Längere Belastung kann gefährlich sein",
+            "text": "<p>Nicht nur hohe Spitzenwerte sind problematisch. Auch eine über Stunden anhaltende Belastung mit mittleren Werten kann ernst zu nehmende Auswirkungen haben.</p>",
+            "icon": "clock"
+          }
+        },
+        "item_3YYUtB": {
+          "type": "item",
+          "settings": {
+            "title": "Klassische Warnmelder zeigen oft nicht das ganze Bild",
+            "text": "<p>Ein herkömmlicher Melder warnt in erster Linie bei kritischen Alarmwerten. Er zeigt jedoch nicht immer, wie sich Werte vorher entwickeln.</p>",
+            "icon": "bell"
+          }
+        },
+        "item_F7ETdE": {
+          "type": "item",
+          "settings": {
+            "title": "Früher sehen heißt früher handeln",
+            "text": "<p>Wer die Werte im Blick hat, kann schneller lüften, reagieren und Gefahren ernst nehmen – bevor die Situation eskaliert.</p>",
+            "icon": "eye"
+          }
+        }
+      },
+      "block_order": [
+        "level_e44gB6",
+        "level_89xABh",
+        "level_GkkXq8",
+        "level_q6mrhU",
+        "level_pyVyza",
+        "item_BpAigG",
+        "item_B9byPa",
+        "item_3YYUtB",
+        "item_F7ETdE"
+      ],
+      "settings": {
+        "overline": "Frühzeitig erkennen. Rechtzeitig handeln.",
+        "heading": "Was Kohlenmonoxid schon bei <em>niedrigen Werten</em> im Körper auslösen kann",
+        "subheading": "<p>Kohlenmonoxid kann unbemerkt in die Raumluft gelangen. Noch bevor ein klassischer Alarm auslöst, können bereits Beschwerden wie Müdigkeit, Kopfschmerzen, Konzentrationsprobleme oder Übelkeit auftreten.</p>",
+        "header_alignment": "center",
+        "chart_title": "So ordnen sich CO-Werte in der Raumluft ein",
+        "chart_unit": "Kohlenmonoxid-Konzentration in ppm (Teile pro Million)",
+        "scale_max": 100,
+        "marker_1_value": 30,
+        "marker_1_text": "Ein Melder nach Norm schweigt hier mindestens 2 Stunden. SICHERLUFT zeigt den Wert schon am Display.",
+        "marker_2_value": 50,
+        "marker_2_text": "Selbst hier verlangt die Norm EN 50291-1 den Alarm erst nach 60 bis 90 Minuten.",
+        "footnote": "<p>Orientierungswerte: Wie Kohlenmonoxid wirkt, hängt von Konzentration, Dauer und Gesundheitszustand ab. Die Einordnung ersetzt keine ärztliche Beratung. Bei Verdacht auf eine Vergiftung: Raum sofort verlassen und den Notruf 112 wählen.</p>",
+        "note_heading": "Gefährlich ist nicht nur der Spitzenwert&nbsp;– sondern auch die Dauer der Belastung.",
+        "note_text": "<p>Schon niedrigere Kohlenmonoxid-Werte können problematisch werden, wenn sie über längere Zeit unbemerkt in der Raumluft bleiben. Genau deshalb ist es entscheidend, Veränderungen frühzeitig zu sehen – nicht erst dann, wenn es kritisch wird.</p>",
+        "note_icon": "clock",
+        "accordion_heading": "Warum frühes Erkennen so entscheidend ist",
+        "accordion_single": true,
+        "accordion_first_open": true,
+        "button_label": "",
+        "button_link": "",
+        "background_color": "#ffffff",
+        "card_color": "#ffffff",
+        "text_color": "#082b4a",
+        "accent_color": "#0794f8",
+        "radius": 20,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "max_width": 1200
+      }
+    },
+    "content_tabs_MBQayc": {
+      "type": "content-tabs",
+      "blocks": {
+        "tab_3rVgQb": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Im Vergleich",
+            "content_layout": "two_column",
+            "first_content_type": "image",
+            "first_title": "Einfacher CO-Melder",
+            "first_text_content": "",
+            "first_image": "shopify://shop_images/AF41383F-CA82-4DED-9D0C-321ED3EAE5EA.png",
+            "first_bullet_points": "",
+            "first_benefits": "",
+            "second_content_type": "image",
+            "second_title": "SICHERLUFT",
+            "second_text_content": "",
+            "second_image": "shopify://shop_images/78202F6F-C2C3-4920-827E-9D856BB2A246.png",
+            "second_bullet_points": "",
+            "second_benefits": "Improves user experience, Saves time and effort, Provides excellent value"
+          }
+        }
+      },
+      "block_order": [
+        "tab_3rVgQb"
+      ],
+      "name": "Vergleich",
+      "settings": {
+        "heading": "Nicht jeder Melder",
+        "accent_text": "überwacht dasselbe.",
+        "subheading": "<p><strong>Ein einfacher Melder und SICHERLUFT lösen nicht dieselbe Aufgabe.</strong></p>",
+        "tab_style": "pills",
+        "use_theme_colors": true,
+        "heading_color": "#000000",
+        "subheading_color": "#666666",
+        "accent_color": "#ff6b35",
+        "use_accent_gradient": false,
+        "accent_gradient_start_color": "#ef4a65",
+        "accent_gradient_end_color": "#ff6b9d",
+        "accent_gradient_angle": 45,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "text_color": "#333333",
+        "background_color": "#ffffff",
+        "tab_active_color": "#ff6b35",
+        "tab_inactive_color": "#666666",
+        "tab_active_bg": "#ff6b35",
+        "button_text_color": "#ffffff",
+        "content_title_color": "#333333",
+        "benefit_text_color": "#333333",
+        "border_color": "#e5e5e5",
+        "heading_font_size": 36,
+        "subheading_font_size": 18,
+        "content_font_size": 18,
+        "content_title_font_size": 22,
+        "tab_font_size": 16,
+        "benefit_font_size": 16,
+        "bullet_font_size": 16,
+        "section_padding_top": 30,
+        "section_padding_bottom": 30,
+        "content_max_width": 1000,
+        "image_max_width": 600,
+        "image_with_text_width": 400,
+        "image_wrapper_width": 200,
+        "mobile_full_width_images": false,
+        "tab_border_radius": 0,
+        "image_border_radius": 8,
+        "mobile_image_text_gap": 24
+      }
+    },
+    "steps_CGw4ar": {
+      "type": "steps",
+      "blocks": {
+        "step_gxjCCX": {
+          "type": "step",
+          "settings": {
+            "step_image": "shopify://shop_images/IMG_3981.jpg",
+            "image_background_color": "#000000",
+            "step_title": "Einstecken",
+            "step_description": "",
+            "content_background_color": "#ffffff"
+          }
+        },
+        "step_btAkYm": {
+          "type": "step",
+          "settings": {
+            "step_image": "shopify://shop_images/IMG_3982.jpg",
+            "image_background_color": "#000000",
+            "step_title": "Initialisieren lassen",
+            "step_description": "",
+            "content_background_color": "#ffffff"
+          }
+        },
+        "step_AhnR3Y": {
+          "type": "step",
+          "settings": {
+            "step_image": "shopify://shop_images/IMG_3983.jpg",
+            "image_background_color": "#000000",
+            "step_title": "Werte im Blick behalten",
+            "step_description": "",
+            "content_background_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "step_gxjCCX",
+        "step_btAkYm",
+        "step_AhnR3Y"
+      ],
+      "name": "So funktioniert's",
+      "settings": {
+        "use_theme_colors": true,
+        "section_background": "#ffffff",
+        "use_gradient": false,
+        "gradient_start_color": "#ffffff",
+        "gradient_end_color": "#f8f8f8",
+        "padding_top": 30,
+        "padding_bottom": 30,
+        "padding_horizontal": 20,
+        "title": "So einfach",
+        "title_highlight": "funktioniert SICHERLUFT.",
+        "subtitle": "Drei Schritte bis zur einsatzbereiten Überwachung.",
+        "title_color": "#000000",
+        "highlight_color": "#ef4a65",
+        "subtitle_color": "#4a4a4a",
+        "title_size_desktop": 34,
+        "title_size_mobile": 28,
+        "subtitle_size_desktop": 18,
+        "subtitle_size_mobile": 16,
+        "step_title_size_desktop": 20,
+        "step_title_size_mobile": 20,
+        "step_description_size_desktop": 16,
+        "step_description_size_mobile": 16,
+        "number_size_desktop": 20,
+        "number_size_mobile": 24,
+        "number_circle_size_desktop": 40,
+        "number_circle_size_mobile": 40,
+        "label_color": "#000000",
+        "number_border_color": "#000000",
+        "step_title_color": "#000000",
+        "description_color": "#000000",
+        "card_border_radius": 12,
+        "card_border_color": "#e0e0e0"
+      }
+    },
+    "benefits_carousel_h48fg6": {
+      "type": "benefits-carousel",
+      "blocks": {
+        "benefit_j7Ngtm": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Rund um die Uhr geschützt"
+          }
+        },
+        "benefit_tHKfy8": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Werte jederzeit im Blick"
+          }
+        },
+        "benefit_A4VCRq": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Warnt frühzeitig bei CO & Gas"
+          }
+        },
+        "benefit_gdxwGd": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Einstecken. Fertig. Sicher."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_j7Ngtm",
+        "benefit_tHKfy8",
+        "benefit_A4VCRq",
+        "benefit_gdxwGd"
+      ],
+      "settings": {
+        "heading": "WARUM MENSCHEN SICH FÜR ZUSÄTZLICHE LUFTÜBERWACHUNG ENTSCHEIDEN",
+        "empty_text": "",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "scroll_speed": 55,
+        "heading_size": 26,
+        "heading_size_mobile": 20,
+        "heading_color": "#020416",
+        "heading_gradient_start": "#dcefff",
+        "heading_gradient_end": "#0794f8",
+        "use_theme_colors": true,
+        "background_color": "#ef4a65",
+        "border_start_color": "#ef4a65",
+        "border_end_color": "#ffb1be",
+        "item_background": "#020416",
+        "item_text_color": "#020416",
+        "item_border_start": "#ffb1be",
+        "item_border_end": "#ef4a65",
+        "item_font_size_mobile": 15,
+        "empty_text_color": "#020416"
+      }
+    },
+    "customer_reviews_carousel_TVxt4f": {
+      "type": "customer-reviews-carousel",
+      "blocks": {
+        "review_d9z6YB": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/6c217378-8fd8-4178-8393-ecb24a5cdfe7.png",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 5,
+            "review_text": "Ich nutze SicherLuft bei unseren Reisen im Camper, Die Einrichtung war schnell erledigt und ich finde es gut, unterwegs noch ein extra Auge auf die Luftqualität bzw. mögliche Gefahren zu haben. Safety First!",
+            "reviewer_name": "TravelingWithMarcel",
+            "reviewer_age": "33",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_7DdHhh": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/Image_2b49c0c7-7c97-42de-82d4-59699977632a.jpg",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 5,
+            "review_text": "Kam an, ausgepackt, aufgestellt und fertig. Ich hatte ehrlich gesagt keine Lust auf irgendeine komplizierte Einrichtung. Das Display ist übersichtlich und man versteht direkt, was angezeigt wird. Gibt mir ein sicheres Gefühl!",
+            "reviewer_name": "Gertrud Hagemann",
+            "reviewer_age": "67",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_xNTnXW": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/87915faa-3dd1-42d1-87c7-c192bde75585.png",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 5,
+            "review_text": "Ich hatte nie wirklich ein Bewusstsein für die CO-Gefahr, der meine Kinder und Ich im Wohnmobil durch unsere Gastherme ausgesetzt sind. Wir haben direkt mal das 2er-Set genommen. Eins steht bei uns zuhause und eins kommt mit in den Wohnwagen.\nFand ich einfach praktischer, als später nochmal einzeln nachzubestellen. Danke Sicherluft, bin super zufrieden!!",
+            "reviewer_name": "Nina Siebertz",
+            "reviewer_age": "37",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_fHkKFW": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/F64E3863-0031-4010-9341-B990F06B0572.jpg",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 5,
+            "review_text": "Mir war nie klar, dass man Kohlenmonoxid weder sehen, noch riechen kann. Gerade mit Kamin und Kids im Haus wollte ich auf Nummer Sichergehen. Bin froh Sicherluft gefunden zu haben.",
+            "reviewer_name": "Familie Neuhoff",
+            "reviewer_age": "45",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_gPdnNY": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/e6e423a9-c865-4f58-88f9-c76606f445ff.png",
+            "image_position": "center center",
+            "wrap_image": false,
+            "rating": 4,
+            "review_text": "Bin über Facebook auf SICHERLUFT aufmerksam geworden. Auf eine nervige Einrichtung hatte ich zugegeben absolut keinen Bock. Das Display ist aber super übersichtlich und zeigt sofort, was Sache ist. Gibt mir einfach ein richtig gutes und sicheres Gefühl!",
+            "reviewer_name": "Elke",
+            "reviewer_age": "51",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        }
+      },
+      "block_order": [
+        "review_d9z6YB",
+        "review_7DdHhh",
+        "review_xNTnXW",
+        "review_fHkKFW",
+        "review_gPdnNY"
+      ],
+      "custom_css": [
+        "svg,svg * {fill: #00b67a !important; stroke: #00b67a !important;}",
+        "[class*=\"star\"],[class*=\"rating\"],[class*=\"verify\"],[class*=\"badge\"] {color: #00b67a !important;}",
+        "[class*=\"verify\"],[class*=\"badge\"] {background: #e8f7f1 !important;}"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "use_theme_colors": true,
+        "section_width": 1200,
+        "section_background": "#ffffff",
+        "title_text": "Das sagen",
+        "accent_text": "unsere Kunden",
+        "title_color": "#ef4a65",
+        "accent_color": "#000000",
+        "accent_text_margin_left": 0,
+        "use_accent_gradient": false,
+        "accent_gradient_start_color": "#ef4a65",
+        "accent_gradient_end_color": "#ff6b9d",
+        "accent_gradient_angle": 45,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "custom_heading_styling": false,
+        "heading_font_size": 56,
+        "heading_font_size_mobile": 48,
+        "heading_line_height": 1.2,
+        "show_description": true,
+        "description_text": "Ob Zuhause, im Wohnmobil oder unterwegs - unsere Kunden setzen den SICHERLUFT dort ein, wo zuverlässige Luftüberwachung zählt.",
+        "description_color": "#000000",
+        "prev_button_bg": "#ffffff",
+        "prev_button_color": "#000000",
+        "prev_button_border": "#e0e0e0",
+        "next_button_bg": "#ef4a65",
+        "next_button_color": "#ffffff",
+        "next_button_border": "#ef4a65",
+        "scroll_amount": 360,
+        "card_width": 390,
+        "card_border_radius": 10,
+        "card_border_color": "#e0e0e0",
+        "card_background": "#ffffff",
+        "card_margin_top": 0,
+        "card_margin_right": 0,
+        "card_margin_bottom": 0,
+        "card_margin_left": 0,
+        "star_filled_color": "#ffc107",
+        "star_empty_color": "#e0e0e0",
+        "review_text_color": "#000000",
+        "review_text_size": 14,
+        "review_text_size_mobile": 12,
+        "reviewer_info_color": "#000000",
+        "reviewer_info_bg_color": "#f5f5f5",
+        "verified_badge_text": "Verifizierter Kunde",
+        "verified_badge_color": "#ef4a65",
+        "verified_icon_color": "#ef4a65",
+        "enable_reviewer_info_border": false,
+        "reviewer_info_border_width": 1,
+        "reviewer_info_border_style": "solid",
+        "reviewer_info_border_color": "#e0e0e0",
+        "reviewer_info_border_radius": 8,
+        "product_label": "Item Purchased",
+        "product_label_color": "#000000",
+        "product_title_color": "#000000",
+        "product_price_color": "#ef4a65",
+        "product_bg_color": "#f9f9f9",
+        "product_border_color": "#eeeeee",
+        "product_border_width": 1,
+        "product_border_style": "solid",
+        "summary_star_color": "#ffbf00",
+        "summary_text_color": "#000000",
+        "rating_prefix": "Rated",
+        "rating_number": "4.8",
+        "based_on_text": "basierend auf Kundenbewertungen",
+        "custom_review_count_text": "",
+        "rating_count_color": "#333333",
+        "rating_value_color": "#000000",
+        "rating_summary_bg_color": "#fef6e6",
+        "purchase_date_prefix": "Purchased on",
+        "purchase_date_color": "#000000",
+        "purchase_date_icon_color": "#000000",
+        "based_on_text_color": "#333333",
+        "enable_rating_summary_gradient": false,
+        "rating_summary_gradient_start": "#ffbf00",
+        "rating_summary_gradient_end": "#ffd700",
+        "rating_summary_gradient_direction": "to right",
+        "enable_rating_summary_border": false,
+        "rating_summary_border_width": 1,
+        "rating_summary_border_style": "solid",
+        "rating_summary_border_color": "#ffbf00",
+        "rating_summary_border_radius": 50
+      }
+    },
+    "17898867041cf22374": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5c9d716_hMWjbk": {
+          "type": "ai_gen_block_5c9d716",
+          "settings": {
+            "logo": "shopify://shop_images/image-1789725584613_3c8e375c-4d22-40f3-a91c-1baeaa5af2a3.webp",
+            "logo_link": "",
+            "desktop_width_percent": 100,
+            "logo_width": 300,
+            "vertical_padding": 0,
+            "background_color": "#ffffff",
+            "placeholder_color": "#dcefff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5c9d716_hMWjbk"
+      ],
+      "settings": {}
+    },
+    "sicherluft_garantie_8FzNx9": {
+      "type": "sicherluft-garantie",
+      "name": "SICHERLUFT Garantie",
+      "settings": {
+        "badge_text": "SICHERE ZAHLUNG",
+        "heading": "Deine Sicherheit ist uns wichtig",
+        "description": "Bezahle deinen Einkauf bei SICHERLUFT sicher und bequem. Deine Zahlungsdaten werden verschlüsselt übertragen und vertraulich behandelt.",
+        "button_text": "",
+        "button_link": "",
+        "trust_1": "Sichere, verschlüsselte Zahlung",
+        "trust_2": "Vertrauenswürdige Zahlungsarten",
+        "trust_3": "Schutz deiner Zahlungsdaten",
+        "background_color": "#ffffff",
+        "accent_color": "#1a4ed8",
+        "button_color": "#0f2a7a",
+        "button_text_color": "#ffffff",
+        "text_color": "#111827",
+        "description_color": "#6b7280",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "button_radius": 0
+      }
+    },
+    "store_faq_w9dztk": {
       "type": "store-faq",
-      "settings": {
-        "use_theme_colors": true,
-        "heading": "Häufige Fragen",
-        "subtitle": "<p>Antworten rund um SICHERLUFT.</p>",
-        "accordion_mode": true
-      },
       "blocks": {
-        "faq_1": {
+        "faq_item_bWwYyf": {
           "type": "faq_item",
           "settings": {
             "question": "Welche Werte erkennt SICHERLUFT?",
-            "answer": "<p>Laut Display zeigt SICHERLUFT CO (ppm), Gas (%LEL), Temperatur (°C) und Luftfeuchtigkeit (%RH) an.</p>"
+            "answer": "<p>SICHERLUFT überwacht <strong>Kohlenmonoxid (CO) und brennbare Gase wie Erdgas/Methan und LPG</strong>. Zusätzlich zeigt das Gerät <strong>Temperatur und Luftfeuchtigkeit</strong> an.&nbsp;</p>"
           }
         },
-        "faq_2": {
+        "faq_item_tRW8Wy": {
           "type": "faq_item",
           "settings": {
             "question": "Wo sollte ich das Gerät platzieren?",
-            "answer": "<p>In der Nähe potenzieller Gefahrenquellen wie Gastherme, Kamin oder in Wohnbereichen. [CLAIM VERIFIZIEREN: genaue Herstellerempfehlung]</p>"
+            "answer": "<p>Platziere SICHERLUFT in Räumen, in denen sich Personen aufhalten oder potenzielle Gasquellen befinden – zum Beispiel in <strong>Wohn-, Schlaf- oder Heizungsbereichen</strong>. Bei Erdgas empfiehlt sich eine höhere Position, da Erdgas leichter als Luft ist. Die genaue Platzierung sollte sich immer nach der verwendeten Gasart und der Bedienungsanleitung richten.</p>"
           }
         },
-        "faq_3": {
+        "faq_item_CHYdRC": {
           "type": "faq_item",
           "settings": {
             "question": "Muss das Gerät montiert werden?",
-            "answer": "<p>Nein, SICHERLUFT wird eingesteckt und benötigt keine Wandmontage. [CLAIM VERIFIZIEREN]</p>"
+            "answer": "<p>Nein. SICHERLUFT wird <strong>direkt in eine geeignete Steckdose gesteckt</strong>. Bohren oder eine feste Wandmontage sind nicht erforderlich.</p>"
           }
         },
-        "faq_4": {
+        "faq_item_pqEaVU": {
           "type": "faq_item",
           "settings": {
             "question": "Brauche ich eine App?",
-            "answer": "<p>Nein, die relevanten Werte werden direkt am Gerät angezeigt.</p>"
+            "answer": "<p>Nein. SICHERLUFT funktioniert <strong>eigenständig und ohne App</strong>. Die Messwerte werden direkt auf dem Display angezeigt und bei einer erkannten Gefahr warnt das Gerät mit einem akustischen und visuellen Alarm.</p>"
           }
         },
-        "faq_5": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Wie laut ist der Alarm?",
-            "answer": "<p>[CLAIM VERIFIZIEREN]</p>"
-          }
-        },
-        "faq_6": {
+        "faq_item_WHeFNE": {
           "type": "faq_item",
           "settings": {
             "question": "Kann ich es im Wohnmobil verwenden?",
-            "answer": "<p>Ja, SICHERLUFT eignet sich auch für den mobilen Einsatz. [CLAIM VERIFIZIEREN: Stromversorgung unterwegs]</p>"
-          }
-        },
-        "faq_7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Wie wird es mit Strom versorgt?",
-            "answer": "<p>Über den integrierten Schuko-Stecker direkt an einer haushaltsüblichen Steckdose (230V).</p>"
-          }
-        },
-        "faq_8": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Was ist im Lieferumfang enthalten?",
-            "answer": "<p>[PRODUKTDATEN ERFORDERLICH]</p>"
-          }
-        },
-        "faq_9": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Wie lange dauert der Versand?",
-            "answer": "<p>[CLAIM VERIFIZIEREN]</p>"
+            "answer": "<p>Ja, grundsätzlich kann SICHERLUFT auch im <strong>Wohnmobil oder Caravan</strong> eingesetzt werden, sofern eine geeignete Stromversorgung vorhanden ist. Das Gerät überwacht dort ebenfalls Kohlenmonoxid und brennbare Gase. Bei der Positionierung sollte besonders auf die verwendete Gasart und die Vorgaben der Bedienungsanleitung geachtet werden.</p>"
           }
         }
       },
       "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4",
-        "faq_5",
-        "faq_6",
-        "faq_7",
-        "faq_8",
-        "faq_9"
-      ]
+        "faq_item_bWwYyf",
+        "faq_item_tRW8Wy",
+        "faq_item_CHYdRC",
+        "faq_item_pqEaVU",
+        "faq_item_WHeFNE"
+      ],
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "SICHERLUFT FAQ",
+        "subtitle": "<p>Häufige Fragen rund um den SICHERLUFT 4-in-1</p>",
+        "heading_color": "#111111",
+        "section_padding": 30,
+        "section_bg_color": "#ffffff",
+        "border_radius": 8,
+        "border_color": "#e5e5e5",
+        "question_color": "#000000",
+        "question_bg_color": "#ffffff",
+        "answer_color": "#000000",
+        "answer_bg_color": "#ffffff",
+        "accordion_mode": true,
+        "heading_font_size": 36,
+        "heading_font_size_mobile": 30,
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 14,
+        "question_font_size": 16,
+        "question_font_size_mobile": 14,
+        "answer_font_size": 12,
+        "answer_font_size_mobile": 11
+      }
     }
   },
   "order": [
     "main",
-    "scrolling_features_bar_AhP6EL",
-    "sticky_add_to_cart_NJqgUd",
-    "product_benefits_NWiWMe",
-    "product_comparison_ahRqAP",
-    "store_faq_Lpd3PW"
+    "sicherluft_loop_video_cT7wEt",
+    "1790371908c3753d6d",
+    "image_with_text_cQdijb",
+    "image_with_text_nDbrXA",
+    "image_with_text_89kTB8",
+    "co_ppm_explainer_jTaDVy",
+    "content_tabs_MBQayc",
+    "steps_CGw4ar",
+    "benefits_carousel_h48fg6",
+    "customer_reviews_carousel_TVxt4f",
+    "17898867041cf22374",
+    "sicherluft_garantie_8FzNx9",
+    "store_faq_w9dztk"
   ]
 }

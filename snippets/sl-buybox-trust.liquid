@@ -1,0 +1,713 @@
+{%- comment -%}
+  SICHERLUFT Kaufspalte: Mengenrabatt-Info, Mini-FAQ und kompakte Kundenbewertung.
+  Blöcke der Product Section (shop-product-details), gerendert aus snippets/product-info.
+  Die Blöcke stehen nach den Payment Icons und damit außerhalb des Produktformulars:
+  Kaching, Mengenwahl, Add-to-Cart und Warenkorb bleiben unberührt.
+
+  Die Ersparnis-Zeile liest ausschließlich die sichtbaren Kaching-Bundle-Preise
+  (.kaching-bundles__bar / .kaching-bundles__bar-price) und blendet sich aus,
+  sobald sie nicht eindeutig berechenbar ist. Keine eigene Preislogik.
+
+  Parameter:
+  - block: sl_volume_info, sl_faq_item oder sl_review_card
+  - load_assets: true beim ersten dieser Blöcke auf der Seite (CSS + JS nur einmal)
+{%- endcomment -%}
+
+{%- if load_assets -%}
+  <style>
+    .slbt {
+      --slbt-muted: #44566c;
+      box-sizing: border-box;
+      width: 100%;
+      align-self: stretch;
+      margin: var(--slbt-mt, 0px) 0 var(--slbt-mb, 0px);
+      color: var(--slbt-ink, #0b2545);
+      font-size: 14px;
+      line-height: 1.45;
+      text-align: left;
+      overflow-wrap: break-word;
+    }
+
+    @supports (color: color-mix(in srgb, red 50%, white)) {
+      .slbt {
+        --slbt-muted: color-mix(in srgb, var(--slbt-ink, #0b2545) 76%, #ffffff);
+      }
+    }
+
+    .slbt *,
+    .slbt *::before,
+    .slbt *::after {
+      box-sizing: border-box;
+    }
+
+    .slbt p {
+      margin: 0;
+    }
+
+    .slbt svg {
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* 1. Mengenrabatt-Info */
+    .slbt-volume {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--slbt-bg, #f3f8fd);
+      border: 1px solid var(--slbt-border, #d5e5f5);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(11, 37, 69, 0.04);
+    }
+
+    .slbt-volume__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid var(--slbt-border, #d5e5f5);
+      color: var(--slbt-accent, #0057a8);
+    }
+
+    .slbt-volume__icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .slbt-volume__copy {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .slbt-volume__lead {
+      font-size: 14.5px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--slbt-ink, #0b2545);
+    }
+
+    .slbt .slbt-volume__text {
+      margin-top: 3px;
+      font-size: 13.5px;
+      color: var(--slbt-muted);
+    }
+
+    .slbt .slbt-volume__note {
+      margin-top: 3px;
+      font-size: 12.5px;
+      color: var(--slbt-muted);
+    }
+
+    .slbt .slbt-volume__savings {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #0a7a50;
+    }
+
+    .slbt .slbt-volume__savings[hidden] {
+      display: none;
+    }
+
+    .slbt-volume__savings::before {
+      content: '';
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #00b67a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 10px 10px no-repeat;
+    }
+
+    @media screen and (max-width: 749px) {
+      .slbt-volume {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 0 10px;
+        padding: 10px 12px;
+      }
+
+      .slbt-volume--no-icon {
+        grid-template-columns: 1fr;
+      }
+
+      .slbt-volume__icon {
+        flex-basis: 28px;
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+      }
+
+      .slbt-volume__icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .slbt-volume__copy {
+        display: contents;
+      }
+
+      .slbt .slbt-volume__text,
+      .slbt .slbt-volume__note,
+      .slbt .slbt-volume__savings {
+        grid-column: 1 / -1;
+      }
+
+      .slbt .slbt-volume__text {
+        margin-top: 6px;
+      }
+
+      .slbt-review {
+        padding: 12px 14px;
+      }
+    }
+
+    /* 2. Mini-FAQ */
+    .slbt-faq {
+      background: var(--slbt-bg, #ffffff);
+      border: 1px solid var(--slbt-border, #dbe6f1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .slbt-faq__q {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 9px 12px;
+      list-style: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--slbt-ink, #0b2545);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .slbt-faq__q::-webkit-details-marker {
+      display: none;
+    }
+
+    .slbt-faq__q::marker {
+      content: '';
+    }
+
+    .slbt-faq__q:focus-visible {
+      outline: 2px solid var(--slbt-accent, #0057a8);
+      outline-offset: -2px;
+      border-radius: 8px;
+    }
+
+    .slbt-faq__icon {
+      display: flex;
+      color: var(--slbt-accent, #0057a8);
+    }
+
+    .slbt-faq__icon svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .slbt-faq__qtext {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .slbt-faq__toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #eef5fc;
+      color: var(--slbt-accent, #0057a8);
+      transition: transform 0.22s ease;
+    }
+
+    .slbt-faq__toggle svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .slbt-faq[open]:not([data-slbt-closing]) .slbt-faq__toggle {
+      transform: rotate(180deg);
+    }
+
+    .slbt-faq__a {
+      overflow: hidden;
+    }
+
+    .slbt-faq__a-inner {
+      padding: 0 12px 11px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--slbt-answer, #44566c);
+    }
+
+    .slbt .slbt-faq__a-inner p + p {
+      margin-top: 6px;
+    }
+
+    .slbt-faq__a-inner a {
+      color: var(--slbt-accent, #0057a8);
+    }
+
+    /* 3. Kundenbewertung */
+    .slbt-review {
+      padding: 14px 16px;
+      background: var(--slbt-bg, #ffffff);
+      border: 1px solid var(--slbt-border, #dbe6f1);
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(11, 37, 69, 0.05);
+    }
+
+    .slbt-review__top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+    }
+
+    .slbt-review__rate {
+      display: inline-flex;
+      gap: 2px;
+      flex: 0 0 auto;
+    }
+
+    .slbt-review__s {
+      width: 17px;
+      height: 17px;
+      fill: var(--slbt-star, #00b67a);
+    }
+
+    .slbt-review__s.is-empty {
+      fill: var(--slbt-star-empty, #d4dde6);
+    }
+
+    .slbt-review__score {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slbt-ink, #0b2545);
+    }
+
+    .slbt-review__tag {
+      margin-left: auto;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eef5fc;
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--slbt-accent, #0057a8);
+    }
+
+    .slbt .slbt-review__lead {
+      margin-top: 8px;
+      font-size: 14.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--slbt-ink, #0b2545);
+    }
+
+    .slbt .slbt-review__text {
+      margin-top: 4px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--slbt-muted);
+    }
+
+    .slbt-review__author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .slbt-review__avatar {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .slbt-review__who {
+      min-width: 0;
+    }
+
+    .slbt-review__name {
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--slbt-ink, #0b2545);
+    }
+
+    .slbt-review__role {
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--slbt-muted);
+    }
+
+    /* Theme-Editor: ausgeblendete Blöcke bleiben anwählbar */
+    .slbt-off {
+      box-sizing: border-box;
+      width: 100%;
+      align-self: stretch;
+      padding: 6px 10px;
+      border: 1px dashed #b9c7d6;
+      border-radius: 6px;
+      background: #fafcfe;
+      font-size: 12px;
+      color: #6b7a8c;
+    }
+  </style>
+
+  <script>
+    (function () {
+      if (window.SlBuyboxTrust) {
+        window.SlBuyboxTrust.scan();
+        return;
+      }
+
+      var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+      // Mini-FAQ: natives <details> bleibt die Grundlage, JS ergänzt nur die Höhen-Animation.
+      function toggleFaq(details, open) {
+        var body = details.querySelector('.slbt-faq__a');
+        if (open === details.open && !details.hasAttribute('data-slbt-closing')) return;
+        if (!body || !body.animate || (reduceMotion && reduceMotion.matches)) {
+          details.open = open;
+          return;
+        }
+
+        var start = details.open ? body.getBoundingClientRect().height : 0;
+        if (details._slbtAnimation) details._slbtAnimation.cancel();
+
+        if (open) {
+          details.removeAttribute('data-slbt-closing');
+          details.open = true;
+        } else {
+          details.setAttribute('data-slbt-closing', '');
+        }
+
+        var end = open ? body.scrollHeight : 0;
+        var animation = body.animate([{ height: start + 'px' }, { height: end + 'px' }], {
+          duration: 220,
+          easing: 'ease-out',
+        });
+        details._slbtAnimation = animation;
+        animation.onfinish = function () {
+          details._slbtAnimation = null;
+          if (!open) {
+            details.open = false;
+            details.removeAttribute('data-slbt-closing');
+          }
+        };
+        animation.oncancel = function () {
+          details._slbtAnimation = null;
+        };
+      }
+
+      document.addEventListener('click', function (event) {
+        var summary = event.target.closest && event.target.closest('.slbt-faq__q');
+        if (!summary) return;
+        var details = summary.parentElement;
+        event.preventDefault();
+        toggleFaq(details, !details.open || details.hasAttribute('data-slbt-closing'));
+      });
+
+      // Theme-Editor: angewählte Frage aufklappen, damit die Antwort sichtbar ist.
+      document.addEventListener('shopify:block:select', function (event) {
+        var target = event.target;
+        if (target && target.classList && target.classList.contains('slbt-faq')) {
+          target.removeAttribute('data-slbt-closing');
+          target.open = true;
+        }
+      });
+
+      // Mengenrabatt: Ersparnis nur aus den sichtbaren Kaching-Bundle-Preisen.
+      function toCents(text) {
+        var match = (text || '').replace(/\s/g, '').match(/\d[\d.,]*/);
+        if (!match) return null;
+        var raw = match[0].replace(/[.,]$/, '');
+        var sep = Math.max(raw.lastIndexOf(','), raw.lastIndexOf('.'));
+        var digitsAfter = sep > -1 ? raw.length - sep - 1 : 0;
+        var whole = raw;
+        var fraction = '';
+        if (sep > -1 && digitsAfter > 0 && digitsAfter <= 2) {
+          whole = raw.slice(0, sep);
+          fraction = raw.slice(sep + 1);
+        }
+        whole = whole.replace(/[.,]/g, '');
+        if (!whole) return null;
+        var value = parseFloat(whole + '.' + (fraction || '0'));
+        return isFinite(value) ? Math.round(value * 100) : null;
+      }
+
+      function formatCents(cents) {
+        var currency = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR';
+        try {
+          return new Intl.NumberFormat(document.documentElement.lang || 'de-DE', {
+            style: 'currency',
+            currency: currency,
+          }).format(cents / 100);
+        } catch (error) {
+          return (cents / 100).toFixed(2).replace('.', ',') + ' €';
+        }
+      }
+
+      function readBars(scope) {
+        var bars = [];
+        scope.querySelectorAll('.kaching-bundles__bar').forEach(function (bar) {
+          var input = bar.querySelector('input[type="radio"]');
+          var priceEl = bar.querySelector('.kaching-bundles__bar-price');
+          var rawQty = ((input && input.value) || bar.getAttribute('data-quantity') || '').trim();
+          var qty = /^\d{1,3}$/.test(rawQty) ? parseInt(rawQty, 10) : 0;
+          var price = priceEl ? toCents(priceEl.textContent) : null;
+          if (qty < 1 || price === null) return;
+          bars.push({
+            qty: qty,
+            price: price,
+            checked: !!(input && input.checked),
+            marked: /selected/i.test(bar.className),
+          });
+        });
+        return bars;
+      }
+
+      function savingsText(card) {
+        var scope = card.closest('.shop-product-section') || document;
+        var bars = readBars(scope);
+        var anyChecked = bars.some(function (bar) {
+          return bar.checked;
+        });
+        var single = null;
+        var selected = null;
+        bars.forEach(function (bar) {
+          if (!single && bar.qty === 1) single = bar;
+          if (!selected && (anyChecked ? bar.checked : bar.marked)) selected = bar;
+        });
+        if (!single || !selected || selected.qty < 2) return '';
+
+        var saved = single.price * selected.qty - selected.price;
+        if (saved <= 0) return '';
+
+        var template = card.querySelector('[data-slbt-savings]').getAttribute('data-template') || '';
+        var amount = formatCents(saved);
+        return template.indexOf('[betrag]') > -1 ? template.replace('[betrag]', amount) : (template + ' ' + amount).trim();
+      }
+
+      var cards = [];
+      var observedRoots = [];
+      var frame = 0;
+
+      function update() {
+        frame = 0;
+        cards = cards.filter(function (card) {
+          return card.isConnected;
+        });
+        cards.forEach(function (card) {
+          var line = card.querySelector('[data-slbt-savings]');
+          var text = savingsText(card);
+          if (line.textContent !== text) line.textContent = text;
+          if (line.hidden !== !text) line.hidden = !text;
+        });
+      }
+
+      function schedule() {
+        if (!frame) frame = requestAnimationFrame(update);
+      }
+
+      function scan() {
+        document.querySelectorAll('.slbt-volume [data-slbt-savings]').forEach(function (line) {
+          var card = line.closest('.slbt-volume');
+          if (cards.indexOf(card) === -1) cards.push(card);
+
+          var root = card.closest('.shop-product-info') || card.parentElement;
+          if (root && observedRoots.indexOf(root) === -1 && window.MutationObserver) {
+            observedRoots.push(root);
+            new MutationObserver(schedule).observe(root, {
+              subtree: true,
+              childList: true,
+              attributes: true,
+              attributeFilter: ['class', 'checked'],
+            });
+          }
+        });
+        schedule();
+      }
+
+      document.addEventListener('change', function (event) {
+        if (event.target.closest && event.target.closest('.kaching-bundles__bar')) schedule();
+      });
+      document.addEventListener('shopify:section:load', scan);
+
+      window.SlBuyboxTrust = { scan: scan };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scan);
+      } else {
+        scan();
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{%- liquid
+  assign s = block.settings
+  case block.type
+    when 'sl_volume_info'
+      assign block_label = 'Mengenrabatt-Info'
+    when 'sl_faq_item'
+      assign block_label = 'Mini-FAQ: ' | append: s.question
+    else
+      assign block_label = 'Kundenbewertung'
+  endcase
+-%}
+
+{%- if s.show == false -%}
+  {%- if request.design_mode -%}
+    <div class="slbt-off" {{ block.shopify_attributes }}>{{ block_label | escape }} – ausgeblendet</div>
+  {%- endif -%}
+{%- else -%}
+  {%- case block.type -%}
+    {%- when 'sl_volume_info' -%}
+      <div
+        class="slbt slbt-volume{% if s.icon == 'none' %} slbt-volume--no-icon{% endif %}"
+        id="slbt-{{ block.id }}"
+        style="--slbt-bg: {{ s.bg_color }}; --slbt-border: {{ s.border_color }}; --slbt-accent: {{ s.accent_color }}; --slbt-ink: {{ s.text_color }}; --slbt-mt: {{ s.margin_top }}px; --slbt-mb: {{ s.margin_bottom }}px;"
+        {{ block.shopify_attributes }}
+      >
+        {%- unless s.icon == 'none' -%}
+          <span class="slbt-volume__icon" aria-hidden="true">
+            {%- case s.icon -%}
+              {%- when 'box' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+              {%- when 'percent' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              {%- when 'layers' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5"/></svg>
+            {%- endcase -%}
+          </span>
+        {%- endunless -%}
+        <div class="slbt-volume__copy">
+          {%- if s.headline != blank -%}
+            <p class="slbt-volume__lead">{{ s.headline | escape }}</p>
+          {%- endif -%}
+          {%- if s.text != blank -%}
+            <p class="slbt-volume__text">{{ s.text | escape }}</p>
+          {%- endif -%}
+          {%- if s.note != blank -%}
+            <p class="slbt-volume__note">{{ s.note | escape }}</p>
+          {%- endif -%}
+          {%- if s.show_savings -%}
+            <p class="slbt-volume__savings" data-slbt-savings data-template="{{ s.savings_text | escape }}" aria-live="polite" hidden></p>
+          {%- endif -%}
+        </div>
+      </div>
+
+    {%- when 'sl_faq_item' -%}
+      {%- if s.question != blank -%}
+        <details
+          class="slbt slbt-faq"
+          id="slbt-{{ block.id }}"
+          style="--slbt-bg: {{ s.bg_color }}; --slbt-border: {{ s.border_color }}; --slbt-accent: {{ s.accent_color }}; --slbt-ink: {{ s.question_color }}; --slbt-answer: {{ s.answer_color }}; --slbt-mt: {{ s.margin_top }}px; --slbt-mb: 0px;"
+          {{ block.shopify_attributes }}
+        >
+          <summary class="slbt-faq__q">
+            {%- unless s.icon == 'none' -%}
+              <span class="slbt-faq__icon" aria-hidden="true">
+                {%- case s.icon -%}
+                  {%- when 'pin' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {%- when 'home' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  {%- when 'power' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                  {%- when 'display' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  {%- when 'check' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                {%- endcase -%}
+              </span>
+            {%- endunless -%}
+            <span class="slbt-faq__qtext">{{ s.question | escape }}</span>
+            <span class="slbt-faq__toggle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </summary>
+          <div class="slbt-faq__a">
+            <div class="slbt-faq__a-inner">{{ s.answer }}</div>
+          </div>
+        </details>
+      {%- elsif request.design_mode -%}
+        <div class="slbt-off" {{ block.shopify_attributes }}>Mini-FAQ: Bitte eine Frage eintragen</div>
+      {%- endif -%}
+
+    {%- when 'sl_review_card' -%}
+      {%- liquid
+        assign filled_stars = s.star_count | default: 5
+        assign rating_label = s.rating_value | append: '' | replace: '.0', '' | replace: '.', ','
+      -%}
+      <div
+        class="slbt slbt-review"
+        id="slbt-{{ block.id }}"
+        style="--slbt-bg: {{ s.bg_color }}; --slbt-border: {{ s.border_color }}; --slbt-accent: {{ s.accent_color }}; --slbt-ink: {{ s.text_color }}; --slbt-star: {{ s.star_color }}; --slbt-star-empty: {{ s.star_empty_color }}; --slbt-mt: {{ s.margin_top }}px; --slbt-mb: {{ s.margin_bottom }}px;"
+        {{ block.shopify_attributes }}
+      >
+        <div class="slbt-review__top">
+          <span class="slbt-review__rate" role="img" aria-label="{{ rating_label }} von 5 Sternen">
+            {%- for i in (1..5) -%}
+              <svg class="slbt-review__s{% if i > filled_stars %} is-empty{% endif %}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.5l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55-4.76-4.64 6.58-.96z"/></svg>
+            {%- endfor -%}
+          </span>
+          <span class="slbt-review__score">{{ rating_label }} von 5</span>
+          {%- if s.tag != blank -%}
+            <span class="slbt-review__tag">{{ s.tag | escape }}</span>
+          {%- endif -%}
+        </div>
+        {%- if s.headline != blank -%}
+          <p class="slbt-review__lead">{{ s.headline | escape }}</p>
+        {%- endif -%}
+        {%- if s.review_text != blank -%}
+          <p class="slbt-review__text">{{ s.review_text | escape | newline_to_br }}</p>
+        {%- endif -%}
+        {%- if s.name != blank or s.role != blank or s.avatar != blank -%}
+          <div class="slbt-review__author">
+            {%- if s.avatar != blank -%}
+              {{
+                s.avatar
+                | image_url: width: 96, height: 96, crop: 'center'
+                | image_tag: class: 'slbt-review__avatar', width: 36, height: 36, loading: 'lazy', alt: s.name
+              }}
+            {%- endif -%}
+            <div class="slbt-review__who">
+              {%- if s.name != blank -%}
+                <p class="slbt-review__name">{{ s.name | escape }}</p>
+              {%- endif -%}
+              {%- if s.role != blank -%}
+                <p class="slbt-review__role">{{ s.role | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+  {%- endcase -%}
+{%- endif -%}
