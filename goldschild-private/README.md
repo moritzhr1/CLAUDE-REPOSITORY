@@ -25,22 +25,22 @@ tools/check_site.mjs        automatischer Test (Links, Bilder, Favicon, E-Mail, 
 
 ## Gestaltung
 
-- Farben: warmes Weiß `#faf8f3`, Tannengrün `#1f3b2f`, mattes Gold `#a6874e` (nur Linien und Akzente).
+- Farben: Weiß `#ffffff`, Tannengrün `#1f3b2f`, mattes Gold `#a6874e` (nur Linien und Akzente), kühles Hellgrau `#f4f5f4` für Flächen.
   Alle Textfarben erfüllen WCAG AA.
 - Schriften: Überschriften `Didot, "Bodoni MT", Georgia, serif`; Fließtext und Navigation
   `"Helvetica Neue", Helvetica, "Segoe UI", …, Arial, sans-serif`. Keine Web-Fonts, keine externen Dienste.
   Didot ist auf macOS/iOS vorinstalliert, Bodoni MT auf vielen Windows-Rechnern mit Office, sonst greift Georgia.
-- Logo: das vom Auftraggeber gelieferte Wappenschild (`source/goldschild-shield-original.png`), auch als Favicon.
+- Wortmarke: „GOLDSCHILD PRIVATE“ mit dem Wappenschild rechts daneben, als Gruppe mittig. Das Schild (`source/goldschild-shield-original.png`) dient auch als Favicon.
 - Keine Verläufe, Glanzeffekte oder Scroll-Animationen.
 
 ## Bildquelle und Lizenz
 
 | | |
 |---|---|
-| Datei | `site/assets/img/office-interior-{800,1280,1920,2400}.{jpg,webp}` |
-| Motiv | Leerer Besprechungsraum mit Fensterfront, Betondecke, Tageslicht, keine Personen |
-| Fotograf | Nastuh Abootalebi ([@sunday_digital](https://unsplash.com/@sunday_digital)) |
-| Quelle | https://unsplash.com/photos/eHD8Y1Znfpk |
+| Datei | `site/assets/img/interior-lobby-{800,1280,1920,2400}.{jpg,webp}` |
+| Motiv | Leere, helle Lobby eines modernen Bürogebäudes: weiße Wände und Säulen, grau gerahmte Fensterfront, keine Personen |
+| Fotograf | Declan Sun ([@declansun](https://unsplash.com/@declansun)) |
+| Quelle | https://unsplash.com/photos/0-ypHJxt1-w (veröffentlicht 21.02.2026, Sony ILCE-7RM5) |
 | Lizenz | [Unsplash License](https://unsplash.com/license): kommerzielle Nutzung erlaubt, keine Genehmigung oder Namensnennung erforderlich |
 | Geprüft | 12.11.2026, Status „Free to use under the Unsplash License“ (kein Unsplash+) |
 | Verwendung | Redaktionelle Illustration. Bildunterschrift auf der Seite: „Illustrative photograph“, mit Fotografen-Nennung; nicht als eigenes Büro bezeichnet |
@@ -57,7 +57,7 @@ Die gleichen Angaben stehen in `site/assets/img/IMAGE-CREDITS.txt` und werden mi
 - keine Konsolen-, CSP- oder Netzwerkfehler; kein JavaScript
 - je Seite genau ein `h1`, eindeutiger Titel und Meta-Description, `lang="en"`, Alt-Attribute
 - Breiten 320, 375, 414, 768, 1024, 1440, 1920 px: kein horizontales Scrollen, Wortmarke
-  „GOLDSCHILD [Schild] PRIVATE“ einzeilig und vollständig sichtbar, Schild exakt in der Seitenmitte
+  „GOLDSCHILD PRIVATE [Schild]“ einzeilig, vollständig sichtbar und mittig; Headline ab 768 px höchstens zweizeilig
 - Tastaturbedienung: sichtbarer Fokus auf allen Links, „Skip to content“-Link
 - Footer-Name exakt `GOLDSCHILD PRIVATE LLC`
 - zusätzlich HTML-Validierung mit `html-validate`: keine Fehler

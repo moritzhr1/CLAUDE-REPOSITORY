@@ -160,7 +160,7 @@ for (const p of ['/favicon.ico', '/', '/company', '/contact']) {
   await page.goto(BASE + '/deep/missing/page');
   const imgs = await page.evaluate(() => [...document.images].every(i => i.complete && i.naturalWidth > 0));
   const styled = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  imgs && styled === 'rgb(250, 248, 243)' && !errors.length ? ok('nested 404 page loads CSS and images') : fail(`nested 404: imgs=${imgs} bg=${styled} ${errors.join('|')}`);
+  imgs && styled === 'rgb(255, 255, 255)' && !errors.length ? ok('nested 404 page loads CSS and images') : fail(`nested 404: imgs=${imgs} bg=${styled} ${errors.join('|')}`);
   await ctx.close();
 }
 
@@ -173,27 +173,33 @@ for (const path of PAGES) {
     const page = await ctx.newPage();
     await page.goto(BASE + path);
     const m = await page.evaluate(() => {
-      const words = [...document.querySelectorAll('.wordmark__word')].map(e => e.getBoundingClientRect());
+      const textEl = document.querySelector('.wordmark__text');
+      const text = textEl.getBoundingClientRect();
       const shield = document.querySelector('.wordmark__shield').getBoundingClientRect();
       const mark = document.querySelector('.wordmark').getBoundingClientRect();
+      const h1 = document.querySelector('h1');
+      const h1Lines = Math.round(h1.getBoundingClientRect().height / parseFloat(getComputedStyle(h1).lineHeight));
       return {
         scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth,
-        words: words.map(r => ({ l: r.left, r: r.right, t: r.top, b: r.bottom })),
+        text: { l: text.left, r: text.right, h: text.height, label: textEl.textContent.trim() },
         shield: { l: shield.left, r: shield.right },
         mark: { l: mark.left, r: mark.right },
-        fontSize: parseFloat(getComputedStyle(document.querySelector('.wordmark__word')).fontSize),
+        fontSize: parseFloat(getComputedStyle(textEl).fontSize),
+        lineHeight: parseFloat(getComputedStyle(textEl).fontSize) * 1.0,
+        h1Lines,
       };
     });
     const problems = [];
     if (m.scroll > m.client) problems.push(`horizontal overflow ${m.scroll}>${m.client}`);
-    const [a, b] = m.words;
-    if (a.l < 0 || b.r > m.client) problems.push('wordmark outside viewport');
-    if (!(a.r <= m.shield.l && m.shield.r <= b.l)) problems.push('wordmark order/overlap wrong');
-    if (Math.abs(a.t - b.t) > 1) problems.push('wordmark wraps');
-    const centre = (m.shield.l + m.shield.r) / 2;
-    if (Math.abs(centre - m.client / 2) > 1) problems.push(`shield off-centre by ${(centre - m.client / 2).toFixed(1)}px`);
+    if (m.text.label !== 'GOLDSCHILD PRIVATE') problems.push(`wordmark text "${m.text.label}"`);
+    if (m.mark.l < 0 || m.mark.r > m.client) problems.push('wordmark outside viewport');
+    if (!(m.text.r <= m.shield.l)) problems.push('shield is not to the right of PRIVATE');
+    if (m.text.h > m.fontSize * 1.5) problems.push('wordmark wraps');
+    const centre = (m.mark.l + m.mark.r) / 2;
+    if (Math.abs(centre - m.client / 2) > 1) problems.push(`wordmark off-centre by ${(centre - m.client / 2).toFixed(1)}px`);
+    if (path === '/index.html' && width >= 768 && m.h1Lines > 2) problems.push(`headline has ${m.h1Lines} lines`);
     problems.length ? fail(`${path} @${width}: ${problems.join(', ')}`)
-      : ok(`${path} @${width}px: no overflow; shield centred; wordmark ${Math.round(m.mark.r - m.mark.l)}px wide, ${m.fontSize}px type, margins ${Math.round(m.mark.l)}px`);
+      : ok(`${path} @${width}px: no overflow; lockup centred, shield right of PRIVATE; h1 ${m.h1Lines} lines; wordmark ${Math.round(m.mark.r - m.mark.l)}px wide, ${m.fontSize}px type, margins ${Math.round(m.mark.l)}px`);
     if (SHOTS && (width === 375 || width === 1440)) {
       await page.screenshot({ path: join(SHOTS, `${path.slice(1, -5)}-${width}.png`), fullPage: true });
     }

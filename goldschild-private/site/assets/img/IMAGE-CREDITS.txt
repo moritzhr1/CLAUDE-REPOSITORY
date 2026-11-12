@@ -1,12 +1,12 @@
 Image credits — Goldschild Private LLC website
 ==============================================
 
-office-interior-800/1280/1920/2400 (.jpg, .webp)
-  Subject:      Empty meeting room with floor-to-ceiling windows (no people)
-  Photographer: Nastuh Abootalebi (Unsplash profile: https://unsplash.com/@sunday_digital)
-  Source page:  https://unsplash.com/photos/eHD8Y1Znfpk
-  Original:     https://images.unsplash.com/photo-1497366811353-6870744d04b2
-  Published:    13 June 2017 on Unsplash
+interior-lobby-800/1280/1920/2400 (.jpg, .webp)
+  Subject:      Empty, daylit lobby of a modern office building (no people)
+  Photographer: Declan Sun (Unsplash profile: https://unsplash.com/@declansun)
+  Source page:  https://unsplash.com/photos/0-ypHJxt1-w
+  Original:     https://images.unsplash.com/photo-1771678040857-51d00a11be7a
+  Published:    21 February 2026 on Unsplash (camera: Sony ILCE-7RM5)
   Licence:      Unsplash License — https://unsplash.com/license
                 Free to use for commercial and non-commercial purposes;
                 no permission or attribution required (credit is given anyway).

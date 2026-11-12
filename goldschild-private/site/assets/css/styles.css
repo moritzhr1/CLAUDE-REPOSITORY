@@ -2,15 +2,15 @@
    Static, no build step, no external fonts. */
 
 :root {
-  --paper: #faf8f3;        /* warm white */
-  --paper-alt: #f3efe6;
+  --paper: #ffffff;        /* white */
+  --paper-alt: #f4f5f4;    /* cool light grey */
   --ink: #1c2420;
   --muted: #565e59;
   --fir: #1f3b2f;          /* deep fir green */
   --fir-deep: #172e24;
   --gold: #a6874e;         /* matte gold: rules, ornaments, UI outlines */
   --gold-text: #7e6430;    /* gold for small text on light backgrounds */
-  --rule: #ddd6c8;
+  --rule: #e2e4e1;
   --on-fir: #faf8f3;
   --on-fir-muted: #bcc8c0;
   --gold-on-fir: #c9ad76;
@@ -86,7 +86,7 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
   border-radius: 2px;
 }
 
-::selection { background: #e6dcc6; color: var(--ink); }
+::selection { background: #e3e8e5; color: var(--ink); }
 
 .container {
   width: 100%;
@@ -96,6 +96,7 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
 }
 
 .container--narrow { max-width: calc(var(--narrow) + 2 * var(--gutter)); }
+.container--wide { max-width: calc(1040px + 2 * var(--gutter)); }
 
 .visually-hidden {
   position: absolute !important;
@@ -193,11 +194,9 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
 }
 
 .wordmark {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  display: inline-flex;
   align-items: center;
-  column-gap: clamp(10px, 2.6vw, 20px);
-  width: min(100%, 34rem);
+  gap: clamp(10px, 2.4vw, 18px);
   color: var(--fir);
   text-decoration: none;
   white-space: nowrap;
@@ -205,25 +204,19 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
 
 .wordmark:hover { color: var(--fir); }
 
-.wordmark__word {
+.wordmark__text {
   font-family: var(--display);
   font-size: clamp(15px, 4.55vw, 25px);
   line-height: 1;
   letter-spacing: 0.17em;
-}
-
-/* GOLDSCHILD hangs left of the shield, PRIVATE right of it.
-   The negative margin cancels the trailing letter-spacing so both gaps match. */
-.wordmark__word:first-child {
-  justify-self: end;
+  /* cancel the trailing letter-spacing so the gap before the shield is exact */
   margin-right: -0.17em;
 }
-
-.wordmark__word:last-child { justify-self: start; }
 
 .wordmark__shield {
   width: auto;
   height: clamp(32px, 9vw, 44px);
+  flex: none;
 }
 
 .site-nav ul {
@@ -264,12 +257,12 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
 }
 
 .intro h1 {
-  font-size: clamp(2.125rem, 1.3rem + 3.4vw, 3.75rem);
+  font-size: clamp(2rem, 1.25rem + 2.3vw, 3.125rem);
   margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
 }
 
 .intro .lead {
-  max-width: 34em;
+  max-width: 40em;
   margin-inline: auto;
   color: var(--muted);
 }
@@ -293,7 +286,7 @@ a:hover { color: var(--fir-deep); text-decoration-color: currentColor; }
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  object-position: 50% 62%;
+  object-position: 50% 30%;
   background: var(--paper-alt);
 }
 

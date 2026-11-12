@@ -3,15 +3,15 @@
 
 Inputs (in ../source):
   goldschild-shield-original.png   Logo supplied by the client (transparent PNG).
-  office-interior-unsplash-eHD8Y1Znfpk.jpg
-                                   Photo by Nastuh Abootalebi, Unsplash License.
-                                   https://unsplash.com/photos/eHD8Y1Znfpk
+  interior-lobby-unsplash-0-ypHJxt1-w.jpg
+                                   Photo by Declan Sun, Unsplash License.
+                                   https://unsplash.com/photos/0-ypHJxt1-w
                                    Downloaded from:
-                                   https://images.unsplash.com/photo-1497366811353-6870744d04b2?fm=jpg&q=92&w=3200
+                                   https://images.unsplash.com/photo-1771678040857-51d00a11be7a?fm=jpg&q=92&w=3200
 
 Outputs (in ../site):
   assets/img/goldschild-shield.png          header/footer logo (high-DPI)
-  assets/img/office-interior-{w}.jpg|webp  responsive hero image
+  assets/img/interior-lobby-{w}.jpg|webp   responsive hero image
   assets/icons/*.png, favicon.ico          favicons
 
 Requires Pillow (pip install Pillow). Run: python3 tools/build_assets.py
@@ -26,7 +26,7 @@ SITE = ROOT / "site"
 IMG = SITE / "assets" / "img"
 ICONS = SITE / "assets" / "icons"
 
-PAPER = (250, 248, 243, 255)  # --paper in styles.css
+PAPER = (255, 255, 255, 255)  # --paper in styles.css
 
 
 def trimmed_logo() -> Image.Image:
@@ -70,12 +70,12 @@ def build_icons(logo: Image.Image) -> None:
 
 
 def build_hero() -> None:
-    photo = Image.open(SRC / "office-interior-unsplash-eHD8Y1Znfpk.jpg").convert("RGB")
+    photo = Image.open(SRC / "interior-lobby-unsplash-0-ypHJxt1-w.jpg").convert("RGB")
     for w in (800, 1280, 1920, 2400):
         h = round(photo.height * w / photo.width)
         im = photo.resize((w, h), Image.LANCZOS)
-        im.save(IMG / f"office-interior-{w}.jpg", quality=80, optimize=True, progressive=True)
-        im.save(IMG / f"office-interior-{w}.webp", quality=78, method=6)
+        im.save(IMG / f"interior-lobby-{w}.jpg", quality=80, optimize=True, progressive=True)
+        im.save(IMG / f"interior-lobby-{w}.webp", quality=78, method=6)
         print("hero", w, h)
 
 
