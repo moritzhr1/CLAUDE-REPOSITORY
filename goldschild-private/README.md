@@ -57,7 +57,7 @@ Die gleichen Angaben stehen in `site/assets/img/IMAGE-CREDITS.txt` und werden mi
 - keine Konsolen-, CSP- oder Netzwerkfehler; kein JavaScript
 - je Seite genau ein `h1`, eindeutiger Titel und Meta-Description, `lang="en"`, Alt-Attribute
 - Breiten 320, 375, 414, 768, 1024, 1440, 1920 px: kein horizontales Scrollen, Wortmarke
-  „GOLDSCHILD [Schild] PRIVATE“ einzeilig, vollständig sichtbar und mittig
+  „GOLDSCHILD [Schild] PRIVATE“ einzeilig und vollständig sichtbar, Schild exakt in der Seitenmitte
 - Tastaturbedienung: sichtbarer Fokus auf allen Links, „Skip to content“-Link
 - Footer-Name exakt `GOLDSCHILD PRIVATE LLC`
 - zusätzlich HTML-Validierung mit `html-validate`: keine Fehler

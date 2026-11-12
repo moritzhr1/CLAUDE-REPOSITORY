@@ -190,10 +190,10 @@ for (const path of PAGES) {
     if (a.l < 0 || b.r > m.client) problems.push('wordmark outside viewport');
     if (!(a.r <= m.shield.l && m.shield.r <= b.l)) problems.push('wordmark order/overlap wrong');
     if (Math.abs(a.t - b.t) > 1) problems.push('wordmark wraps');
-    const centre = (m.mark.l + m.mark.r) / 2;
-    if (Math.abs(centre - m.client / 2) > 2) problems.push(`wordmark off-centre by ${(centre - m.client / 2).toFixed(1)}px`);
+    const centre = (m.shield.l + m.shield.r) / 2;
+    if (Math.abs(centre - m.client / 2) > 1) problems.push(`shield off-centre by ${(centre - m.client / 2).toFixed(1)}px`);
     problems.length ? fail(`${path} @${width}: ${problems.join(', ')}`)
-      : ok(`${path} @${width}px: no overflow; wordmark ${Math.round(m.mark.r - m.mark.l)}px wide, ${m.fontSize}px type, margins ${Math.round(m.mark.l)}px`);
+      : ok(`${path} @${width}px: no overflow; shield centred; wordmark ${Math.round(m.mark.r - m.mark.l)}px wide, ${m.fontSize}px type, margins ${Math.round(m.mark.l)}px`);
     if (SHOTS && (width === 375 || width === 1440)) {
       await page.screenshot({ path: join(SHOTS, `${path.slice(1, -5)}-${width}.png`), fullPage: true });
     }
