@@ -43,7 +43,7 @@ tools/check_site.mjs        automatischer Test (Links, Bilder, Favicon, E-Mail, 
 | Quelle | https://unsplash.com/photos/eHD8Y1Znfpk |
 | Lizenz | [Unsplash License](https://unsplash.com/license): kommerzielle Nutzung erlaubt, keine Genehmigung oder Namensnennung erforderlich |
 | Geprüft | 12.11.2026, Status „Free to use under the Unsplash License“ (kein Unsplash+) |
-| Verwendung | Redaktionelle Illustration. Bildunterschrift auf der Seite: „Illustrative photograph, not the company’s premises.“, mit Fotografen-Nennung |
+| Verwendung | Redaktionelle Illustration. Bildunterschrift auf der Seite: „Illustrative photograph“, mit Fotografen-Nennung; nicht als eigenes Büro bezeichnet |
 
 Die gleichen Angaben stehen in `site/assets/img/IMAGE-CREDITS.txt` und werden mit hochgeladen.
 

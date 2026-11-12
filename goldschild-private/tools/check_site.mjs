@@ -124,9 +124,10 @@ for (const path of PAGES) {
   for (const word of ['GOLDSCHILD', 'PRIVATE']) {
     if (!info.bodyText.includes(word)) fail(`${path} wordmark text ${word} missing`);
   }
-  // Wording guard: no tax ID, no shop calls-to-action, no office claims.
+  // Wording guard: no tax ID, no shop calls-to-action, no office claims, no pre-launch wording.
   // (The company page mentions banking/investment only to say it offers neither.)
-  const banned = [/\bEIN\b/, /\bour office\b/i, /\bshop now\b/i, /\bbuy now\b/i, /\badd to cart\b/i];
+  const banned = [/\bEIN\b/, /\bour office\b/i, /\bshop now\b/i, /\bbuy now\b/i, /\badd to cart\b/i,
+    /prepar/i, /not yet/i, /\bwill be\b/i, /\blaunch/i];
   if (path !== '/company.html') banned.push(/\bbank\b/i, /\bwealth\b/i, /\binvest/i);
   for (const bad of banned) if (bad.test(info.bodyText)) fail(`${path} contains ${bad}`);
   await ctx.close();

@@ -10,10 +10,9 @@ office-interior-800/1280/1920/2400 (.jpg, .webp)
   Licence:      Unsplash License — https://unsplash.com/license
                 Free to use for commercial and non-commercial purposes;
                 no permission or attribution required (credit is given anyway).
-  Use on site:  Editorial illustration on the home page only. The photograph
-                does not show premises of Goldschild Private LLC and is
-                captioned on the page as "Illustrative photograph, not the
-                company's premises."
+  Use on site:  Editorial illustration on the home page only, captioned
+                "Illustrative photograph" with the photographer credit.
+                It is not presented as premises of Goldschild Private LLC.
   Processing:   Resized and re-encoded (JPEG/WebP); no other edits.
   Checked:      12 November 2026 — listed as "Free to use under the Unsplash
                 License" (not Unsplash+).
