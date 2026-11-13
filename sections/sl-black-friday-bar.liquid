@@ -1,11 +1,9 @@
 {%- comment -%}
-  SICHERLUFT Black-Friday-Banner: Angebotsbotschaft links, Countdown rechts, eine Leiste.
-  Gehört in die Header-Gruppe über den Header. Sticky übernimmt HeaderBannerStack
-  (sections/header.liquid); mit "Sticky" aus wird die Section dort übersprungen.
-
-  Countdown: dieselben Regeln wie der bisherige Countdown Banner (Enddatum in
-  Europe/Berlin, optionaler täglicher Reset bis Mitternacht, nie über das echte Ende
-  hinaus), aber an diese Section gebunden statt an seitenweite Klassen.
+  SICHERLUFT Black-Friday-Banner (v2): kompakte Leiste über dem Header.
+  Links Produktbild + "EARLY ACCESS / BLACK FRIDAY" + Angebots-Chip, rechts ein
+  Flip-Countdown HH:MM:SS, der jeden Tag bis 0:00 Uhr (Europe/Berlin) läuft und
+  dann neu startet, bis zum eingestellten Aktionsende.
+  Sticky übernimmt HeaderBannerStack (sections/header.liquid).
 {%- endcomment -%}
 
 {%- liquid
@@ -14,9 +12,9 @@
   assign end_time = s.end_time | strip | default: '00:00'
   assign render_bar = s.enabled
 
-  # Abgelaufen und "ausblenden": schon serverseitig weglassen, damit die Leiste nicht
-  # erst erscheint und dann verschwindet (2 Std. Puffer für Zeitzone/Caching).
-  if render_bar and s.show_countdown and s.after_end == 'hide' and end_date != blank
+  # Aktion vorbei und "ausblenden": schon serverseitig weglassen, damit die Leiste
+  # nicht erst erscheint und dann verschwindet (2 Std. Puffer für Zeitzone/Caching).
+  if render_bar and s.after_end == 'hide' and end_date contains '-'
     assign end_stamp = end_date | append: ' ' | append: end_time | append: ':00 +0100' | date: '%s' | plus: 0
     assign now_stamp = 'now' | date: '%s' | plus: 0
     if end_stamp > 0 and now_stamp > end_stamp
@@ -33,362 +31,672 @@
     assign highlight_html = '<span class="slbf__hl">' | append: highlight | append: '</span>'
     assign offer_html = offer_html | replace_first: highlight, highlight_html
   endif
+
+  assign bar_classes = 'slbf slbf--m-' | append: s.layout_mobile
+  if s.effects_3d
+    assign bar_classes = bar_classes | append: ' slbf--fx'
+  endif
+  if s.animate
+    assign bar_classes = bar_classes | append: ' slbf--anim'
+  endif
+  unless s.image_mobile
+    assign bar_classes = bar_classes | append: ' slbf--m-noimg'
+  endunless
 -%}
 
 {%- if render_bar -%}
   <style>
     .slbf {
-      --slbf-muted: rgba(255, 255, 255, 0.72);
+      --slbf-fs: var(--slbf-fs-d, 24px);
+      --slbf-pad: var(--slbf-pad-d, 6px);
+      --slbf-ch: calc(var(--slbf-fs) * 1.42);
+      --slbf-cw: calc(var(--slbf-fs) * 1.6);
+      --slbf-cf: calc(var(--slbf-fs) * 1.02);
+      --slbf-img: calc(var(--slbf-fs) * 2.45);
+      --slbf-muted: rgba(255, 255, 255, 0.7);
+      --slbf-ex1: #0a6fb5;
+      --slbf-ex2: #085892;
+      --slbf-ex3: #06416d;
+      --slbf-face: #d7eeff;
+      --slbf-glow: rgba(7, 155, 248, 0.45);
+      --slbf-glow-soft: rgba(7, 155, 248, 0.16);
+      --slbf-card-top: #173b61;
+      --slbf-card-bot: #0c2542;
+      --slbf-card-edge: #05111f;
+      --slbf-chip-top: #3fb4ff;
+      --slbf-chip-bot: #0679c9;
       position: relative;
       display: block;
       overflow: hidden;
       isolation: isolate;
       background: var(--slbf-bg, #071b2f);
       color: var(--slbf-text, #ffffff);
-      font-family: var(--font-body-family);
+      line-height: 1;
       text-transform: uppercase;
       -webkit-font-smoothing: antialiased;
+      box-shadow: inset 0 -2px 0 var(--slbf-accent, #079bf8);
+    }
+
+    .slbf[hidden] {
+      display: none !important;
     }
 
     @supports (color: color-mix(in srgb, red 50%, white)) {
       .slbf {
-        --slbf-muted: color-mix(in srgb, var(--slbf-text, #ffffff) 72%, transparent);
-      }
-
-      .slbf::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background: radial-gradient(
-          110% 160% at 88% 50%,
-          color-mix(in srgb, var(--slbf-accent, #079bf8) 18%, transparent),
-          transparent 60%
-        );
+        --slbf-muted: color-mix(in srgb, var(--slbf-text) 70%, transparent);
+        --slbf-ex1: color-mix(in srgb, var(--slbf-accent) 72%, #000);
+        --slbf-ex2: color-mix(in srgb, var(--slbf-accent) 56%, #000);
+        --slbf-ex3: color-mix(in srgb, var(--slbf-accent) 40%, #000);
+        --slbf-face: color-mix(in srgb, var(--slbf-text) 78%, var(--slbf-accent));
+        --slbf-glow: color-mix(in srgb, var(--slbf-accent) 45%, transparent);
+        --slbf-glow-soft: color-mix(in srgb, var(--slbf-accent) 16%, transparent);
+        --slbf-card-top: color-mix(in srgb, var(--slbf-box) 86%, #fff);
+        --slbf-card-bot: color-mix(in srgb, var(--slbf-box) 82%, #000);
+        --slbf-card-edge: color-mix(in srgb, var(--slbf-box) 38%, #000);
+        --slbf-chip-top: color-mix(in srgb, var(--slbf-accent) 74%, #fff);
+        --slbf-chip-bot: color-mix(in srgb, var(--slbf-accent) 78%, #000);
       }
     }
 
+    /* Hintergrund: Lichtkegel hinter Bild und Countdown, feine Diagonalen */
+    .slbf::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 22% 140% at 9% 50%, var(--slbf-glow), transparent 70%),
+        radial-gradient(ellipse 26% 160% at 88% 50%, var(--slbf-glow-soft), transparent 70%),
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 16px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 45%, rgba(0, 0, 0, 0.25));
+    }
+
+    /* Lichtreflex, der langsam über die Leiste wandert */
     .slbf::after {
       content: '';
       position: absolute;
-      right: 0;
+      top: 0;
       bottom: 0;
       left: 0;
-      height: 2px;
+      z-index: -1;
+      width: 40%;
       pointer-events: none;
-      background: linear-gradient(90deg, transparent, var(--slbf-accent, #079bf8) 30%, var(--slbf-accent, #079bf8) 70%, transparent);
-      opacity: 0.75;
+      background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.07) 50%, transparent 80%);
+      transform: translateX(-120%);
+      opacity: 0;
     }
 
-    .slbf[hidden] {
-      display: none;
+    .slbf--anim::after {
+      opacity: 1;
+      animation: slbf-sheen 8s ease-in-out infinite;
     }
 
-    .slbf *,
-    .slbf *::before,
-    .slbf *::after {
-      box-sizing: border-box;
-    }
-
-    .slbf p {
-      margin: 0;
+    @keyframes slbf-sheen {
+      0%, 55% { transform: translateX(-120%); }
+      100% { transform: translateX(300%); }
     }
 
     .slbf__inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 16px;
       max-width: var(--slbf-max, 1200px);
       margin: 0 auto;
-      padding: var(--slbf-pad-d, 10px) 30px;
+      padding: var(--slbf-pad) 30px;
     }
 
-    .slbf__msg {
-      flex: 1 1 60%;
+    .slbf__deal {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       min-width: 0;
     }
 
-    .slbf__line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0 10px;
-      font-weight: 800;
-      line-height: 1.1;
-    }
-
-    .slbf__eyebrow {
-      font-size: calc(var(--slbf-fs-d, 22px) * 0.62);
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: var(--slbf-accent, #079bf8);
-    }
-
-    .slbf__headline {
-      font-size: var(--slbf-fs-d, 22px);
-      letter-spacing: 0.03em;
-      color: var(--slbf-text, #ffffff);
-    }
-
-    .slbf .slbf__offer {
-      display: inline-block;
-      margin-top: 5px;
-      padding: 3px 10px;
-      border: 1px solid rgba(7, 155, 248, 0.55);
-      border-radius: 4px;
-      background: rgba(7, 155, 248, 0.12);
-      font-size: calc(var(--slbf-fs-d, 22px) * 0.68);
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      line-height: 1.25;
-      color: var(--slbf-text, #ffffff);
-    }
-
-    @supports (color: color-mix(in srgb, red 50%, white)) {
-      .slbf .slbf__offer {
-        border-color: color-mix(in srgb, var(--slbf-accent, #079bf8) 55%, transparent);
-        background: color-mix(in srgb, var(--slbf-accent, #079bf8) 13%, transparent);
-      }
-    }
-
-    .slbf__hl {
-      color: var(--slbf-accent, #079bf8);
-    }
-
-    .slbf__timer {
-      display: flex;
+    /* Produktbild: freigestellt, mit Kantenlicht und leichter 3D-Drehung */
+    .slbf__media {
+      position: relative;
       flex: 0 0 auto;
+      height: var(--slbf-img);
+      margin-block: calc(var(--slbf-pad) * -1 + 1px);
+    }
+
+    .slbf__media::before {
+      content: '';
+      position: absolute;
+      inset: 18% 4% 6%;
+      z-index: -1;
+      border-radius: 50%;
+      background: var(--slbf-glow);
+      filter: blur(12px);
+    }
+
+    .slbf__img {
+      display: block;
+      width: auto;
+      height: 100%;
+      max-width: none;
+      filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5)) drop-shadow(0 4px 5px rgba(0, 0, 0, 0.55));
+    }
+
+    .slbf--fx .slbf__img {
+      transform: perspective(420px) rotateY(-16deg) rotateZ(-3deg);
+    }
+
+    .slbf--anim .slbf__img {
+      animation: slbf-float 4.5s ease-in-out infinite;
+    }
+
+    @keyframes slbf-float {
+      0%, 100% { translate: 0 1px; }
+      50% { translate: 0 -2px; }
+    }
+
+    .slbf__media--empty {
+      display: flex;
       align-items: center;
-      gap: 14px;
-    }
-
-    .slbf__timer[hidden] {
-      display: none;
-    }
-
-    .slbf .slbf__label {
-      max-width: 8.5em;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      line-height: 1.25;
-      text-align: right;
+      justify-content: center;
+      width: calc(var(--slbf-img) * 0.9);
+      border: 1px dashed var(--slbf-muted);
+      border-radius: 6px;
+      font-size: 9px;
+      line-height: 1.2;
+      text-align: center;
+      text-transform: none;
       color: var(--slbf-muted);
     }
 
-    @media screen and (min-width: 990px) {
-      .slbf .slbf__label {
-        max-width: 11.5em;
-      }
+    .slbf__copy {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .slbf .slbf__line {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .slbf .slbf__eyebrow {
+      font-size: calc(var(--slbf-fs) * 0.44);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--slbf-accent);
+    }
+
+    .slbf .slbf__headline {
+      display: inline-block;
+      font-size: var(--slbf-fs);
+      font-weight: 800;
+      letter-spacing: 0.015em;
+      color: var(--slbf-text);
+    }
+
+    /* 3D-Schrift: Verlauf auf der Fläche, Extrusion über gestapelte Schatten */
+    .slbf--fx .slbf__headline {
+      padding-bottom: 3px;
+      background: linear-gradient(180deg, var(--slbf-text) 30%, var(--slbf-face) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 1px 0 var(--slbf-ex1)) drop-shadow(0 1px 0 var(--slbf-ex2))
+        drop-shadow(0 1px 0 var(--slbf-ex3)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Angebots-Chip */
+    .slbf .slbf__chip {
+      display: inline-block;
+      flex: 0 0 auto;
+      padding: 5px 10px 4px;
+      border-radius: 7px;
+      font-size: calc(var(--slbf-fs) * 0.5);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      color: #fff;
+      background: var(--slbf-accent);
+    }
+
+    .slbf--fx .slbf__chip {
+      background: linear-gradient(180deg, var(--slbf-chip-top), var(--slbf-accent) 55%, var(--slbf-chip-bot));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 3px 0 var(--slbf-ex3),
+        0 6px 14px var(--slbf-glow);
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+      transform: perspective(300px) rotateX(8deg) rotate(-3deg);
+    }
+
+    .slbf .slbf__hl {
+      font-size: 1.45em;
+      font-weight: 800;
+      vertical-align: -0.08em;
+    }
+
+    .slbf--fx .slbf__hl {
+      text-shadow: 0 1px 0 var(--slbf-ex1), 0 2px 0 var(--slbf-ex3), 0 3px 4px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Countdown */
+    .slbf__timer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .slbf .slbf__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: calc(var(--slbf-fs) * 0.46);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
+      color: var(--slbf-muted);
+    }
+
+    .slbf__dot {
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--slbf-accent);
+      box-shadow: 0 0 0 0 var(--slbf-glow);
+    }
+
+    .slbf--anim .slbf__dot {
+      animation: slbf-pulse 2s ease-out infinite;
+    }
+
+    @keyframes slbf-pulse {
+      0% { box-shadow: 0 0 0 0 var(--slbf-glow); }
+      70%, 100% { box-shadow: 0 0 0 5px transparent; }
     }
 
     .slbf__clock {
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 5px;
     }
 
     .slbf__unit {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 5px;
     }
 
-    .slbf__unit[hidden],
-    .slbf__sep[hidden] {
-      display: none;
+    /* Flip-Karte: zwei feste Hälften + zwei Klappen, die beim Wechsel umschlagen */
+    .slbf__card {
+      position: relative;
+      display: block;
+      width: var(--slbf-cw);
+      height: var(--slbf-ch);
+      border-radius: 6px;
+      background: var(--slbf-card-edge);
+      color: var(--slbf-digit, #fff);
+      font-size: var(--slbf-cf);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      perspective: 180px;
+    }
+
+    .slbf--fx .slbf__card {
+      box-shadow:
+        0 1px 0 var(--slbf-card-edge),
+        0 2px 0 var(--slbf-card-edge),
+        0 3px 0 #02080f,
+        0 6px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .slbf__half,
+    .slbf__leaf {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: calc(50% - 0.5px);
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .slbf__half--top,
+    .slbf__leaf--top {
+      top: 0;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, var(--slbf-card-top), var(--slbf-box, #0e2d4b));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      transform-origin: 50% 100%;
+    }
+
+    .slbf__half--bot,
+    .slbf__leaf--bot {
+      bottom: 0;
+      border-radius: 0 0 6px 6px;
+      background: linear-gradient(180deg, var(--slbf-box, #0e2d4b), var(--slbf-card-bot));
+      transform-origin: 50% 0;
     }
 
     .slbf__num {
-      min-width: 2.15em;
-      padding: 4px 6px;
-      border: 1px solid rgba(7, 155, 248, 0.35);
-      border-radius: 6px;
-      background: var(--slbf-box, #0e2d4b);
-      font-size: calc(var(--slbf-fs-d, 22px) * 1.05);
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-      line-height: 1.1;
+      display: block;
+      height: var(--slbf-ch);
+      line-height: var(--slbf-ch);
       text-align: center;
-      color: var(--slbf-digit, #ffffff);
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
     }
 
-    @supports (color: color-mix(in srgb, red 50%, white)) {
-      .slbf__num {
-        border-color: color-mix(in srgb, var(--slbf-accent, #079bf8) 35%, transparent);
-      }
+    .slbf__half--bot .slbf__num,
+    .slbf__leaf--bot .slbf__num {
+      margin-top: calc(var(--slbf-ch) / -2);
     }
 
-    .slbf__cap {
-      margin-top: 3px;
-      font-size: 10px;
+    /* Scharnierstifte links und rechts */
+    .slbf__card::before,
+    .slbf__card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      width: 3px;
+      height: 6px;
+      margin-top: -3px;
+      border-radius: 1px;
+      background: var(--slbf-card-edge);
+    }
+
+    .slbf__card::before {
+      left: -1px;
+    }
+
+    .slbf__card::after {
+      right: -1px;
+    }
+
+    .slbf__leaf {
+      z-index: 2;
+      display: none;
+    }
+
+    .slbf__card.is-flipping .slbf__leaf {
+      display: block;
+    }
+
+    .slbf__card.is-flipping .slbf__leaf--top {
+      animation: slbf-fold 0.28s ease-in forwards;
+    }
+
+    .slbf__card.is-flipping .slbf__leaf--bot {
+      animation: slbf-unfold 0.28s ease-out 0.28s both;
+    }
+
+    @keyframes slbf-fold {
+      from { transform: rotateX(0deg); filter: brightness(1); }
+      to { transform: rotateX(-90deg); filter: brightness(0.6); }
+    }
+
+    @keyframes slbf-unfold {
+      from { transform: rotateX(90deg); filter: brightness(1.5); }
+      to { transform: rotateX(0deg); filter: brightness(1); }
+    }
+
+    .slbf .slbf__cap {
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.14em;
-      line-height: 1.2;
+      letter-spacing: 0.16em;
       color: var(--slbf-muted);
     }
 
-    .slbf__sep {
-      padding-top: 0.25em;
-      font-size: calc(var(--slbf-fs-d, 22px) * 0.95);
+    .slbf .slbf__sep {
+      height: var(--slbf-ch);
+      line-height: var(--slbf-ch);
+      font-size: calc(var(--slbf-cf) * 0.9);
       font-weight: 800;
-      line-height: 1.1;
-      color: var(--slbf-accent, #079bf8);
+      color: var(--slbf-accent);
+      text-shadow: 0 0 8px var(--slbf-glow);
+    }
+
+    .slbf__sr {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     @media screen and (max-width: 749px) {
+      .slbf {
+        --slbf-fs: var(--slbf-fs-m, 15px);
+        --slbf-pad: var(--slbf-pad-m, 6px);
+        --slbf-ch: calc(var(--slbf-fs) * 1.62);
+        --slbf-cw: calc(var(--slbf-fs) * 1.72);
+        --slbf-cf: calc(var(--slbf-fs) * 1.08);
+        --slbf-img: calc(var(--slbf-fs) * 3.4);
+      }
+
       .slbf__inner {
-        gap: 5px 12px;
-        padding: var(--slbf-pad-m, 8px) 16px;
+        gap: 10px;
+        padding: var(--slbf-pad) 12px;
       }
 
-      .slbf__line {
-        gap: 0 7px;
-      }
-
-      .slbf__eyebrow {
-        font-size: calc(var(--slbf-fs-m, 16px) * 0.72);
-        letter-spacing: 0.1em;
-      }
-
-      .slbf__headline {
-        font-size: var(--slbf-fs-m, 16px);
-      }
-
-      .slbf .slbf__offer {
-        margin-top: 3px;
-        padding: 1px 8px;
-        font-size: max(12px, calc(var(--slbf-fs-m, 16px) * 0.78));
-      }
-
-      .slbf__clock {
-        gap: 4px;
-      }
-
-      .slbf__num {
-        padding: 2px 4px;
-        font-size: calc(var(--slbf-fs-m, 16px) * 1.05);
-      }
-
-      .slbf__sep {
-        font-size: var(--slbf-fs-m, 16px);
-      }
-
-      .slbf__cap {
-        margin-top: 1px;
-        font-size: 9.5px;
-        letter-spacing: 0.1em;
-      }
-
-      .slbf .slbf__label {
-        font-size: 10px;
-        letter-spacing: 0.1em;
-      }
-
-      /* Option A: Text oben, Countdown darunter, alles zentriert */
-      .slbf--m-stacked .slbf__inner {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .slbf--m-stacked .slbf__msg {
-        flex-basis: auto;
-      }
-
-      .slbf--m-stacked .slbf__line {
-        justify-content: center;
-      }
-
-      .slbf--m-stacked .slbf__timer {
+      .slbf__deal {
         gap: 10px;
       }
 
-      .slbf--m-stacked .slbf__label {
-        max-width: 9em;
+      .slbf__copy {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
       }
 
-      /* Alternative: Text links, Countdown rechts */
-      .slbf--m-split .slbf__msg {
-        flex: 1 1 auto;
+      .slbf .slbf__line {
+        gap: 2px;
       }
 
-      .slbf--m-split .slbf__label {
+      .slbf .slbf__eyebrow {
+        font-size: calc(var(--slbf-fs) * 0.56);
+        letter-spacing: 0.18em;
+      }
+
+      .slbf .slbf__chip {
+        padding: 3px 7px 2px;
+        border-radius: 5px;
+        font-size: calc(var(--slbf-fs) * 0.6);
+        letter-spacing: 0.04em;
+      }
+
+      .slbf--fx .slbf__chip {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 0 var(--slbf-ex3), 0 4px 10px var(--slbf-glow);
+        transform: rotate(-2deg);
+        margin-left: 1px;
+      }
+
+      .slbf__timer {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .slbf .slbf__label {
+        gap: 5px;
+        font-size: 8px;
+        letter-spacing: 0.14em;
+      }
+
+      .slbf__dot {
+        width: 5px;
+        height: 5px;
+      }
+
+      .slbf__clock {
+        gap: 3px;
+      }
+
+      .slbf__unit {
+        gap: 4px;
+      }
+
+      .slbf .slbf__cap {
+        font-size: 7.5px;
+        letter-spacing: 0.12em;
+      }
+
+      .slbf__card {
+        border-radius: 4px;
+        perspective: 120px;
+      }
+
+      .slbf__half--top,
+      .slbf__leaf--top {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .slbf__half--bot,
+      .slbf__leaf--bot {
+        border-radius: 0 0 4px 4px;
+      }
+
+      .slbf--m-noimg .slbf__media {
         display: none;
+      }
+
+      /* Gestapelt: Angebot oben, Countdown darunter (beides zentriert) */
+      .slbf--m-stacked .slbf__inner {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .slbf--m-stacked .slbf__copy {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .slbf--m-stacked .slbf__timer {
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .slbf--m-stacked .slbf__media {
+        --slbf-img: calc(var(--slbf-fs) * 2.4);
       }
     }
 
-    /* Zu schmal für nebeneinander: automatisch stapeln */
     @media screen and (max-width: 359px) {
-      .slbf--m-split .slbf__inner {
-        flex-direction: column;
-        text-align: center;
+      .slbf__inner {
+        padding-inline: 8px;
       }
 
-      .slbf--m-split .slbf__line {
-        justify-content: center;
+      .slbf--m-row .slbf__media {
+        --slbf-img: calc(var(--slbf-fs) * 2.9);
+      }
+
+      .slbf--m-row .slbf__chip {
+        letter-spacing: 0.02em;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slbf--anim::after,
+      .slbf--anim .slbf__img,
+      .slbf--anim .slbf__dot,
+      .slbf__card.is-flipping .slbf__leaf {
+        animation: none;
+      }
+
+      .slbf__card.is-flipping .slbf__leaf {
+        display: none;
       }
     }
   </style>
 
   <sl-black-friday-bar
-    class="slbf slbf--m-{{ s.mobile_layout }}"
+    class="{{ bar_classes }}"
     data-end-date="{{ end_date | escape }}"
     data-end-time="{{ end_time | escape }}"
-    data-timezone="{{ s.timezone }}"
-    data-daily-reset="{{ s.daily_reset }}"
+    data-timezone="{{ s.timezone | escape }}"
     data-after-end="{{ s.after_end }}"
-    data-days="{{ s.show_days }}"
+    data-label-h="{{ s.label_hours | escape }}"
+    data-label-m="{{ s.label_minutes | escape }}"
+    {% if s.animate %}
+      data-animate="true"
+    {% endif %}
     {% unless s.sticky %}
       data-header-stack="off"
     {% endunless %}
-    style="--slbf-bg: {{ s.bg_color }}; --slbf-accent: {{ s.accent_color }}; --slbf-text: {{ s.text_color }}; --slbf-digit: {{ s.digit_color }}; --slbf-box: {{ s.box_color }}; --slbf-pad-d: {{ s.padding_desktop }}px; --slbf-pad-m: {{ s.padding_mobile }}px; --slbf-fs-d: {{ s.font_size_desktop }}px; --slbf-fs-m: {{ s.font_size_mobile }}px; --slbf-max: {{ s.max_width }}px;"
+    style="--slbf-bg: {{ s.bg_color }}; --slbf-accent: {{ s.accent_color }}; --slbf-text: {{ s.text_color }}; --slbf-digit: {{ s.digit_color }}; --slbf-box: {{ s.box_color }}; --slbf-pad-d: {{ s.pad_desktop }}px; --slbf-pad-m: {{ s.pad_mobile }}px; --slbf-fs-d: {{ s.size_desktop }}px; --slbf-fs-m: {{ s.size_mobile }}px; --slbf-max: {{ s.max_width }}px;"
   >
     <div class="slbf__inner">
-      <div class="slbf__msg">
-        <p class="slbf__line">
-          {%- if s.eyebrow != blank and s.eyebrow_position == 'before' -%}
-            <span class="slbf__eyebrow">{{ s.eyebrow | escape }}</span>
-          {%- endif -%}
-          {%- if s.headline != blank -%}
-            <span class="slbf__headline">{{ s.headline | escape }}</span>
-          {%- endif -%}
-          {%- if s.eyebrow != blank and s.eyebrow_position == 'after' -%}
-            <span class="slbf__eyebrow">{{ s.eyebrow | escape }}</span>
-          {%- endif -%}
-        </p>
-        {%- if s.offer_text != blank -%}
-          <p class="slbf__offer">{{ offer_html }}</p>
+      <div class="slbf__deal">
+        {%- if s.image != blank -%}
+          <div class="slbf__media">
+            {%- assign img_alt = s.image.alt | default: 'SICHERLUFT Gas- & CO-Melder' -%}
+            {{
+              s.image
+              | image_url: width: 240
+              | image_tag:
+                widths: '80, 120, 160, 240',
+                sizes: '(min-width: 750px) 56px, 48px',
+                loading: 'eager',
+                alt: img_alt,
+                class: 'slbf__img'
+            }}
+          </div>
+        {%- elsif request.design_mode -%}
+          <div class="slbf__media slbf__media--empty">Bild wählen</div>
         {%- endif -%}
+
+        <div class="slbf__copy">
+          <p class="slbf__line">
+            {%- if s.eyebrow != blank -%}
+              <span class="slbf__eyebrow">{{ s.eyebrow | escape }}</span>
+            {%- endif -%}
+            {%- if s.headline != blank -%}
+              <span class="slbf__headline">{{ s.headline | escape }}</span>
+            {%- endif -%}
+          </p>
+          {%- if s.offer_text != blank -%}
+            <span class="slbf__chip">{{ offer_html }}</span>
+          {%- endif -%}
+        </div>
       </div>
 
-      {%- if s.show_countdown and end_date != blank -%}
-        <div class="slbf__timer" data-slbf-timer>
-          {%- if s.countdown_label != blank -%}
-            <p class="slbf__label">{{ s.countdown_label | escape }}</p>
+      {%- if s.show_countdown -%}
+        <div class="slbf__timer" data-slbf-timer role="timer">
+          {%- if s.label_timer != blank -%}
+            <span class="slbf__label"><span class="slbf__dot" aria-hidden="true"></span>{{ s.label_timer | escape }}</span>
           {%- endif -%}
-          <div class="slbf__clock" role="timer" aria-live="off">
-            <span class="slbf__unit" data-slbf-days hidden>
-              <span class="slbf__num" data-slbf="d">00</span>
-              <span class="slbf__cap">{{ s.label_days | escape }}</span>
-            </span>
-            <span class="slbf__sep" data-slbf-days hidden aria-hidden="true">:</span>
-            <span class="slbf__unit">
-              <span class="slbf__num" data-slbf="h">00</span>
-              <span class="slbf__cap">{{ s.label_hours | escape }}</span>
-            </span>
-            <span class="slbf__sep" aria-hidden="true">:</span>
-            <span class="slbf__unit">
-              <span class="slbf__num" data-slbf="m">00</span>
-              <span class="slbf__cap">{{ s.label_minutes | escape }}</span>
-            </span>
-            <span class="slbf__sep" aria-hidden="true">:</span>
-            <span class="slbf__unit">
-              <span class="slbf__num" data-slbf="s">00</span>
-              <span class="slbf__cap">{{ s.label_seconds | escape }}</span>
-            </span>
-          </div>
+          <span class="slbf__clock" aria-hidden="true">
+            {%- assign keys = 'h,m,s' | split: ',' -%}
+            {%- for key in keys -%}
+              {%- case key -%}
+                {%- when 'h' -%}
+                  {%- assign cap = s.label_hours -%}
+                {%- when 'm' -%}
+                  {%- assign cap = s.label_minutes -%}
+                {%- else -%}
+                  {%- assign cap = s.label_seconds -%}
+              {%- endcase -%}
+              <span class="slbf__unit">
+                <span class="slbf__card" data-slbf="{{ key }}">
+                  <span class="slbf__half slbf__half--top"><span class="slbf__num">--</span></span>
+                  <span class="slbf__half slbf__half--bot"><span class="slbf__num">--</span></span>
+                  <span class="slbf__leaf slbf__leaf--top"><span class="slbf__num">--</span></span>
+                  <span class="slbf__leaf slbf__leaf--bot"><span class="slbf__num">--</span></span>
+                </span>
+                <span class="slbf__cap">{{ cap | escape }}</span>
+              </span>
+              {%- unless forloop.last -%}
+                <span class="slbf__sep">:</span>
+              {%- endunless -%}
+            {%- endfor -%}
+          </span>
+          <span class="slbf__sr" data-slbf-sr></span>
         </div>
       {%- endif -%}
     </div>
@@ -436,84 +744,135 @@
         return zoneToUtc(tomorrow.getUTCFullYear(), tomorrow.getUTCMonth() + 1, tomorrow.getUTCDate(), 0, 0, timeZone);
       }
 
+      // Aktionsende: "2026-11-30" oder "30.11.2026", Uhrzeit "HH:MM" (sonst 00:00).
+      function parseEnd(dateText, timeText, timeZone) {
+        var y, mo, d;
+        var iso = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(dateText);
+        var de = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(dateText);
+        if (iso) {
+          y = +iso[1];
+          mo = +iso[2];
+          d = +iso[3];
+        } else if (de) {
+          y = +de[3];
+          mo = +de[2];
+          d = +de[1];
+        } else {
+          return NaN;
+        }
+        var t = /^(\d{1,2}):(\d{2})$/.exec(timeText) || [null, '0', '0'];
+        return zoneToUtc(y, mo, d, +t[1], +t[2], timeZone);
+      }
+
       function pad(value) {
         return value < 10 ? '0' + value : String(value);
       }
 
       class SlBlackFridayBar extends HTMLElement {
         connectedCallback() {
-          this.timerEl = this.querySelector('[data-slbf-timer]');
-          if (!this.timerEl) return;
+          if (!this.querySelector('[data-slbf-timer]')) return;
 
-          var date = /^(\d{4})-(\d{2})-(\d{2})$/.exec(this.dataset.endDate || '');
-          var time = /^(\d{1,2}):(\d{2})$/.exec(this.dataset.endTime || '');
           this.timeZone = this.dataset.timezone || 'Europe/Berlin';
           try {
-            this.end = date && time ? zoneToUtc(+date[1], +date[2], +date[3], +time[1], +time[2], this.timeZone) : NaN;
+            this.end = parseEnd((this.dataset.endDate || '').trim(), (this.dataset.endTime || '').trim(), this.timeZone);
+            nextMidnight(Date.now(), this.timeZone);
           } catch (error) {
+            this.timeZone = 'Europe/Berlin';
             this.end = NaN;
           }
-          if (!isFinite(this.end)) {
-            this.timerEl.hidden = true;
-            return;
-          }
 
-          this.numbers = {};
+          var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          this.flip = this.dataset.animate === 'true' && !reduce;
+          this.sr = this.querySelector('[data-slbf-sr]');
+          this.cards = {};
           this.querySelectorAll('[data-slbf]').forEach(
             function (el) {
-              this.numbers[el.getAttribute('data-slbf')] = el;
+              var nums = el.querySelectorAll('.slbf__num');
+              this.cards[el.getAttribute('data-slbf')] = {
+                el: el,
+                top: nums[0],
+                bot: nums[1],
+                leafTop: nums[2],
+                leafBot: nums[3],
+                value: null,
+              };
             }.bind(this)
           );
-          this.daysParts = this.querySelectorAll('[data-slbf-days]');
+
           this.tick = this.tick.bind(this);
           this.tick();
-          this.interval = setInterval(this.tick, 1000);
         }
 
         disconnectedCallback() {
-          clearInterval(this.interval);
+          clearTimeout(this.timeout);
+          Object.keys(this.cards || {}).forEach(
+            function (key) {
+              clearTimeout(this.cards[key].timer);
+            }.bind(this)
+          );
         }
 
         tick() {
           var now = Date.now();
-          var left = this.end - now;
 
-          // Wie im bisherigen Countdown: optional nur bis Mitternacht, aber nie über das echte Ende hinaus.
-          if (left > 0 && this.dataset.dailyReset === 'true') {
-            left = Math.min(left, nextMidnight(now, this.timeZone) - now);
-          }
-
-          if (left <= 0) {
-            left = 0;
-            clearInterval(this.interval);
+          // Aktion vorbei (falls ein Ende gesetzt ist)
+          if (now >= this.end) {
             if (this.dataset.afterEnd === 'hide') {
               this.hidden = true;
               return;
             }
+            this.render(0);
+            return;
           }
 
-          var total = Math.floor(left / 1000);
-          var days = Math.floor(total / 86400);
-          var hours = Math.floor((total % 86400) / 3600);
-          var showDays = this.dataset.days === 'auto' && days > 0;
-          if (!showDays) {
-            hours += days * 24;
-            days = 0;
-          }
+          // Jeden Tag bis 0:00 Uhr, am letzten Tag nur bis zum Aktionsende
+          var target = nextMidnight(now, this.timeZone);
+          if (this.end < target) target = this.end;
+          this.render(target - now);
 
-          this.daysParts.forEach(function (el) {
-            if (el.hidden === showDays) el.hidden = !showDays;
-          });
-          this.set('d', days);
+          // Nächster Schritt genau zum Sekundenwechsel, damit die Karten im Takt umklappen
+          this.timeout = setTimeout(this.tick, 1000 - (Date.now() % 1000) + 5);
+        }
+
+        render(left) {
+          var total = Math.max(0, Math.floor(left / 1000));
+          var hours = Math.floor(total / 3600);
+          var minutes = Math.floor((total % 3600) / 60);
           this.set('h', hours);
-          this.set('m', Math.floor((total % 3600) / 60));
+          this.set('m', minutes);
           this.set('s', total % 60);
+
+          var text = hours + ' ' + (this.dataset.labelH || 'Std') + ' ' + minutes + ' ' + (this.dataset.labelM || 'Min');
+          if (this.sr && this.sr.textContent !== text) this.sr.textContent = text;
         }
 
         set(key, value) {
-          var el = this.numbers[key];
+          var card = this.cards[key];
+          if (!card) return;
           var text = pad(value);
-          if (el && el.textContent !== text) el.textContent = text;
+          var old = card.value;
+          if (old === text) return;
+          card.value = text;
+
+          if (old === null || !this.flip) {
+            card.top.textContent = card.bot.textContent = card.leafTop.textContent = card.leafBot.textContent = text;
+            return;
+          }
+
+          // Oben steht schon die neue Zahl, die obere Klappe (alt) fällt darüber nach vorn,
+          // danach klappt die untere Klappe (neu) herunter und deckt die alte untere Hälfte ab.
+          card.top.textContent = text;
+          card.bot.textContent = old;
+          card.leafTop.textContent = old;
+          card.leafBot.textContent = text;
+          card.el.classList.remove('is-flipping');
+          void card.el.offsetWidth;
+          card.el.classList.add('is-flipping');
+          clearTimeout(card.timer);
+          card.timer = setTimeout(function () {
+            card.bot.textContent = card.value;
+            card.el.classList.remove('is-flipping');
+          }, 600);
         }
       }
 
@@ -522,7 +881,7 @@
   </script>
 {%- elsif request.design_mode -%}
   <div style="padding: 6px 12px; font-size: 12px; text-align: center; background: #f3f6f9; color: #5b6b7c;">
-    Black-Friday-Banner ist ausgeblendet{% if s.enabled %} (Countdown abgelaufen){% endif %}.
+    Black-Friday-Banner ist ausgeblendet{% if s.enabled %} (Aktion vorbei){% endif %}.
   </div>
 {%- endif -%}
 
@@ -555,42 +914,51 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Kleine Zeile (Eyebrow)",
+      "label": "Kleine Zeile über der Headline",
       "default": "EARLY ACCESS"
     },
     {
       "type": "text",
       "id": "headline",
-      "label": "Haupttext",
+      "label": "Headline (3D-Schrift)",
       "default": "BLACK FRIDAY"
-    },
-    {
-      "type": "select",
-      "id": "eyebrow_position",
-      "label": "Kleine Zeile steht",
-      "options": [
-        { "value": "before", "label": "vor dem Haupttext" },
-        { "value": "after", "label": "nach dem Haupttext" }
-      ],
-      "default": "before",
-      "info": "Beispiele: „EARLY ACCESS“ vor „BLACK FRIDAY“, oder „BLACK FRIDAY“ mit „EARLY ACCESS“, „DEALS“ bzw. „SALE“ danach."
     },
     {
       "type": "text",
       "id": "offer_text",
-      "label": "Angebotszeile",
+      "label": "Angebots-Chip",
       "default": "BIS ZU 50% SPAREN"
     },
     {
       "type": "text",
       "id": "offer_highlight",
-      "label": "Hervorgehobener Teil der Angebotszeile",
-      "info": "Wird in der Akzentfarbe gezeigt, z. B. „50%“. Muss genau so in der Angebotszeile vorkommen.",
+      "label": "Hervorgehobener Teil im Chip",
+      "info": "Wird im Chip größer dargestellt, z. B. 50%. Muss genau so im Angebots-Text vorkommen.",
       "default": "50%"
     },
     {
       "type": "header",
+      "content": "Produktbild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Produktbild",
+      "info": "Am besten ein freigestelltes PNG mit transparentem Hintergrund."
+    },
+    {
+      "type": "checkbox",
+      "id": "image_mobile",
+      "label": "Produktbild auch mobil zeigen",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "Countdown"
+    },
+    {
+      "type": "paragraph",
+      "content": "Der Countdown läuft jeden Tag bis 0:00 Uhr und startet dann neu, bis zum Aktionsende unten."
     },
     {
       "type": "checkbox",
@@ -600,68 +968,44 @@
     },
     {
       "type": "text",
-      "id": "countdown_label",
-      "label": "Countdown-Label (optional)",
-      "default": "EARLY ACCESS ENDET IN"
+      "id": "label_timer",
+      "label": "Text vor dem Countdown",
+      "default": "ENDET IN"
     },
     {
       "type": "text",
       "id": "end_date",
-      "label": "Enddatum",
-      "info": "Format JJJJ-MM-TT, z. B. 2026-11-30.",
+      "label": "Aktionsende: Datum",
+      "info": "Format JJJJ-MM-TT (z. B. 2026-11-30) oder TT.MM.JJJJ. Leer lassen = Countdown läuft jeden Tag weiter.",
       "default": "2026-11-30"
     },
     {
       "type": "text",
       "id": "end_time",
-      "label": "Endzeit",
-      "info": "Format HH:MM (24 Std.), z. B. 23:59.",
+      "label": "Aktionsende: Uhrzeit",
+      "info": "Format HH:MM, z. B. 00:00 oder 23:59.",
       "default": "00:00"
     },
     {
       "type": "select",
       "id": "timezone",
-      "label": "Zeitzone für Enddatum und Endzeit",
+      "label": "Zeitzone",
       "options": [
         { "value": "Europe/Berlin", "label": "Deutschland (Europe/Berlin)" },
         { "value": "Europe/Vienna", "label": "Österreich (Europe/Vienna)" },
         { "value": "UTC", "label": "UTC" }
       ],
-      "default": "Europe/Berlin",
-      "info": "Wie beim bisherigen Countdown Banner: Europe/Berlin."
+      "default": "Europe/Berlin"
     },
     {
       "type": "select",
       "id": "after_end",
-      "label": "Nach Ablauf",
+      "label": "Nach dem Aktionsende",
       "options": [
-        { "value": "zeros", "label": "00:00:00 anzeigen" },
-        { "value": "hide", "label": "Banner ausblenden" }
+        { "value": "hide", "label": "Banner ausblenden" },
+        { "value": "zeros", "label": "00:00:00 anzeigen" }
       ],
       "default": "hide"
-    },
-    {
-      "type": "select",
-      "id": "show_days",
-      "label": "Tage anzeigen",
-      "options": [
-        { "value": "auto", "label": "Automatisch, wenn mehr als 24 Std. übrig" },
-        { "value": "never", "label": "Nie (Stunden zählen weiter, z. B. 52:10:05)" }
-      ],
-      "default": "auto"
-    },
-    {
-      "type": "checkbox",
-      "id": "daily_reset",
-      "label": "Täglich bis Mitternacht zählen",
-      "info": "Wie die Option im bisherigen Countdown: zeigt die Zeit bis Mitternacht, nie über das echte Ende hinaus. Mit einem Label wie „endet in“ kann das ein früheres Ende suggerieren als tatsächlich gilt.",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "label_days",
-      "label": "Beschriftung Tage",
-      "default": "TAGE"
     },
     {
       "type": "text",
@@ -694,7 +1038,7 @@
     {
       "type": "color",
       "id": "accent_color",
-      "label": "Akzent (SICHERLUFT-Blau)",
+      "label": "Akzent",
       "default": "#079BF8"
     },
     {
@@ -706,14 +1050,32 @@
     {
       "type": "color",
       "id": "digit_color",
-      "label": "Countdown-Zahlen",
+      "label": "Ziffern",
       "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "box_color",
-      "label": "Countdown-Boxen Hintergrund",
+      "label": "Countdown-Karten",
       "default": "#0E2D4B"
+    },
+    {
+      "type": "header",
+      "content": "Effekte"
+    },
+    {
+      "type": "checkbox",
+      "id": "effects_3d",
+      "label": "3D-Effekte",
+      "info": "3D-Schrift, Karten mit Tiefe, geneigter Chip und gedrehtes Produktbild.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Animationen",
+      "info": "Flip-Countdown, Lichtreflex und leicht schwebendes Bild. Bei „Bewegung reduzieren“ im Betriebssystem automatisch aus.",
+      "default": true
     },
     {
       "type": "header",
@@ -721,43 +1083,44 @@
     },
     {
       "type": "range",
-      "id": "padding_desktop",
+      "id": "pad_desktop",
       "label": "Abstand oben/unten Desktop",
-      "min": 4,
-      "max": 24,
+      "min": 2,
+      "max": 16,
       "step": 1,
       "unit": "px",
-      "default": 10
+      "default": 6
     },
     {
       "type": "range",
-      "id": "padding_mobile",
+      "id": "pad_mobile",
       "label": "Abstand oben/unten Mobil",
-      "min": 4,
+      "min": 2,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "size_desktop",
+      "label": "Größe Desktop",
+      "info": "Skaliert Headline, Chip, Bild und Countdown gemeinsam.",
+      "min": 16,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "size_mobile",
+      "label": "Größe Mobil",
+      "min": 12,
       "max": 20,
       "step": 1,
       "unit": "px",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "font_size_desktop",
-      "label": "Schriftgröße Desktop",
-      "min": 16,
-      "max": 32,
-      "step": 1,
-      "unit": "px",
-      "default": 22
-    },
-    {
-      "type": "range",
-      "id": "font_size_mobile",
-      "label": "Schriftgröße Mobil",
-      "min": 13,
-      "max": 22,
-      "step": 1,
-      "unit": "px",
-      "default": 16
+      "default": 15
     },
     {
       "type": "range",
@@ -771,13 +1134,13 @@
     },
     {
       "type": "select",
-      "id": "mobile_layout",
+      "id": "layout_mobile",
       "label": "Anordnung Mobil",
       "options": [
-        { "value": "stacked", "label": "Text oben, Countdown darunter" },
-        { "value": "split", "label": "Text links, Countdown rechts" }
+        { "value": "row", "label": "Kompakt: alles in einer Zeile" },
+        { "value": "stacked", "label": "Angebot oben, Countdown darunter" }
       ],
-      "default": "stacked"
+      "default": "row"
     }
   ],
   "presets": [
