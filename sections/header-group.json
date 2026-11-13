@@ -11,6 +11,41 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "sl_black_friday_bar": {
+      "type": "sl-black-friday-bar",
+      "settings": {
+        "enabled": true,
+        "sticky": true,
+        "eyebrow": "EARLY ACCESS",
+        "headline": "BLACK FRIDAY",
+        "eyebrow_position": "before",
+        "offer_text": "BIS ZU 50% SPAREN",
+        "offer_highlight": "50%",
+        "show_countdown": true,
+        "countdown_label": "EARLY ACCESS ENDET IN",
+        "end_date": "2026-11-30",
+        "end_time": "00:00",
+        "timezone": "Europe/Berlin",
+        "after_end": "hide",
+        "show_days": "auto",
+        "daily_reset": false,
+        "label_days": "TAGE",
+        "label_hours": "STD",
+        "label_minutes": "MIN",
+        "label_seconds": "SEK",
+        "bg_color": "#071B2F",
+        "accent_color": "#079BF8",
+        "text_color": "#FFFFFF",
+        "digit_color": "#FFFFFF",
+        "box_color": "#0E2D4B",
+        "padding_desktop": 10,
+        "padding_mobile": 8,
+        "font_size_desktop": 22,
+        "font_size_mobile": 16,
+        "max_width": 1200,
+        "mobile_layout": "stacked"
+      }
+    },
     "countdown_bar_sl": {
       "type": "announcement-bar",
       "settings": {
@@ -18,7 +53,7 @@
         "announcement_text": "ANGEBOT ENDET IN:",
         "show_days": true,
         "custom_date": true,
-        "end_date": "2026-10-30 00:00:00",
+        "end_date": "2026-11-30 00:00:00",
         "daily_reset": true,
         "days_label": "TAGE",
         "hours_label": "STD",
@@ -40,6 +75,7 @@
         "fab_marquee_scrolling_text_app_block_x7JyDm": {
           "type": "shopify://apps/fab-marquee-scrolling-text/blocks/app-block/c13fc727-3c6a-4e50-b847-b6af5ec54bbe",
           "settings": {
+            "banner_id": "",
             "code": "<div class=\"fab_marquee_default\"></div>"
           }
         }
@@ -61,7 +97,7 @@
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
-        "sticky_header_type": "none",
+        "sticky_header_type": "always",
         "show_line_separator": true,
         "use_theme_colors": false,
         "use_global_gradient": false,
@@ -75,6 +111,7 @@
     }
   },
   "order": [
+    "sl_black_friday_bar",
     "countdown_bar_sl",
     "1789739721c99bcbc8",
     "header"

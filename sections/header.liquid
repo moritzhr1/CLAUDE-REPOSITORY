@@ -631,7 +631,8 @@
       const items = [];
       let sibling = header ? header.previousElementSibling : null;
       while (sibling && sibling.classList.contains('shopify-section-group-header-group')) {
-        items.unshift(sibling);
+        // Sections, die "Sticky" abgeschaltet haben (data-header-stack="off"), scrollen normal mit.
+        if (!sibling.querySelector('[data-header-stack="off"]')) items.unshift(sibling);
         sibling = sibling.previousElementSibling;
       }
 

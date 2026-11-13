@@ -1,0 +1,789 @@
+{%- comment -%}
+  SICHERLUFT Black-Friday-Banner: Angebotsbotschaft links, Countdown rechts, eine Leiste.
+  Gehört in die Header-Gruppe über den Header. Sticky übernimmt HeaderBannerStack
+  (sections/header.liquid); mit "Sticky" aus wird die Section dort übersprungen.
+
+  Countdown: dieselben Regeln wie der bisherige Countdown Banner (Enddatum in
+  Europe/Berlin, optionaler täglicher Reset bis Mitternacht, nie über das echte Ende
+  hinaus), aber an diese Section gebunden statt an seitenweite Klassen.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign end_date = s.end_date | strip
+  assign end_time = s.end_time | strip | default: '00:00'
+  assign render_bar = s.enabled
+
+  # Abgelaufen und "ausblenden": schon serverseitig weglassen, damit die Leiste nicht
+  # erst erscheint und dann verschwindet (2 Std. Puffer für Zeitzone/Caching).
+  if render_bar and s.show_countdown and s.after_end == 'hide' and end_date != blank
+    assign end_stamp = end_date | append: ' ' | append: end_time | append: ':00 +0100' | date: '%s' | plus: 0
+    assign now_stamp = 'now' | date: '%s' | plus: 0
+    if end_stamp > 0 and now_stamp > end_stamp
+      assign seconds_over = now_stamp | minus: end_stamp
+      if seconds_over > 7200
+        assign render_bar = false
+      endif
+    endif
+  endif
+
+  assign offer_html = s.offer_text | escape
+  if s.offer_highlight != blank
+    assign highlight = s.offer_highlight | escape
+    assign highlight_html = '<span class="slbf__hl">' | append: highlight | append: '</span>'
+    assign offer_html = offer_html | replace_first: highlight, highlight_html
+  endif
+-%}
+
+{%- if render_bar -%}
+  <style>
+    .slbf {
+      --slbf-muted: rgba(255, 255, 255, 0.72);
+      position: relative;
+      display: block;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--slbf-bg, #071b2f);
+      color: var(--slbf-text, #ffffff);
+      font-family: var(--font-body-family);
+      text-transform: uppercase;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @supports (color: color-mix(in srgb, red 50%, white)) {
+      .slbf {
+        --slbf-muted: color-mix(in srgb, var(--slbf-text, #ffffff) 72%, transparent);
+      }
+
+      .slbf::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(
+          110% 160% at 88% 50%,
+          color-mix(in srgb, var(--slbf-accent, #079bf8) 18%, transparent),
+          transparent 60%
+        );
+      }
+    }
+
+    .slbf::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, var(--slbf-accent, #079bf8) 30%, var(--slbf-accent, #079bf8) 70%, transparent);
+      opacity: 0.75;
+    }
+
+    .slbf[hidden] {
+      display: none;
+    }
+
+    .slbf *,
+    .slbf *::before,
+    .slbf *::after {
+      box-sizing: border-box;
+    }
+
+    .slbf p {
+      margin: 0;
+    }
+
+    .slbf__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      max-width: var(--slbf-max, 1200px);
+      margin: 0 auto;
+      padding: var(--slbf-pad-d, 10px) 30px;
+    }
+
+    .slbf__msg {
+      flex: 1 1 60%;
+      min-width: 0;
+    }
+
+    .slbf__line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0 10px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .slbf__eyebrow {
+      font-size: calc(var(--slbf-fs-d, 22px) * 0.62);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--slbf-accent, #079bf8);
+    }
+
+    .slbf__headline {
+      font-size: var(--slbf-fs-d, 22px);
+      letter-spacing: 0.03em;
+      color: var(--slbf-text, #ffffff);
+    }
+
+    .slbf .slbf__offer {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 3px 10px;
+      border: 1px solid rgba(7, 155, 248, 0.55);
+      border-radius: 4px;
+      background: rgba(7, 155, 248, 0.12);
+      font-size: calc(var(--slbf-fs-d, 22px) * 0.68);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      color: var(--slbf-text, #ffffff);
+    }
+
+    @supports (color: color-mix(in srgb, red 50%, white)) {
+      .slbf .slbf__offer {
+        border-color: color-mix(in srgb, var(--slbf-accent, #079bf8) 55%, transparent);
+        background: color-mix(in srgb, var(--slbf-accent, #079bf8) 13%, transparent);
+      }
+    }
+
+    .slbf__hl {
+      color: var(--slbf-accent, #079bf8);
+    }
+
+    .slbf__timer {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slbf__timer[hidden] {
+      display: none;
+    }
+
+    .slbf .slbf__label {
+      max-width: 8.5em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      line-height: 1.25;
+      text-align: right;
+      color: var(--slbf-muted);
+    }
+
+    @media screen and (min-width: 990px) {
+      .slbf .slbf__label {
+        max-width: 11.5em;
+      }
+    }
+
+    .slbf__clock {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .slbf__unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .slbf__unit[hidden],
+    .slbf__sep[hidden] {
+      display: none;
+    }
+
+    .slbf__num {
+      min-width: 2.15em;
+      padding: 4px 6px;
+      border: 1px solid rgba(7, 155, 248, 0.35);
+      border-radius: 6px;
+      background: var(--slbf-box, #0e2d4b);
+      font-size: calc(var(--slbf-fs-d, 22px) * 1.05);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      text-align: center;
+      color: var(--slbf-digit, #ffffff);
+    }
+
+    @supports (color: color-mix(in srgb, red 50%, white)) {
+      .slbf__num {
+        border-color: color-mix(in srgb, var(--slbf-accent, #079bf8) 35%, transparent);
+      }
+    }
+
+    .slbf__cap {
+      margin-top: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      line-height: 1.2;
+      color: var(--slbf-muted);
+    }
+
+    .slbf__sep {
+      padding-top: 0.25em;
+      font-size: calc(var(--slbf-fs-d, 22px) * 0.95);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--slbf-accent, #079bf8);
+    }
+
+    @media screen and (max-width: 749px) {
+      .slbf__inner {
+        gap: 5px 12px;
+        padding: var(--slbf-pad-m, 8px) 16px;
+      }
+
+      .slbf__line {
+        gap: 0 7px;
+      }
+
+      .slbf__eyebrow {
+        font-size: calc(var(--slbf-fs-m, 16px) * 0.72);
+        letter-spacing: 0.1em;
+      }
+
+      .slbf__headline {
+        font-size: var(--slbf-fs-m, 16px);
+      }
+
+      .slbf .slbf__offer {
+        margin-top: 3px;
+        padding: 1px 8px;
+        font-size: max(12px, calc(var(--slbf-fs-m, 16px) * 0.78));
+      }
+
+      .slbf__clock {
+        gap: 4px;
+      }
+
+      .slbf__num {
+        padding: 2px 4px;
+        font-size: calc(var(--slbf-fs-m, 16px) * 1.05);
+      }
+
+      .slbf__sep {
+        font-size: var(--slbf-fs-m, 16px);
+      }
+
+      .slbf__cap {
+        margin-top: 1px;
+        font-size: 9.5px;
+        letter-spacing: 0.1em;
+      }
+
+      .slbf .slbf__label {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+      }
+
+      /* Option A: Text oben, Countdown darunter, alles zentriert */
+      .slbf--m-stacked .slbf__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .slbf--m-stacked .slbf__msg {
+        flex-basis: auto;
+      }
+
+      .slbf--m-stacked .slbf__line {
+        justify-content: center;
+      }
+
+      .slbf--m-stacked .slbf__timer {
+        gap: 10px;
+      }
+
+      .slbf--m-stacked .slbf__label {
+        max-width: 9em;
+      }
+
+      /* Alternative: Text links, Countdown rechts */
+      .slbf--m-split .slbf__msg {
+        flex: 1 1 auto;
+      }
+
+      .slbf--m-split .slbf__label {
+        display: none;
+      }
+    }
+
+    /* Zu schmal für nebeneinander: automatisch stapeln */
+    @media screen and (max-width: 359px) {
+      .slbf--m-split .slbf__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .slbf--m-split .slbf__line {
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <sl-black-friday-bar
+    class="slbf slbf--m-{{ s.mobile_layout }}"
+    data-end-date="{{ end_date | escape }}"
+    data-end-time="{{ end_time | escape }}"
+    data-timezone="{{ s.timezone }}"
+    data-daily-reset="{{ s.daily_reset }}"
+    data-after-end="{{ s.after_end }}"
+    data-days="{{ s.show_days }}"
+    {% unless s.sticky %}
+      data-header-stack="off"
+    {% endunless %}
+    style="--slbf-bg: {{ s.bg_color }}; --slbf-accent: {{ s.accent_color }}; --slbf-text: {{ s.text_color }}; --slbf-digit: {{ s.digit_color }}; --slbf-box: {{ s.box_color }}; --slbf-pad-d: {{ s.padding_desktop }}px; --slbf-pad-m: {{ s.padding_mobile }}px; --slbf-fs-d: {{ s.font_size_desktop }}px; --slbf-fs-m: {{ s.font_size_mobile }}px; --slbf-max: {{ s.max_width }}px;"
+  >
+    <div class="slbf__inner">
+      <div class="slbf__msg">
+        <p class="slbf__line">
+          {%- if s.eyebrow != blank and s.eyebrow_position == 'before' -%}
+            <span class="slbf__eyebrow">{{ s.eyebrow | escape }}</span>
+          {%- endif -%}
+          {%- if s.headline != blank -%}
+            <span class="slbf__headline">{{ s.headline | escape }}</span>
+          {%- endif -%}
+          {%- if s.eyebrow != blank and s.eyebrow_position == 'after' -%}
+            <span class="slbf__eyebrow">{{ s.eyebrow | escape }}</span>
+          {%- endif -%}
+        </p>
+        {%- if s.offer_text != blank -%}
+          <p class="slbf__offer">{{ offer_html }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if s.show_countdown and end_date != blank -%}
+        <div class="slbf__timer" data-slbf-timer>
+          {%- if s.countdown_label != blank -%}
+            <p class="slbf__label">{{ s.countdown_label | escape }}</p>
+          {%- endif -%}
+          <div class="slbf__clock" role="timer" aria-live="off">
+            <span class="slbf__unit" data-slbf-days hidden>
+              <span class="slbf__num" data-slbf="d">00</span>
+              <span class="slbf__cap">{{ s.label_days | escape }}</span>
+            </span>
+            <span class="slbf__sep" data-slbf-days hidden aria-hidden="true">:</span>
+            <span class="slbf__unit">
+              <span class="slbf__num" data-slbf="h">00</span>
+              <span class="slbf__cap">{{ s.label_hours | escape }}</span>
+            </span>
+            <span class="slbf__sep" aria-hidden="true">:</span>
+            <span class="slbf__unit">
+              <span class="slbf__num" data-slbf="m">00</span>
+              <span class="slbf__cap">{{ s.label_minutes | escape }}</span>
+            </span>
+            <span class="slbf__sep" aria-hidden="true">:</span>
+            <span class="slbf__unit">
+              <span class="slbf__num" data-slbf="s">00</span>
+              <span class="slbf__cap">{{ s.label_seconds | escape }}</span>
+            </span>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </sl-black-friday-bar>
+
+  <script>
+    (function () {
+      if (window.customElements.get('sl-black-friday-bar')) return;
+
+      // Wanduhrzeit einer Zeitzone (z. B. Europe/Berlin) in einen UTC-Zeitpunkt umrechnen.
+      function zoneParts(ms, timeZone) {
+        var parts = {};
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: timeZone,
+          hourCycle: 'h23',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        })
+          .formatToParts(new Date(ms))
+          .forEach(function (part) {
+            parts[part.type] = part.value;
+          });
+        return parts;
+      }
+
+      function zoneOffset(ms, timeZone) {
+        var p = zoneParts(ms, timeZone);
+        var wall = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute, +p.second);
+        return wall - Math.floor(ms / 1000) * 1000;
+      }
+
+      function zoneToUtc(year, month, day, hour, minute, timeZone) {
+        var wall = Date.UTC(year, month - 1, day, hour, minute, 0);
+        var utc = wall - zoneOffset(wall, timeZone);
+        return wall - zoneOffset(utc, timeZone);
+      }
+
+      function nextMidnight(now, timeZone) {
+        var p = zoneParts(now, timeZone);
+        var tomorrow = new Date(Date.UTC(+p.year, +p.month - 1, +p.day) + 86400000);
+        return zoneToUtc(tomorrow.getUTCFullYear(), tomorrow.getUTCMonth() + 1, tomorrow.getUTCDate(), 0, 0, timeZone);
+      }
+
+      function pad(value) {
+        return value < 10 ? '0' + value : String(value);
+      }
+
+      class SlBlackFridayBar extends HTMLElement {
+        connectedCallback() {
+          this.timerEl = this.querySelector('[data-slbf-timer]');
+          if (!this.timerEl) return;
+
+          var date = /^(\d{4})-(\d{2})-(\d{2})$/.exec(this.dataset.endDate || '');
+          var time = /^(\d{1,2}):(\d{2})$/.exec(this.dataset.endTime || '');
+          this.timeZone = this.dataset.timezone || 'Europe/Berlin';
+          try {
+            this.end = date && time ? zoneToUtc(+date[1], +date[2], +date[3], +time[1], +time[2], this.timeZone) : NaN;
+          } catch (error) {
+            this.end = NaN;
+          }
+          if (!isFinite(this.end)) {
+            this.timerEl.hidden = true;
+            return;
+          }
+
+          this.numbers = {};
+          this.querySelectorAll('[data-slbf]').forEach(
+            function (el) {
+              this.numbers[el.getAttribute('data-slbf')] = el;
+            }.bind(this)
+          );
+          this.daysParts = this.querySelectorAll('[data-slbf-days]');
+          this.tick = this.tick.bind(this);
+          this.tick();
+          this.interval = setInterval(this.tick, 1000);
+        }
+
+        disconnectedCallback() {
+          clearInterval(this.interval);
+        }
+
+        tick() {
+          var now = Date.now();
+          var left = this.end - now;
+
+          // Wie im bisherigen Countdown: optional nur bis Mitternacht, aber nie über das echte Ende hinaus.
+          if (left > 0 && this.dataset.dailyReset === 'true') {
+            left = Math.min(left, nextMidnight(now, this.timeZone) - now);
+          }
+
+          if (left <= 0) {
+            left = 0;
+            clearInterval(this.interval);
+            if (this.dataset.afterEnd === 'hide') {
+              this.hidden = true;
+              return;
+            }
+          }
+
+          var total = Math.floor(left / 1000);
+          var days = Math.floor(total / 86400);
+          var hours = Math.floor((total % 86400) / 3600);
+          var showDays = this.dataset.days === 'auto' && days > 0;
+          if (!showDays) {
+            hours += days * 24;
+            days = 0;
+          }
+
+          this.daysParts.forEach(function (el) {
+            if (el.hidden === showDays) el.hidden = !showDays;
+          });
+          this.set('d', days);
+          this.set('h', hours);
+          this.set('m', Math.floor((total % 3600) / 60));
+          this.set('s', total % 60);
+        }
+
+        set(key, value) {
+          var el = this.numbers[key];
+          var text = pad(value);
+          if (el && el.textContent !== text) el.textContent = text;
+        }
+      }
+
+      window.customElements.define('sl-black-friday-bar', SlBlackFridayBar);
+    })();
+  </script>
+{%- elsif request.design_mode -%}
+  <div style="padding: 6px 12px; font-size: 12px; text-align: center; background: #f3f6f9; color: #5b6b7c;">
+    Black-Friday-Banner ist ausgeblendet{% if s.enabled %} (Countdown abgelaufen){% endif %}.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Black-Friday-Banner",
+  "tag": "div",
+  "class": "sl-black-friday-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Banner anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Beim Scrollen oben fixieren",
+      "info": "Der Banner bleibt zusammen mit den anderen Leisten über dem Header oben. Ob der Header selbst mitklebt, regelt die Header-Einstellung „Fixierter Header“.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Kleine Zeile (Eyebrow)",
+      "default": "EARLY ACCESS"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Haupttext",
+      "default": "BLACK FRIDAY"
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_position",
+      "label": "Kleine Zeile steht",
+      "options": [
+        { "value": "before", "label": "vor dem Haupttext" },
+        { "value": "after", "label": "nach dem Haupttext" }
+      ],
+      "default": "before",
+      "info": "Beispiele: „EARLY ACCESS“ vor „BLACK FRIDAY“, oder „BLACK FRIDAY“ mit „EARLY ACCESS“, „DEALS“ bzw. „SALE“ danach."
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Angebotszeile",
+      "default": "BIS ZU 50% SPAREN"
+    },
+    {
+      "type": "text",
+      "id": "offer_highlight",
+      "label": "Hervorgehobener Teil der Angebotszeile",
+      "info": "Wird in der Akzentfarbe gezeigt, z. B. „50%“. Muss genau so in der Angebotszeile vorkommen.",
+      "default": "50%"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Countdown anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_label",
+      "label": "Countdown-Label (optional)",
+      "default": "EARLY ACCESS ENDET IN"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "Enddatum",
+      "info": "Format JJJJ-MM-TT, z. B. 2026-11-30.",
+      "default": "2026-11-30"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "Endzeit",
+      "info": "Format HH:MM (24 Std.), z. B. 23:59.",
+      "default": "00:00"
+    },
+    {
+      "type": "select",
+      "id": "timezone",
+      "label": "Zeitzone für Enddatum und Endzeit",
+      "options": [
+        { "value": "Europe/Berlin", "label": "Deutschland (Europe/Berlin)" },
+        { "value": "Europe/Vienna", "label": "Österreich (Europe/Vienna)" },
+        { "value": "UTC", "label": "UTC" }
+      ],
+      "default": "Europe/Berlin",
+      "info": "Wie beim bisherigen Countdown Banner: Europe/Berlin."
+    },
+    {
+      "type": "select",
+      "id": "after_end",
+      "label": "Nach Ablauf",
+      "options": [
+        { "value": "zeros", "label": "00:00:00 anzeigen" },
+        { "value": "hide", "label": "Banner ausblenden" }
+      ],
+      "default": "hide"
+    },
+    {
+      "type": "select",
+      "id": "show_days",
+      "label": "Tage anzeigen",
+      "options": [
+        { "value": "auto", "label": "Automatisch, wenn mehr als 24 Std. übrig" },
+        { "value": "never", "label": "Nie (Stunden zählen weiter, z. B. 52:10:05)" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "daily_reset",
+      "label": "Täglich bis Mitternacht zählen",
+      "info": "Wie die Option im bisherigen Countdown: zeigt die Zeit bis Mitternacht, nie über das echte Ende hinaus. Mit einem Label wie „endet in“ kann das ein früheres Ende suggerieren als tatsächlich gilt.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label_days",
+      "label": "Beschriftung Tage",
+      "default": "TAGE"
+    },
+    {
+      "type": "text",
+      "id": "label_hours",
+      "label": "Beschriftung Stunden",
+      "default": "STD"
+    },
+    {
+      "type": "text",
+      "id": "label_minutes",
+      "label": "Beschriftung Minuten",
+      "default": "MIN"
+    },
+    {
+      "type": "text",
+      "id": "label_seconds",
+      "label": "Beschriftung Sekunden",
+      "default": "SEK"
+    },
+    {
+      "type": "header",
+      "content": "Farben"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Hintergrund",
+      "default": "#071B2F"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Akzent (SICHERLUFT-Blau)",
+      "default": "#079BF8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "digit_color",
+      "label": "Countdown-Zahlen",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "box_color",
+      "label": "Countdown-Boxen Hintergrund",
+      "default": "#0E2D4B"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_desktop",
+      "label": "Abstand oben/unten Desktop",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile",
+      "label": "Abstand oben/unten Mobil",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "label": "Schriftgröße Desktop",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Schriftgröße Mobil",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximale Inhaltsbreite",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Anordnung Mobil",
+      "options": [
+        { "value": "stacked", "label": "Text oben, Countdown darunter" },
+        { "value": "split", "label": "Text links, Countdown rechts" }
+      ],
+      "default": "stacked"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Black-Friday-Banner"
+    }
+  ]
+}
+{% endschema %}
