@@ -185,14 +185,11 @@
 {% endstyle %}
 
 {%- liquid
-  # Außerhalb der Produktseite (z. B. Startseite) gibt es kein aktuelles Produkt:
-  # dann das in der Section gewählte Produkt anzeigen. Auf der Produktseite bleibt alles wie bisher.
   if product == blank and section.settings.fallback_product != blank
     assign product = section.settings.fallback_product
   endif
 
   assign current_variant = product.selected_or_first_available_variant
-
   assign price = current_variant.price
   assign product_form_id = 'product-form-' | append: section.id
 -%}
@@ -214,6 +211,7 @@
 </div>
 
 <script>
+if (!window.slProduktSkript) { window.slProduktSkript = true;
   var parser = new DOMParser();
   const currency = window.Shopify?.currency?.active ?? "USD";
 
@@ -263,6 +261,7 @@
     });
   }
 
+}
 </script>
 
 {{ 'product-details.js' | asset_url | script_tag }}
@@ -279,8 +278,7 @@
       "id": "fallback_product",
       "label": "Produkt außerhalb der Produktseite",
       "info": "Nur für die Startseite oder andere Seiten: Bilder, Preis und Warenkorb-Button zeigen dieses Produkt. Auf der Produktseite wird immer das aktuelle Produkt verwendet."
-    },
-    {
+    },    {
       "type": "checkbox",
       "id": "use_theme_colors",
       "label": "Use Theme Colors",
